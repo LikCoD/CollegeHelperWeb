@@ -1,0 +1,24 @@
+<div class="cell">
+  <div class="visible-cell empty-cell" *ngIf="!selectedSubject"></div>
+  <div class="visible-cell {{selectedSubject.type}}" *ngIf="selectedSubject">
+    <p style="margin: 0; font-weight: bold">{{ selectedSubject.subject }}</p>
+    <p style="margin: 0">{{ selectedSubject.teacher }}</p>
+    <div style="display: flex">
+      <p style="margin: 0">{{ selectedSubject.room }}</p>
+      <p style="margin: 0 0 0 auto;">{{ selectedSubject.group }}</p>
+    </div>
+  </div>
+  <div class="btn-cell">
+    <button (click)="previousSubject()"
+            class="transparent-btn switchers-btn"
+            style="cursor: auto"></button>
+    <button (click)="nextSubject()"
+            class="transparent-btn switchers-btn"
+            style="cursor: auto"></button>
+  </div>
+  <div class="expand-btn-container" style="display: none">
+    <svg width="40" height="21">
+      <use xlink:href="#expand"></use>
+    </svg>
+  </div>
+</div>
