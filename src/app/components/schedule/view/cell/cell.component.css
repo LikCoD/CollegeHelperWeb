@@ -42,8 +42,6 @@
 }
 
 .visible-cell {
-  width: 150px;
-  height: 90px;
   border-radius: 32px;
   padding: 10px 15px 10px 15px;
   display: inline-grid;

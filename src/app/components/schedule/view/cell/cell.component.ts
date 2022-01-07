@@ -23,7 +23,6 @@ export class CellComponent implements OnInit {
       if (this.availableSubjects)
         this.selectedSubject = this.availableSubjects[this.selectedSubjectIndex]
     }
-    console.table(this.availableSubjects)
   }
 
   nextSubject(): void {
