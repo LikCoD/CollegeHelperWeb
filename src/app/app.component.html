@@ -1,4 +1,4 @@
-<header class="p-3 mb-3 border-bottom">
+<header class="p-3 mb-3">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
@@ -8,19 +8,23 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a (click)="mySchedule()" class="header_text">My schedule</a></li>
+        <li *ngIf="user"><a (click)="mySchedule()" class="header_text">My schedule</a></li>
         <li><a routerLink="schedule/login" class="header_text">Schedule</a></li>
         <li><a href="#" class="header_text">_</a></li>
         <li><a href="#" class="header_text">_</a></li>
       </ul>
 
-      <div class="text-end">
-        <button type="button" class="btn btn-outline-light me-2">Login</button>
+
+      <div class="text-end" *ngIf="!user">
+        <button type="button" class="btn btn-outline-light me-2" routerLink="login">Login</button>
         <button type="button" class="btn btn-warning">Sign-up</button>
       </div>
-      <div class="text-end">
-        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-        <button type="button" class="btn btn-outline-light me-2">Exit</button>
+      <div class="text-end" *ngIf="user">
+        <img src="https://avatars.githubusercontent.com/u/5" alt="mdo" width="32" height="32"
+             class="rounded-circle me-2">
+        <img src="https://avatars.githubusercontent.com/u/18" alt="mdo" width="32" height="32"
+             class="rounded-circle me-2">
+        <button type="button" class="btn btn-warning me-2" (click)="logoff()">Logoff</button>
       </div>
     </div>
   </div>

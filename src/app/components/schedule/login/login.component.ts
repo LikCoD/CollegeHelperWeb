@@ -10,7 +10,7 @@ import {SERVER_URL} from "../../../../main";
 })
 
 @Injectable()
-export class LoginComponent {
+export class LoginScheduleComponent {
 
   studyPlaces: Array<StudyPlace> = []
 
