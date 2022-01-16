@@ -3,7 +3,7 @@
     "target": "https://collegehelper-3f572.appspot.com",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": false
+    "changeOrigin": true
   }
 }
 
