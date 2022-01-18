@@ -8,24 +8,25 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li *ngIf="user"><a (click)="mySchedule()" class="header_text">My schedule</a></li>
+        <li *ngIf="username"><a (click)="mySchedule()" class="header_text">My schedule</a></li>
         <li><a routerLink="schedule/login" class="header_text">Schedule</a></li>
         <li><a href="#" class="header_text">_</a></li>
         <li><a href="#" class="header_text">_</a></li>
       </ul>
 
 
-      <div class="text-end" *ngIf="!user">
+      <div class="text-end" *ngIf="!username">
         <button type="button" class="btn btn-outline-light me-2" routerLink="login">Login</button>
         <button type="button" class="btn btn-warning">Sign-up</button>
       </div>
-      <div class="text-end" *ngIf="user">
+      <div class="text-end" *ngIf="username">
         <img src="https://avatars.githubusercontent.com/u/5" alt="mdo" width="32" height="32"
              class="rounded-circle me-2">
         <img src="https://avatars.githubusercontent.com/u/18" alt="mdo" width="32" height="32"
              class="rounded-circle me-2">
-        <button type="button" class="btn btn-warning me-2" (click)="logoff()">Logoff</button>
+        <button type="button" class="btn btn-warning me-2" (click)="logout()">Logout</button>
       </div>
+      <button *ngIf="showEditBtn" type="button" class="btn btn-danger me-2" (click)="editSchedule()">Edit</button>
     </div>
   </div>
 </header>

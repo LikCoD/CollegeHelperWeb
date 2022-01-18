@@ -1,7 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {SERVER_URL} from "../../../../main";
 
 @Component({
   selector: 'app-login',
@@ -30,7 +29,7 @@ export class LoginScheduleComponent {
   selectedName: string = ""
 
   updateTypes(): void {
-    this.http.get<Array<Types>>(SERVER_URL + "/schedule/types?educationPlaceId=" + this.selectedStudyPlace.id).subscribe((types: Array<Types>) => {
+    this.http.get<Array<Types>>("api/schedule/types?studyPlaceId=" + this.selectedStudyPlace.id).subscribe((types: Array<Types>) => {
       this.types.set("teacher", [])
       this.types.set("group", [])
       this.types.set("subject", [])
@@ -43,7 +42,7 @@ export class LoginScheduleComponent {
   }
 
   constructor(private router: Router, private http: HttpClient) {
-    http.get<Array<StudyPlace>>(SERVER_URL + "/studyPlaces").subscribe((places: Array<StudyPlace>) => {
+    http.get<Array<StudyPlace>>("api/studyPlaces").subscribe((places: Array<StudyPlace>) => {
       this.studyPlaces = places
       if (places.length > 0) {
         this.selectedStudyPlace = places[0]
@@ -53,11 +52,13 @@ export class LoginScheduleComponent {
   }
 
   login(): void {
-    localStorage.setItem("studyPlaceId", this.selectedStudyPlace.id.toString())
-    localStorage.setItem("type", this.selectedType)
-    localStorage.setItem("name", this.selectedName)
-
-    this.router.navigateByUrl('schedule')
+    this.router.navigate(['schedule'], {
+      queryParams: {
+        studyPlaceId: this.selectedStudyPlace.id,
+        type: this.selectedType,
+        name: this.selectedName
+      }
+    });
   }
 
   changeStudyPlace(newName: string): void {

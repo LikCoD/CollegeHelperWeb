@@ -1,7 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {SERVER_URL} from "../../../../main";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AppComponent} from "../../../app.component";
 
 @Component({
   selector: 'app-view',

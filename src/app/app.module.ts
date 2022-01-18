@@ -9,6 +9,7 @@ import { CellComponent } from './components/schedule/view/cell/cell.component';
 import {LoginScheduleComponent} from './components/schedule/login/login.component';
 import { ViewComponent } from './components/schedule/view/view.component';
 import {LoginComponent} from "./components/general/login/login.component";
+import { SelectComponent } from './components/schedule/view/edit/select/select.component';
 
 const appRoutes: Routes =  [
   {path: 'login', component:LoginComponent},
@@ -22,7 +23,8 @@ const appRoutes: Routes =  [
     LoginComponent,
     LoginScheduleComponent,
     CellComponent,
-    ViewComponent
+    ViewComponent,
+    SelectComponent,
   ],
   imports: [
     BrowserModule,

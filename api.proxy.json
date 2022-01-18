@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://collegehelper-3f572.appspot.com",
+    "target": "http://localhost:8080",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
