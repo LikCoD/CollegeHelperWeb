@@ -1,0 +1,29 @@
+<div>
+  <div *ngIf="!isSelected">
+    <div *ngFor="let subject of groups">
+      <a href="journal/view?group={{subject.group}}&subject={{subject.subject}}">
+        {{subject.group}}: {{subject.subject}}
+      </a>
+    </div>
+  </div>
+  <div>
+    <table style="border-spacing: 15px; border-collapse: separate">
+      <tr>
+        <td></td>
+        <td></td>
+        <td *ngFor="let subject of subjects">
+          <div class="date">
+            <span>{{subject.date.toLocaleDateString('ru', {month: 'short'})}}</span>
+            <span>{{subject.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let member of groupMembers; let i = index" [attr.data-index]="i">
+        <td class="number">{{i + 1}}</td>
+        <td class="name">{{member.fullName}}</td>
+        <td *ngFor="let subject of subjects" class="mark"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+

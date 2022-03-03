@@ -1,0 +1,27 @@
+.mark {
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background-color: var(--emptyColor);
+}
+
+.date {
+  vertical-align: bottom;
+  text-align: center;
+  display: grid;
+
+  span {
+/*    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;*/
+    color: var(--usualColor);
+  }
+}
+
+.number {
+  color: var(--usualColor);
+}
+
+.name {
+  color: var(--usualColor);
+}
