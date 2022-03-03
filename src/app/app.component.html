@@ -1,16 +1,10 @@
 <header class="p-3 mb-3">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-          <use xlink:href="#bootstrap"></use>
-        </svg>
-      </a>
-
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li *ngIf="username"><a (click)="mySchedule()" class="header_text">My schedule</a></li>
         <li><a routerLink="schedule/login" class="header_text">Schedule</a></li>
-        <li><a href="#" class="header_text">_</a></li>
+        <li *ngIf="username"><a routerLink="journal/view" class="header_text">Journal</a></li>
         <li><a href="#" class="header_text">_</a></li>
       </ul>
 
@@ -20,8 +14,7 @@
         <button type="button" class="btn btn-warning">Sign-up</button>
       </div>
       <div class="text-end" *ngIf="username">
-        <img src="https://avatars.githubusercontent.com/u/5" alt="mdo" width="32" height="32"
-             class="rounded-circle me-2">
+        <a routerLink="user" class="header_text">{{username}}</a>
         <img src="https://avatars.githubusercontent.com/u/18" alt="mdo" width="32" height="32"
              class="rounded-circle me-2">
         <button type="button" class="btn btn-warning me-2" (click)="logout()">Logout</button>

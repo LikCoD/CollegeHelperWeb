@@ -45,4 +45,11 @@ export class AppComponent {
 
   }
 
+
+
+}
+
+interface User {
+  username: string,
+  permissions: string[]
 }

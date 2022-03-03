@@ -8,6 +8,7 @@
       <p style="margin: 0 0 0 auto;">{{ selectedSubject.group }}</p>
     </div>
   </div>
+  <p *ngIf="cell && cell.date">{{cell.date}}</p>
   <div class="btn-cell">
     <button (click)="previousSubject()"
             class="transparent-btn switchers-btn"

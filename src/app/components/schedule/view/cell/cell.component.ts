@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CellComponent implements OnInit {
 
   @Input() cell: Cell | undefined
+  @Input() subject: Subject | undefined
 
   availableSubjects: Subject[] | undefined = undefined
 
@@ -19,9 +20,12 @@ export class CellComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.cell) {
-      this.availableSubjects = this.cell.subjects
+      this.availableSubjects = (<Cell>this.cell).subjects
       if (this.availableSubjects)
         this.selectedSubject = this.availableSubjects[this.selectedSubjectIndex]
+    }
+    if (this.subject){
+      this.selectedSubject = this.subject
     }
   }
 
@@ -58,5 +62,6 @@ interface Subject {
 }
 
 interface Cell {
+  date?: string
   subjects?: Subject[]
 }

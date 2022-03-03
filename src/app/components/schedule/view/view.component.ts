@@ -13,27 +13,57 @@ import {AppComponent} from "../../../app.component";
 export class ViewComponent implements OnInit {
   schedule: Schedule | undefined = undefined
 
-  constructor(private router: Router, private http: HttpClient) {
-    let studyPlaceId = localStorage.getItem("studyPlaceId")
-    let type = localStorage.getItem("type")
-    let name = localStorage.getItem("name")
+  templateSubjects: Subject[] = []
 
-    http.get<Schedule>(SERVER_URL + "/schedule?type=" + type +"&name=" + name +"&educationPlaceId=" + studyPlaceId).subscribe(
-      (schedule: Schedule) => {
-        if (schedule.error != undefined){
-          alert(schedule.error)
-          this.router.navigateByUrl('schedule/login')
+  isEditMode = false
+
+  constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(() => {
+      http.get<Schedule>("api" + router.url, {observe: 'response'}).subscribe(schedule => {
+        let error = schedule.headers.get("error")
+        if (error != undefined) {
+          if (error == "not authorized")
+            router.navigateByUrl("login")
+          else
+            alert(error)
+
+          router.navigateByUrl("schedule/login")
 
           return
         }
-        this.schedule = schedule
-      }
-    )
+
+        this.initSchedule(schedule.body!!)
+      })
+    });
+  }
+
+  initSchedule(schedule: Schedule){
+    schedule.subjects.forEach(lesson => {
+      if (lesson == null) return
+      lesson.subjects.forEach(subject => {
+        let add = true
+        this.templateSubjects.forEach(templateSubject => {
+          if (templateSubject.subject == subject.subject
+            && templateSubject.group == subject.group
+            && templateSubject.room == subject.room
+            && templateSubject.teacher == subject.teacher)
+            add = false;
+        })
+        if (add && subject.type == "STAY") {
+          this.templateSubjects.push(subject)
+        }
+      })
+    })
+
+    this.schedule = schedule
+    this.parent.setupSchedule()
   }
 
   ngOnInit(): void {
+    this.route.fragment.subscribe(fragment => {
+      this.isEditMode = fragment == "edit"
+    })
   }
-
 
 }
 
@@ -42,7 +72,7 @@ interface Schedule {
   status: State[]
   subjects: Lesson[],
   info: Info,
-  error? : string
+  error?: string
 }
 
 interface State {
@@ -56,15 +86,16 @@ interface Lesson {
   columnIndex: number,
   rowIndex: number,
   isStay: boolean,
+  date: string,
   subjects: Subject[]
 }
 
 interface Subject {
-  subject: string,
-  teacher: string,
-  group: string,
-  room: string,
-  type: string
+  subject?: string
+  teacher?: string
+  group?: string
+  room?: string
+  type?: string
 }
 
 interface Info {
