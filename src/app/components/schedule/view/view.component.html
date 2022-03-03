@@ -1,5 +1,7 @@
-<div>
-  <div *ngIf="schedule" class="schedule" style="grid-template-rows: repeat({{schedule.info.subjectsCount}}, 1fr);">
+<div *ngIf="schedule">
+    <app-select *ngIf="isEditMode" [templateSubjects]=templateSubjects>
+    </app-select>
+  <div class="schedule" style="grid-template-rows: repeat({{schedule.info.subjectsCount}}, 1fr);">
     <div *ngFor="let lesson of schedule.subjects">
       <app-cell [cell]=lesson>
       </app-cell>
