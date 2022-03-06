@@ -1,0 +1,28 @@
+<div>
+  <button class="btn close-btn" type="button" (click)="closePopup()" style="position: absolute">X</button>
+  <div class="container">
+    <input id="markInput" #markInput type="text" class="form-control mark-input" placeholder="Mark"
+           aria-label="Recipient's username" aria-describedby="basic-addon2"
+           (keydown)="confirmInput($event.code, markInput.value)">
+
+    <div class="action-container btn-group" id="action-toggle-container">
+      <div *ngFor="let mark of marks">
+        <input type="radio" class="btn-check" name="action" [id]="mark.id">
+        <label class="mark-button btn btn-outline-dark" [for]="mark.id">{{mark.mark}}</label>
+      </div>
+
+      <div>
+        <input type="radio" class="btn-check" name="action" id="mark-add" autocomplete="off" checked>
+        <label class="mark-button btn btn-outline-dark" for="mark-add">+</label>
+      </div>
+    </div>
+
+    <div class="marks-container">
+      <div *ngFor="let mark of availableMarks">
+        <button class="mark-button btn btn-outline-dark" (click)="addMark(mark)">{{mark}}</button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-outline-secondary mark-confirm" (click)="confirm(markInput.value)">Confirm
+    </button>
+  </div>
+</div>

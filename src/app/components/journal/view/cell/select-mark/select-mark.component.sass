@@ -1,0 +1,56 @@
+@use 'src/styles'
+
+.container
+  background-color: styles.$usualColor
+  padding: 15px
+
+  border: solid #505050 5px
+  border-radius: 15px
+
+
+.close-btn
+  position: absolute
+  top: -5px
+  right: -5px
+
+  color: black
+  background: #f1f1f140
+  padding: 0
+  width: 25px
+  height: 25px
+  border-radius: 10px
+
+
+.marks-container
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  grid-auto-flow: row
+
+  margin: 15px 0
+
+
+.action-container
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  grid-auto-flow: row
+
+  margin: 15px 0 0 0
+
+
+.mark-input
+  width: 120px
+
+
+.mark-confirm
+  width: 120px
+
+
+.mark-button
+  width: 30px
+  height: 30px
+
+  padding: 0
+  margin: 0
+
+  display: inline-grid
+  align-items: center
