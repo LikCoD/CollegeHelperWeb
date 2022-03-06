@@ -3,8 +3,8 @@
     </app-select>
   <div class="schedule" style="grid-template-rows: repeat({{schedule.info.subjectsCount}}, 1fr);">
     <div *ngFor="let lesson of schedule.subjects">
-      <app-cell [cell]=lesson>
-      </app-cell>
+      <app-schedule-cell [cell]=lesson>
+      </app-schedule-cell>
     </div>
   </div>
 </div>

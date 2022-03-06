@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-cell',
+  selector: 'app-schedule-cell',
   templateUrl: './cell.component.html',
-  styleUrls: ['./cell.component.css']
+  styleUrls: ['./cell.component.sass']
 })
 export class CellComponent implements OnInit {
 

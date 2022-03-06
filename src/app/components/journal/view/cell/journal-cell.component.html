@@ -1,0 +1,11 @@
+<div class="cell">
+  <div *ngIf="!mark" class="empty-cell"></div>
+  <div *ngIf="mark" class="not-empty-cell">
+    <div class="mark_1"><p class="mark-text">{{mark}}</p></div>
+  </div>
+  <button class="transparent-btn add-mark-btn" (click)="onMarkClick()"></button>
+</div>
+<div class="select-mark" *ngIf="selectMarkPopup">
+  <app-select-mark style="position: absolute" [userId]="userId" [subject]="subject" [marks]="marks"></app-select-mark>
+</div>
+

@@ -1,0 +1,51 @@
+@use 'src/styles'
+
+.transparent-btn
+  background: transparent
+  border: none
+  outline: none
+
+
+.add-mark-btn
+  height: 100%
+  width: 100%
+  padding: 0
+  margin: 0
+  cursor: auto
+
+
+.mark-text
+  margin: 0
+  padding: 0
+  text-align: center
+
+
+.cell
+  display: grid
+
+
+.cell > *
+  grid-area: 1 / 1 / 2 / 2
+
+
+.mark_1
+  align-self: center
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+
+
+.not-empty-cell
+  background: styles.$usualColor
+  border-radius: 15px
+  height: 50px
+  width: 50px
+
+
+.empty-cell
+  background: styles.$emptyColor
+  border-radius: 15px
+  height: 50px
+  width: 50px
+

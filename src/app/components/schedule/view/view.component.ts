@@ -6,7 +6,7 @@ import {AppComponent} from "../../../app.component";
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  styleUrls: ['./view.component.sass']
 })
 
 @Injectable()

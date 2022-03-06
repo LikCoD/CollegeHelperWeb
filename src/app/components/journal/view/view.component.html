@@ -21,7 +21,9 @@
       <tr *ngFor="let member of groupMembers; let i = index" [attr.data-index]="i">
         <td class="number">{{i + 1}}</td>
         <td class="name">{{member.fullName}}</td>
-        <td *ngFor="let subject of subjects" class="mark"></td>
+        <td *ngFor="let subject of subjects">
+          <app-journal-cell [subject]="subject" [userId]="member.id"></app-journal-cell>
+        </td>
       </tr>
     </table>
   </div>

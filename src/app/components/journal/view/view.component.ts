@@ -6,7 +6,7 @@ import {AppComponent} from "../../../app.component";
 @Component({
   selector: 'app-login',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  styleUrls: ['./view.component.sass']
 })
 export class JournalViewComponent implements OnInit {
 
