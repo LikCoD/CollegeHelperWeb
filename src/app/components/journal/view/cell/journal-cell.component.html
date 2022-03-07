@@ -1,7 +1,13 @@
-<div class="cell">
-  <div *ngIf="!mark" class="empty-cell"></div>
-  <div *ngIf="mark" class="not-empty-cell">
-    <div class="mark_1"><p class="mark-text">{{mark}}</p></div>
+<div class="cell" id="cell"
+     [popper]="marksTooltip"
+     [popperTrigger]='popperTrigger'
+     [popperPlacement]="popperPlacement"
+     [popperHideOnClickOutside]="true"
+     [popperHideOnScroll]="true"
+     [popperDisableStyle]="true">
+  <div *ngIf="marks.length == 0" class="empty-cell"></div>
+  <div *ngIf="marks.length != 0" class="not-empty-cell">
+    <div class="mark_1"><p class="mark-text">{{marks[0].mark}}</p></div>
   </div>
   <button class="transparent-btn add-mark-btn" (click)="onMarkClick()"></button>
 </div>
@@ -9,3 +15,11 @@
   <app-select-mark style="position: absolute" [userId]="userId" [subject]="subject" [marks]="marks"></app-select-mark>
 </div>
 
+
+<popper-content #marksTooltip>
+  <div class="markTooltip" *ngIf="marks.length != 0">
+    <div *ngFor="let mark of marks" class="mark-cell">
+      <p>{{mark.mark}}</p>
+    </div>
+  </div>
+</popper-content>

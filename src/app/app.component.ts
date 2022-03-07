@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 
 @Component({
   selector: 'app-root',
   templateUrl: "app.component.html",
 })
 export class AppComponent {
-
   username: string | undefined
 
   showEditBtn = false
