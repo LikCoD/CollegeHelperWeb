@@ -16,6 +16,7 @@
       <p class="mark-text mark_2-2">{{lesson!!.marks[1].mark}}</p>
     </div>
   </div>
+  <div *ngIf="lesson!!.marks.length > 2" class="more-circle"></div>
   <button class="transparent-btn add-mark-btn" (click)="onMarkClick()"></button>
 </div>
 <div class="select-mark" *ngIf="selectMarkPopup">
