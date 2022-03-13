@@ -11,7 +11,7 @@
       <tr>
         <td></td>
         <td></td>
-        <td *ngFor="let subject of subjects">
+        <td *ngFor="let subject of lessons">
           <div class="date">
             <span>{{subject.date.toLocaleDateString('ru', {month: 'short'})}}</span>
             <span>{{subject.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
@@ -21,8 +21,8 @@
       <tr *ngFor="let member of groupMembers; let i = index" [attr.data-index]="i">
         <td class="number">{{i + 1}}</td>
         <td class="name">{{member.fullName}}</td>
-        <td *ngFor="let subject of subjects">
-          <app-journal-cell [subject]="subject" [userId]="member.id"></app-journal-cell>
+        <td *ngFor="let lesson of member.lessons">
+          <app-journal-cell [lesson]="lesson" [userId]="member.id"></app-journal-cell>
         </td>
       </tr>
     </table>

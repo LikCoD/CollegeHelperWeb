@@ -10,19 +10,21 @@ import {AppComponent} from "../../../app.component";
 })
 export class JournalViewComponent implements OnInit {
 
-  groups: SubjectInfo[] = []
-  subjects: Subject[] = []
+  groups: Subject[] = []
+  lessons: Lesson[] = []
   groupMembers: GroupMember[] = []
+
   isSelected: Boolean = false
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
+
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params["group"] == undefined || params["subject"] == undefined) return
 
-      this.http.get<Subject[]>("api/journal/teachers/dates?subject=" + params["subject"] + "&group=" + params["group"], {observe: 'response'}).subscribe(subjects => {
+      this.http.get<Lesson[]>("api/journal/teachers/dates?subject=" + params["subject"] + "&group=" + params["group"], {observe: 'response'}).subscribe(subjects => {
         let error = subjects.headers.get("error")
         if (error != undefined) {
           if (error == "not authorized")
@@ -40,7 +42,7 @@ export class JournalViewComponent implements OnInit {
           el.date = new Date(el.date)
         })
 
-        this.subjects = subjects.body
+        this.lessons = subjects.body
         this.isSelected = true
       })
 
@@ -59,10 +61,22 @@ export class JournalViewComponent implements OnInit {
           return
 
         this.groupMembers = members.body
+
+        for (let groupMember of this.groupMembers) {
+          this.http.get<Lesson[]>("api/journal/teachers/getMark?group=" + params["group"] + "&subject=" + params["subject"] + "&userId=" + groupMember.id, {observe: 'response'}).subscribe(lessons => {
+            if (lessons.body == null) return
+
+            lessons.body.forEach(el => {
+              el.date = new Date(el.date)
+            })
+
+            groupMember.lessons = lessons.body
+          });
+        }
       })
     })
 
-    this.http.get<SubjectInfo[]>("api/journal/teachers/types", {observe: 'response'}).subscribe(subjects => {
+    this.http.get<Subject[]>("api/journal/teachers/types", {observe: 'response'}).subscribe(subjects => {
       let error = subjects.headers.get("error")
       if (error != undefined) {
         if (error == "not authorized")
@@ -82,22 +96,4 @@ export class JournalViewComponent implements OnInit {
 
 }
 
-interface SubjectInfo {
-  teacher: string
-  subject: string
-  group: string
-}
 
-interface Subject {
-  subject: string
-  teacher: string
-  room: string
-  group: string
-  type: string
-  date: Date
-}
-
-interface GroupMember {
-  id: string
-  fullName: string
-}

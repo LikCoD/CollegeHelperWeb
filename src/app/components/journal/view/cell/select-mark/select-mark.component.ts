@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AppComponent} from "../../../../../app.component";
 import {JournalCellComponent} from "../journal-cell.component";
 import {HttpClient} from "@angular/common/http";
 
@@ -10,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class SelectMarkComponent implements OnInit {
 
-  @Input() subject: Subject | undefined
+  @Input() lesson: Lesson | undefined
   @Input() userId: string | undefined
   @Input() marks: any[] = []
 
@@ -47,16 +46,13 @@ export class SelectMarkComponent implements OnInit {
     if (selectedToggle == undefined) return
 
     let url = selectedToggle.id == "mark-add" ?
-      "addMark?group=" + this.subject!!.group + "&subject=" + this.subject!!.subject + "&date=" + this.subject!!.date.toLocaleDateString() + "&userId=" + this.userId + "&mark=" + mark :
-      "editMark?markId=" + selectedToggle.id + "&mark=" + mark
+      "addMark?group=" + this.lesson!!.group + "&subject=" + this.lesson!!.subject + "&date=" + this.lesson!!.date.toLocaleDateString() + "&userId=" + this.userId + "&mark=" + mark + "&subjectId=" + this.lesson!!.id :
+      "editMark?markId=" + selectedToggle.id + "&mark=" + mark + "&subjectId=" + this.lesson!!.id + "&group=" + this.lesson!!.group + "&subject=" + this.lesson!!.subject + "&userId=" + this.userId + "&date=" + this.lesson!!.date.toLocaleDateString()
 
-    this.http.get("api/journal/teachers/" + url).subscribe(any => {
-      alert(any)
+    this.http.get<Lesson>("api/journal/teachers/" + url).subscribe(lesson => {
+      console.log(lesson)
+      this.lesson!!.marks = lesson.marks
     })
-
-    console.log("api/journal/teachers/" + url)/*.subscribe(any => {
-      alert(any)
-    })*/
 
     this.closePopup()
   }
@@ -69,14 +65,4 @@ export class SelectMarkComponent implements OnInit {
 
     this.addMark(mark)
   }
-}
-
-
-interface Subject {
-  subject: string
-  teacher: string
-  room: string
-  group: string
-  type: string
-  date: Date
 }

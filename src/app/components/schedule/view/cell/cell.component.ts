@@ -53,14 +53,6 @@ export class CellComponent implements OnInit {
 
 }
 
-interface Subject {
-  subject?: string
-  teacher?: string
-  room?: string
-  group?: string
-  type?: string
-}
-
 interface Cell {
   date?: string
   subjects?: Subject[]

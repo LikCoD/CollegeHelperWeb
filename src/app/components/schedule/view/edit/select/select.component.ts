@@ -16,11 +16,3 @@ export class SelectComponent implements OnInit {
 
 }
 
-interface Subject {
-  subject?: string
-  teacher?: string
-  group?: string
-  room?: string
-  type?: string
-}
-

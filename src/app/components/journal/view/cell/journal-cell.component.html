@@ -5,27 +5,27 @@
      [popperHideOnClickOutside]="true"
      [popperHideOnScroll]="true"
      [popperDisableStyle]="true">
-  <div *ngIf="marks.length == 0" class="empty-cell"></div>
-  <div *ngIf="marks.length == 1" class="not-empty-cell">
-    <div class="mark_1"><p class="mark-text">{{marks[0].mark}}</p></div>
+  <div *ngIf="lesson!!.marks.length == 0" class="empty-cell"></div>
+  <div *ngIf="lesson!!.marks.length == 1" class="not-empty-cell">
+    <div class="mark_1"><p class="mark-text">{{lesson!!.marks[0].mark}}</p></div>
   </div>
-  <div *ngIf="marks.length > 1" class="not-empty-cell">
+  <div *ngIf="lesson!!.marks.length > 1" class="not-empty-cell">
     <div class="mark_2">
-      <p class="mark-text mark_2-1">{{marks[0].mark}}</p>
+      <p class="mark-text mark_2-1">{{lesson!!.marks[0].mark}}</p>
       <hr class="mark_2-divider">
-      <p class="mark-text mark_2-2">{{marks[1].mark}}</p>
+      <p class="mark-text mark_2-2">{{lesson!!.marks[1].mark}}</p>
     </div>
   </div>
   <button class="transparent-btn add-mark-btn" (click)="onMarkClick()"></button>
 </div>
 <div class="select-mark" *ngIf="selectMarkPopup">
-  <app-select-mark style="position: absolute" [userId]="userId" [subject]="subject" [marks]="marks"></app-select-mark>
+  <app-select-mark style="position: absolute; z-index: 1;" [userId]="userId" [lesson]="lesson" [marks]="lesson!!.marks"></app-select-mark>
 </div>
 
 
 <popper-content #marksTooltip>
-  <div class="markTooltip" *ngIf="marks.length != 0">
-    <div *ngFor="let mark of marks" class="mark-cell">
+  <div class="markTooltip" *ngIf="lesson!!.marks.length != 0">
+    <div *ngFor="let mark of lesson!!.marks" class="mark-cell">
       <p>{{mark.mark}}</p>
     </div>
   </div>

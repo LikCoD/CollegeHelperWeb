@@ -90,14 +90,6 @@ interface Lesson {
   subjects: Subject[]
 }
 
-interface Subject {
-  subject?: string
-  teacher?: string
-  group?: string
-  room?: string
-  type?: string
-}
-
 interface Info {
   weeksCount: number,
   daysCount: number,
