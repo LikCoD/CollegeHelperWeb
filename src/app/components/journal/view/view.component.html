@@ -7,7 +7,7 @@
     </div>
   </div>
   <div>
-    <table style="border-spacing: 15px; border-collapse: separate">
+    <table style="border-spacing: 15px; border-collapse: separate" id="mainTable">
       <tr>
         <td></td>
         <td></td>
@@ -18,14 +18,20 @@
           </div>
         </td>
       </tr>
-      <tr *ngFor="let member of groupMembers; let i = index" [attr.data-index]="i">
-        <td class="number">{{i + 1}}</td>
+      <tr *ngFor="let member of groupMembers; let y = index" [attr.data-index]="y">
+        <td class="number">{{y + 1}}</td>
         <td class="name">{{member.fullName}}</td>
-        <td *ngFor="let lesson of member.lessons">
-          <app-journal-cell [lesson]="lesson" [userId]="member.id"></app-journal-cell>
+        <td *ngFor="let lesson of member.lessons; let x = index" [attr.data-index]="x"
+            (keydown.arrowUp)="focusCell(x + 2, y)"
+            (keydown.arrowRight)="focusCell(x + 3, y + 1)"
+            (keydown.arrowDown)="focusCell(x + 2, y + 2)"
+            (keydown.arrowLeft)="focusCell(x + 1, y + 1)"
+            (keydown)="onKeyPressed($event.key, cell)"
+            class="cell"
+            tabindex="0">
+          <app-journal-cell #cell [lesson]="lesson" [userId]="member.id" [x]="x+2" [y]="y+1"></app-journal-cell>
         </td>
       </tr>
     </table>
   </div>
 </div>
-

@@ -15,6 +15,8 @@ export class SelectMarkComponent implements OnInit {
 
   availableMarks: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "н", "зч"]
 
+  selectedMark: Mark | undefined = undefined
+
   constructor(private http: HttpClient, private parent: JournalCellComponent) {
   }
 
@@ -23,7 +25,7 @@ export class SelectMarkComponent implements OnInit {
   }
 
   closePopup(): void {
-    this.parent.selectMarkPopup = false
+    this.parent.closePopup()
   }
 
   confirmInput(key: string, mark: string) {
@@ -32,7 +34,7 @@ export class SelectMarkComponent implements OnInit {
     this.confirm(mark)
   }
 
-  addMark(mark: string): void {
+  getSelectedOption(): HTMLInputElement | undefined{
     let selectedToggle: HTMLInputElement | undefined
 
     let children = document.getElementById("action-toggle-container")!!.children
@@ -43,6 +45,11 @@ export class SelectMarkComponent implements OnInit {
       break
     }
 
+    return selectedToggle
+  }
+
+  addMark(mark: string): void {
+    let selectedToggle = this.getSelectedOption()
     if (selectedToggle == undefined) return
 
     let url = selectedToggle.id == "mark-add" ?
@@ -50,6 +57,18 @@ export class SelectMarkComponent implements OnInit {
       "editMark?markId=" + selectedToggle.id + "&mark=" + mark + "&subjectId=" + this.lesson!!.id + "&group=" + this.lesson!!.group + "&subject=" + this.lesson!!.subject + "&userId=" + this.userId + "&date=" + this.lesson!!.date.toLocaleDateString()
 
     this.http.get<Lesson>("api/journal/teachers/" + url).subscribe(lesson => {
+      console.log(lesson)
+      this.lesson!!.marks = lesson.marks
+    })
+
+    this.closePopup()
+  }
+
+  removeMark(){
+    let selectedToggle = this.getSelectedOption()
+    if (selectedToggle == undefined || selectedToggle.id == 'mark-add') return
+
+    this.http.get<Lesson>("api/journal/teachers/removeMark?markId=" + selectedToggle.id + "&subjectId=" + this.lesson!!.id + "&userId=" + this.userId).subscribe(lesson => {
       console.log(lesson)
       this.lesson!!.marks = lesson.marks
     })

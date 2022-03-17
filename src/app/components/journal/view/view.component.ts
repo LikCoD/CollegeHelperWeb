@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AppComponent} from "../../../app.component";
+import {CellComponent} from "../../schedule/view/cell/cell.component";
+import {JournalCellComponent} from "./cell/journal-cell.component";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,8 @@ export class JournalViewComponent implements OnInit {
   groups: Subject[] = []
   lessons: Lesson[] = []
   groupMembers: GroupMember[] = []
+
+  selectedCell: JournalCellComponent | undefined
 
   isSelected: Boolean = false
 
@@ -92,6 +96,34 @@ export class JournalViewComponent implements OnInit {
 
       this.groups = subjects.body
     })
+  }
+
+  focusCell(x: number, y: number) {
+    this.hidePopup()
+
+    let table = <HTMLTableElement>document.getElementById("mainTable")
+    let cell = table.rows[y]?.cells[x]
+    cell?.focus()
+  }
+
+  showPopup(cell: JournalCellComponent) {
+    if (cell != this.selectedCell)
+      this.hidePopup()
+
+    this.selectedCell = cell
+    cell.onMarkClick()
+  }
+
+  hidePopup(cell: JournalCellComponent | undefined = this.selectedCell) {
+    if (cell != undefined) cell.selectMarkPopup = false
+  }
+
+  onKeyPressed(key: string, cell: JournalCellComponent) {
+    this.selectedCell = cell
+
+    if (key.length == 1) {
+      cell.selectMarkPopup = true
+    }
   }
 
 }

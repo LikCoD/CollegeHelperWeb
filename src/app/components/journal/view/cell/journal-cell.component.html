@@ -4,23 +4,24 @@
      [popperPlacement]="popperPlacement"
      [popperHideOnClickOutside]="true"
      [popperHideOnScroll]="true"
-     [popperDisableStyle]="true">
+     [popperDisableStyle]="true"
+     (click)="this.parent.showPopup(this)">
   <div *ngIf="lesson!!.marks.length == 0" class="empty-cell"></div>
   <div *ngIf="lesson!!.marks.length == 1" class="not-empty-cell">
-    <div class="mark_1"><p class="mark-text">{{lesson!!.marks[0].mark}}</p></div>
+    <div class="mark_1  cell-element"><p class="mark-text">{{lesson!!.marks[0].mark}}</p></div>
   </div>
   <div *ngIf="lesson!!.marks.length > 1" class="not-empty-cell">
-    <div class="mark_2">
+    <div class="mark_2" >
       <p class="mark-text mark_2-1">{{lesson!!.marks[0].mark}}</p>
       <hr class="mark_2-divider">
       <p class="mark-text mark_2-2">{{lesson!!.marks[1].mark}}</p>
     </div>
   </div>
   <div *ngIf="lesson!!.marks.length > 2" class="more-circle"></div>
-  <button class="transparent-btn add-mark-btn" (click)="onMarkClick()"></button>
 </div>
 <div class="select-mark" *ngIf="selectMarkPopup">
-  <app-select-mark style="position: absolute; z-index: 1;" [userId]="userId" [lesson]="lesson" [marks]="lesson!!.marks"></app-select-mark>
+  <app-select-mark style="position: absolute; z-index: 1;" [userId]="userId" [lesson]="lesson"
+                   [marks]="lesson!!.marks" ></app-select-mark>
 </div>
 
 

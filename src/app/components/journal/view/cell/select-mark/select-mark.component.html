@@ -7,19 +7,23 @@
 
     <div class="action-container btn-group" id="action-toggle-container">
       <div *ngFor="let mark of marks">
-        <input type="radio" class="btn-check" name="action" [id]="mark.id">
+        <input type="radio" class="btn-check" name="action" [id]="mark.id" (click)="selectedMark = mark">
         <label class="mark-button btn btn-outline-dark" [for]="mark.id">{{mark.mark}}</label>
       </div>
 
       <div>
-        <input type="radio" class="btn-check" name="action" id="mark-add" autocomplete="off" checked>
+        <input type="radio" class="btn-check" name="action" id="mark-add" autocomplete="off"
+               (click)="selectedMark = undefined" checked>
         <label class="mark-button btn btn-outline-dark" for="mark-add">+</label>
       </div>
     </div>
 
     <div class="marks-container">
       <div *ngFor="let mark of availableMarks">
-        <button class="mark-button btn btn-outline-dark" (click)="addMark(mark)">{{mark}}</button>
+        <button class="mark-button btn btn-outline-dark" (click)="addMark(mark)"
+                *ngIf="mark != selectedMark?.mark">{{mark}}</button>
+        <button class="mark-button btn btn-outline-dark" (click)="removeMark()" *ngIf="mark == selectedMark?.mark">🗑
+        </button>
       </div>
     </div>
     <button type="button" class="btn btn-outline-secondary mark-confirm" (click)="confirm(markInput.value)">Confirm
