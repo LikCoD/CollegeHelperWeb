@@ -21,6 +21,9 @@ interface Lesson {
   rowIndex: number,
   isStay: boolean
   marks: Mark[]
+  homework: string,
+  smallDescription: string,
+  description: string
 }
 
 interface Mark {

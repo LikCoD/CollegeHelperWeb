@@ -1,0 +1,19 @@
+<div *ngIf="visible" style="position: absolute; z-index: 1;">
+  <button class="btn close-btn" type="button" (click)="closePopup()" style="position: absolute">X</button>
+  <div class="container">
+    <p>{{lesson!!.subject + ' ' + lesson!!.date.toLocaleDateString()}}</p>
+
+    <select #typeSelect class="form-select" id="typeSelect">
+      <option *ngFor="let type of types" selected>{{type}}</option>
+    </select>
+
+    <input #homeworkInput type="text" class="form-control mark-input" placeholder="Homework" value="{{lesson!!.homework}}">
+    <input #smallDescriptionInput type="text" class="form-control mark-input" placeholder="Small description" value="{{lesson!!.smallDescription}}">
+    <textarea #descriptionInput type="text" class="form-control mark-input" placeholder="Description">{{lesson!!.description}}</textarea>
+
+    <button type="button" class="btn btn-outline-secondary mark-confirm"
+            (click)="confirm(typeSelect.value, homeworkInput.value, smallDescriptionInput.value, descriptionInput.value)">
+      Confirm
+    </button>
+  </div>
+</div>

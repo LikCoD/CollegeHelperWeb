@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 import {JournalViewComponent} from "../view.component";
 
@@ -14,12 +14,9 @@ export class JournalCellComponent implements OnInit {
   @Input() lesson: Lesson | undefined
   @Input() userId: string | undefined
 
-  @Input() x: number | undefined
-  @Input() y: number | undefined
-
   selectMarkPopup: boolean = false
 
-  constructor(public parent: JournalViewComponent) {
+  constructor(public parent: JournalViewComponent, private elRef: ElementRef) {
   }
 
   ngOnInit(): void {
@@ -28,11 +25,11 @@ export class JournalCellComponent implements OnInit {
 
   closePopup() {
     this.selectMarkPopup = false
-    if (this.x != undefined && this.y != undefined)
-      this.parent.focusCell(this.x, this.y)
+
+    this.elRef.nativeElement.parentElement.focus()
   }
 
-  onMarkClick(): void {
+  onMarkClick() {
     this.selectMarkPopup = !this.selectMarkPopup
   }
 }

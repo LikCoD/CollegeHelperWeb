@@ -11,11 +11,12 @@
       <tr>
         <td></td>
         <td></td>
-        <td *ngFor="let subject of lessons">
-          <div class="date">
-            <span>{{subject.date.toLocaleDateString('ru', {month: 'short'})}}</span>
-            <span>{{subject.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
+        <td *ngFor="let lesson of lessons;" >
+          <div class="date" (click)="appDateProperty.onClick()">
+            <span>{{lesson.date.toLocaleDateString('ru', {month: 'short'})}}</span>
+            <span>{{lesson.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
           </div>
+          <app-date-property #appDateProperty [lesson]="lesson"></app-date-property>
         </td>
       </tr>
       <tr *ngFor="let member of groupMembers; let y = index" [attr.data-index]="y">
@@ -29,7 +30,7 @@
             (keydown)="onKeyPressed($event.key, cell)"
             class="cell"
             tabindex="0">
-          <app-journal-cell #cell [lesson]="lesson" [userId]="member.id" [x]="x+2" [y]="y+1"></app-journal-cell>
+          <app-journal-cell #cell [lesson]="lesson" [userId]="member.id"></app-journal-cell>
         </td>
       </tr>
     </table>

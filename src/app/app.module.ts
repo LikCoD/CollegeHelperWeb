@@ -13,6 +13,7 @@ import {JournalViewComponent} from "./components/journal/view/view.component";
 import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.component";
 import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/select-mark.component";
 import {NgxPopperjsModule} from "ngx-popperjs";
+import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 
 
 const appRoutes: Routes = [
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     SelectComponent,
     JournalViewComponent,
     JournalCellComponent,
+    DatePropertyComponent,
     SelectMarkComponent,
   ],
   imports: [
