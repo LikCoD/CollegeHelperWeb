@@ -1,4 +1,4 @@
-interface Subject {
+export interface Subject {
   id: string
   subject: string
   teacher: string
@@ -8,8 +8,9 @@ interface Subject {
   date: Date
 }
 
-interface Lesson {
+export interface Lesson {
   id: string
+  studyPlaceId: number
   subject: string
   teacher: string
   room: string
@@ -23,15 +24,16 @@ interface Lesson {
   marks: Mark[]
   homework: string,
   smallDescription: string,
-  description: string
+  description: string,
+  userId: string
 }
 
-interface Mark {
-  id: string
-  mark: string
+export class Mark {
+  constructor(public mark: string, public userId: string = "", public subjectId: string = "", public studyPlaceId: number = 0, public id: string = "") {
+  }
 }
 
-interface GroupMember {
+export interface GroupMember {
   id: string
   fullName: string
   lessons: Lesson[]

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Lesson} from "../../../../data";
 
 @Component({
   selector: 'app-date-property',
@@ -9,8 +10,7 @@ import {HttpClient} from "@angular/common/http";
 export class DatePropertyComponent implements OnInit {
 
   @Input() lesson: Lesson | undefined
-
-  types = ["Laboratory", "Practice", "General"]
+  @Input() types: string[] = []
 
   visible = false
 
@@ -22,31 +22,30 @@ export class DatePropertyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   closePopup() {
     this.visible = false
   }
 
-  confirm(type: string, homework: string, smallDescription: string, description: string) {
-    this.http.get<Lesson>(`api/journal/teachers/editInfo?lessonId=${this.lesson!!.id}&type=${type}&homework=${homework}&smallDescription=${smallDescription}&description=${description}`, {observe: 'response'}).subscribe(lesson => {
-      let error = lesson.headers.get("error")
-      if (error != undefined) {
-        if (error == "not authorized")
-          alert(error)
-        else
-          alert(error)
+  confirm() {
+    if (this.lesson == undefined) return
 
-        return
-      }
+    this.http.put<Lesson>(`api/journal/teachers/info`, this.lesson!!).subscribe({
+      next: lesson => {
+        lesson!!.date = new Date(lesson!!.date)
+        this.lesson!! = lesson!!
 
-      this.lesson!!.homework = lesson.body!!.homework
-      this.lesson!!.smallDescription = lesson.body!!.smallDescription
-      this.lesson!!.description = lesson.body!!.description
-
-      console.log(this.lesson)
+        console.log(this.lesson)
+      },
+      error: this.onError
     })
 
     this.closePopup()
+  }
+
+  onError(error: any){
+    console.log(error)
   }
 }

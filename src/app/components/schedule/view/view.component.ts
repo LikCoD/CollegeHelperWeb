@@ -2,6 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppComponent} from "../../../app.component";
+import {Subject} from "../../../data";
 
 @Component({
   selector: 'app-view',
@@ -19,6 +20,8 @@ export class ViewComponent implements OnInit {
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(() => {
+
+
       http.get<Schedule>("api" + router.url, {observe: 'response'}).subscribe(schedule => {
         let error = schedule.headers.get("error")
         if (error != undefined) {

@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AppComponent} from "../../../app.component";
-import {CellComponent} from "../../schedule/view/cell/cell.component";
 import {JournalCellComponent} from "./cell/journal-cell.component";
+import {GroupMember, Lesson, Subject} from "../../../data";
 
 @Component({
   selector: 'app-login',
@@ -16,12 +16,19 @@ export class JournalViewComponent implements OnInit {
   lessons: Lesson[] = []
   groupMembers: GroupMember[] = []
 
+  lessonTypes: string[] = ["Laboratory", "Practice", "General"]
+
   selectedCell: JournalCellComponent | undefined
 
   isSelected: Boolean = false
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
-
+/*    this.http.get<string[]>(`api/journal/types?studyPlaceId=${this.lessons[0].studyPlaceId}`).subscribe({
+      next: types => {
+        this.lessonTypes = types
+      },
+      error: console.log
+    })*/
   }
 
   ngOnInit(): void {
@@ -67,7 +74,7 @@ export class JournalViewComponent implements OnInit {
         this.groupMembers = members.body
 
         for (let groupMember of this.groupMembers) {
-          this.http.get<Lesson[]>("api/journal/teachers/getMark?group=" + params["group"] + "&subject=" + params["subject"] + "&userId=" + groupMember.id, {observe: 'response'}).subscribe(lessons => {
+          this.http.get<Lesson[]>("api/journal/teachers/mark?group=" + params["group"] + "&subject=" + params["subject"] + "&userId=" + groupMember.id, {observe: 'response'}).subscribe(lessons => {
             if (lessons.body == null) return
 
             lessons.body.forEach(el => {

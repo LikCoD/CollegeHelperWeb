@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
+import { Lesson } from 'src/app/data';
 import {JournalViewComponent} from "../view.component";
 
 @Component({

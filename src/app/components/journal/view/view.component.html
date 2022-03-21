@@ -16,7 +16,7 @@
             <span>{{lesson.date.toLocaleDateString('ru', {month: 'short'})}}</span>
             <span>{{lesson.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
           </div>
-          <app-date-property #appDateProperty [lesson]="lesson"></app-date-property>
+          <app-date-property #appDateProperty [lesson]="lesson" [types]="lessonTypes"></app-date-property>
         </td>
       </tr>
       <tr *ngFor="let member of groupMembers; let y = index" [attr.data-index]="y">
