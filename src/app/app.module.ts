@@ -14,6 +14,8 @@ import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.
 import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/select-mark.component";
 import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
+import {LogComponent} from "./components/general/log/log/log.component";
+import {MatTableModule} from "@angular/material/table";
 
 
 const appRoutes: Routes = [
@@ -22,6 +24,7 @@ const appRoutes: Routes = [
   {path: 'schedule/login', component: LoginScheduleComponent},
   {path: 'journal/view', component: JournalViewComponent},
   {path: 'schedule', component: ViewComponent},
+  {path: 'log', component: LogComponent},
 ]
 
 @NgModule({
@@ -36,6 +39,7 @@ const appRoutes: Routes = [
     JournalCellComponent,
     DatePropertyComponent,
     SelectMarkComponent,
+    LogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    NgxPopperjsModule
+    NgxPopperjsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
