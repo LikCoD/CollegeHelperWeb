@@ -58,7 +58,7 @@ export class SelectMarkComponent implements OnInit {
 
       this.http.post<Lesson>("api/journal/teachers/mark", mark).subscribe({
         next: value => {
-          this.lesson = value
+          this.lesson!!.marks = value.marks
         },
         error: console.log
       })
@@ -72,7 +72,7 @@ export class SelectMarkComponent implements OnInit {
 
       this.http.put<Lesson>("api/journal/teachers/mark", mark).subscribe({
         next: value => {
-          this.lesson = value
+          this.lesson!!.marks = value.marks
         },
         error: console.log
       })

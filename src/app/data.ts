@@ -29,7 +29,12 @@ export interface Lesson {
 }
 
 export class Mark {
-  constructor(public mark: string, public userId: string = "", public subjectId: string = "", public studyPlaceId: number = 0, public id: string = "") {
+  constructor(
+    public mark: string,
+    public userId: string = "",
+    public subjectId: string = "",
+    public studyPlaceId: number = 0,
+    public id: string = "") {
   }
 }
 
