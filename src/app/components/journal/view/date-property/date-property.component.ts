@@ -35,9 +35,7 @@ export class DatePropertyComponent implements OnInit {
     this.http.put<Lesson>(`api/journal/teachers/info`, this.lesson!!).subscribe({
       next: lesson => {
         lesson!!.date = new Date(lesson!!.date)
-        this.lesson!! = lesson!!
-
-        console.log(this.lesson)
+        this.lesson!! = lesson!
       },
       error: this.onError
     })

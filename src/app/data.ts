@@ -8,6 +8,14 @@ export interface Subject {
   date: Date
 }
 
+export interface Options {
+  subject: string
+  teacher: string
+  group: string
+  editable: boolean
+}
+
+
 export interface Lesson {
   id: string
   studyPlaceId: number
@@ -42,4 +50,33 @@ export interface GroupMember {
   id: string
   fullName: string
   lessons: Lesson[]
+}
+
+export interface User {
+  name: string
+  type: string
+  login: string
+}
+
+interface Row {
+  id: string
+  subject: string,
+  group: string,
+  title: string,
+  userType: string,
+  lessons: Lesson[]
+}
+
+export interface JournalInfo {
+  editable: boolean,
+  studyPlaceId: number
+  group: string
+  teacher: string
+  subject: string
+}
+
+export interface Journal {
+  dates: Lesson[]
+  rows: Row[]
+  info: JournalInfo
 }

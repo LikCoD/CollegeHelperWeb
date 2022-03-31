@@ -13,7 +13,6 @@ export class JournalCellComponent implements OnInit {
   popperPlacement = NgxPopperjsPlacements.BOTTOMEND
 
   @Input() lesson: Lesson | undefined
-  @Input() userId: string | undefined
 
   selectMarkPopup: boolean = false
 

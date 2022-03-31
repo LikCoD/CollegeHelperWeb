@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {AppComponent} from "../../../app.component";
+import {AppComponent, setUser, user} from "../../../app.component";
 import {JournalCellComponent} from "./cell/journal-cell.component";
-import {GroupMember, Lesson, Subject} from "../../../data";
+import {GroupMember, Journal, Lesson, Options, User} from "../../../data";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import {GroupMember, Lesson, Subject} from "../../../data";
 })
 export class JournalViewComponent implements OnInit {
 
-  groups: Subject[] = []
+  options: Options[] = []
   lessons: Lesson[] = []
   groupMembers: GroupMember[] = []
 
@@ -20,88 +20,43 @@ export class JournalViewComponent implements OnInit {
 
   selectedCell: JournalCellComponent | undefined
 
+  journal: Journal | undefined
+
   isSelected: Boolean = false
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
-/*    this.http.get<string[]>(`api/journal/types?studyPlaceId=${this.lessons[0].studyPlaceId}`).subscribe({
-      next: types => {
-        this.lessonTypes = types
-      },
-      error: console.log
-    })*/
+    /*    this.http.get<string[]>(`api/journal/types?studyPlaceId=${this.lessons[0].studyPlaceId}`).subscribe({
+          next: types => {
+            this.lessonTypes = types
+          },
+          error: console.log
+        })*/
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      if (params["group"] == undefined || params["subject"] == undefined) return
+      //if (params["group"] == undefined || params["subject"] == undefined || params["teacher"] == undefined) return
 
-      this.http.get<Lesson[]>("api/journal/teachers/dates?subject=" + params["subject"] + "&group=" + params["group"], {observe: 'response'}).subscribe(subjects => {
-        let error = subjects.headers.get("error")
-        if (error != undefined) {
-          if (error == "not authorized")
-            this.router.navigateByUrl("login")
-          else
-            alert(error)
+      this.http.get<Journal>(`api/journal?group=${params["group"]}&subject=${params["subject"]}&teacher=${params["teacher"]}`).subscribe({
+        next: journal => {
+          for (let date of journal.dates) {
+            date.date = new Date(date.date)
+            date.date = new Date(date.date.getTime() + date.date.getTimezoneOffset() * 60000)
+          }
 
-          return
-        }
+          console.log(journal)
 
-        if (subjects.body == null)
-          return
-
-        subjects.body.forEach(el => {
-          el.date = new Date(el.date)
-        })
-
-        this.lessons = subjects.body
-        this.isSelected = true
-      })
-
-      this.http.get<GroupMember[]>("api/journal/teachers/groupMembers?group=" + params["group"], {observe: 'response'}).subscribe(members => {
-        let error = members.headers.get("error")
-        if (error != undefined) {
-          if (error == "not authorized")
-            this.router.navigateByUrl("login")
-          else
-            alert(error)
-
-          return
-        }
-
-        if (members.body == null)
-          return
-
-        this.groupMembers = members.body
-
-        for (let groupMember of this.groupMembers) {
-          this.http.get<Lesson[]>("api/journal/teachers/mark?group=" + params["group"] + "&subject=" + params["subject"] + "&userId=" + groupMember.id, {observe: 'response'}).subscribe(lessons => {
-            if (lessons.body == null) return
-
-            lessons.body.forEach(el => {
-              el.date = new Date(el.date)
-            })
-
-            groupMember.lessons = lessons.body
-          });
-        }
+          this.journal = journal
+        },
+        error: console.log
       })
     })
 
-    this.http.get<Subject[]>("api/journal/teachers/types", {observe: 'response'}).subscribe(subjects => {
-      let error = subjects.headers.get("error")
-      if (error != undefined) {
-        if (error == "not authorized")
-          this.router.navigateByUrl("login")
-        else
-          alert(error)
-
-        return
-      }
-
-      if (subjects.body == null)
-        return
-
-      this.groups = subjects.body
+    this.http.get<Options[]>("api/journal/options").subscribe({
+      next: options => {
+        this.options = options
+      },
+      error: console.log
     })
   }
 

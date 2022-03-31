@@ -1,7 +1,13 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
+import {User} from "./data";
+
+export var user: User | undefined
+
+export const setUser = (user_: User) => {
+    user = user_
+}
 
 @Component({
   selector: 'app-root',
@@ -13,14 +19,18 @@ export class AppComponent {
   showEditBtn = false
 
   constructor(private router: Router, private http: HttpClient) {
-    http.get("api/user/getLogin").subscribe((response: any) => {
-      this.username = response?.login
+    http.get<User>("api/user").subscribe({
+      next: user_ => {
+        user = user_
+        console.log(user)
+        this.username = user?.type
+      }
     })
   }
 
   setupSchedule() {
     //if (user && user.rights.includes('editSchedule')) {
-      this.showEditBtn = true
+    this.showEditBtn = true
     //}
   }
 
@@ -41,7 +51,7 @@ export class AppComponent {
     }
   }
 
-  logout(): void{
+  logout(): void {
 
   }
 

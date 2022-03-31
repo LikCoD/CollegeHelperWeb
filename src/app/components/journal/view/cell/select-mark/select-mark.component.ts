@@ -11,7 +11,6 @@ import {Lesson, Mark} from "../../../../../data";
 export class SelectMarkComponent implements OnInit {
 
   @Input() lesson: Lesson | undefined
-  @Input() userId: string | undefined
   @Input() marks: any[] = []
 
   availableMarks: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "н", "зч"]
@@ -22,6 +21,8 @@ export class SelectMarkComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this)
+
     document.getElementById("markInput")?.focus()
   }
 
@@ -53,8 +54,10 @@ export class SelectMarkComponent implements OnInit {
     let selectedToggle = this.getSelectedOption()
     if (selectedToggle == undefined) return
 
+    console.log(this.lesson!!.userId)
+
     if (selectedToggle.id == "mark-add") {
-      let mark = new Mark(mark_, this.userId, this.lesson!!.id, this.lesson!!.studyPlaceId)
+      let mark = new Mark(mark_, this.lesson!!.userId, this.lesson!!.id, this.lesson!!.studyPlaceId)
 
       this.http.post<Lesson>("api/journal/teachers/mark", mark).subscribe({
         next: value => {
@@ -85,7 +88,7 @@ export class SelectMarkComponent implements OnInit {
     let selectedToggle = this.getSelectedOption()
     if (selectedToggle == undefined || selectedToggle.id == 'mark-add') return
 
-    this.http.delete<Lesson>("api/journal/teachers/mark?markId=" + selectedToggle.id + "&subjectId=" + this.lesson!!.id + "&userId=" + this.userId).subscribe(lesson => {
+    this.http.delete<Lesson>("api/journal/teachers/mark?markId=" + selectedToggle.id + "&subjectId=" + this.lesson!!.id + "&userId=" + this.lesson!!.userId).subscribe(lesson => {
       console.log(lesson)
       this.lesson!!.marks = lesson.marks
     })
