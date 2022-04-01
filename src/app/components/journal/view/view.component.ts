@@ -35,7 +35,8 @@ export class JournalViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      //if (params["group"] == undefined || params["subject"] == undefined || params["teacher"] == undefined) return
+      console.log(params)
+      if (params["group"] == undefined || params["subject"] == undefined || params["teacher"] == undefined) return
 
       this.http.get<Journal>(`api/journal?group=${params["group"]}&subject=${params["subject"]}&teacher=${params["teacher"]}`).subscribe({
         next: journal => {
@@ -44,7 +45,7 @@ export class JournalViewComponent implements OnInit {
             date.date = new Date(date.date.getTime() + date.date.getTimezoneOffset() * 60000)
           }
 
-          console.log(journal)
+          this.isSelected = true
 
           this.journal = journal
         },
@@ -54,6 +55,13 @@ export class JournalViewComponent implements OnInit {
 
     this.http.get<Options[]>("api/journal/options").subscribe({
       next: options => {
+        console.log(options)
+
+        if (options.length == 1) {
+          this.router.navigateByUrl(`/journal/view?group=${options[0].group}&subject=${options[0].subject}&teacher=${options[0].teacher}`, )
+          return
+        }
+
         this.options = options
       },
       error: console.log
@@ -83,7 +91,7 @@ export class JournalViewComponent implements OnInit {
   onKeyPressed(key: string, cell: JournalCellComponent) {
     this.selectedCell = cell
 
-    if (key.length == 1) {
+    if (key.length == 1 && cell.show) {
       cell.selectMarkPopup = true
     }
   }

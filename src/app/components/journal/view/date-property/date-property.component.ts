@@ -11,6 +11,7 @@ export class DatePropertyComponent implements OnInit {
 
   @Input() lesson: Lesson | undefined
   @Input() types: string[] = []
+  @Input() show: boolean = true
 
   visible = false
 
@@ -18,6 +19,8 @@ export class DatePropertyComponent implements OnInit {
   }
 
   onClick() {
+    if (!this.show) return
+
     this.visible = !this.visible
   }
 
@@ -43,7 +46,7 @@ export class DatePropertyComponent implements OnInit {
     this.closePopup()
   }
 
-  onError(error: any){
+  onError(error: any) {
     console.log(error)
   }
 }

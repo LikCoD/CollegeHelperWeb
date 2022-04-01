@@ -22,7 +22,7 @@
             <span>{{date.date.toLocaleDateString('ru', {month: 'short'})}}</span>
             <span>{{date.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
           </div>
-          <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes"></app-date-property>
+          <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes" [show]="journal.info.editable"></app-date-property>
         </td>
       </tr>
       <tr *ngFor="let subject of journal.rows; let y = index" [attr.data-index]="y">
@@ -36,7 +36,7 @@
             (keydown)="onKeyPressed($event.key, cell)"
             class="cell"
             tabindex="0">
-          <app-journal-cell #cell [lesson]="lesson"></app-journal-cell>
+          <app-journal-cell #cell [lesson]="lesson" [show]="journal.info.editable"></app-journal-cell>
         </td>
       </tr>
     </table>
