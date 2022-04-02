@@ -83,6 +83,11 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<User>("/api/user").subscribe({
       next: (user) => {
+        if (user.applied && (user.permissions == null || !user.permissions.includes("editInfo"))) {
+          alert("You can't edit your info")
+          this.router.navigateByUrl("/")
+        }
+
         this.selectedName = user.name == "" ? user.login : user.name
 
         if (user.type == "") return
