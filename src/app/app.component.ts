@@ -27,6 +27,7 @@ export const errorHandler = (err: HttpErrorResponse) => {
 export class AppComponent {
   username: string | undefined
   userPicture: string | undefined
+  status: string = "Loading..."
 
   showEditBtn = false
 
@@ -37,7 +38,9 @@ export class AppComponent {
         this.username = user?.login
         this.userPicture = user?.picture
 
-        console.log(user)
+        if (user.type == "") this.status = "Not add info"
+        else if (user.applied) this.status = "Confirmed"
+        else this.status = "Not confirmed"
 
         if (user.type == "") {
           router.navigateByUrl("/user/edit")
