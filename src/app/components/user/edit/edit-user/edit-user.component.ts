@@ -88,14 +88,12 @@ export class EditUserComponent implements OnInit {
         if (user.type == "") return
 
         this.selectedStudyPlace = this.studyPlaces.find((studyPlace) => studyPlace.id == user.studyPlaceId)!!
-        this.selectedType = user.type == "group" ? "Student" : "Teacher"
+        this.selectedType = user.type == "group" ? "Student" : "Teacher";
 
-        let typesSelect = document.getElementById("typeSelect") as HTMLSelectElement
-        if (typesSelect != undefined) {
-          typesSelect.value = this.selectedType
-        }
+        (document.getElementById("type") as HTMLSelectElement).value = this.selectedType;
 
-        (document.getElementById("group") as HTMLInputElement).value = user.typeName
+        let groupInput = (document.getElementById("group") as HTMLInputElement)
+        if (groupInput != null) groupInput.value = user.typeName
       },
       error: errorHandler
     })
