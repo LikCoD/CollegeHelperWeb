@@ -10,14 +10,23 @@
 
 
       <div class="text-end" *ngIf="!username">
-        <button type="button" class="btn btn-outline-light me-2" routerLink="login">Login</button>
+        <button type="button" class="btn btn-outline-light me-2" (click)="login()">Login</button>
         <button type="button" class="btn btn-warning">Sign-up</button>
       </div>
-      <div class="text-end" *ngIf="username">
+
+      <div class="dropdown" style="display: contents" *ngIf="username">
         <a routerLink="user" class="header_text">{{username}}</a>
-        <img src="https://avatars.githubusercontent.com/u/18" alt="mdo" width="32" height="32"
-             class="rounded-circle me-2">
-        <button type="button" class="btn btn-warning me-2" (click)="logout()">Logout</button>
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img [src]="userPicture" referrerpolicy="no-referrer" alt="profile" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+          <li><p class="dropdown-item-text">Status</p></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" routerLink="user/edit">Edit</a></li>
+          <li><a class="dropdown-item" routerLink="user">Profile</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" (click)="logout()" href="#">Sign out</a></li>
+        </ul>
       </div>
       <button *ngIf="showEditBtn" type="button" class="btn btn-danger me-2" (click)="editSchedule()">Edit</button>
     </div>

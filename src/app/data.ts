@@ -53,9 +53,17 @@ export interface GroupMember {
 }
 
 export interface User {
-  name: string
-  type: string
+  id: string
+  email: string
+  verifiedEmail: string
   login: string
+  name: string
+  picture: string
+  type: string
+  typeName: string
+  studyPlaceId: number
+  permissions: string[]
+  applied: boolean
 }
 
 interface Row {

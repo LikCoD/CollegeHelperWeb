@@ -1,0 +1,32 @@
+<div style="width: 300px; margin: auto; padding-top: 100px;">
+  <div>
+    <div class="form-floating" style="margin: 15px">
+      <input #studyPlaceSelect id="studyPlace" class="form-select" list="edu" value="{{selectedStudyPlace?.name}}"
+             (change)="changeStudyPlace(studyPlaceSelect.value)">
+      <label for="studyPlace">Study place</label>
+      <datalist id="edu">
+        <option *ngFor="let place of studyPlaces" id="{{place.id}}">{{place.name}}</option>
+      </datalist>
+    </div>
+    <div class="form-floating" style="margin: 15px">
+      <select #typeSelect id="type" class="form-select" (change)="changeType(typeSelect.value)">
+        <option>Student</option>
+        <option>Teacher</option>
+      </select>
+      <label for="type">Type</label>
+    </div>
+    <div class="form-floating" style="margin: 15px" *ngIf="selectedType == 'Student'">
+      <input id="group" class="form-select" list="names">
+      <label for="group">Group</label>
+      <datalist id="names">
+        <option *ngFor="let group of groups" value="{{group}}">
+      </datalist>
+    </div>
+    <div class="form-floating" style="margin: 15px">
+      <input class="form-control" [(ngModel)]="selectedName">
+      <label for="studyPlace">Name</label>
+    </div>
+    <button type="button" class="btn btn-outline-light" style="width: 270px; margin: 15px" (click)="continue()">Continue
+    </button>
+  </div>
+</div>

@@ -7,7 +7,6 @@ import {AppComponent} from './app.component';
 import {CellComponent} from './components/schedule/view/cell/cell.component';
 import {LoginScheduleComponent} from './components/schedule/login/login.component';
 import {ViewComponent} from './components/schedule/view/view.component';
-import {LoginComponent} from "./components/general/login/login.component";
 import {SelectComponent} from './components/schedule/view/edit/select/select.component';
 import {JournalViewComponent} from "./components/journal/view/view.component";
 import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.component";
@@ -16,11 +15,11 @@ import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 import {LogComponent} from "./components/general/log/log/log.component";
 import {MatTableModule} from "@angular/material/table";
+import {EditUserComponent} from "./components/user/edit/edit-user/edit-user.component";
 
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'user', component: LoginComponent},
+  {path: 'user/edit', component: EditUserComponent},
   {path: 'schedule/login', component: LoginScheduleComponent},
   {path: 'journal/view', component: JournalViewComponent},
   {path: 'schedule', component: ViewComponent},
@@ -30,7 +29,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     LoginScheduleComponent,
     CellComponent,
     ViewComponent,
@@ -39,7 +37,8 @@ const appRoutes: Routes = [
     JournalCellComponent,
     DatePropertyComponent,
     SelectMarkComponent,
-    LogComponent
+    LogComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

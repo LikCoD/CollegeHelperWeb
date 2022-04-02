@@ -1,12 +1,23 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {User} from "./data";
 
 export var user: User | undefined
 
 export const setUser = (user_: User) => {
-    user = user_
+  user = user_
+}
+
+export const errorHandler = (err: HttpErrorResponse) => {
+  if (err.error == "not authorized") {
+    user = undefined
+    window.location.href = '/api/user/auth?redirect=' + encodeURIComponent(window.location.href)
+
+    return
+  }
+
+  alert(err.error)
 }
 
 @Component({
@@ -15,6 +26,7 @@ export const setUser = (user_: User) => {
 })
 export class AppComponent {
   username: string | undefined
+  userPicture: string | undefined
 
   showEditBtn = false
 
@@ -22,9 +34,32 @@ export class AppComponent {
     http.get<User>("api/user").subscribe({
       next: user_ => {
         user = user_
+        this.username = user?.login
+        this.userPicture = user?.picture
+
         console.log(user)
-        this.username = user?.type
-      }
+
+        if (user.type == "") {
+          router.navigateByUrl("/user/edit")
+        }
+      },
+      error: console.error
+    })
+  }
+
+  login(){
+    window.location.href = '/api/user/auth?redirect=' + encodeURIComponent(window.location.href)
+  }
+
+  logout(): void {
+    this.http.get("api/user/logout").subscribe({
+      next: () => {
+        user = undefined
+        this.username = undefined
+        this.userPicture = undefined
+        this.router.navigate(['/'])
+      },
+      error: errorHandler,
     })
   }
 
@@ -49,10 +84,6 @@ export class AppComponent {
     } else {
       this.router.navigateByUrl("schedule")
     }
-  }
-
-  logout(): void {
-
   }
 
 }
