@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {User} from "./data";
+import {User, userStatus} from "./data";
 
 export var user: User | undefined
 
@@ -35,12 +35,9 @@ export class AppComponent {
     http.get<User>("api/user").subscribe({
       next: user_ => {
         user = user_
-        this.username = user?.login
-        this.userPicture = user?.picture
-
-        if (user.type == "") this.status = "Not add info"
-        else if (user.applied) this.status = "Confirmed"
-        else this.status = "Not confirmed"
+        this.username = user.login
+        this.userPicture = user.picture
+        this.status = userStatus(user)
 
         if (user.type == "") {
           router.navigateByUrl("/user/edit")

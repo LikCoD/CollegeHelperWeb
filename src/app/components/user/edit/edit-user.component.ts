@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {User} from "../../../../data";
-import {errorHandler, user} from "../../../../app.component";
+import {User} from "../../../data";
+import {errorHandler, user} from "../../../app.component";
 
 @Component({
   selector: 'app-edit-user',
@@ -83,7 +83,7 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<User>("/api/user").subscribe({
       next: (user) => {
-        if (user.applied && (user.permissions == null || !user.permissions.includes("editInfo"))) {
+        if (user.accepted && (user.permissions == null || !user.permissions.includes("editInfo"))) {
           alert("You can't edit your info")
           this.router.navigateByUrl("/")
         }

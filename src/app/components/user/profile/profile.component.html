@@ -1,0 +1,15 @@
+<div>
+  <div class="profile-container">
+    <div style="display: flex">
+      <img *ngIf="user"  [src]="user.picture" referrerpolicy="no-referrer" alt="profile" width="48" height="48" class="rounded-circle">
+      <h3 *ngIf="user">{{user.login}}</h3>
+      <h5 *ngIf="!user">Loading...</h5>
+    </div>
+    <hr style="width: 100%">
+    <p>{{status}}</p>
+    <p>{{user?.name}}</p>
+    <p>{{user?.email}}</p>
+    <p>{{user?.studyPlace}}</p>
+    <p>{{user?.typeName}}</p>
+  </div>
+</div>

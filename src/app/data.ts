@@ -62,9 +62,17 @@ export interface User {
   type: string
   typeName: string
   studyPlaceId: number
+  studyPlace: string
   permissions: string[]
-  applied: boolean
+  accepted: boolean
 }
+
+export function userStatus(user: User): string {
+  if (user.type == "") return "Not add info"
+  else if (user.accepted) return "Confirmed"
+  else return "Not confirmed"
+}
+
 
 interface Row {
   id: string

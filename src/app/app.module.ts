@@ -15,10 +15,13 @@ import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 import {LogComponent} from "./components/general/log/log/log.component";
 import {MatTableModule} from "@angular/material/table";
-import {EditUserComponent} from "./components/user/edit/edit-user/edit-user.component";
+import {EditUserComponent} from "./components/user/edit/edit-user.component";
+import {ProfileComponent} from "./components/user/profile/profile.component";
+import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component";
 
 
 const appRoutes: Routes = [
+  {path: 'user', component: ProfileComponent},
   {path: 'user/edit', component: EditUserComponent},
   {path: 'schedule/login', component: LoginScheduleComponent},
   {path: 'journal/view', component: JournalViewComponent},
@@ -38,7 +41,9 @@ const appRoutes: Routes = [
     DatePropertyComponent,
     SelectMarkComponent,
     LogComponent,
-    EditUserComponent
+    AcceptUsersComponent,
+    EditUserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
