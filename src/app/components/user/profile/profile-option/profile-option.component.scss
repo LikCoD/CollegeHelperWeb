@@ -1,0 +1,22 @@
+@use "src/styles";
+
+.child {
+  margin: 15px;
+  padding: 10px;
+  background: styles.$usualColor;
+  border-radius: 15px;
+}
+
+.expand-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+
+  * {
+    user-select: none;
+  }
+}

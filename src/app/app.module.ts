@@ -18,6 +18,8 @@ import {MatTableModule} from "@angular/material/table";
 import {EditUserComponent} from "./components/user/edit/edit-user.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component";
 
 
 const appRoutes: Routes = [
@@ -43,11 +45,13 @@ const appRoutes: Routes = [
     LogComponent,
     AcceptUsersComponent,
     EditUserComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileOptionComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,

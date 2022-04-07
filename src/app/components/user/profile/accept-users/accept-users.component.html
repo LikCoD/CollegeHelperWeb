@@ -1,8 +1,7 @@
-<p class="text-white">Accept users</p>
-<div *ngIf="true">
-  <div *ngFor="let user of usersToAccept" style="display: flex">
-    <p class="text-white">{{buildUser(user)}}</p>
-    <button class="btn btn-success btn-sm btn-accept-action">+</button>
-    <button class="btn btn-danger btn-sm btn-accept-action">-</button>
-  </div>
+<div>
+    <div *ngFor="let user of usersToAccept" style="display: flex">
+      <p class="text-white">{{buildUser(user)}}</p>
+      <button class="btn btn-success btn-sm btn-accept-action">+</button>
+      <button class="btn btn-danger btn-sm btn-accept-action">-</button>
+    </div>
 </div>
