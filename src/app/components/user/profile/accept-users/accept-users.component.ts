@@ -35,4 +35,18 @@ export class AcceptUsersComponent implements OnInit {
 
     return `${user.name} ${type}`
   }
+
+  acceptUser(user: User) {
+    this.http.put("api/user/accept", user.id).subscribe({
+      next: () => {
+        this.usersToAccept = this.usersToAccept!!.filter(u => u.id != user.id)
+      }
+    })
+  }
+
+  declineUser(user: User) {
+    this.http.put("api/user/decline", user.id).subscribe(() => {
+      this.usersToAccept = this.usersToAccept!!.filter(u => u.id != user.id)
+    })
+  }
 }
