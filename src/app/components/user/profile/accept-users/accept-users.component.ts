@@ -26,7 +26,7 @@ export class AcceptUsersComponent implements OnInit {
     let type = "";
     switch (user.type) {
       case "group":
-        type = `Student (${user.typeName})`;
+        type = user.typeName;
         break;
       case "teacher":
         type = "Teacher";
