@@ -11,9 +11,6 @@ export class AcceptUsersComponent implements OnInit {
   usersToAccept: User[] | undefined
 
   constructor(private http: HttpClient) {
-    http.get<User[]>('/api/users/toAccept').subscribe(users => {
-      this.usersToAccept = users
-    })
   }
 
   ngOnInit(): void {

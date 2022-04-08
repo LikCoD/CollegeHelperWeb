@@ -21,4 +21,11 @@ export class ProfileComponent implements OnInit {
       this.status = userStatus(user);
     });
   }
+
+  revoke(){
+    this.http.put('/api/user/revoke', {}).subscribe(() => {
+      this.user = undefined;
+      this.status = undefined;
+    });
+  }
 }
