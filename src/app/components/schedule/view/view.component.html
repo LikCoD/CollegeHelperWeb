@@ -5,23 +5,18 @@
       <hr class="time-line" [style.top]="yTime(time) + 'px'">
     </div>
   </div>
-  <div class="lessons-wrapper">
-    <div class="header">
-      <div class="weekdays-container">
-        <div *ngFor="let weekDay of weekDays; let i = index" [attr.data-index]="i">
-          <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDay}}</p>
-          <hr class="weekday-line" [style.left]="200 * i + 'px'" [style.height]="maxHeight + 30 + 'px'">
-        </div>
-      </div>
+  <div class="weekdays-container">
+    <div *ngFor="let weekDay of weekDays; let i = index" [attr.data-index]="i">
+      <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDay}}</p>
     </div>
-    <div *ngIf="schedule" class="lessons-container" [style.height]="maxHeight + 'px'">
-      <div *ngFor="let lesson of schedule.lessons" class="event"
-           [style.top]="y(lesson)"
-           [style.left]="x(lesson)"
-           [style.width]="width(lesson)"
-           [style.height]="height(lesson)">
-        <app-schedule-cell [lesson]="lesson"></app-schedule-cell>
-      </div>
+  </div>
+  <div *ngIf="schedule" class="lessons-container" [style.height]="maxHeight + 'px'">
+    <div *ngFor="let lesson of schedule.lessons" class="event"
+         [style.top]="y(lesson)"
+         [style.left]="x(lesson)"
+         [style.width]="width(lesson)"
+         [style.height]="height(lesson)">
+      <app-schedule-cell [lesson]="lesson"></app-schedule-cell>
     </div>
   </div>
 </div>

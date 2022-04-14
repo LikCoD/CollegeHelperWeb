@@ -1,75 +1,64 @@
 @use "src/styles";
 
-.schedule-main-container{
-  display: flex;
+.schedule-main-container {
+  display: grid;
+  grid-template-areas: ". weekdays" "time lessons";
 }
 
-.time-container{
-  position: relative;
+.time-container {
+  position: sticky;
+  left: 0;
+
   grid-area: time;
 
-  width: 130px;
-  margin-top: 30px;
+  width: 80px;
 
-  float: left;
+  background: styles.$primaryBackgroundColor;
+  z-index: 1;
 }
 
-.lessons-wrapper{
-  flex-grow: 2;
-
-  overflow-x: scroll;
-  overflow-y: clip;
-}
-
-.header{
+.weekdays-container {
+  display: flex;
   position: sticky;
   top: 0;
-}
 
-.weekdays-container{
-  display: flex;
-  position: relative;
+  grid-area: weekdays;
 
   height: 30px;
+
+  background: styles.$primaryBackgroundColor;
+  z-index: 1;
 }
 
-.lessons-container{
+.lessons-container {
   position: relative;
+  grid-area: lessons;
 
   margin-left: 10px;
 }
 
-.event{
+.event {
   position: absolute;
 }
 
-.time{
+.time {
   position: absolute;
 
   color: styles.$usualColor;
   text-align: center;
 }
 
-.weekday{
+.weekday {
   color: styles.$usualColor;
   text-align: center;
   margin: 0 10px;
 }
 
-.time-line{
+.time-line {
   position: absolute;
   margin: 0;
   width: 98vw;
 
   border-top: 1px dashed styles.$usualColor;
-  opacity: 0.6;
-}
-
-.weekday-line{
-  position: absolute;
-  margin: 0;
-  width: 0;
-
-  border-right: 1px solid styles.$usualColor;
   opacity: 0.6;
 }

@@ -22,6 +22,9 @@ export class ViewComponent implements OnInit {
   maxWidth: number = 0
   maxHeight: number = 0
 
+  minHour: number = 24
+  maxHour: number = 0
+
   isEditMode = false
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
@@ -43,9 +46,16 @@ export class ViewComponent implements OnInit {
             let width = lesson.dayIndex + lesson.weekIndex * 7
             if (this.maxWidth < width) this.maxWidth = width
 
-            let height = (lesson.endTime.getHours() - 8) * 60 + lesson.endTime.getMinutes()
-            if (this.maxHeight < height) this.maxHeight = height
+            let minHour = lesson.startTime.getHours()
+            if (this.minHour > minHour) this.minHour = minHour
+
+            let maxHour = lesson.endTime.getHours()
+            if (this.maxHour < maxHour) this.maxHour = maxHour
           }
+          this.maxHour++
+
+          this.times.add(moment(this.maxHour, [moment.ISO_8601, 'H']))
+          this.times.add(moment(this.minHour, [moment.ISO_8601, 'H']))
 
           this.maxWidth = this.maxWidth * 200 + 180
           this.maxHeight *= 2
@@ -90,11 +100,11 @@ export class ViewComponent implements OnInit {
   }
 
   y(lesson: ScheduleLesson) {
-    return ((lesson.startTime.getHours() - 8) * 60 + lesson.startTime.getMinutes()) * 2 + 'px'
+    return ((lesson.startTime.getHours() - this.minHour) * 60 + lesson.startTime.getMinutes()) * 2 + 'px'
   }
 
   yTime(time: moment.Moment) {
-    return ((time.hours() - 8) * 60 + time.minutes()) * 2
+    return ((time.hours() - this.minHour) * 60 + time.minutes()) * 2
   }
 
   width(lesson: ScheduleLesson) {
