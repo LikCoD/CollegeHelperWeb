@@ -1,47 +1,64 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AppComponent} from "../../../app.component";
-import {Subject} from "../../../data";
+import {AppComponent, errorHandler} from "../../../app.component";
+import {Schedule, ScheduleLesson, Subject} from "../../../data";
+import * as moment from 'moment';
+import * as Collections from 'typescript-collections';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.sass']
+  styleUrls: ['./view.component.scss']
 })
-
-@Injectable()
 export class ViewComponent implements OnInit {
   schedule: Schedule | undefined = undefined
+  weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   templateSubjects: Subject[] = []
+
+  times: Collections.Set<moment.Moment> = new Collections.Set();
+
+  maxWidth: number = 0
+  maxHeight: number = 0
 
   isEditMode = false
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(() => {
+      http.get<Schedule>("api/schedule/view").subscribe({
+        next: schedule => {
+          for (let lesson of schedule.lessons) {
+            lesson.startTime = new Date(lesson.startTime)
+            lesson.endTime = new Date(lesson.endTime)
 
 
-      http.get<Schedule>("api" + router.url, {observe: 'response'}).subscribe(schedule => {
-        let error = schedule.headers.get("error")
-        if (error != undefined) {
-          if (error == "not authorized")
-            router.navigateByUrl("login")
-          else
-            alert(error)
+            lesson.startTime = new Date(lesson.startTime.getTime() + lesson.startTime.getTimezoneOffset() * 60000)
+            lesson.endTime = new Date(lesson.endTime.getTime() + lesson.endTime.getTimezoneOffset() * 60000)
 
-          router.navigateByUrl("schedule/login")
+            this.times.add(moment(lesson.startTime.toLocaleTimeString(), [moment.ISO_8601, 'HH:mm A']))
+            this.times.add(moment(lesson.endTime.toLocaleTimeString(), [moment.ISO_8601, 'HH:mm A']))
 
-          return
-        }
 
-        this.initSchedule(schedule.body!!)
+            let width = lesson.dayIndex + lesson.weekIndex * 7
+            if (this.maxWidth < width) this.maxWidth = width
+
+            let height = (lesson.endTime.getHours() - 8) * 60 + lesson.endTime.getMinutes()
+            if (this.maxHeight < height) this.maxHeight = height
+          }
+
+          this.maxWidth = this.maxWidth * 200 + 180
+          this.maxHeight *= 2
+
+          this.initSchedule(schedule)
+        },
+        error: errorHandler
       })
     });
   }
 
-  initSchedule(schedule: Schedule){
-    schedule.subjects.forEach(lesson => {
+  initSchedule(schedule: Schedule) {
+    schedule.lessons.forEach(lesson => {
       if (lesson == null) return
       lesson.subjects.forEach(subject => {
         let add = true
@@ -68,37 +85,24 @@ export class ViewComponent implements OnInit {
     })
   }
 
-}
+  x(lesson: ScheduleLesson): string {
+    return (lesson.dayIndex + lesson.weekIndex * 7) * 200 + 'px'
+  }
 
+  y(lesson: ScheduleLesson) {
+    return ((lesson.startTime.getHours() - 8) * 60 + lesson.startTime.getMinutes()) * 2 + 'px'
+  }
 
-interface Schedule {
-  status: State[]
-  subjects: Lesson[],
-  info: Info,
-  error?: string
-}
+  yTime(time: moment.Moment) {
+    return ((time.hours() - 8) * 60 + time.minutes()) * 2
+  }
 
-interface State {
-  status: string,
-  weekIndex: number,
-  dayIndex: number
-}
+  width(lesson: ScheduleLesson) {
+    return '180px'
+  }
 
-interface Lesson {
-  weekIndex: number,
-  columnIndex: number,
-  rowIndex: number,
-  isStay: boolean,
-  date: string,
-  subjects: Subject[]
-}
+  height(lesson: ScheduleLesson) {
+    return (((lesson.endTime.getHours() * 60 + lesson.endTime.getMinutes()) - (lesson.startTime.getHours() * 60 + lesson.startTime.getMinutes())) * 2 + 'px')
+  }
 
-interface Info {
-  weeksCount: number,
-  daysCount: number,
-  subjectsCount: number,
-  type: string,
-  name: string,
-  educationPlaceId: number,
-  educationPlaceName: string
 }

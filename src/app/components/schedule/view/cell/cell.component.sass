@@ -10,12 +10,14 @@
   width: 48.5%
   padding: 0
   margin: 0
-  cursor: wait
+  cursor: auto
 
 
 .btn-cell
-  width: 180px
-  height: 110px
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
   text-align: center
   user-select: none
 
@@ -30,26 +32,15 @@
 
 
 .cell
-  width: 180px
-  height: 110px
-  border-radius: 32px
-  grid-template-columns: 180px 1fr
-  grid-template-rows: 110px 1fr
-  display: grid
-
-
-.cell > *
-  grid-area: 1 / 1 / 2 / 2
+  width: 100%
+  height: 100%
 
 
 .visible-cell
-  border-radius: 32px
+  border-radius: 25px
   padding: 10px 15px 10px 15px
-  display: inline-grid
-
-
-.visible-cell > *
-  align-self: center
+  width: 100%
+  height: 100%
 
 
 .STAY
@@ -63,7 +54,19 @@
 .ADDED
   background: styles.$addedColor
 
+.more-circle
+  position: absolute
 
-.empty-cell
-  background: styles.$emptyColor
+  width: 7px
+  height: 7px
+  background-color: styles.$secondaryBackgroundColor
+  border-radius: 50%
 
+  right: -2px
+  top: -2px
+
+.time
+  position: absolute
+  right: 15px
+  top: 0
+  font-size: 12px

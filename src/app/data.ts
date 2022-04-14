@@ -34,6 +34,7 @@ export interface Lesson {
   smallDescription: string,
   description: string,
   userId: string
+  subjects: Subject[]
 }
 
 export class Mark {
@@ -95,4 +96,33 @@ export interface Journal {
   dates: Lesson[]
   rows: Row[]
   info: JournalInfo
+}
+
+
+export interface Schedule {
+  lessons: ScheduleLesson[],
+  info: Info
+}
+
+export interface ScheduleLesson {
+  subjects: Subject[]
+  weekIndex: number,
+  dayIndex: number,
+  date: string,
+  startTime: Date,
+  endTime: Date,
+  description: string,
+  title: string,
+  homework: string,
+  studyPlaceId: number,
+}
+
+export interface Info {
+  weeksCount: number,
+  daysCount: number,
+  subjectsCount: number,
+  type: string,
+  name: string,
+  educationPlaceId: number,
+  educationPlaceName: string
 }
