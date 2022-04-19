@@ -1,4 +1,4 @@
-<div class="schedule-main-container">
+<div class="schedule-main-container" [style.width]="maxWidth + 'px'" [style.height]="maxHeight + 'px'">
   <div class="time-container">
     <div *ngFor="let time of times.toArray()">
       <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("HH:mm A")}}</p>

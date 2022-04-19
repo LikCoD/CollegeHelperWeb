@@ -42,7 +42,7 @@ export class ViewComponent implements OnInit {
             this.times.add(moment(lesson.endDate.format("HH:mm A"), [moment.ISO_8601, 'HH:mm A']))
 
 
-            let width = schedule.info.startWeekDate.diff(lesson.startDate, 'days')
+            let width = lesson.startDate.diff(schedule.info.startWeekDate, 'days')
             if (this.maxWidth < width) this.maxWidth = width
 
             let minHour = lesson.startDate.hours()
@@ -57,7 +57,7 @@ export class ViewComponent implements OnInit {
           this.times.add(moment(this.minHour, [moment.ISO_8601, 'H']))
 
           this.maxWidth = this.maxWidth * 200 + 180
-          this.maxHeight *= 2
+          this.maxHeight = (this.maxHour - this.minHour) * 60 * 2
 
           this.initSchedule(schedule)
         },

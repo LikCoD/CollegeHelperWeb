@@ -3,6 +3,8 @@
 .schedule-main-container {
   display: grid;
   grid-template-areas: ". weekdays" "time lessons";
+
+  justify-content: start;
 }
 
 .time-container {
