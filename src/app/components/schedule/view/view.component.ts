@@ -31,25 +31,24 @@ export class ViewComponent implements OnInit {
     this.route.queryParams.subscribe(() => {
       http.get<Schedule>("api/schedule/view").subscribe({
         next: schedule => {
+          schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)
+          schedule.info.date = moment.utc(schedule.info.date)
+
           for (let lesson of schedule.lessons) {
-            lesson.startTime = new Date(lesson.startTime)
-            lesson.endTime = new Date(lesson.endTime)
+            lesson.startDate = moment.utc(lesson.startDate)
+            lesson.endDate = moment.utc(lesson.endDate)
+
+            this.times.add(moment(lesson.startDate.format("HH:mm A"), [moment.ISO_8601, 'HH:mm A']))
+            this.times.add(moment(lesson.endDate.format("HH:mm A"), [moment.ISO_8601, 'HH:mm A']))
 
 
-            lesson.startTime = new Date(lesson.startTime.getTime() + lesson.startTime.getTimezoneOffset() * 60000)
-            lesson.endTime = new Date(lesson.endTime.getTime() + lesson.endTime.getTimezoneOffset() * 60000)
-
-            this.times.add(moment(lesson.startTime.toLocaleTimeString(), [moment.ISO_8601, 'HH:mm A']))
-            this.times.add(moment(lesson.endTime.toLocaleTimeString(), [moment.ISO_8601, 'HH:mm A']))
-
-
-            let width = lesson.dayIndex + lesson.weekIndex * 7
+            let width = schedule.info.startWeekDate.diff(lesson.startDate, 'days')
             if (this.maxWidth < width) this.maxWidth = width
 
-            let minHour = lesson.startTime.getHours()
+            let minHour = lesson.startDate.hours()
             if (this.minHour > minHour) this.minHour = minHour
 
-            let maxHour = lesson.endTime.getHours()
+            let maxHour = lesson.endDate.hours()
             if (this.maxHour < maxHour) this.maxHour = maxHour
           }
           this.maxHour++
@@ -96,11 +95,11 @@ export class ViewComponent implements OnInit {
   }
 
   x(lesson: ScheduleLesson): string {
-    return (lesson.dayIndex + lesson.weekIndex * 7) * 200 + 'px'
+    return lesson.startDate.diff(this.schedule!!.info.startWeekDate, 'days') * 200 + 'px'
   }
 
   y(lesson: ScheduleLesson) {
-    return ((lesson.startTime.getHours() - this.minHour) * 60 + lesson.startTime.getMinutes()) * 2 + 'px'
+    return ((lesson.startDate.hours() - this.minHour) * 60 + lesson.startDate.minutes()) * 2 + 'px'
   }
 
   yTime(time: moment.Moment) {
@@ -112,7 +111,7 @@ export class ViewComponent implements OnInit {
   }
 
   height(lesson: ScheduleLesson) {
-    return (((lesson.endTime.getHours() * 60 + lesson.endTime.getMinutes()) - (lesson.startTime.getHours() * 60 + lesson.startTime.getMinutes())) * 2 + 'px')
+    return (((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2 + 'px')
   }
 
 }

@@ -1,3 +1,5 @@
+import * as moment from "moment";
+
 export interface Subject {
   id: string
   subject: string
@@ -6,6 +8,9 @@ export interface Subject {
   group: string
   type: string
   date: Date
+  description: string,
+  title: string,
+  homework: string,
 }
 
 export interface Options {
@@ -106,23 +111,20 @@ export interface Schedule {
 
 export interface ScheduleLesson {
   subjects: Subject[]
-  weekIndex: number,
-  dayIndex: number,
-  date: string,
-  startTime: Date,
-  endTime: Date,
-  description: string,
-  title: string,
-  homework: string,
+  startDate: moment.Moment,
+  endDate: moment.Moment,
   studyPlaceId: number,
 }
 
 export interface Info {
-  weeksCount: number,
-  daysCount: number,
-  subjectsCount: number,
   type: string,
-  name: string,
-  educationPlaceId: number,
-  educationPlaceName: string
+  typeName: string,
+  studyPlace: StudyPlace,
+  startWeekDate: moment.Moment,
+  date: moment.Moment,
+}
+
+export interface StudyPlace {
+  id: number,
+  name: string
 }
