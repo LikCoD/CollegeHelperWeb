@@ -12,6 +12,7 @@ $usualColor: #f1f1f1
 body
   background: $primaryBackgroundColor
   font-family: 'Roboto', sans-serif
+  overflow: hidden
 
 header
   background: $secondaryBackgroundColor
@@ -24,3 +25,20 @@ header
 
 .header_text:hover, .header_text:focus
   color: $usualColor
+
+::-webkit-scrollbar
+  width: 9px
+  height: 9px
+
+::-webkit-scrollbar-thumb
+  background: #8f8f8f
+  border-radius: 10px
+
+::-webkit-scrollbar-thumb:hover
+  background: gray
+
+::-webkit-scrollbar-track
+  background: transparent
+
+::-webkit-scrollbar-corner
+  background: transparent
