@@ -7,6 +7,7 @@
       <p style="margin: 0 0 0 auto;">{{ selectedSubject.group }}</p>
     </div>
   </div>
+  <div *ngIf="!lesson!!.updated" class="not-updated"></div>
   <div class="btn-cell">
     <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
     <button (click)="nextSubject()" class="transparent-btn switchers-btn"></button>

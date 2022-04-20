@@ -113,6 +113,7 @@ export interface ScheduleLesson {
   subjects: Subject[]
   startDate: moment.Moment,
   endDate: moment.Moment,
+  updated: boolean,
   studyPlaceId: number,
 }
 
