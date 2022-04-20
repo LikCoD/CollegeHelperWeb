@@ -1,0 +1,8 @@
+<div *ngIf="subject" class="cell {{subject.type}}">
+  <p style="margin: 0; font-weight: bold">{{ subject.subject }}</p>
+  <p style="margin: 0">{{ subject.teacher }}</p>
+  <div style="display: flex">
+    <p style="margin: 0">{{ subject.room }}</p>
+    <p style="margin: 0 0 0 auto;">{{ subject.group }}</p>
+  </div>
+</div>

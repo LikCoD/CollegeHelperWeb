@@ -1,12 +1,5 @@
 <div class="cell">
-  <div *ngIf="selectedSubject" class="visible-cell {{selectedSubject.type}}">
-    <p style="margin: 0; font-weight: bold">{{ selectedSubject.subject }}</p>
-    <p style="margin: 0">{{ selectedSubject.teacher }}</p>
-    <div style="display: flex">
-      <p style="margin: 0">{{ selectedSubject.room }}</p>
-      <p style="margin: 0 0 0 auto;">{{ selectedSubject.group }}</p>
-    </div>
-  </div>
+  <app-schedule-subject [subject]="selectedSubject"></app-schedule-subject>
   <div *ngIf="!lesson!!.updated" class="not-updated"></div>
   <div class="btn-cell">
     <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
