@@ -21,6 +21,7 @@ import {AcceptUsersComponent} from "./components/user/profile/accept-users/accep
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component";
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component";
+import {AuthComponent} from "./components/general/auth/auth.component";
 
 
 const appRoutes: Routes = [
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   {path: 'journal/view', component: JournalViewComponent},
   {path: 'schedule', component: ViewComponent},
   {path: 'log', component: LogComponent},
+  {path: 'user/callback', component: AuthComponent},
 ]
 
 @NgModule({
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     EditUserComponent,
     ProfileComponent,
     ProfileOptionComponent,
-    ScheduleSubjectComponent
+    ScheduleSubjectComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

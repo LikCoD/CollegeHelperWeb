@@ -12,7 +12,7 @@ export const setUser = (user_: User) => {
 export const errorHandler = (err: HttpErrorResponse) => {
   if (err.error == "not authorized") {
     user = undefined
-    window.location.href = '/api/user/auth?redirect=' + encodeURIComponent(window.location.href)
+    window.location.href = `/api/user/auth?redirect=http://${window.location.host}/user/callback`
 
     return
   }
@@ -49,7 +49,7 @@ export class AppComponent {
   }
 
   login(){
-    window.location.href = '/api/user/auth?redirect=' + encodeURIComponent(window.location.href)
+    window.location.href = `/api/user/auth?redirect=http://${window.location.host}/user/callback`
   }
 
   logout(): void {
