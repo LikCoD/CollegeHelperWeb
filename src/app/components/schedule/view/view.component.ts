@@ -29,7 +29,7 @@ export class ViewComponent implements OnInit {
 
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(() => {
-      http.get<Schedule>("api/schedule/view").subscribe({
+      http.get<Schedule>(`api/schedule/view${this.router.url.substring(9)}`).subscribe({
         next: schedule => {
           schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)
           schedule.info.date = moment.utc(schedule.info.date)
