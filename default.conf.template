@@ -1,0 +1,15 @@
+server {
+  listen $PORT default_server;
+
+  location / {
+    include  /etc/nginx/mime.types;
+
+    root   /usr/share/nginx/html/;
+    index  index.html index.htm;
+  }
+
+  location /api {
+     proxy_pass https://studyum-api.herokuapp.com/api;
+  }
+
+}
