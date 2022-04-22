@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {errorHandler} from "../../../app.component";
 import {Router} from "@angular/router";
+import {HttpService} from "../../../services/http/http.service";
 
 @Component({
   selector: 'app-user-login',
@@ -12,19 +11,11 @@ export class UserLoginComponent {
   email: string = ""
   password: string = ""
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private router: Router, private service: HttpService) {
   }
 
   login() {
-    this.http.put("/api/user/login", {
-      email: this.email,
-      password: this.password
-    }).subscribe({
-      next: (data) => {
-        this.router.navigate(["/"])
-      },
-      error: errorHandler
-    })
+    this.service.login(this.email, this.password)
   }
 
   continueViaGoogle(){

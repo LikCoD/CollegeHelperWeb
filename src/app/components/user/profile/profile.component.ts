@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User, userStatus} from "../../../data";
+import {HttpService} from "../../../services/http/http.service";
 
 @Component({
   selector: 'app-profile',
@@ -12,20 +13,17 @@ export class ProfileComponent implements OnInit {
   user: User | undefined;
   status: string | undefined;
 
-  constructor(private http: HttpClient) {
+  constructor(private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    this.http.get<User>('/api/user').subscribe(user => {
+    this.httpService.getUser().subscribe(user => {
       this.user = user;
       this.status = userStatus(user);
     });
   }
 
   revoke(){
-    this.http.put('/api/user/revoke', {}).subscribe(() => {
-      this.user = undefined;
-      this.status = undefined;
-    });
+    this.httpService.revokeToken()
   }
 }

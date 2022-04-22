@@ -27,7 +27,7 @@ import {UserLoginComponent} from "./components/user/user-login/user-login.compon
 
 const appRoutes: Routes = [
   {path: 'user', component: ProfileComponent},
-  {path: 'user/register', component: UserRegisterComponent},
+  {path: 'register', component: UserRegisterComponent},
   {path: 'login', component: UserLoginComponent},
   {path: 'schedule/login', component: LoginScheduleComponent},
   {path: 'journal/view', component: JournalViewComponent},

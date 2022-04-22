@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../../data";
-import {errorHandler, user} from "../../../app.component";
+import {HttpService} from "../../../services/http/http.service";
 
 @Component({
   selector: 'app-register-user',
@@ -12,26 +12,26 @@ import {errorHandler, user} from "../../../app.component";
 export class UserRegisterComponent implements OnInit {
   studyPlaces: Array<StudyPlace> = []
 
-  selectedStudyPlace: StudyPlace = {
+  studyPlace: StudyPlace = {
     id: -1,
     name: ""
   }
 
   groups: Array<string> = []
 
-  selectedType = "Student"
-  selectedName: string = ""
+  type = "Student"
+  name: string = ""
 
   email: string = ""
   password: string = ""
   passwordRepeat: string = ""
 
   changeType(type: string) {
-    this.selectedType = type
+    this.type = type
   }
 
-  updateTypes(): void {
-    this.http.get<Array<Types>>("api/schedule/types?studyPlaceId=" + this.selectedStudyPlace.id).subscribe((types: Array<Types>) => {
+  updateTypes(){
+    this.http.get<Array<Types>>("api/schedule/types?studyPlaceId=" + this.studyPlace.id).subscribe((types: Array<Types>) => {
       this.groups = []
 
       types.forEach((item) => {
@@ -42,41 +42,18 @@ export class UserRegisterComponent implements OnInit {
     })
   }
 
-  constructor(private router: Router, private http: HttpClient) {
-    http.get<Array<StudyPlace>>("api/studyPlaces").subscribe((places: Array<StudyPlace>) => {
+  constructor(private router: Router, private http: HttpClient, private httpService: HttpService) {
+    httpService.getStudyPlaces().subscribe((places: Array<StudyPlace>) => {
       this.studyPlaces = places
       if (places.length > 0) {
-        this.selectedStudyPlace = places[0]
+        this.studyPlace = places[0]
         this.updateTypes()
       }
     })
   }
 
   continue(): void {
-    if (this.email == "" || this.password == "" || this.passwordRepeat == "" || this.selectedName == "" || this.selectedStudyPlace.id == -1) {
-      return
-    }
-
-    if (this.password != this.passwordRepeat || this.password.length < 8) {
-      return
-    }
-
-    let user = new User(this.email, this.selectedName, this.selectedName, this.selectedType, this.selectedName, this.selectedStudyPlace.id, this.password, this.passwordRepeat)
-    if (this.selectedType == "Student" && document.getElementById("group") != null) {
-      user!!.typeName = (document.getElementById("group") as HTMLInputElement).value
-      user!!.type = "group"
-    }else{
-      user!!.type = "teacher"
-      user!!.typeName = this.selectedName
-    }
-
-    this.http.post("api/user", user).subscribe({
-      next: (user: any) => {
-        console.log(user)
-        this.router.navigate(["/login"])
-      },
-      error: errorHandler
-    })
+    this.httpService.register(this.email, this.password, this.passwordRepeat, this.name, this.type, this.studyPlace, (document.getElementById("group") as HTMLInputElement)?.value)
   }
 
   continueViaGoogle(){
@@ -87,7 +64,7 @@ export class UserRegisterComponent implements OnInit {
     this.studyPlaces.forEach((studyPlace) => {
       if (studyPlace.name != newName) return
 
-      this.selectedStudyPlace = studyPlace
+      this.studyPlace = studyPlace
     })
 
     this.updateTypes()
@@ -101,14 +78,14 @@ export class UserRegisterComponent implements OnInit {
           this.router.navigateByUrl("/")
         }
 
-        this.selectedName = user.name == "" ? user.login : user.name
+        this.name = user.name == "" ? user.login : user.name
 
         if (user.type == "") return
 
-        this.selectedStudyPlace = this.studyPlaces.find((studyPlace) => studyPlace.id == user.studyPlaceId)!!
-        this.selectedType = user.type == "group" ? "Student" : "Teacher";
+        this.studyPlace = this.studyPlaces.find((studyPlace) => studyPlace.id == user.studyPlaceId)!!
+        this.type = user.type == "group" ? "Student" : "Teacher";
 
-        (document.getElementById("type") as HTMLSelectElement).value = this.selectedType;
+        (document.getElementById("type") as HTMLSelectElement).value = this.type;
 
         let groupInput = (document.getElementById("group") as HTMLInputElement)
         if (groupInput != null) groupInput.value = user.typeName

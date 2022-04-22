@@ -13,7 +13,7 @@
       <label for="passwordRepeat">Password</label>
     </div>
     <div class="form-floating" style="margin: 15px">
-      <input #studyPlaceSelect id="studyPlace" class="form-select" list="edu" value="{{selectedStudyPlace?.name}}"
+      <input #studyPlaceSelect id="studyPlace" class="form-select" list="edu" value="{{studyPlace?.name}}"
              (change)="changeStudyPlace(studyPlaceSelect.value)">
       <label for="studyPlace">Study place</label>
       <datalist id="edu">
@@ -27,7 +27,7 @@
       </select>
       <label for="type">Type</label>
     </div>
-    <div class="form-floating" style="margin: 15px" *ngIf="selectedType == 'Student'">
+    <div class="form-floating" style="margin: 15px" *ngIf="type == 'Student'">
       <input id="group" class="form-select" list="names">
       <label for="group">Group</label>
       <datalist id="names">
@@ -35,7 +35,7 @@
       </datalist>
     </div>
     <div class="form-floating" style="margin: 15px">
-      <input class="form-control" [(ngModel)]="selectedName">
+      <input class="form-control" [(ngModel)]="name">
       <label for="studyPlace">Name</label>
     </div>
     <div style="display: flex; margin: 15px 15px 0 15px" class="input-group">
