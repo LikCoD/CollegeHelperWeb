@@ -1,6 +1,18 @@
 <div style="width: 300px; margin: auto; padding-top: 100px;">
   <div>
     <div class="form-floating" style="margin: 15px">
+      <input id="email" class="form-control" [(ngModel)]="email">
+      <label for="email">Email</label>
+    </div>
+    <div class="form-floating" style="margin: 15px">
+      <input id="password" class="form-control" [(ngModel)]="password" type="password">
+      <label for="password">Password</label>
+    </div>
+    <div class="form-floating" style="margin: 15px">
+      <input id="passwordRepeat" class="form-control" [(ngModel)]="passwordRepeat" type="password">
+      <label for="passwordRepeat">Password</label>
+    </div>
+    <div class="form-floating" style="margin: 15px">
       <input #studyPlaceSelect id="studyPlace" class="form-select" list="edu" value="{{selectedStudyPlace?.name}}"
              (change)="changeStudyPlace(studyPlaceSelect.value)">
       <label for="studyPlace">Study place</label>
@@ -26,7 +38,13 @@
       <input class="form-control" [(ngModel)]="selectedName">
       <label for="studyPlace">Name</label>
     </div>
-    <button type="button" class="btn btn-outline-light" style="width: 270px; margin: 15px" (click)="continue()">Continue
-    </button>
+    <div style="display: flex; margin: 15px 15px 0 15px" class="input-group">
+      <button type="button" class="btn btn-outline-light" style="width: 230px;"
+              (click)="continue()">Continue
+      </button>
+      <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
+        <img src="assets/google-logo.svg" height="40" width="40" alt="google">
+      </button>
+    </div>
   </div>
 </div>

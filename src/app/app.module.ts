@@ -15,18 +15,20 @@ import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 import {LogComponent} from "./components/general/log/log/log.component";
 import {MatTableModule} from "@angular/material/table";
-import {EditUserComponent} from "./components/user/edit/edit-user.component";
+import {UserRegisterComponent} from "./components/user/register/user-register.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component";
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component";
 import {AuthComponent} from "./components/general/auth/auth.component";
+import {UserLoginComponent} from "./components/user/user-login/user-login.component";
 
 
 const appRoutes: Routes = [
   {path: 'user', component: ProfileComponent},
-  {path: 'user/edit', component: EditUserComponent},
+  {path: 'user/register', component: UserRegisterComponent},
+  {path: 'login', component: UserLoginComponent},
   {path: 'schedule/login', component: LoginScheduleComponent},
   {path: 'journal/view', component: JournalViewComponent},
   {path: 'schedule', component: ViewComponent},
@@ -47,11 +49,12 @@ const appRoutes: Routes = [
     SelectMarkComponent,
     LogComponent,
     AcceptUsersComponent,
-    EditUserComponent,
+    UserRegisterComponent,
     ProfileComponent,
     ProfileOptionComponent,
     ScheduleSubjectComponent,
-    AuthComponent
+    AuthComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,

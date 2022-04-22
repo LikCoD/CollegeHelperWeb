@@ -90,7 +90,7 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.fragment.subscribe(fragment => {
-      this.isEditMode = fragment == "edit"
+      this.isEditMode = fragment == "register"
     })
   }
 

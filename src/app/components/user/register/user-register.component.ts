@@ -5,11 +5,11 @@ import {User} from "../../../data";
 import {errorHandler, user} from "../../../app.component";
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss']
+  selector: 'app-register-user',
+  templateUrl: './user-register.component.html',
+  styleUrls: ['./user-register.component.scss']
 })
-export class EditUserComponent implements OnInit {
+export class UserRegisterComponent implements OnInit {
   studyPlaces: Array<StudyPlace> = []
 
   selectedStudyPlace: StudyPlace = {
@@ -21,6 +21,10 @@ export class EditUserComponent implements OnInit {
 
   selectedType = "Student"
   selectedName: string = ""
+
+  email: string = ""
+  password: string = ""
+  passwordRepeat: string = ""
 
   changeType(type: string) {
     this.selectedType = type
@@ -49,9 +53,15 @@ export class EditUserComponent implements OnInit {
   }
 
   continue(): void {
-    if (user == undefined) console.log("not authorized")
+    if (this.email == "" || this.password == "" || this.passwordRepeat == "" || this.selectedName == "" || this.selectedStudyPlace.id == -1) {
+      return
+    }
 
-    user!!.name = this.selectedName
+    if (this.password != this.passwordRepeat || this.password.length < 8) {
+      return
+    }
+
+    let user = new User(this.email, this.selectedName, this.selectedName, this.selectedType, this.selectedName, this.selectedStudyPlace.id, this.password, this.passwordRepeat)
     if (this.selectedType == "Student" && document.getElementById("group") != null) {
       user!!.typeName = (document.getElementById("group") as HTMLInputElement).value
       user!!.type = "group"
@@ -59,15 +69,18 @@ export class EditUserComponent implements OnInit {
       user!!.type = "teacher"
       user!!.typeName = this.selectedName
     }
-    user!!.studyPlaceId = this.selectedStudyPlace.id
 
-    this.http.put("api/user", user!!).subscribe(
-      (user: any) => {
+    this.http.post("api/user", user).subscribe({
+      next: (user: any) => {
         console.log(user)
-        this.router.navigateByUrl("/")
+        this.router.navigate(["/login"])
       },
-      errorHandler
-    )
+      error: errorHandler
+    })
+  }
+
+  continueViaGoogle(){
+    window.location.href = `/api/user/auth?redirect=http://${window.location.host}/user/callback`
   }
 
   changeStudyPlace(newName: string): void {
@@ -84,7 +97,7 @@ export class EditUserComponent implements OnInit {
     this.http.get<User>("/api/user").subscribe({
       next: (user) => {
         if (user.accepted && (user.permissions == null || !user.permissions.includes("editInfo"))) {
-          alert("You can't edit your info")
+          alert("You can't register your info")
           this.router.navigateByUrl("/")
         }
 
@@ -100,7 +113,7 @@ export class EditUserComponent implements OnInit {
         let groupInput = (document.getElementById("group") as HTMLInputElement)
         if (groupInput != null) groupInput.value = user.typeName
       },
-      error: errorHandler
+      error: console.log
     })
   }
 }

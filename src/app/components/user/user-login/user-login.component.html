@@ -1,0 +1,24 @@
+<div style="width: 300px; margin: auto; padding-top: 100px;">
+  <div>
+    <div class="form-floating" style="margin: 15px">
+      <input id="email" class="form-control" [(ngModel)]="email">
+      <label for="email">Email</label>
+    </div>
+    <div class="form-floating" style="margin: 15px">
+      <input id="password" class="form-control" [(ngModel)]="password" type="password">
+      <label for="password">Password</label>
+    </div>
+    <button type="button" class="btn btn-outline-light" style="width: 270px; margin: 15px"
+            (click)="login()">Continue
+    </button>
+    <div style="display: flex; margin: 0 15px" class="input-group">
+      <button type="button" class="btn btn-outline-light" style="width: 230px;"
+              routerLink="/user/edit">Register
+      </button>
+      <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
+        <img src="assets/google-logo.svg" height="40" width="40" alt="google">
+      </button>
+    </div>
+  </div>
+</div>
+

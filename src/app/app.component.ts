@@ -41,7 +41,7 @@ export class AppComponent {
         this.status = userStatus(user)
 
         if (user.type == "") {
-          router.navigateByUrl("/user/edit")
+          router.navigateByUrl("/user/register")
         }
       },
       error: console.error
@@ -49,7 +49,7 @@ export class AppComponent {
   }
 
   login(){
-    window.location.href = `/api/user/auth?redirect=http://${window.location.host}/user/callback`
+    this.router.navigate(["/login"])
   }
 
   logout(): void {
@@ -71,7 +71,7 @@ export class AppComponent {
   }
 
   editSchedule() {
-    this.router.navigateByUrl("schedule#edit")
+    this.router.navigateByUrl("schedule#register")
   }
 
   mySchedule(): void {

@@ -58,19 +58,23 @@ export interface GroupMember {
   lessons: Lesson[]
 }
 
-export interface User {
-  id: string
-  email: string
-  verifiedEmail: string
-  login: string
-  name: string
-  picture: string
-  type: string
-  typeName: string
-  studyPlaceId: number
-  studyPlace: string
-  permissions: string[]
-  accepted: boolean
+export class User {
+  constructor(
+    public email: string,
+    public login: string,
+    public name: string,
+    public type: string,
+    public typeName: string,
+    public studyPlaceId: number,
+    public password: string,
+    public passwordRepeat: string,
+    public studyPlace: string = "",
+    public permissions: string[] = [],
+    public accepted: boolean = false,
+    public id: string = "",
+    public verifiedEmail: boolean = false,
+    public picture: string = "",
+  ){}
 }
 
 export function userStatus(user: User): string {
