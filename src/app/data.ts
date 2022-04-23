@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import * as Collections from "typescript-collections";
 
 export interface Subject {
   id: string
@@ -74,7 +75,8 @@ export class User {
     public id: string = "",
     public verifiedEmail: boolean = false,
     public picture: string = "",
-  ){}
+  ) {
+  }
 }
 
 export function userStatus(user: User): string {
@@ -109,6 +111,7 @@ export interface Journal {
 
 
 export interface Schedule {
+  schedule: any;
   lessons: ScheduleLesson[],
   info: Info
 }
@@ -127,9 +130,23 @@ export interface Info {
   studyPlace: StudyPlace,
   startWeekDate: moment.Moment,
   date: moment.Moment,
+  times: Collections.Set<moment.Moment>
+  minTime: moment.Moment,
+  maxTime: moment.Moment,
+  days: number
 }
 
 export interface StudyPlace {
   id: number,
   name: string
+}
+
+export class Types {
+  constructor(
+    public groups: string[] = [],
+    public teachers: string[] = [],
+    public subjects: string[] = [],
+    public rooms: string[] = []
+  ) {
+  }
 }

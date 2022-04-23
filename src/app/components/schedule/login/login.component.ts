@@ -1,6 +1,7 @@
 import {Component, Injectable} from '@angular/core';
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpService} from "../../../services/http/http.service";
+import {Types} from "../../../data";
 
 @Component({
   selector: 'app-login',
@@ -18,34 +19,22 @@ export class LoginScheduleComponent {
     name: ""
   }
 
-  types: Map<string, Array<Types>> = new Map<string, Array<Types>>([
-    ["group", []],
-    ["teacher", []],
-    ["subject", []],
-    ["room", []]
-  ]);
+  types: Types = new Types()
 
   selectedType = "group"
   selectedName: string = ""
 
   updateTypes(): void {
-    this.http.get<Array<Types>>("api/schedule/types?studyPlaceId=" + this.selectedStudyPlace.id).subscribe((types: Array<Types>) => {
-      this.types.set("teacher", [])
-      this.types.set("group", [])
-      this.types.set("subject", [])
-      this.types.set("room", [])
-
-      types.forEach((item) => {
-        this.types.get(item.type)?.push(item)
-      })
+    this.httpService.getTypes(this.selectedStudyPlace).subscribe(types => {
+      this.types = types
     })
   }
 
-  constructor(private router: Router, private http: HttpClient) {
-    http.get<Array<StudyPlace>>("api/studyPlaces").subscribe((places: Array<StudyPlace>) => {
-      this.studyPlaces = places
-      if (places.length > 0) {
-        this.selectedStudyPlace = places[0]
+  constructor(private router: Router, private httpService: HttpService) {
+    httpService.getStudyPlaces().subscribe(studyPlaces => {
+      this.studyPlaces = studyPlaces
+      if (studyPlaces.length > 0) {
+        this.selectedStudyPlace = studyPlaces[0]
         this.updateTypes()
       }
     })
@@ -70,11 +59,6 @@ export class LoginScheduleComponent {
 
     this.updateTypes()
   }
-}
-
-interface Types {
-  type: string,
-  name: string
 }
 
 interface StudyPlace {
