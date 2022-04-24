@@ -9,7 +9,7 @@
       </datalist>
     </div>
     <div class="form-floating" style="margin: 15px">
-      <select #typeSelect id="type" class="form-select" (change)="this.selectedType = typeSelect.value.toLowerCase()">
+      <select #typeSelect id="type" class="form-select" (change)="onTypeChanged(typeSelect.value)">
         <option>Group</option>
         <option>Teacher</option>
         <option>Subject</option>
@@ -21,7 +21,7 @@
       <input id="name" class="form-select" list="names" [(ngModel)]="selectedName">
       <label for="name">Name</label>
       <datalist id="names">
-        <option *ngFor="let selectedType of types.get(selectedType)" value="{{selectedType.name}}">
+        <option *ngFor="let selectedType of availableTypes" value="{{selectedType}}">
       </datalist>
     </div>
     <button type="button" class="btn btn-outline-light" style="width: 270px; margin: 15px" (click)="login()">Continue

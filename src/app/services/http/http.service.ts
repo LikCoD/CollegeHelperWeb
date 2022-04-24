@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {errorHandler} from "../../app.component";
@@ -11,7 +11,8 @@ import * as Collections from 'typescript-collections';
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   login(email: string, password: string): Subscription {
     return this.http.put("/api/user/login", {
@@ -30,7 +31,7 @@ export class HttpService {
     if (type == "Student" && group != null) {
       user!!.typeName = group
       user!!.type = "group"
-    }else{
+    } else {
       user!!.type = "teacher"
       user!!.typeName = name
     }
@@ -60,33 +61,11 @@ export class HttpService {
     return this.http.get<StudyPlace[]>("api/studyPlaces")
   }
 
-  getTypes(studyPlace: StudyPlace): Observable<Types>{
-    return this.http.get<any[]>("api/schedule/types?studyPlaceId=" + studyPlace.id).pipe(map(res => {
-      let types = new Types()
-
-      res.forEach(type => {
-        switch (type.type) {
-          case "group":
-            types.groups.push(type.name)
-            break
-          case "teacher":
-            types.teachers.push(type.name)
-            break
-          case "subject":
-            types.subjects.push(type.name)
-            break
-          case "room":
-            types.rooms.push(type.name)
-            break
-        }
-      })
-
-      return types
-    }))
+  getTypes(studyPlace: StudyPlace): Observable<Types> {
+    return this.http.get<Types>("api/schedule/types/get?studyPlaceId=" + studyPlace.id)
   }
 
-
-  getSchedule(): Observable<Schedule>{
+  getSchedule(): Observable<Schedule> {
     return this.http.get<Schedule>(`api/schedule/view${this.router.url.substring(9)}`).pipe(map(schedule => {
       let minHours = 24
       let maxHours = 0

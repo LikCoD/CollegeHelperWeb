@@ -22,11 +22,14 @@ export class LoginScheduleComponent {
   types: Types = new Types()
 
   selectedType = "group"
+  availableTypes: string[] = []
   selectedName: string = ""
 
   updateTypes(): void {
     this.httpService.getTypes(this.selectedStudyPlace).subscribe(types => {
       this.types = types
+
+      this.availableTypes = types.groups
     })
   }
 
@@ -58,6 +61,20 @@ export class LoginScheduleComponent {
     })
 
     this.updateTypes()
+  }
+
+  onTypeChanged(newType: string): void {
+    this.selectedType = newType.toLowerCase()
+
+    if (this.selectedType == "group") {
+      this.availableTypes = this.types.groups
+    } else if (this.selectedType == "teacher") {
+      this.availableTypes = this.types.teachers
+    } else if (this.selectedType == "subject") {
+      this.availableTypes = this.types.subjects
+    } else if (this.selectedType == "room") {
+      this.availableTypes = this.types.rooms
+    }
   }
 }
 
