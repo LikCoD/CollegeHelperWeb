@@ -11,11 +11,14 @@ import * as Collections from 'typescript-collections';
   providedIn: 'root'
 })
 export class HttpService {
+
+  API_PATH = '/api';
+
   constructor(private http: HttpClient, private router: Router) {
   }
 
   login(email: string, password: string): Subscription {
-    return this.http.put("/api/user/login", {
+    return this.http.put(`${this.API_PATH}/user/login`, {
       email: email,
       password: password
     }).subscribe({
@@ -36,7 +39,7 @@ export class HttpService {
       user!!.typeName = name
     }
 
-    return this.http.post("api/user", user).subscribe({
+    return this.http.post(`${this.API_PATH}/user`, user).subscribe({
       next: _ => {
         this.router.navigate(["/login"])
       },
@@ -45,11 +48,11 @@ export class HttpService {
   }
 
   getUser(): Observable<User> {
-    return this.http.get<User>("/api/user")
+    return this.http.get<User>(`${this.API_PATH}/user`)
   }
 
   revokeToken(): Subscription {
-    return this.http.put('/api/user/revoke', {}).subscribe({
+    return this.http.put(`${this.API_PATH}/user/revoke`, {}).subscribe({
       next: _ => {
         this.router.navigate(["/login"])
       },
@@ -58,15 +61,15 @@ export class HttpService {
   }
 
   getStudyPlaces(): Observable<StudyPlace[]> {
-    return this.http.get<StudyPlace[]>("api/studyPlaces")
+    return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces`)
   }
 
   getTypes(studyPlace: StudyPlace): Observable<Types> {
-    return this.http.get<Types>("api/schedule/types/get?studyPlaceId=" + studyPlace.id)
+    return this.http.get<Types>(`${this.API_PATH}/schedule/types/get?studyPlaceId=` + studyPlace.id)
   }
 
   getSchedule(): Observable<Schedule> {
-    return this.http.get<Schedule>(`api/schedule/view${this.router.url.substring(9)}`).pipe(map(schedule => {
+    return this.http.get<Schedule>(`${this.API_PATH}/schedule/view${this.router.url.substring(9)}`).pipe(map(schedule => {
       let minHours = 24
       let maxHours = 0
 
