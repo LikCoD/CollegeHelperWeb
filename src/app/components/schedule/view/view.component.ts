@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit {
 
   maxWidth: number = 0
   maxHeight: number = 0
+  days: number[] = []
 
   isEditMode = false
 
@@ -28,6 +29,7 @@ export class ViewComponent implements OnInit {
         next: schedule => {
           this.maxWidth = schedule.info.days * 200 + 180
           this.maxHeight = (schedule.info.maxTime.hours() - schedule.info.minTime.hours()) * 60 * 2
+          this.days = new Array(schedule.info.days).fill(0).map((_, i) => i)
 
           this.initSchedule(schedule)
         },

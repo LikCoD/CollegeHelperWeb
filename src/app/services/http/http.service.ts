@@ -93,6 +93,8 @@ export class HttpService {
       }
       maxHours++
 
+      schedule.info.days += 1
+
       schedule.info.maxTime = moment(maxHours, [moment.ISO_8601, 'H'])
       schedule.info.times.add(schedule.info.maxTime)
 

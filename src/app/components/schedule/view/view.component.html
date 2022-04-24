@@ -1,16 +1,16 @@
-<div class="schedule-main-container" [style.width]="maxWidth + 'px'" [style.height]="maxHeight + 'px'">
-  <div class="time-container" *ngIf="schedule">
+<div class="schedule-main-container" [style.width]="maxWidth + 'px'" [style.height]="maxHeight + 'px'" *ngIf="schedule">
+  <div class="time-container">
     <div *ngFor="let time of schedule.info.times.toArray()">
       <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("HH:mm A")}}</p>
       <hr class="time-line" [style.top]="yTime(time) + 'px'">
     </div>
   </div>
   <div class="weekdays-container">
-    <div *ngFor="let weekDay of weekDays; let i = index" [attr.data-index]="i">
-      <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDay}}</p>
+    <div *ngFor="let i of days">
+      <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDays[i % 7]}}</p>
     </div>
   </div>
-  <div *ngIf="schedule" class="lessons-container" [style.height]="maxHeight + 'px'">
+  <div class="lessons-container" [style.height]="maxHeight + 'px'">
     <div *ngFor="let lesson of schedule.lessons" class="event"
          [style.top]="y(lesson)"
          [style.left]="x(lesson)"
