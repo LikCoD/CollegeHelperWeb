@@ -7,6 +7,8 @@
   justify-content: start;
 
   margin-bottom: 20px;
+
+  white-space: nowrap;
 }
 
 .time-container {
@@ -26,6 +28,9 @@
   position: sticky;
   top: 70px;
 
+  width: calc(100vw - 100px);
+  overflow: hidden;
+
   grid-area: weekdays;
 
   height: 30px;
@@ -39,6 +44,10 @@
   grid-area: lessons;
 
   margin-left: 10px;
+
+  width: calc(100vw - 100px);
+
+  overflow-x: scroll;
 }
 
 .event {

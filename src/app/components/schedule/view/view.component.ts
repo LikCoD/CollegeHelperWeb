@@ -84,4 +84,8 @@ export class ViewComponent implements OnInit {
     return (((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2 + 'px')
   }
 
+  onScroll(lessonsContainer: any, weekDaysContainer: any) {
+    weekDaysContainer.scrollLeft = lessonsContainer.scrollLeft
+  }
+
 }
