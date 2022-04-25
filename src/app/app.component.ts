@@ -30,8 +30,6 @@ export class AppComponent {
   userPicture: string | undefined
   status: string = "Loading..."
 
-  showEditBtn = false
-
   constructor(private router: Router, private http: HttpClient) {
     http.get<User>("api/user").subscribe({
       next: user_ => {
@@ -64,22 +62,7 @@ export class AppComponent {
     })
   }
 
-  setupSchedule() {
-    //if (user && user.rights.includes('editSchedule')) {
-    this.showEditBtn = true
-    //}
-  }
-
-  editSchedule() {
-    this.router.navigateByUrl("schedule#register")
-  }
-
   mySchedule(): void {
-    if (!this.username) {
-      this.router.navigateByUrl("login")
-      return
-    }
-
     if (this.router.url == "/schedule") {
       window.location.reload()
     } else {

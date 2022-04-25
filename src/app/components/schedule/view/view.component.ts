@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppComponent, errorHandler} from "../../../app.component";
 import {Schedule, ScheduleLesson, Subject} from "../../../data";
@@ -57,12 +56,11 @@ export class ViewComponent implements OnInit {
     })
 
     this.schedule = schedule
-    this.parent.setupSchedule()
   }
 
   ngOnInit(): void {
     this.route.fragment.subscribe(fragment => {
-      this.isEditMode = fragment == "register"
+      this.isEditMode = fragment == "edit"
     })
   }
 
