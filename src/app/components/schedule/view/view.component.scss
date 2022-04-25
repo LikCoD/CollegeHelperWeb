@@ -28,7 +28,6 @@
   position: sticky;
   top: 70px;
 
-  width: auto;
   overflow: hidden;
 
   grid-area: weekdays;
@@ -44,8 +43,6 @@
   grid-area: lessons;
 
   margin-left: 10px;
-
-  width: auto;
 
   overflow-x: scroll;
 }
