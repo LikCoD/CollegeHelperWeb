@@ -1,7 +1,7 @@
 <div>
   <div style="display: flex">
     <div class="edit" *ngIf="isEditMode">
-      <p>Edit menu</p>
+      <app-schedule-subject *ngFor="let subject of templateSubjects" [subject]="subject"></app-schedule-subject>
     </div>
     <div class="schedule-wrapper" *ngIf="schedule">
       <div style="display:flex;">
@@ -12,13 +12,12 @@
           </div>
         </div>
         <div>
-          <div #weekdaysContainer class="weekdays-container">
+          <div class="weekdays-container">
             <div *ngFor="let i of days">
               <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDays[i % 7]}}</p>
             </div>
           </div>
-          <div #lessonsContainer class="lessons-container" [style.height]="maxHeight + 'px'"
-               (scroll)="onScroll(lessonsContainer, weekdaysContainer)">
+          <div class="lessons-container" [style.height]="maxHeight + 'px'">
             <div *ngFor="let lesson of schedule.lessons" class="event"
                  [style.top]="y(lesson)"
                  [style.left]="x(lesson)"
