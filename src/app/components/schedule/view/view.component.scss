@@ -3,7 +3,7 @@
 .schedule-wrapper {
   overflow: scroll;
   display: flex;
-  height: 80vh;
+  height: calc(100vh - 130px);
 
   justify-content: start;
 
