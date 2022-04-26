@@ -3,26 +3,30 @@
     <div class="edit" *ngIf="isEditMode">
       <p>Edit menu</p>
     </div>
-    <div class="schedule-main-container" [style.width]="maxWidth + 'px'" [style.height]="maxHeight + 50 + 'px'"
-         *ngIf="schedule">
-      <div class="time-container" [style.height]="maxHeight + 'px'">
-        <div *ngFor="let time of schedule.info.times.toArray()">
-          <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("HH:mm A")}}</p>
-          <hr class="time-line" [style.top]="yTime(time) + 'px'">
+    <div class="schedule-wrapper" *ngIf="schedule">
+      <div style="display:flex;">
+        <div class="time-container" [style.height]="maxHeight + 'px'">
+          <div *ngFor="let time of schedule.info.times.toArray()">
+            <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("HH:mm A")}}</p>
+            <hr class="time-line" [style.top]="yTime(time) + 'px'">
+          </div>
         </div>
-      </div>
-      <div #weekdaysContainer class="weekdays-container">
-        <div *ngFor="let i of days">
-          <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDays[i % 7]}}</p>
-        </div>
-      </div>
-      <div #lessonsContainer class="lessons-container" [style.height]="maxHeight + 'px'" (scroll)="onScroll(lessonsContainer, weekdaysContainer)">
-        <div *ngFor="let lesson of schedule.lessons" class="event"
-             [style.top]="y(lesson)"
-             [style.left]="x(lesson)"
-             [style.width]="width(lesson)"
-             [style.height]="height(lesson)">
-          <app-schedule-cell [lesson]="lesson"></app-schedule-cell>
+        <div>
+          <div #weekdaysContainer class="weekdays-container">
+            <div *ngFor="let i of days">
+              <p class="weekday" [style.left]="200 * i + 'px'" [style.width]="180 + 'px'">{{weekDays[i % 7]}}</p>
+            </div>
+          </div>
+          <div #lessonsContainer class="lessons-container" [style.height]="maxHeight + 'px'"
+               (scroll)="onScroll(lessonsContainer, weekdaysContainer)">
+            <div *ngFor="let lesson of schedule.lessons" class="event"
+                 [style.top]="y(lesson)"
+                 [style.left]="x(lesson)"
+                 [style.width]="width(lesson)"
+                 [style.height]="height(lesson)">
+              <app-schedule-cell [lesson]="lesson"></app-schedule-cell>
+            </div>
+          </div>
         </div>
       </div>
     </div>

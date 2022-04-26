@@ -1,8 +1,9 @@
 @use "src/styles";
 
-.schedule-main-container {
-  display: grid;
-  grid-template-areas: ". weekdays" "time lessons";
+.schedule-wrapper {
+  overflow: scroll;
+  display: flex;
+  height: 80vh;
 
   justify-content: start;
 
@@ -15,9 +16,8 @@
   position: sticky;
   left: 0;
 
-  grid-area: time;
-
   width: 80px;
+  margin-top: 30px;
 
   background: styles.$primaryBackgroundColor;
   z-index: 2;
@@ -26,9 +26,7 @@
 .weekdays-container {
   display: flex;
   position: sticky;
-  top: 70px;
-
-  overflow: hidden;
+  top: 0;
 
   grid-area: weekdays;
 
@@ -40,11 +38,8 @@
 
 .lessons-container {
   position: relative;
-  grid-area: lessons;
 
   margin-left: 10px;
-
-  overflow-x: scroll;
 }
 
 .event {
