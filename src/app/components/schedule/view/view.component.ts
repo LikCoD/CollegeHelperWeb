@@ -15,12 +15,16 @@ export class ViewComponent implements OnInit {
   weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   templateSubjects: Subject[] = []
+  selectedSubject: Subject | undefined
 
   maxWidth: number = 0
   maxHeight: number = 0
   days: number[] = []
 
-  isEditMode = false
+  isEditMode = true
+  addSubject = false
+
+  templatesFilter: string = ""
 
   constructor(private router: Router, private parent: AppComponent, private route: ActivatedRoute, private httpService: HttpService) {
     this.route.queryParams.subscribe(() => {
@@ -49,9 +53,9 @@ export class ViewComponent implements OnInit {
             && templateSubject.teacher == subject.teacher)
             add = false;
         })
-        if (add && subject.type == "STAY") {
-          this.templateSubjects.push(subject)
-        }
+        if (!add || subject.type != "STAY") return
+
+        this.templateSubjects.push(subject)
       })
     })
 
@@ -59,9 +63,6 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.fragment.subscribe(fragment => {
-      this.isEditMode = fragment == "edit"
-    })
   }
 
   x(lesson: ScheduleLesson): string {
@@ -84,4 +85,36 @@ export class ViewComponent implements OnInit {
     return (((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2 + 'px')
   }
 
+  add(subject: Subject){
+    this.selectedSubject = subject
+    this.addSubject = true
+  }
+
+  templateFilter(input: string, subject: Subject): boolean {
+    input = input.toLowerCase()
+
+    return subject.subject.toLowerCase().includes(input)
+      || subject.group.toLowerCase().includes(input)
+      || subject.teacher.toLowerCase().includes(input)
+      || subject.room.toLowerCase().includes(input)
+  }
+
+  addSubjectToSchedule(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {
+    if (this.schedule == undefined) return
+
+    let lessons = this.schedule.lessons.find(lesson => lesson.startDate.isSame(startDate) && lesson.endDate.isSame(endDate))
+    if (lessons != undefined) {
+      lessons.subjects.push(subject)
+
+      return
+    }
+
+    this.schedule.lessons.push({
+      studyPlaceId: 0,
+      updated: false,
+      startDate: startDate,
+      endDate: endDate,
+      subjects: [subject]
+    })
+  }
 }

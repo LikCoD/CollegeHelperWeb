@@ -1,13 +1,19 @@
 <div>
-  <div style="display: flex">
+  <div style="display: flex" *ngIf="schedule">
     <div class="edit" *ngIf="isEditMode">
-      <app-schedule-subject *ngFor="let subject of templateSubjects" [subject]="subject"></app-schedule-subject>
+      <div class="edit-control">
+        <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
+        <button type="button" class="btn btn-light">Add</button>
+      </div>
+      <div *ngFor="let subject of templateSubjects" (click)="add(subject)">
+        <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject" style="width: 180px"></app-schedule-subject>
+      </div>
     </div>
-    <div class="schedule-wrapper" *ngIf="schedule">
+    <div class="schedule-wrapper">
       <div style="display:flex;">
         <div class="time-container" [style.height]="maxHeight + 'px'">
           <div *ngFor="let time of schedule.info.times.toArray()">
-            <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("HH:mm A")}}</p>
+            <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("hh:mm A")}}</p>
             <hr class="time-line" [style.top]="yTime(time) + 'px'">
           </div>
         </div>
@@ -31,4 +37,8 @@
     </div>
   </div>
   <button (click)="isEditMode = !isEditMode">Edit</button>
+</div>
+
+<div *ngIf="addSubject" class="dialog">
+  <app-add-subject-dialog class="add-subject-dialog" [templateSubject]="selectedSubject"></app-add-subject-dialog>
 </div>

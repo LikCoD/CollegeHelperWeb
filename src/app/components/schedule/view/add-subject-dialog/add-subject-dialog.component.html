@@ -1,0 +1,16 @@
+<div class="dialog">
+  <div>
+    <h3>Add Subject</h3>
+
+    <div class="subject-cell">
+      <app-schedule-subject #subject [subject]="templateSubject" [editable]="true"></app-schedule-subject>
+    </div>
+
+
+    <input #startDate type="datetime-local" [value]="currentDate" class="form-control">
+    <input #endDate type="datetime-local" [value]="currentDate" class="form-control">
+
+    <button (click)="close()">X</button>
+    <button (click)="addSubject(subject.subject!!, startDate.value, endDate.value)">Add</button>
+  </div>
+</div>

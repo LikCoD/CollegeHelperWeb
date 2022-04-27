@@ -1,8 +1,12 @@
-<div *ngIf="subject" class="cell {{subject.type}}">
-  <p style="margin: 0; font-weight: bold">{{ subject.subject }}</p>
-  <p style="margin: 0">{{ subject.teacher }}</p>
+<div class="cell {{subject!!.type}}">
+  <p #subjectInput style="margin: 0; font-weight: bold" [contentEditable]="editable"
+     (input)="subject!!.subject = subjectInput.innerText" id="subject"></p>
+  <p #teacherInput style="margin: 0" [contentEditable]="editable"
+     (input)="subject!!.teacher = teacherInput.innerText">{{ subject!!.teacher }}</p>
   <div style="display: flex">
-    <p style="margin: 0">{{ subject.room }}</p>
-    <p style="margin: 0 0 0 auto;">{{ subject.group }}</p>
+    <p #roomInput style="margin: 0" [contentEditable]="editable"
+       (input)="subject!!.room = roomInput.innerText">{{ subject!!.room }}</p>
+    <p #groupInput style="margin: 0 0 0 auto;" [contentEditable]="editable"
+       (input)="subject!!.group = groupInput.innerText">{{ subject!!.group }}</p>
   </div>
 </div>

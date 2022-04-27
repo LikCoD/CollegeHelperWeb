@@ -7,7 +7,6 @@ import {AppComponent} from './app.component';
 import {CellComponent} from './components/schedule/view/cell/cell.component';
 import {LoginScheduleComponent} from './components/schedule/login/login.component';
 import {ViewComponent} from './components/schedule/view/view.component';
-import {SelectComponent} from './components/schedule/view/edit/select/select.component';
 import {JournalViewComponent} from "./components/journal/view/view.component";
 import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.component";
 import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/select-mark.component";
@@ -23,6 +22,7 @@ import {ProfileOptionComponent} from "./components/user/profile/profile-option/p
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component";
 import {AuthComponent} from "./components/general/auth/auth.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
+import {AddSubjectDialogComponent} from "./components/schedule/view/add-subject-dialog/add-subject-dialog.component";
 
 
 const appRoutes: Routes = [
@@ -37,25 +37,25 @@ const appRoutes: Routes = [
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginScheduleComponent,
-    CellComponent,
-    ViewComponent,
-    SelectComponent,
-    JournalViewComponent,
-    JournalCellComponent,
-    DatePropertyComponent,
-    SelectMarkComponent,
-    LogComponent,
-    AcceptUsersComponent,
-    UserRegisterComponent,
-    ProfileComponent,
-    ProfileOptionComponent,
-    ScheduleSubjectComponent,
-    AuthComponent,
-    UserLoginComponent
-  ],
+    declarations: [
+        AppComponent,
+        LoginScheduleComponent,
+        CellComponent,
+        ViewComponent,
+        JournalViewComponent,
+        JournalCellComponent,
+        DatePropertyComponent,
+        SelectMarkComponent,
+        LogComponent,
+        AcceptUsersComponent,
+        UserRegisterComponent,
+        ProfileComponent,
+        ProfileOptionComponent,
+        ScheduleSubjectComponent,
+        AuthComponent,
+        UserLoginComponent,
+        AddSubjectDialogComponent
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,

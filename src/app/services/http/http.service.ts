@@ -82,8 +82,8 @@ export class HttpService {
         lesson.startDate = moment.utc(lesson.startDate)
         lesson.endDate = moment.utc(lesson.endDate)
 
-        schedule.info.times.add(moment(lesson.startDate.format("HH:mm A"), [moment.ISO_8601, 'HH:mm A']))
-        schedule.info.times.add(moment(lesson.endDate.format("HH:mm A"), [moment.ISO_8601, 'HH:mm A']))
+        schedule.info.times.add(moment(lesson.startDate.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
+        schedule.info.times.add(moment(lesson.endDate.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
 
         let days = lesson.startDate.diff(schedule.info.startWeekDate, 'days')
         if (schedule.info.days < days) schedule.info.days = days

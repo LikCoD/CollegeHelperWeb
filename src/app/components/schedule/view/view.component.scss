@@ -1,9 +1,12 @@
 @use "src/styles";
 
 .schedule-wrapper {
+  width: 0;
   overflow: scroll;
   display: flex;
   height: calc(var(--vh, 1vh) * 100 - 130px);
+
+  flex-grow: 1;
 
   justify-content: start;
 
@@ -66,4 +69,38 @@
 
   border-top: 1px dashed styles.$usualColor;
   opacity: 0.6;
+}
+
+.edit {
+  height: calc(var(--vh, 1vh) * 100 - 130px);
+  width: 200px;
+
+  overflow-y: scroll;
+}
+
+.edit-control {
+  position: sticky;
+  top: 0;
+  width: -webkit-fill-available;
+  margin-bottom: 15px;
+
+  * {
+    width: 100%;
+  }
+}
+
+.dialog {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.add-subject-dialog {
+  align-self: center;
 }
