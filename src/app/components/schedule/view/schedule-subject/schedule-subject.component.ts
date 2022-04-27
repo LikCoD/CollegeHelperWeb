@@ -1,6 +1,6 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Subject} from "../../../../data";
-import * as moment from "moment";
+
 
 @Component({
   selector: 'app-schedule-subject',
@@ -24,14 +24,10 @@ export class ScheduleSubjectComponent implements OnInit {
   ngAfterViewInit() {
     if (this.subject == undefined) return
 
-    if (this.subjectElement != undefined)
-      this.subjectElement.nativeElement.innerText = this.subject.subject
-    if (this.groupElement != undefined)
-      this.groupElement.nativeElement.innerText = this.subject.group
-    if (this.teacherElement != undefined)
-      this.teacherElement.nativeElement.innerText = this.subject.teacher
-    if (this.roomElement != undefined)
-      this.roomElement.nativeElement.innerText = this.subject.room
+    this.subjectElement!!.nativeElement.innerText = this.subject.subject
+    this.groupElement!!.nativeElement.innerText = this.subject.group
+    this.teacherElement!!.nativeElement.innerText = this.subject.teacher
+    this.roomElement!!.nativeElement.innerText = this.subject.room
   }
 
   ngOnInit(): void {
