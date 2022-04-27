@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {errorHandler} from "../../../app.component";
 import {Schedule, ScheduleLesson, Subject} from "../../../data";
 import * as moment from 'moment';
-import {HttpService} from "../../../services/http/http.service";
 import {ScheduleService} from "../../../services/shared/schedule.service";
 
 @Component({
@@ -26,7 +25,7 @@ export class ViewComponent implements OnInit {
 
   templatesFilter: string = ""
 
-  constructor(private router: Router, private route: ActivatedRoute, private httpService: HttpService, public scheduleService: ScheduleService) {
+  constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService) {
     this.route.queryParams.subscribe(() => {
       this.scheduleService.getSchedule().subscribe({
         next: schedule => {
