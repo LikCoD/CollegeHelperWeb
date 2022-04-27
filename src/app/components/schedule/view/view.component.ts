@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
   maxHeight: number = 0
   days: number[] = []
 
-  isEditMode = true
+  isEditMode = false
   addSubject = false
 
   templatesFilter: string = ""
