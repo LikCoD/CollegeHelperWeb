@@ -1,5 +1,5 @@
 <div class="cell">
-  <app-schedule-subject [subject]="selectedSubject"></app-schedule-subject>
+  <app-schedule-subject #subject [subject]="selectedSubject"></app-schedule-subject>
   <div *ngIf="!lesson!!.updated" class="not-updated"></div>
   <div class="btn-cell">
     <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>

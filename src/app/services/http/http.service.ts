@@ -70,39 +70,13 @@ export class HttpService {
 
   getSchedule(): Observable<Schedule> {
     return this.http.get<Schedule>(`${this.API_PATH}/schedule/view${this.router.url.substring(9)}`).pipe(map(schedule => {
-      let minHours = 24
-      let maxHours = 0
-
       schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)
-      schedule.info.times = new Collections.Set<moment.Moment>()
       schedule.info.date = moment.utc(schedule.info.date)
-      schedule.info.days = 0
 
       for (let lesson of schedule.lessons) {
         lesson.startDate = moment.utc(lesson.startDate)
         lesson.endDate = moment.utc(lesson.endDate)
-
-        schedule.info.times.add(moment(lesson.startDate.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
-        schedule.info.times.add(moment(lesson.endDate.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
-
-        let days = lesson.startDate.diff(schedule.info.startWeekDate, 'days')
-        if (schedule.info.days < days) schedule.info.days = days
-
-        let minHour = lesson.startDate.hours()
-        if (minHours > minHour) minHours = minHour
-
-        let maxHour = lesson.endDate.hours()
-        if (maxHours < maxHour) maxHours = maxHour
       }
-      maxHours++
-
-      schedule.info.days += 1
-
-      schedule.info.maxTime = moment(maxHours, [moment.ISO_8601, 'H'])
-      schedule.info.times.add(schedule.info.maxTime)
-
-      schedule.info.minTime = moment(minHours, [moment.ISO_8601, 'H'])
-      schedule.info.times.add(schedule.info.minTime)
 
       return schedule
     }))

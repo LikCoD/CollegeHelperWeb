@@ -16,6 +16,11 @@ export class ScheduleSubjectComponent implements OnInit {
   @ViewChild('teacherInput') teacherElement: ElementRef | undefined;
   @ViewChild('roomInput') roomElement: ElementRef | undefined;
 
+  setSubject(subject: Subject) {
+    this.subject = subject;
+    this.ngAfterViewInit()
+  }
+
   ngAfterViewInit() {
     if (this.subject == undefined) return
 

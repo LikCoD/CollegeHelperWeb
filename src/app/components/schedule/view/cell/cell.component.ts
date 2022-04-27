@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Lesson, ScheduleLesson, Subject} from "../../../../data";
+import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
 
 @Component({
   selector: 'app-schedule-cell',
@@ -13,6 +14,8 @@ export class CellComponent implements OnInit {
 
   selectedSubject: Subject | undefined = undefined
   selectedSubjectIndex = 0
+
+  @ViewChild('subject') subjectElement: ScheduleSubjectComponent | undefined
 
   ngOnInit(): void {
     if (this.lesson!!.subjects.length > 0)
@@ -28,6 +31,7 @@ export class CellComponent implements OnInit {
     }
 
     this.selectedSubject = this.lesson!!.subjects[this.selectedSubjectIndex]
+    this.subjectElement!!.setSubject(this.selectedSubject)
   }
 
   previousSubject(): void {
@@ -39,5 +43,6 @@ export class CellComponent implements OnInit {
     }
 
     this.selectedSubject = this.lesson!!.subjects[this.selectedSubjectIndex]
+    this.subjectElement!!.setSubject(this.selectedSubject)
   }
 }

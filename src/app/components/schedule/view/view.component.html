@@ -1,5 +1,5 @@
 <div>
-  <div style="display: flex" *ngIf="schedule">
+  <div style="display: flex" *ngIf="scheduleService.schedule">
     <div class="edit" *ngIf="isEditMode">
       <div class="edit-control">
         <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
@@ -12,7 +12,7 @@
     <div class="schedule-wrapper">
       <div style="display:flex;">
         <div class="time-container" [style.height]="maxHeight + 'px'">
-          <div *ngFor="let time of schedule.info.times.toArray()">
+          <div *ngFor="let time of scheduleService.schedule.info.times.toArray()">
             <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("hh:mm A")}}</p>
             <hr class="time-line" [style.top]="yTime(time) + 'px'">
           </div>
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="lessons-container" [style.height]="maxHeight + 'px'">
-            <div *ngFor="let lesson of schedule.lessons" class="event"
+            <div *ngFor="let lesson of scheduleService.schedule.lessons" class="event"
                  [style.top]="y(lesson)"
                  [style.left]="x(lesson)"
                  [style.width]="width(lesson)"

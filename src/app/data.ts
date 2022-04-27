@@ -133,7 +133,8 @@ export interface Info {
   times: Collections.Set<moment.Moment>
   minTime: moment.Moment,
   maxTime: moment.Moment,
-  days: number
+  days: number,
+  studyHours: number,
 }
 
 export interface StudyPlace {

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {AppComponent, errorHandler} from "../../../app.component";
+import {errorHandler} from "../../../app.component";
 import {Schedule, ScheduleLesson, Subject} from "../../../data";
 import * as moment from 'moment';
 import {HttpService} from "../../../services/http/http.service";
+import {ScheduleService} from "../../../services/shared/schedule.service";
 
 @Component({
   selector: 'app-view',
@@ -11,7 +12,6 @@ import {HttpService} from "../../../services/http/http.service";
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
-  schedule: Schedule | undefined
   weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   templateSubjects: Subject[] = []
@@ -26,12 +26,14 @@ export class ViewComponent implements OnInit {
 
   templatesFilter: string = ""
 
-  constructor(private router: Router, private parent: AppComponent, private route: ActivatedRoute, private httpService: HttpService) {
+  constructor(private router: Router, private route: ActivatedRoute, private httpService: HttpService, public scheduleService: ScheduleService) {
     this.route.queryParams.subscribe(() => {
-      this.httpService.getSchedule().subscribe({
+      this.scheduleService.getSchedule().subscribe({
         next: schedule => {
+          if (schedule == undefined) return
+
           this.maxWidth = schedule.info.days * 200 + 180
-          this.maxHeight = (schedule.info.maxTime.hours() - schedule.info.minTime.hours()) * 60 * 2
+          this.maxHeight = schedule.info.studyHours * 60 * 2
           this.days = new Array(schedule.info.days).fill(0).map((_, i) => i)
 
           this.initSchedule(schedule)
@@ -58,23 +60,21 @@ export class ViewComponent implements OnInit {
         this.templateSubjects.push(subject)
       })
     })
-
-    this.schedule = schedule
   }
 
   ngOnInit(): void {
   }
 
   x(lesson: ScheduleLesson): string {
-    return lesson.startDate.diff(this.schedule!!.info.startWeekDate, 'days') * 200 + 'px'
+    return lesson.startDate.diff(this.scheduleService.schedule!!.info.startWeekDate, 'days') * 200 + 'px'
   }
 
   y(lesson: ScheduleLesson) {
-    return ((lesson.startDate.hours() - this.schedule!!.info.minTime.hours()) * 60 + lesson.startDate.minutes()) * 2 + 'px'
+    return ((lesson.startDate.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + lesson.startDate.minutes()) * 2 + 'px'
   }
 
   yTime(time: moment.Moment) {
-    return ((time.hours() - this.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
+    return ((time.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
   }
 
   width(_: ScheduleLesson) {
@@ -100,21 +100,6 @@ export class ViewComponent implements OnInit {
   }
 
   addSubjectToSchedule(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {
-    if (this.schedule == undefined) return
-
-    let lessons = this.schedule.lessons.find(lesson => lesson.startDate.isSame(startDate) && lesson.endDate.isSame(endDate))
-    if (lessons != undefined) {
-      lessons.subjects.push(subject)
-
-      return
-    }
-
-    this.schedule.lessons.push({
-      studyPlaceId: 0,
-      updated: false,
-      startDate: startDate,
-      endDate: endDate,
-      subjects: [subject]
-    })
+    this.scheduleService.addSubject(subject, startDate, endDate)
   }
 }
