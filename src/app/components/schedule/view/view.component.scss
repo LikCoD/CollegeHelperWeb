@@ -78,15 +78,22 @@
   overflow-y: scroll;
 }
 
-.edit-control {
+.edit-control, .edit-control-footer{
   position: sticky;
-  top: 0;
   width: -webkit-fill-available;
-  margin-bottom: 15px;
 
   * {
     width: 100%;
   }
+}
+
+.edit-control {
+  top: 0;
+  margin-bottom: 15px;
+}
+
+.edit-control-footer {
+  bottom: 0;
 }
 
 .dialog {

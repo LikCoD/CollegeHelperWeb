@@ -1,15 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {Schedule, Subject} from "../../data";
+import {Schedule, ScheduleLesson, Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
-import {map, Observable, Subscriber} from "rxjs";
+import {Observable, Subscriber} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleService {
   schedule: Schedule | undefined;
+
+  addedLessons: Subject[] = [];
+  private currentAddId = 1;
 
   private scheduleObservable: Subscriber<Schedule> = new Subscriber();
   onScheduleChanged: Observable<Schedule> = new Observable<Schedule>(observer => {
@@ -68,6 +71,14 @@ export class ScheduleService {
   addSubject(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {
     if (this.schedule == undefined) return
 
+    subject.id = this.currentAddId.toString()
+    this.currentAddId += 1
+
+    subject.startTime = startDate
+    subject.endTime = endDate
+
+    this.addedLessons.push(subject)
+
     let lessons = this.schedule.lessons.find(lesson => lesson.startDate.isSame(startDate) && lesson.endDate.isSame(endDate))
     if (lessons != undefined) {
       lessons.subjects.push(subject)
@@ -84,5 +95,14 @@ export class ScheduleService {
     })
 
     this.initSchedule(this.schedule)
+  }
+
+  confirmEdit() {
+    this.addedLessons.forEach(value => value.id = "")
+    this.httpService.addLessons(this.addedLessons).subscribe(() => {
+      this.addedLessons = []
+    })
+
+    this.getSchedule()
   }
 }

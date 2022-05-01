@@ -1,4 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import * as moment from 'moment';
 import {Subject} from "../../../../data";
 
 
@@ -42,7 +43,9 @@ export class ScheduleSubjectComponent implements OnInit {
         subject: "SUBJECT",
         teacher: "TEACHER",
         title: "",
-        type: "ADDED"
+        type: "ADDED",
+        startTime: moment(),
+        endTime: moment(),
       }
     }
   }

@@ -8,6 +8,9 @@
       <div *ngFor="let subject of templateSubjects" (click)="add(subject)">
         <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject" style="width: 180px"></app-schedule-subject>
       </div>
+      <div class="edit-control-footer">
+        <button type="button" class="btn btn-light" (click)="confirmEdit()">Confirm</button>
+      </div>
     </div>
     <div class="schedule-wrapper">
       <div style="display:flex;">

@@ -27,7 +27,9 @@ export class AddSubjectDialogComponent implements OnInit {
       description: "",
       homework: "",
       title: "",
-      type: "ADDED"
+      type: "ADDED",
+      startTime: moment(),
+      endTime: moment()
     }
   }
 

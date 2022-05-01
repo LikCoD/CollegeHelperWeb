@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {errorHandler} from "../../app.component";
 import {map, Observable, Subscription} from "rxjs";
-import {Schedule, StudyPlace, User, Types} from "../../data";
+import {Schedule, StudyPlace, User, Types, Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from 'typescript-collections';
 
@@ -80,5 +80,10 @@ export class HttpService {
 
       return schedule
     }))
+  }
+
+  addLessons(lessons: Subject[]): Observable<Schedule> {
+    console.log(lessons)
+    return this.http.put<Schedule>(`${this.API_PATH}/schedule`, lessons)
   }
 }

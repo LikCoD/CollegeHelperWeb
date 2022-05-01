@@ -101,4 +101,9 @@ export class ViewComponent implements OnInit {
   addSubjectToSchedule(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {
     this.scheduleService.addSubject(subject, startDate, endDate)
   }
+
+  confirmEdit(){
+    console.table(this.scheduleService.addedLessons)
+    this.scheduleService.confirmEdit()
+  }
 }

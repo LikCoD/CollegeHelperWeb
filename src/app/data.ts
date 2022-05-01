@@ -12,6 +12,8 @@ export interface Subject {
   description: string,
   title: string,
   homework: string,
+  startTime: moment.Moment,
+  endTime: moment.Moment
 }
 
 export interface Options {
