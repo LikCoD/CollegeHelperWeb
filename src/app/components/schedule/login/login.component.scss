@@ -1,0 +1,13 @@
+input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+form {
+  width: 300px;
+  margin: 200px auto auto;
+
+  > *{
+    width: 100%;
+    margin: 0 0 15px;
+  }
+}

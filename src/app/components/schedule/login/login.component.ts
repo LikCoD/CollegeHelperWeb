@@ -1,84 +1,38 @@
-import {Component, Injectable} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpService} from "../../../services/http/http.service";
 import {Types} from "../../../data";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.scss']
 })
 
 @Injectable()
-export class LoginScheduleComponent {
-
-  studyPlaces: Array<StudyPlace> = []
-
-  selectedStudyPlace: StudyPlace = {
-    id: -1,
-    name: ""
-  }
+export class LoginScheduleComponent implements OnInit {
+  form = new FormGroup({
+    type: new FormControl("group", Validators.required),
+    name: new FormControl("", Validators.required),
+  })
 
   types: Types = new Types()
-
-  selectedType = "group"
   availableTypes: string[] = []
-  selectedName: string = ""
 
-  updateTypes(): void {
-    this.httpService.getTypes(this.selectedStudyPlace).subscribe(types => {
-      this.types = types
-
-      this.availableTypes = types.groups
-    })
+  ngOnInit() {
+    this.httpService.getTypes().subscribe(types => this.types = types)
   }
 
   constructor(private router: Router, private httpService: HttpService) {
-    httpService.getStudyPlaces().subscribe(studyPlaces => {
-      this.studyPlaces = studyPlaces
-      if (studyPlaces.length > 0) {
-        this.selectedStudyPlace = studyPlaces[0]
-        this.updateTypes()
-      }
-    })
   }
 
-  login(): void {
-    this.router.navigate(['schedule'], {
-      queryParams: {
-        studyPlaceId: this.selectedStudyPlace.id,
-        type: this.selectedType,
-        name: this.selectedName
-      }
-    });
-  }
-
-  changeStudyPlace(newName: string): void {
-    this.studyPlaces.forEach((studyPlace) => {
-      if (studyPlace.name != newName) return
-
-      this.selectedStudyPlace = studyPlace
-    })
-
-    this.updateTypes()
+  submit(): void {
+    this.router.navigate(['schedule'], {queryParams: this.form.value});
   }
 
   onTypeChanged(newType: string): void {
-    this.selectedType = newType.toLowerCase()
-
-    if (this.selectedType == "group") {
-      this.availableTypes = this.types.groups
-    } else if (this.selectedType == "teacher") {
-      this.availableTypes = this.types.teachers
-    } else if (this.selectedType == "subject") {
-      this.availableTypes = this.types.subjects
-    } else if (this.selectedType == "room") {
-      this.availableTypes = this.types.rooms
-    }
+    // @ts-ignore
+    this.availableTypes = this.types[`${newType}s`]
   }
-}
-
-interface StudyPlace {
-  id: number,
-  name: string
 }

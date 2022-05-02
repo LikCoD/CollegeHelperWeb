@@ -64,8 +64,8 @@ export class HttpService {
     return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces`)
   }
 
-  getTypes(studyPlace: StudyPlace): Observable<Types> {
-    return this.http.get<Types>(`${this.API_PATH}/schedule/types/get?studyPlaceId=` + studyPlace.id)
+  getTypes(): Observable<Types> {
+    return this.http.get<Types>(`${this.API_PATH}/schedule/types/get`)
   }
 
   getSchedule(): Observable<Schedule> {

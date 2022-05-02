@@ -1,30 +1,25 @@
-<div style="width: 300px; margin: auto; padding-top: 100px;">
-  <div>
-    <div class="form-floating" style="margin: 15px">
-      <input #studyPlaceSelect id="studyPlace" class="form-select" list="edu" value="{{selectedStudyPlace?.name}}"
-             (change)="changeStudyPlace(studyPlaceSelect.value)">
-      <label for="studyPlace">Study place</label>
-      <datalist id="edu">
-        <option *ngFor="let place of studyPlaces" id="{{place.id}}">{{place.name}}</option>
-      </datalist>
-    </div>
-    <div class="form-floating" style="margin: 15px">
-      <select #typeSelect id="type" class="form-select" (change)="onTypeChanged(typeSelect.value)">
-        <option>Group</option>
-        <option>Teacher</option>
-        <option>Subject</option>
-        <option>Room</option>
-      </select>
-      <label for="type">Type</label>
-    </div>
-    <div class="form-floating" style="margin: 15px">
-      <input id="name" class="form-select" list="names" [(ngModel)]="selectedName">
-      <label for="name">Name</label>
-      <datalist id="names">
-        <option *ngFor="let selectedType of availableTypes" value="{{selectedType}}">
-      </datalist>
-    </div>
-    <button type="button" class="btn btn-outline-light" style="width: 270px; margin: 15px" (click)="login()">Continue
-    </button>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-floating">
+    <select #typeSelect id="type" class="form-select" (change)="onTypeChanged(typeSelect.value)" formControlName="type">
+      <option value="group">Group</option>
+      <option value="teacher">Teacher</option>
+      <option value="subject">Subject</option>
+      <option value="room">Room</option>
+    </select>
+    <label for="type">Type</label>
+
+    <app-error-info [property]="form.get('type')!!"></app-error-info>
   </div>
-</div>
+
+  <div class="form-floating">
+    <input id="name" class="form-control" list="names" formControlName="name" type="text" placeholder="Name">
+    <label for="name">Name</label>
+    <datalist id="names">
+      <option *ngFor="let selectedType of availableTypes" value="{{selectedType}}">
+    </datalist>
+
+    <app-error-info [property]="form.get('name')!!"></app-error-info>
+  </div>
+
+  <button [disabled]="!form.valid" class="btn btn-outline-light" type="submit">Continue</button>
+</form>

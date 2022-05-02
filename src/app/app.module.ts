@@ -23,6 +23,7 @@ import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subj
 import {AuthComponent} from "./components/general/auth/auth.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
 import {AddSubjectDialogComponent} from "./components/schedule/view/add-subject-dialog/add-subject-dialog.component";
+import { ErrorInfoComponent } from './components/general/error-info/error-info.component';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
         ScheduleSubjectComponent,
         AuthComponent,
         UserLoginComponent,
-        AddSubjectDialogComponent
+        AddSubjectDialogComponent,
+        ErrorInfoComponent
     ],
   imports: [
     BrowserModule,
