@@ -20,6 +20,9 @@ export class ViewComponent implements OnInit {
   maxHeight: number = 0
   days: number[] = []
 
+  minDate: string = ""
+  maxDate: string = ""
+
   isEditMode = false
   addSubject = false
 
@@ -34,6 +37,9 @@ export class ViewComponent implements OnInit {
           this.maxWidth = schedule.info.days * 200 + 180
           this.maxHeight = schedule.info.studyHours * 60 * 2
           this.days = new Array(schedule.info.days).fill(0).map((_, i) => i)
+
+          this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.days, 'days').format('YYYY-MM-DD')
+          this.minDate = schedule.info.startWeekDate.format('YYYY-MM-DD')
 
           this.initSchedule(schedule)
         },
@@ -84,7 +90,7 @@ export class ViewComponent implements OnInit {
     return (((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2 + 'px')
   }
 
-  add(subject: Subject){
+  add(subject: Subject) {
     this.selectedSubject = subject
     this.addSubject = true
   }
@@ -102,7 +108,7 @@ export class ViewComponent implements OnInit {
     this.scheduleService.addSubject(subject, startDate, endDate)
   }
 
-  confirmEdit(){
+  confirmEdit() {
     console.table(this.scheduleService.addedLessons)
     this.scheduleService.confirmEdit()
   }

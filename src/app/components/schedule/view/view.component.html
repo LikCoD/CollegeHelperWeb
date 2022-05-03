@@ -6,7 +6,8 @@
         <button type="button" class="btn btn-light">Add</button>
       </div>
       <div *ngFor="let subject of templateSubjects" (click)="add(subject)">
-        <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject" style="width: 180px"></app-schedule-subject>
+        <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject"
+                              style="width: 180px"></app-schedule-subject>
       </div>
       <div class="edit-control-footer">
         <button type="button" class="btn btn-light" (click)="confirmEdit()">Confirm</button>
@@ -43,5 +44,6 @@
 </div>
 
 <div *ngIf="addSubject" class="dialog">
-  <app-add-subject-dialog class="add-subject-dialog" [templateSubject]="selectedSubject"></app-add-subject-dialog>
+  <app-add-subject-dialog class="add-subject-dialog" [templateSubject]="selectedSubject"
+                          [maxDate]="maxDate" [minDate]="minDate"></app-add-subject-dialog>
 </div>

@@ -6,11 +6,10 @@
       <app-schedule-subject #subject [subject]="templateSubject" [editable]="true"></app-schedule-subject>
     </div>
 
-
-    <input #startDate type="datetime-local" [value]="currentDate" class="form-control">
-    <input #endDate type="datetime-local" [value]="currentDate" class="form-control">
+    <input type="datetime-local" [(ngModel)]="startDate" class="form-control" [min]="currentDate" [max]="maxDate">
+    <input type="datetime-local" [(ngModel)]="endDate" class="form-control" [min]="startDate" [max]="maxDate">
 
     <button (click)="close()">X</button>
-    <button (click)="addSubject(subject.subject!!, startDate.value, endDate.value)">Add</button>
+    <button (click)="addSubject(subject.subject!!)">Add</button>
   </div>
 </div>

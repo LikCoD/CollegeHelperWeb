@@ -11,7 +11,13 @@ import * as moment from "moment";
 export class AddSubjectDialogComponent implements OnInit {
 
   @Input() templateSubject: Subject | undefined;
+  @Input() minDate: string;
+  @Input() maxDate: string;
+
   currentDate: string = moment().format('YYYY-MM-DDTHH:mm');
+
+  startDate: string = this.currentDate;
+  endDate: string = this.currentDate;
 
   constructor(public parent: ViewComponent) {
   }
@@ -37,16 +43,12 @@ export class AddSubjectDialogComponent implements OnInit {
     this.parent.addSubject = false
   }
 
-  log(e: any | undefined) {
-    console.log(e)
-  }
-
-  addSubject(subject: Subject, startDate: string, endDate: string) {
+  addSubject(subject: Subject) {
     if (subject == undefined) {
       return
     }
 
-    this.parent.addSubjectToSchedule(subject, moment.utc(startDate), moment.utc(endDate ))
+    this.parent.addSubjectToSchedule(subject, moment.utc(this.startDate), moment.utc(this.endDate))
     this.close()
   }
 
