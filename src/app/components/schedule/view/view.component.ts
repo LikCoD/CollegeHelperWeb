@@ -38,8 +38,8 @@ export class ViewComponent implements OnInit {
           this.maxHeight = schedule.info.studyHours * 60 * 2
           this.days = new Array(schedule.info.days).fill(0).map((_, i) => i)
 
-          this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.days, 'days').format('YYYY-MM-DD')
-          this.minDate = schedule.info.startWeekDate.format('YYYY-MM-DD')
+          this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.days, 'days').format('YYYY-MM-DDTHH:mm:ss')
+          this.minDate = schedule.info.startWeekDate.format('YYYY-MM-DDTHH:mm:ss')
 
           this.initSchedule(schedule)
         },
