@@ -7,12 +7,11 @@ input {
 }
 
 .cell {
-  border-radius: 25px;
   padding: 10px 15px 10px 15px;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+
+  height: 100%;
 }
 
 
@@ -28,4 +27,14 @@ input {
 
 .ADDED {
   background: styles.$addedColor
+}
+
+.topCorner{
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.bottomCorner{
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }

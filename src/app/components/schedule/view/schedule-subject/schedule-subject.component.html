@@ -1,4 +1,4 @@
-<div class="cell {{subject!!.type}}">
+<div class="cell {{subject!!.type}}" [ngClass]="{'topCorner': topCorner, 'bottomCorner': bottomCorner}">
   <p #subjectInput style="margin: 0; font-weight: bold" [contentEditable]="editable"
      (input)="subject!!.subject = subjectInput.innerText" id="subject"></p>
   <p #teacherInput style="margin: 0" [contentEditable]="editable"

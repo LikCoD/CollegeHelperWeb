@@ -12,6 +12,9 @@ export class ScheduleSubjectComponent implements OnInit {
   @Input() subject: Subject | undefined;
   @Input() editable: boolean = false;
 
+  @Input() topCorner: boolean = false;
+  @Input() bottomCorner: boolean = false;
+
   @ViewChild('subjectInput') subjectElement: ElementRef | undefined;
   @ViewChild('groupInput') groupElement: ElementRef | undefined;
   @ViewChild('teacherInput') teacherElement: ElementRef | undefined;

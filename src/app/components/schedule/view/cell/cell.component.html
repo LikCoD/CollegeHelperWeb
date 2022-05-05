@@ -1,9 +1,15 @@
-<div class="cell">
-  <app-schedule-subject #subject [subject]="selectedSubject"></app-schedule-subject>
+<div class="cell" #root>
+  <section>
+    <div *ngFor="let subject of cellSubjects[selectedSubjectIndex]; first as isFirst; last as isLast; index as index"
+         class="subject-cell">
+      <app-schedule-subject #subject [subject]="subject" [topCorner]="isFirst" [bottomCorner]="isLast">
+      </app-schedule-subject>
+    </div>
+  </section>
   <div *ngIf="!lesson!!.updated" class="not-updated"></div>
   <div class="btn-cell">
     <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
     <button (click)="nextSubject()" class="transparent-btn switchers-btn"></button>
   </div>
-  <div *ngIf="lesson!!.subjects.length > 1" class="more-circle"></div>
+  <div *ngIf="cellSubjects.length > 1" class="more-circle"></div>
 </div>
