@@ -1,4 +1,8 @@
 <div class="cell" #root>
+  <div class="edit-container">
+    <button class="edit-control-button transparent-btn">🗑</button>
+    <button class="edit-control-button transparent-btn">🖊</button>
+  </div>
   <section>
     <div *ngFor="let subject of cellSubjects[selectedSubjectIndex]; first as isFirst; last as isLast; index as index"
          class="subject-cell">

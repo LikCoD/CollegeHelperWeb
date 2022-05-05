@@ -39,7 +39,6 @@
   height: 100%;
 }
 
-
 .not-updated {
   position: absolute;
   top: 0;
@@ -72,6 +71,8 @@
 section {
   height: 100%;
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
 
@@ -84,9 +85,44 @@ section {
   }
 }
 
-.subject-cell{
+.subject-cell {
   min-height: 90px;
 
   flex-grow: 1;
 }
 
+.cell:hover .edit-container, .edit-container:hover {
+  transform: translateY(-17px);
+}
+
+.edit-container {
+  display: flex;
+
+  position: absolute;
+  top: -3px;
+
+  width: 100%;
+  height: 43px;
+
+  padding-bottom: 22px;
+
+  transition: all 0.3s;
+
+  background: linear-gradient(90deg, styles.$removedColor 50%, styles.$secondaryBackgroundColor 50%);
+
+  border-radius: 25px 25px 0 0;
+  border: none;
+}
+
+.edit-control-button {
+  padding: 0;
+  line-height: 10px;
+  flex-grow: 1;
+
+  font-weight: bold;
+  color: styles.$usualColor;
+}
+
+:host {
+  position: relative;
+}
