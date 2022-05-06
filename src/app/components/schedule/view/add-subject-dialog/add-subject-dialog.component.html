@@ -3,7 +3,8 @@
     <h3>Add Subject</h3>
 
     <div class="subject-cell">
-      <app-schedule-subject #subject [subject]="templateSubject" [editable]="true"></app-schedule-subject>
+      <app-schedule-subject #subject [subject]="templateSubject" [editable]="true" [topCorner]="true"
+                            [bottomCorner]="true"></app-schedule-subject>
     </div>
 
     <input type="datetime-local" [(ngModel)]="startDate" class="form-control" [min]="currentDate" [max]="maxDate">
