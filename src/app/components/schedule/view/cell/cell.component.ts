@@ -10,8 +10,8 @@ import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.com
 export class CellComponent implements OnInit, AfterViewInit {
   static readonly oneCellHeight = 90;
 
-  @Input()
-  lesson: ScheduleLesson
+  @Input() lesson: ScheduleLesson
+  @Input() height: number
 
   selectedSubjectIndex = 0
 
@@ -21,11 +21,7 @@ export class CellComponent implements OnInit, AfterViewInit {
   @ViewChild('root') root: ElementRef
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    let height = this.root.nativeElement.offsetHeight
-    let fitAmount = Math.floor(height / CellComponent.oneCellHeight)
+    let fitAmount = Math.floor(this.height / CellComponent.oneCellHeight)
 
     let cellSubjects: Subject[][] = []
 
@@ -38,6 +34,9 @@ export class CellComponent implements OnInit, AfterViewInit {
     });
 
     this.cellSubjects = cellSubjects
+  }
+
+  ngAfterViewInit(): void {
   }
 
   nextSubject(): void {

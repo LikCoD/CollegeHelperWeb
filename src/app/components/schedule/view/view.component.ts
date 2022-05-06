@@ -70,24 +70,24 @@ export class ViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  x(lesson: ScheduleLesson): string {
-    return lesson.startDate.diff(this.scheduleService.schedule!!.info.startWeekDate, 'days') * 200 + 'px'
+  x(lesson: ScheduleLesson): number {
+    return lesson.startDate.diff(this.scheduleService.schedule!!.info.startWeekDate, 'days') * 200
   }
 
-  y(lesson: ScheduleLesson) {
-    return ((lesson.startDate.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + lesson.startDate.minutes()) * 2 + 'px'
+  y(lesson: ScheduleLesson): number {
+    return ((lesson.startDate.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + lesson.startDate.minutes()) * 2
   }
 
   yTime(time: moment.Moment) {
     return ((time.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
   }
 
-  width(_: ScheduleLesson) {
-    return '180px'
+  width(_: ScheduleLesson): number {
+    return 180
   }
 
-  height(lesson: ScheduleLesson) {
-    return (((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2 + 'px')
+  height(lesson: ScheduleLesson): number {
+    return ((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2
   }
 
   add(subject: Subject) {

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {Schedule, ScheduleLesson, Subject} from "../../data";
+import {Schedule, Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
-import {Observable, Subscriber} from "rxjs";
+import * as rxjs from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,7 @@ export class ScheduleService {
   addedLessons: Subject[] = [];
   private currentAddId = 1;
 
-  private scheduleObservable: Subscriber<Schedule> = new Subscriber();
-  onScheduleChanged: Observable<Schedule> = new Observable<Schedule>(observer => {
-    this.scheduleObservable = observer;
-  });
+  scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
 
   constructor(private httpService: HttpService) {
 
@@ -56,16 +53,13 @@ export class ScheduleService {
     schedule.info.studyHours = schedule.info.maxTime.hours() - schedule.info.minTime.hours()
 
     this.schedule = schedule
-    this.scheduleObservable.next(schedule)
+    this.scheduleChange.next(schedule)
   }
 
-  getSchedule(): Observable<Schedule | undefined> {
-    this.httpService.getSchedule().subscribe(schedule => {
-      this.initSchedule(schedule)
-    })
+  getSchedule(): rxjs.Subject<Schedule> {
+    this.httpService.getSchedule().subscribe(this.initSchedule.bind(this));
 
-
-    return this.onScheduleChanged
+    return this.scheduleChange
   }
 
   addSubject(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {

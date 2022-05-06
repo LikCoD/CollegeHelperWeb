@@ -29,11 +29,11 @@
           </div>
           <div class="lessons-container" [style.height]="maxHeight + 'px'">
             <div *ngFor="let lesson of scheduleService.schedule.lessons" class="event"
-                 [style.top]="y(lesson)"
-                 [style.left]="x(lesson)"
-                 [style.width]="width(lesson)"
-                 [style.height]="height(lesson)">
-              <app-schedule-cell [lesson]="lesson"></app-schedule-cell>
+                 [style.top.px]="y(lesson)"
+                 [style.left.px]="x(lesson)"
+                 [style.width.px]="width(lesson)"
+                 [style.height.px]="height(lesson)">
+              <app-schedule-cell [lesson]="lesson" [height]="height(lesson)"></app-schedule-cell>
             </div>
           </div>
         </div>
