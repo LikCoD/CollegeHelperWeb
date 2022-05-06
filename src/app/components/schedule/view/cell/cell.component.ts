@@ -1,17 +1,20 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Lesson, ScheduleLesson, Subject} from "../../../../data";
 import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-schedule-cell',
   templateUrl: './cell.component.html',
   styleUrls: ['./cell.component.scss']
 })
-export class CellComponent implements OnInit, AfterViewInit {
+export class CellComponent implements OnInit {
   static readonly oneCellHeight = 90;
 
   @Input() lesson: ScheduleLesson
   @Input() height: number
+
+  @Input() isEditMode: boolean
 
   selectedSubjectIndex = 0
 
@@ -36,7 +39,8 @@ export class CellComponent implements OnInit, AfterViewInit {
     this.cellSubjects = cellSubjects
   }
 
-  ngAfterViewInit(): void {
+  showEditControls(): boolean {
+    return this.isEditMode && moment().utc(true).isBefore(this.lesson.startDate)
   }
 
   nextSubject(): void {
