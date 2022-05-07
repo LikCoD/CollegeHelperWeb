@@ -11,10 +11,9 @@ import * as moment from "moment";
 export class AddSubjectDialogComponent implements OnInit {
 
   @Input() templateSubject: Subject | undefined;
-  @Input() minDate: string;
   @Input() maxDate: string;
 
-  currentDate: string = moment().format('YYYY-MM-DDTHH:mm');
+  currentDate: string = moment().format('YYYY-MM-DD');
 
   startDate: string = this.currentDate;
   endDate: string = this.currentDate;

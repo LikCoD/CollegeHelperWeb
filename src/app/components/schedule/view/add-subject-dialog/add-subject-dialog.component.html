@@ -1,16 +1,24 @@
 <div class="dialog">
-  <div>
+  <button (click)="close()" class="btn-close"></button>
+
+  <form>
     <h3>Add Subject</h3>
 
-    <div class="subject-cell">
-      <app-schedule-subject #subject [subject]="templateSubject" [editable]="true" [topCorner]="true"
-                            [bottomCorner]="true"></app-schedule-subject>
+    <div class="date-container">
+      <p>Date:</p>
+      <input type="date" class="form-control" [min]="currentDate" [max]="maxDate">
+    </div>
+    <div class="subject-row">
+      <app-schedule-subject #subject [subject]="templateSubject" [editable]="true"
+                            [topCorner]="true" [bottomCorner]="true"></app-schedule-subject>
+
+      <div class="time-container">
+        <input type="time" [(ngModel)]="startDate" class="form-control" [ngModelOptions]="{standalone: true}">
+        <input type="time" [(ngModel)]="endDate" class="form-control" [ngModelOptions]="{standalone: true}">
+      </div>
     </div>
 
-    <input type="datetime-local" [(ngModel)]="startDate" class="form-control" [min]="currentDate" [max]="maxDate">
-    <input type="datetime-local" [(ngModel)]="endDate" class="form-control" [min]="startDate" [max]="maxDate">
 
-    <button (click)="close()">X</button>
-    <button (click)="addSubject(subject.subject!!)">Add</button>
-  </div>
+    <button type="submit" (click)="addSubject(subject.subject!!)" class="btn btn-outline-dark">Add</button>
+  </form>
 </div>
