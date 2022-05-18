@@ -1,21 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {Subject} from "../../../../data";
-import {ViewComponent} from "../view.component";
 import * as moment from "moment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-subject-dialog',
   templateUrl: './add-subject-dialog.component.html',
   styleUrls: ['./add-subject-dialog.component.scss']
 })
-export class AddSubjectDialogComponent implements OnInit {
+export class AddSubjectDialogComponent {
 
   subject: Subject | undefined
 
-  @Input() maxDate: string;
-
-  @Input()
   set templateSubject(value: Subject | undefined) {
     if (value == undefined) value = {
       group: "GROUP",
@@ -40,18 +37,12 @@ export class AddSubjectDialogComponent implements OnInit {
 
   currentDate: string = moment().format('YYYY-MM-DD');
 
-  startDate: string = this.currentDate;
-  endDate: string = this.currentDate;
-
-  constructor(public parent: ViewComponent) {
-  }
-
-  ngOnInit(): void {
-    //this.form.get("subject")!!.setValue(this.templateSubject);
+  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Subject) {
+    this.templateSubject = data
   }
 
   close() {
-    this.parent.addSubject = false
+    this.dialogRef.close()
   }
 
   submit() {
@@ -63,8 +54,8 @@ export class AddSubjectDialogComponent implements OnInit {
       endTime: moment(value.date + ' ' + value.endTime),
     }
 
-    this.parent.addSubjectToSchedule(s)
-    // this.close()
+    //this.parent.addSubjectToSchedule(s)
+    this.dialogRef.close(s)
   }
 
 }

@@ -7,7 +7,7 @@
     <div class="date-container">
       <p>Date:</p>
       <div style="display: block">
-        <input type="date" class="form-control" [min]="currentDate" [max]="maxDate" formControlName="date">
+        <input type="date" class="form-control" [min]="currentDate" formControlName="date">
         <app-error-info [property]="form.get('date')!!"></app-error-info>
       </div>
     </div>

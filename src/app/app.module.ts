@@ -13,7 +13,6 @@ import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/se
 import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 import {LogComponent} from "./components/general/log/log/log.component";
-import {MatTableModule} from "@angular/material/table";
 import {UserRegisterComponent} from "./components/user/register/user-register.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component";
@@ -24,6 +23,8 @@ import {AuthComponent} from "./components/general/auth/auth.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
 import {AddSubjectDialogComponent} from "./components/schedule/view/add-subject-dialog/add-subject-dialog.component";
 import { ErrorInfoComponent } from './components/general/error-info/error-info.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 const appRoutes: Routes = [
@@ -66,7 +67,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgxPopperjsModule,
-    MatTableModule
+    MatDialogModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

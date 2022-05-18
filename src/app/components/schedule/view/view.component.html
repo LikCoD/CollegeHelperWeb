@@ -5,7 +5,7 @@
         <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
         <button type="button" class="btn btn-light" (click)="add()">Add</button>
       </div>
-      <div *ngFor="let subject of templateSubjects" (click)="add(subject)">
+      <div *ngFor="let subject of templateSubjects" (click)="add(subject)" style="margin-top: 10px">
         <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject"
                               style="width: 180px" [topCorner]="true" [bottomCorner]="true"></app-schedule-subject>
       </div>
@@ -44,7 +44,3 @@
   <button (click)="isEditMode = !isEditMode">Edit</button>
 </div>
 
-<div *ngIf="addSubject" class="dialog">
-  <app-add-subject-dialog class="add-subject-dialog" [templateSubject]="selectedSubject"
-                          [maxDate]="maxDate"></app-add-subject-dialog>
-</div>

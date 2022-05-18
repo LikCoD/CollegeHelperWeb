@@ -4,6 +4,8 @@ import {errorHandler} from "../../../app.component";
 import {Schedule, ScheduleLesson, Subject} from "../../../data";
 import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
+import {AddSubjectDialogComponent} from "./add-subject-dialog/add-subject-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-view',
@@ -14,7 +16,6 @@ export class ViewComponent {
   weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   templateSubjects: Subject[] = []
-  selectedSubject: Subject | undefined
 
   maxWidth: number = 0
   maxHeight: number = 0
@@ -23,11 +24,10 @@ export class ViewComponent {
   maxDate: string = ""
 
   isEditMode = false
-  addSubject = false
 
   templatesFilter: string = ""
 
-  constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService) {
+  constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService, public dialog: MatDialog) {
     this.route.queryParams.subscribe(() => {
       this.scheduleService.getSchedule().subscribe({
         next: schedule => {
@@ -83,8 +83,8 @@ export class ViewComponent {
   }
 
   add(subject: Subject | undefined = undefined) {
-    this.selectedSubject = subject
-    this.addSubject = true
+    const dialogRef = this.dialog.open(AddSubjectDialogComponent, { data: subject })
+    dialogRef.afterClosed().subscribe((subject: Subject) => this.addSubjectToSchedule(subject))
   }
 
   templateFilter(input: string, subject: Subject): boolean {
