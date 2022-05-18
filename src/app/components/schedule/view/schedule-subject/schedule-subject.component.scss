@@ -4,6 +4,18 @@ input {
   background: transparent;
   border: none;
   width: inherit;
+
+  margin: 0;
+  padding: 0;
+  color: currentcolor;
+}
+
+input:read-only:focus-visible {
+  outline: none;
+}
+
+.subject-name {
+  font-weight: bold;
 }
 
 .cell {
@@ -29,12 +41,23 @@ input {
   background: styles.$addedColor
 }
 
-.topCorner{
+.topCorner {
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 }
 
-.bottomCorner{
+.bottomCorner {
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
+}
+
+div {
+  display: flex;
+  * {
+    width: 50%;
+
+    &:last-child {
+      text-align: end;
+    }
+  }
 }

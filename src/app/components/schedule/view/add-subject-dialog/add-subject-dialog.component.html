@@ -1,24 +1,38 @@
 <div class="dialog">
   <button (click)="close()" class="btn-close"></button>
 
-  <form>
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <h3>Add Subject</h3>
 
     <div class="date-container">
       <p>Date:</p>
-      <input type="date" class="form-control" [min]="currentDate" [max]="maxDate">
+      <div style="display: block">
+        <input type="date" class="form-control" [min]="currentDate" [max]="maxDate" formControlName="date">
+        <app-error-info [property]="form.get('date')!!"></app-error-info>
+      </div>
     </div>
     <div class="subject-row">
-      <app-schedule-subject #subject [subject]="templateSubject" [editable]="true"
-                            [topCorner]="true" [bottomCorner]="true"></app-schedule-subject>
+      <div style="display: block">
+        <div style="width: 180px; height: 90px">
+          <app-schedule-subject [editable]="true" [topCorner]="true" [bottomCorner]="true"
+                                formControlName="subject"></app-schedule-subject>
+        </div>
+        <app-error-info [property]="form.get('subject')!!"></app-error-info>
+      </div>
 
       <div class="time-container">
-        <input type="time" [(ngModel)]="startDate" class="form-control" [ngModelOptions]="{standalone: true}">
-        <input type="time" [(ngModel)]="endDate" class="form-control" [ngModelOptions]="{standalone: true}">
+        <div>
+          <input type="time" class="form-control" formControlName="startTime">
+          <app-error-info [property]="form.get('startTime')!!"></app-error-info>
+        </div>
+
+        <div>
+          <input type="time" class="form-control" formControlName="endTime">
+          <app-error-info [property]="form.get('endTime')!!"></app-error-info>
+        </div>
       </div>
     </div>
 
-
-    <button type="submit" (click)="addSubject(subject.subject!!)" class="btn btn-outline-dark">Add</button>
+    <button [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">Add</button>
   </form>
 </div>

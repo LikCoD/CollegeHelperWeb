@@ -2,18 +2,18 @@ import * as moment from "moment";
 import * as Collections from "typescript-collections";
 
 export interface Subject {
-  id: string
+  id?: string
   subject: string
   teacher: string
   room: string
   group: string
   type: string
-  date: Date
-  description: string,
-  title: string,
-  homework: string,
-  startTime: moment.Moment,
-  endTime: moment.Moment
+  date?: Date
+  description?: string,
+  title?: string,
+  homework?: string,
+  startTime?: moment.Moment,
+  endTime?: moment.Moment
 }
 
 export interface Options {

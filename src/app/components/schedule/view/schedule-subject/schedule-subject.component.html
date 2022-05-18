@@ -1,12 +1,9 @@
-<div class="cell {{subject!!.type}}" [ngClass]="{'topCorner': topCorner, 'bottomCorner': bottomCorner}">
-  <p #subjectInput style="margin: 0; font-weight: bold" [contentEditable]="editable"
-     (input)="subject!!.subject = subjectInput.innerText" id="subject"></p>
-  <p #teacherInput style="margin: 0" [contentEditable]="editable"
-     (input)="subject!!.teacher = teacherInput.innerText">{{ subject!!.teacher }}</p>
-  <div style="display: flex">
-    <p #roomInput style="margin: 0" [contentEditable]="editable"
-       (input)="subject!!.room = roomInput.innerText">{{ subject!!.room }}</p>
-    <p #groupInput style="margin: 0 0 0 auto;" [contentEditable]="editable"
-       (input)="subject!!.group = groupInput.innerText">{{ subject!!.group }}</p>
+<form class="cell {{type}}" [ngClass]="{'topCorner': topCorner, 'bottomCorner': bottomCorner}"
+      [formGroup]="form">
+  <input class="subject-name" [readOnly]="!editable" formControlName="subject">
+  <input [readOnly]="!editable" formControlName="teacher">
+  <div>
+    <input [readOnly]="!editable" formControlName="room">
+    <input [readOnly]="!editable" formControlName="group">
   </div>
-</div>
+</form>

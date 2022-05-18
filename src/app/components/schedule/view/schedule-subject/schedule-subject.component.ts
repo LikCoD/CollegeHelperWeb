@@ -1,57 +1,88 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import * as moment from 'moment';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {Subject} from "../../../../data";
-
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl, FormGroup, NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors,
+  Validator, Validators
+} from "@angular/forms";
 
 @Component({
   selector: 'app-schedule-subject',
   templateUrl: './schedule-subject.component.html',
-  styleUrls: ['./schedule-subject.component.scss']
+  styleUrls: ['./schedule-subject.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ScheduleSubjectComponent),
+      multi: true
+    }, {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ScheduleSubjectComponent),
+      multi: true
+    }
+  ]
 })
-export class ScheduleSubjectComponent implements OnInit {
-  @Input() subject: Subject | undefined;
+export class ScheduleSubjectComponent implements OnInit, Validator, ControlValueAccessor {
+  type: string = "ADDED"
+
+  value: any = ""
+
+  @Input()
+  set subject(value: Subject | undefined) {
+    if (value == undefined) return
+
+    this.type = value!!.type
+
+    this.form.get("subject")!!.setValue(value.subject);
+    this.form.get("teacher")!!.setValue(value.teacher);
+    this.form.get("room")!!.setValue(value.room);
+    this.form.get("group")!!.setValue(value.group);
+  }
+
   @Input() editable: boolean = false;
 
   @Input() topCorner: boolean = false;
   @Input() bottomCorner: boolean = false;
 
-  @ViewChild('subjectInput') subjectElement: ElementRef | undefined;
-  @ViewChild('groupInput') groupElement: ElementRef | undefined;
-  @ViewChild('teacherInput') teacherElement: ElementRef | undefined;
-  @ViewChild('roomInput') roomElement: ElementRef | undefined;
+  onChange: any
 
-  setSubject(subject: Subject) {
-    this.subject = subject;
-    this.ngAfterViewInit()
-  }
-
-  ngAfterViewInit() {
-    if (this.subject == undefined) return
-
-    this.subjectElement!!.nativeElement.innerText = this.subject.subject
-    this.groupElement!!.nativeElement.innerText = this.subject.group
-    this.teacherElement!!.nativeElement.innerText = this.subject.teacher
-    this.roomElement!!.nativeElement.innerText = this.subject.room
-  }
+  form = new FormGroup({
+    subject: new FormControl("SUBJECT", Validators.required),
+    teacher: new FormControl("TEACHER", Validators.required),
+    room: new FormControl("ROOM", Validators.required),
+    group: new FormControl("GROUP", Validators.required),
+  })
 
   ngOnInit(): void {
-    if (this.subject == undefined){
-      this.subject = {
-        date: new Date(),
-        description: "",
-        group: "GROUP",
-        homework: "",
-        id: "",
-        room: "ROOM",
-        subject: "SUBJECT",
-        teacher: "TEACHER",
-        title: "",
-        type: "ADDED",
-        startTime: moment(),
-        endTime: moment(),
-      }
-    }
+    this.form.statusChanges.subscribe(() => {
+      if (typeof this.onChange !== "function") return
+
+      this.onChange({...this.form.value, type: this.type})
+    })
   }
 
+  validate(control: AbstractControl): ValidationErrors | null {
+    if (this.form.get("subject")?.errors != null) return this.form.get("subject")!!.errors
+    if (this.form.get("teacher")?.errors != null) return this.form.get("teacher")!!.errors
+    if (this.form.get("room")?.errors != null) return this.form.get("room")!!.errors
+    if (this.form.get("group")?.errors != null) return this.form.get("group")!!.errors
 
+    return null
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn
+  }
+
+  registerOnTouched(fn: any): void {
+    fn()
+  }
+
+  writeValue(obj: any): void {
+    if (obj == undefined) return
+
+    this.subject = obj
+  }
 }

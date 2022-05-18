@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {Schedule, Subject} from "../../data";
+import {Schedule, ScheduleLesson, Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
 import * as rxjs from "rxjs";
@@ -14,7 +14,7 @@ export class ScheduleService {
   addedLessons: Subject[] = [];
   private currentAddId = 1;
 
-  scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
+  scheduleChange: rxjs.SubjectLike<Schedule> = new rxjs.Subject<Schedule>()
 
   constructor(private httpService: HttpService) {
 
@@ -56,35 +56,32 @@ export class ScheduleService {
     this.scheduleChange.next(schedule)
   }
 
-  getSchedule(): rxjs.Subject<Schedule> {
+  getSchedule(): rxjs.SubjectLike<Schedule> {
     this.httpService.getSchedule().subscribe(this.initSchedule.bind(this));
 
     return this.scheduleChange
   }
 
-  addSubject(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {
+  addSubject(subject: Subject) {
     if (this.schedule == undefined) return
 
     subject.id = this.currentAddId.toString()
     this.currentAddId += 1
 
-    subject.startTime = startDate
-    subject.endTime = endDate
-
     this.addedLessons.push(subject)
 
-    let lessons = this.schedule.lessons.find(lesson => lesson.startDate.isSame(startDate) && lesson.endDate.isSame(endDate))
+    let lessons = this.schedule.lessons.find(lesson => lesson.startDate.isSame(subject.startTime) && lesson.endDate.isSame(subject.endTime))
     if (lessons != undefined) {
       lessons.subjects.push(subject)
 
       return
     }
 
-    this.schedule.lessons.push({
+    this.schedule.lessons.push(<ScheduleLesson>{
       studyPlaceId: 0,
       updated: false,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: subject.startTime,
+      endDate: subject.endTime,
       subjects: [subject]
     })
 

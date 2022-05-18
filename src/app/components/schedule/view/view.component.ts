@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {errorHandler} from "../../../app.component";
 import {Schedule, ScheduleLesson, Subject} from "../../../data";
@@ -10,7 +10,7 @@ import {ScheduleService} from "../../../services/shared/schedule.service";
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent {
   weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   templateSubjects: Subject[] = []
@@ -31,8 +31,6 @@ export class ViewComponent implements OnInit {
     this.route.queryParams.subscribe(() => {
       this.scheduleService.getSchedule().subscribe({
         next: schedule => {
-          if (schedule == undefined) return
-
           this.maxWidth = schedule.info.days * 200 + 180
           this.maxHeight = schedule.info.studyHours * 60 * 2
           this.days = new Array(schedule.info.days).fill(0).map((_, i) => i)
@@ -48,7 +46,6 @@ export class ViewComponent implements OnInit {
 
   initSchedule(schedule: Schedule) {
     schedule.lessons.forEach(lesson => {
-      if (lesson == null) return
       lesson.subjects.forEach(subject => {
         let add = true
         this.templateSubjects.forEach(templateSubject => {
@@ -63,9 +60,6 @@ export class ViewComponent implements OnInit {
         this.templateSubjects.push(subject)
       })
     })
-  }
-
-  ngOnInit(): void {
   }
 
   x(lesson: ScheduleLesson): number {
@@ -102,12 +96,11 @@ export class ViewComponent implements OnInit {
       || subject.room.toLowerCase().includes(input)
   }
 
-  addSubjectToSchedule(subject: Subject, startDate: moment.Moment, endDate: moment.Moment) {
-    this.scheduleService.addSubject(subject, startDate, endDate)
+  addSubjectToSchedule(subject: Subject) {
+    this.scheduleService.addSubject(subject)
   }
 
   confirmEdit() {
-    console.table(this.scheduleService.addedLessons)
     this.scheduleService.confirmEdit()
   }
 }
