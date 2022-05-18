@@ -3,7 +3,7 @@
     <div class="edit" *ngIf="isEditMode">
       <div class="edit-control">
         <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
-        <button type="button" class="btn btn-light">Add</button>
+        <button type="button" class="btn btn-light" (click)="add()">Add</button>
       </div>
       <div *ngFor="let subject of templateSubjects" (click)="add(subject)">
         <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject"

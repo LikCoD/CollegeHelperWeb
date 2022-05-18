@@ -17,7 +17,13 @@ export class AddSubjectDialogComponent implements OnInit {
 
   @Input()
   set templateSubject(value: Subject | undefined) {
-    if (value == undefined) return
+    if (value == undefined) value = {
+      group: "GROUP",
+      room: "ROOM",
+      teacher: "TEACHER",
+      subject: "SUBJECT",
+      type: "ADDED"
+    }
 
     this.subject = value
     this.subject.type = "ADDED"

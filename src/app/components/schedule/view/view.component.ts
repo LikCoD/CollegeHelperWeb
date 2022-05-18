@@ -82,7 +82,7 @@ export class ViewComponent {
     return ((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2
   }
 
-  add(subject: Subject) {
+  add(subject: Subject | undefined = undefined) {
     this.selectedSubject = subject
     this.addSubject = true
   }
