@@ -1,8 +1,8 @@
 import {Component, Inject} from '@angular/core';
-import {Subject} from "../../../../data";
 import * as moment from "moment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Lesson} from "../../../../models";
 
 @Component({
   selector: 'app-add-subject-dialog',
@@ -11,21 +11,22 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class AddSubjectDialogComponent {
 
-  subject: Subject | undefined
+  lesson: Lesson | undefined
 
-  set templateSubject(value: Subject | undefined) {
+  set templateSubject(value: Lesson | undefined) {
     if (value == undefined) value = {
       group: "GROUP",
       room: "ROOM",
       teacher: "TEACHER",
       subject: "SUBJECT",
-      type: "ADDED"
+      type: "ADDED",
+      updated: true
     }
 
-    this.subject = value
-    this.subject.type = "ADDED"
+    this.lesson = value
+    this.lesson.type = "ADDED"
 
-    this.form.get("subject")!!.setValue(this.subject);
+    this.form.get("subject")!!.setValue(this.lesson);
   }
 
   form = new FormGroup({
@@ -37,7 +38,7 @@ export class AddSubjectDialogComponent {
 
   currentDate: string = moment().format('YYYY-MM-DD');
 
-  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Subject) {
+  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Lesson) {
     this.templateSubject = data
   }
 
@@ -48,14 +49,13 @@ export class AddSubjectDialogComponent {
   submit() {
     let value = this.form.value
 
-    let s = <Subject>{
+    let lesson = <Lesson>{
       ...value.subject,
       startTime: moment(value.date + ' ' + value.startTime),
       endTime: moment(value.date + ' ' + value.endTime),
     }
 
-    //this.parent.addSubjectToSchedule(s)
-    this.dialogRef.close(s)
+    this.dialogRef.close(lesson)
   }
 
 }

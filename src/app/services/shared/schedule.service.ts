@@ -30,16 +30,16 @@ export class ScheduleService {
     let daysNumber = 0
 
     for (let lesson of schedule.lessons) {
-      times.add(moment(lesson.startDate.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
-      times.add(moment(lesson.endDate.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
+      times.add(moment(lesson.startDate!!.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
+      times.add(moment(lesson.endDate!!.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
 
-      let days = lesson.startDate.diff(schedule.info.startWeekDate, 'days')
+      let days = lesson.startDate!!.diff(schedule.info.startWeekDate, 'days')
       if (daysNumber < days) daysNumber = days
 
-      let minHour = lesson.startDate.hours()
+      let minHour = lesson.startDate!!.hours()
       if (minHours > minHour) minHours = minHour
 
-      let maxHour = lesson.endDate.hours()
+      let maxHour = lesson.endDate!!.hours()
       if (maxHours < maxHour) maxHours = maxHour
     }
     maxHours++
@@ -64,7 +64,7 @@ export class ScheduleService {
     return this.scheduleChange
   }
 
-  addSubject(subject: Subject) {
+  addLesson(subject: Subject) {
     if (this.schedule == undefined) return
 
     subject.id = this.currentAddId.toString()

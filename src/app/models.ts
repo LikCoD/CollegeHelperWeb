@@ -2,19 +2,19 @@ import * as moment from "moment";
 import {StudyPlace} from "./data";
 
 export interface Lesson {
-  id: string
-  studyPlaceId: string
+  id?: string
+  studyPlaceId?: string
   updated: boolean
   type: string
-  endDate: moment.Moment
-  startDate: moment.Moment
+  endDate?: moment.Moment
+  startDate?: moment.Moment
   subject: string
   group: string
   teacher: string
   room: string
-  title: string
-  homework: string
-  description: string
+  title?: string
+  homework?: string
+  description?: string
 }
 
 export interface ScheduleInfo {

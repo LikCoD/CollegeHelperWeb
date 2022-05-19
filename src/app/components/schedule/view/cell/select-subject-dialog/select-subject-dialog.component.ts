@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ScheduleLesson, Subject} from "../../../../../data";
 import {AddSubjectDialogComponent} from "../../add-subject-dialog/add-subject-dialog.component";
+import {Cell, Lesson} from "../../../../../models";
 
 @Component({
   selector: 'app-select-subject-dialog',
@@ -10,13 +10,13 @@ import {AddSubjectDialogComponent} from "../../add-subject-dialog/add-subject-di
 })
 export class SelectSubjectDialogComponent {
 
-  lessons: Subject[]
+  lessons: Lesson[]
 
-  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: ScheduleLesson) {
-    this.lessons = data.subjects
+  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Cell) {
+    this.lessons = data.lessons
   }
 
-  select(lesson: Subject) {
+  select(lesson: Lesson) {
     this.dialogRef.close([lesson])
   }
 

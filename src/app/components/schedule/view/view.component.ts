@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {errorHandler} from "../../../app.component";
-import {Subject} from "../../../data";
 import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
 import {AddSubjectDialogComponent} from "./add-subject-dialog/add-subject-dialog.component";
@@ -17,7 +16,7 @@ import {groupBy} from "../../../utils";
 export class ViewComponent {
   weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-  templateSubjects: Subject[] = []
+  templateSubjects: Lesson[] = []
 
   maxWidth: number = 0
   maxHeight: number = 0
@@ -42,7 +41,7 @@ export class ViewComponent {
 
           this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.daysNumber, 'days').format('YYYY-MM-DD')
 
-          this.cells = groupBy(schedule.lessons, lesson => lesson.startDate.format() + lesson.endDate.format())
+          this.cells = groupBy(schedule.lessons, lesson => lesson.startDate!!.format() + lesson.endDate!!.format())
             .map((value: Lesson[]) => <Cell>{
                 startDate: value[0].startDate,
                 endDate: value[0].endDate,
@@ -96,26 +95,26 @@ export class ViewComponent {
     return ((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2
   }
 
-  add(subject: Subject | undefined = undefined) {
-    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: subject})
-    dialogRef.afterClosed().subscribe((subject: Subject) => this.addSubjectToSchedule(subject))
+  add(lesson: Lesson | undefined = undefined) {
+    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: lesson})
+    dialogRef.afterClosed().subscribe((lesson: Lesson) => this.addSubjectToSchedule(lesson))
   }
 
-  templateFilter(input: string, subject: Subject): boolean {
+  templateFilter(input: string, lesson: Lesson): boolean {
     input = input.toLowerCase()
 
-    return subject.subject.toLowerCase().includes(input)
-      || subject.group.toLowerCase().includes(input)
-      || subject.teacher.toLowerCase().includes(input)
-      || subject.room.toLowerCase().includes(input)
+    return lesson.subject.toLowerCase().includes(input)
+      || lesson.group.toLowerCase().includes(input)
+      || lesson.teacher.toLowerCase().includes(input)
+      || lesson.room.toLowerCase().includes(input)
   }
 
   //removeSubjectFromSchedule(subject: Subject) {
     //this.scheduleService.removeLesson(subject)
   //}
 
-  addSubjectToSchedule(subject: Subject) {
-    this.scheduleService.addSubject(subject)
+  addSubjectToSchedule(lesson: Lesson) {
+    this.scheduleService.addLesson(lesson)
   }
 
   confirmEdit() {

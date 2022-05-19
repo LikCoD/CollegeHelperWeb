@@ -3,7 +3,7 @@
   <h4>Select subject</h4>
   <section>
     <div *ngFor="let lesson of lessons; first as isFirst; last as isLast;">
-      <app-schedule-subject [subject]="lesson" [topCorner]="isFirst" [bottomCorner]="isLast" (click)="select(lesson)"></app-schedule-subject>
+      <app-schedule-subject [lesson]="lesson" [topCorner]="isFirst" [bottomCorner]="isLast" (click)="select(lesson)"></app-schedule-subject>
     </div>
   </section>
   <button class="btn btn-outline-light select-all-btn">Select all</button>

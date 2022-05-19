@@ -1,5 +1,4 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {Subject} from "../../../../data";
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -7,6 +6,7 @@ import {
   NG_VALUE_ACCESSOR, ValidationErrors,
   Validator, Validators
 } from "@angular/forms";
+import {Lesson} from "../../../../models";
 
 @Component({
   selector: 'app-schedule-subject',
@@ -30,7 +30,7 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
   value: any = ""
 
   @Input()
-  set subject(value: Subject | undefined) {
+  set lesson(value: Lesson | undefined) {
     if (value == undefined) return
 
     this.type = value!!.type
@@ -83,6 +83,6 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
   writeValue(obj: any): void {
     if (obj == undefined) return
 
-    this.subject = obj
+    this.lesson = obj
   }
 }

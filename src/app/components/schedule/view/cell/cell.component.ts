@@ -80,7 +80,7 @@ export class CellComponent implements OnInit {
   }
 
   removeSubject(subjects: Subject[]): void {
-    for (let subject of subjects)
-      this.scheduleService.removeLesson(subject, this.cell.startDate, this.cell.endDate)
+    for (let subject of subjects) return
+      //this.scheduleService.removeLesson(subject, this.cell.startDate, this.cell.endDate)
   }
 }

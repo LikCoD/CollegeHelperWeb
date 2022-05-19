@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-light" (click)="add()">Add</button>
       </div>
       <div *ngFor="let subject of templateSubjects" (click)="add(subject)" style="margin-top: 10px">
-        <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [subject]="subject"
+        <app-schedule-subject *ngIf="templateFilter(templatesFilter, subject)" [lesson]="subject"
                               style="width: 180px" [topCorner]="true" [bottomCorner]="true"></app-schedule-subject>
       </div>
       <div class="edit-control-footer">
