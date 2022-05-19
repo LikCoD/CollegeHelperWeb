@@ -23,7 +23,7 @@ export class ViewComponent {
 
   maxDate: string = ""
 
-  isEditMode = !false
+  isEditMode = false
 
   schedule: Schedule | undefined
 
