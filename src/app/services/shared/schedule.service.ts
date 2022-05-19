@@ -12,6 +12,7 @@ export class ScheduleService {
   schedule: Schedule | undefined;
 
   addedLessons: Subject[] = [];
+  removedLessons: Subject[] = [];
   private currentAddId = 1;
 
   scheduleChange: rxjs.SubjectLike<Schedule> = new rxjs.Subject<Schedule>()
@@ -86,6 +87,15 @@ export class ScheduleService {
     })
 
     this.initSchedule(this.schedule)
+  }
+
+  removeLesson(lesson: Subject, startTime: moment.Moment, endTime: moment.Moment){
+    this.removedLessons.push(lesson)
+
+    let lessons = this.schedule!!.lessons.find(l => l.startDate.isSame(startTime) && l.endDate.isSame(endTime))!!
+    lessons.subjects.splice(lessons.subjects.indexOf(lesson), 1)
+
+    this.scheduleChange.next(this.schedule!!)
   }
 
   confirmEdit() {

@@ -23,7 +23,9 @@ export class ViewComponent {
 
   maxDate: string = ""
 
-  isEditMode = false
+  isEditMode = !false
+
+  schedule: Schedule | undefined
 
   templatesFilter: string = ""
 
@@ -38,6 +40,8 @@ export class ViewComponent {
           this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.days, 'days').format('YYYY-MM-DD')
 
           this.initSchedule(schedule)
+
+          this.schedule = schedule
         },
         error: errorHandler
       })
@@ -94,6 +98,10 @@ export class ViewComponent {
       || subject.group.toLowerCase().includes(input)
       || subject.teacher.toLowerCase().includes(input)
       || subject.room.toLowerCase().includes(input)
+  }
+
+  removeSubjectFromSchedule(subject: Subject){
+    //this.scheduleService.removeLesson(subject)
   }
 
   addSubjectToSchedule(subject: Subject) {
