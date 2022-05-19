@@ -1,10 +1,11 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ScheduleLesson, Subject} from "../../../../data";
+import {Subject} from "../../../../data";
 import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
 import * as moment from "moment";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
 import {ScheduleService} from "../../../../services/shared/schedule.service";
+import {Cell, Lesson} from "../../../../models";
 
 @Component({
   selector: 'app-schedule-cell',
@@ -14,7 +15,8 @@ import {ScheduleService} from "../../../../services/shared/schedule.service";
 export class CellComponent implements OnInit {
   static readonly oneCellHeight = 90;
 
-  @Input() lesson: ScheduleLesson
+  @Input() cell: Cell
+
   @Input() height: number
 
   @Input() isEditMode: boolean
@@ -23,7 +25,7 @@ export class CellComponent implements OnInit {
 
   selectedSubjectIndex = 0
 
-  cellSubjects: Subject[][] = []
+  lessons: Lesson[][] = []
 
   @ViewChild('subject') subjectElement: ScheduleSubjectComponent | undefined
   @ViewChild('root') root: ElementRef
@@ -34,26 +36,26 @@ export class CellComponent implements OnInit {
   ngOnInit(): void {
     let fitAmount = Math.floor(this.height / CellComponent.oneCellHeight)
 
-    let cellSubjects: Subject[][] = []
+    let lessons: Lesson[][] = []
 
-    for (let i = 0; i < Math.ceil(this.lesson.subjects.length / fitAmount); i++) {
-      cellSubjects.push([])
+    for (let i = 0; i < Math.ceil(this.cell.lessons.length / fitAmount); i++) {
+      lessons.push([])
     }
 
-    this.lesson.subjects.forEach((subject, i) => {
-      cellSubjects[Math.floor(i / fitAmount)].push(subject)
+    this.cell.lessons.forEach((lesson, i) => {
+      lessons[Math.floor(i / fitAmount)].push(lesson)
     });
 
-    this.cellSubjects = cellSubjects
+    this.lessons = lessons
   }
 
   showEditControls(): boolean {
-    return this.isEditMode && moment().utc(true).isBefore(this.lesson.startDate)
+    return this.isEditMode && moment().utc(true).isBefore(this.cell.startDate)
   }
 
   nextSubject(): void {
     this.selectedSubjectIndex++
-    if (this.selectedSubjectIndex >= this.cellSubjects.length) {
+    if (this.selectedSubjectIndex >= this.lessons.length) {
       this.selectedSubjectIndex = 0
     }
   }
@@ -61,17 +63,17 @@ export class CellComponent implements OnInit {
   previousSubject(): void {
     this.selectedSubjectIndex--
     if (this.selectedSubjectIndex < 0) {
-      this.selectedSubjectIndex = this.cellSubjects.length - 1
+      this.selectedSubjectIndex = this.lessons.length - 1
     }
   }
 
   removeSubjectDialog(): void {
-    if (this.lesson.subjects.length < 2) {
-      this.removeSubject(this.lesson.subjects)
+    if (this.cell.lessons.length < 2) {
+      this.removeSubject(this.cell.lessons)
       return
     }
 
-    const dialogRef = this.dialog.open(SelectSubjectDialogComponent, {data: this.lesson})
+    const dialogRef = this.dialog.open(SelectSubjectDialogComponent, {data: this.cell})
     dialogRef.afterClosed().subscribe((subjects: Subject[] | undefined) => {
       if (subjects != undefined) this.removeSubject(subjects)
     })
@@ -79,6 +81,6 @@ export class CellComponent implements OnInit {
 
   removeSubject(subjects: Subject[]): void {
     for (let subject of subjects)
-      this.scheduleService.removeLesson(subject, this.lesson.startDate, this.lesson.endDate)
+      this.scheduleService.removeLesson(subject, this.cell.startDate, this.cell.endDate)
   }
 }

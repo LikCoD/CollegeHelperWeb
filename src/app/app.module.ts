@@ -26,6 +26,7 @@ import { ErrorInfoComponent } from './components/general/error-info/error-info.c
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatNativeDateModule} from "@angular/material/core";
 import { SelectSubjectDialogComponent } from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
+import { MomentPipe } from './pipes/moment.pipe';
 
 
 const appRoutes: Routes = [
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
         UserLoginComponent,
         AddSubjectDialogComponent,
         ErrorInfoComponent,
-        SelectSubjectDialogComponent
+        SelectSubjectDialogComponent,
+        MomentPipe
     ],
   imports: [
     BrowserModule,

@@ -16,7 +16,7 @@
     <div class="schedule-wrapper">
       <div style="display:flex;">
         <div class="time-container" [style.height]="maxHeight + 'px'">
-          <div *ngFor="let time of schedule.info.times.toArray()">
+          <div *ngFor="let time of schedule.info.times">
             <p class="time" [style.top]="yTime(time) - 20 + 'px'">{{time.format("hh:mm A")}}</p>
             <hr class="time-line" [style.top]="yTime(time) + 'px'">
           </div>
@@ -28,12 +28,12 @@
             </div>
           </div>
           <div class="lessons-container" [style.height]="maxHeight + 'px'">
-            <div *ngFor="let lesson of schedule.lessons" class="event"
-                 [style.top.px]="y(lesson)"
-                 [style.left.px]="x(lesson)"
-                 [style.width.px]="width(lesson)"
-                 [style.height.px]="height(lesson)">
-              <app-schedule-cell [lesson]="lesson" [height]="height(lesson)"
+            <div *ngFor="let cell of cells" class="event"
+                 [style.top.px]="y(cell)"
+                 [style.left.px]="x(cell)"
+                 [style.width.px]="width(cell)"
+                 [style.height.px]="height(cell)">
+              <app-schedule-cell [cell]="cell" [height]="height(cell)"
                                  [isEditMode]="isEditMode"></app-schedule-cell>
             </div>
           </div>

@@ -1,11 +1,13 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {errorHandler} from "../../../app.component";
-import {Schedule, ScheduleLesson, Subject} from "../../../data";
+import {Subject} from "../../../data";
 import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
 import {AddSubjectDialogComponent} from "./add-subject-dialog/add-subject-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Cell, Lesson, Schedule} from "../../../models";
+import {groupBy} from "../../../utils";
 
 @Component({
   selector: 'app-view',
@@ -26,6 +28,7 @@ export class ViewComponent {
   isEditMode = false
 
   schedule: Schedule | undefined
+  cells: Cell[] = []
 
   templatesFilter: string = ""
 
@@ -33,11 +36,20 @@ export class ViewComponent {
     this.route.queryParams.subscribe(() => {
       this.scheduleService.getSchedule().subscribe({
         next: schedule => {
-          this.maxWidth = schedule.info.days * 200 + 180
-          this.maxHeight = schedule.info.studyHours * 60 * 2
-          this.days = new Array(schedule.info.days).fill(0).map((_, i) => i)
+          this.maxWidth = schedule.info.daysNumber * 200 + 180
+          this.maxHeight = schedule.info.maxTime.hours() - schedule.info.minTime.hours()
+          this.days = new Array(schedule.info.daysNumber).fill(0).map((_, i) => i)
 
-          this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.days, 'days').format('YYYY-MM-DD')
+          this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.daysNumber, 'days').format('YYYY-MM-DD')
+
+          this.cells = groupBy(schedule.lessons, lesson => lesson.startDate.format() + lesson.endDate.format())
+            .map((value: Lesson[]) => <Cell>{
+                startDate: value[0].startDate,
+                endDate: value[0].endDate,
+                updated: value[0].updated,
+                lessons: value
+              }
+            )
 
           this.initSchedule(schedule)
 
@@ -50,44 +62,42 @@ export class ViewComponent {
 
   initSchedule(schedule: Schedule) {
     schedule.lessons.forEach(lesson => {
-      lesson.subjects.forEach(subject => {
-        let add = true
-        this.templateSubjects.forEach(templateSubject => {
-          if (templateSubject.subject == subject.subject
-            && templateSubject.group == subject.group
-            && templateSubject.room == subject.room
-            && templateSubject.teacher == subject.teacher)
-            add = false;
-        })
-        if (!add || subject.type != "STAY") return
-
-        this.templateSubjects.push(subject)
+      let add = true
+      this.templateSubjects.forEach(templateSubject => {
+        if (templateSubject.subject == lesson.subject
+          && templateSubject.group == lesson.group
+          && templateSubject.room == lesson.room
+          && templateSubject.teacher == lesson.teacher)
+          add = false;
       })
+      if (!add || lesson.type != "STAY") return
+
+      this.templateSubjects.push(lesson)
     })
   }
 
-  x(lesson: ScheduleLesson): number {
+  x(lesson: Cell): number {
     return lesson.startDate.diff(this.scheduleService.schedule!!.info.startWeekDate, 'days') * 200
   }
 
-  y(lesson: ScheduleLesson): number {
+  y(lesson: Cell): number {
     return ((lesson.startDate.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + lesson.startDate.minutes()) * 2
   }
 
-  yTime(time: moment.Moment) {
+  yTime(time: moment.Moment): number {
     return ((time.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
   }
 
-  width(_: ScheduleLesson): number {
+  width(_: Cell): number {
     return 180
   }
 
-  height(lesson: ScheduleLesson): number {
+  height(lesson: Cell): number {
     return ((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2
   }
 
   add(subject: Subject | undefined = undefined) {
-    const dialogRef = this.dialog.open(AddSubjectDialogComponent, { data: subject })
+    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: subject})
     dialogRef.afterClosed().subscribe((subject: Subject) => this.addSubjectToSchedule(subject))
   }
 
@@ -100,9 +110,9 @@ export class ViewComponent {
       || subject.room.toLowerCase().includes(input)
   }
 
-  removeSubjectFromSchedule(subject: Subject){
+  //removeSubjectFromSchedule(subject: Subject) {
     //this.scheduleService.removeLesson(subject)
-  }
+  //}
 
   addSubjectToSchedule(subject: Subject) {
     this.scheduleService.addSubject(subject)
