@@ -1,5 +1,4 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Subject} from "../../../../data";
 import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
 import * as moment from "moment";
 import {MatDialog} from "@angular/material/dialog";
@@ -21,7 +20,7 @@ export class CellComponent implements OnInit {
 
   @Input() isEditMode: boolean
 
-  @Output() remove: EventEmitter<Subject> = new EventEmitter<Subject>();
+  @Output() remove: EventEmitter<Lesson> = new EventEmitter<Lesson>();
 
   selectedSubjectIndex = 0
 
@@ -74,12 +73,12 @@ export class CellComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(SelectSubjectDialogComponent, {data: this.cell})
-    dialogRef.afterClosed().subscribe((subjects: Subject[] | undefined) => {
-      if (subjects != undefined) this.removeSubject(subjects)
+    dialogRef.afterClosed().subscribe((lessons: Lesson[] | undefined) => {
+      if (lessons != undefined) this.removeSubject(lessons)
     })
   }
 
-  removeSubject(subjects: Subject[]): void {
+  removeSubject(subjects: Lesson[]): void {
     for (let subject of subjects) return
       //this.scheduleService.removeLesson(subject, this.cell.startDate, this.cell.endDate)
   }

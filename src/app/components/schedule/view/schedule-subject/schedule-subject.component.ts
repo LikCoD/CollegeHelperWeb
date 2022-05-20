@@ -43,8 +43,8 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
 
   @Input() editable: boolean = false;
 
-  @Input() topCorner: boolean = false;
-  @Input() bottomCorner: boolean = false;
+  @Input() topCorner: boolean = true;
+  @Input() bottomCorner: boolean = true;
 
   onChange: any
 

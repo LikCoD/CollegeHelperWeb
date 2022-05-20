@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {errorHandler} from "../../../app.component";
 import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
 import {AddSubjectDialogComponent} from "./add-subject-dialog/add-subject-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Cell, Lesson, Schedule} from "../../../models";
 import {groupBy} from "../../../utils";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-view',
@@ -16,7 +16,7 @@ import {groupBy} from "../../../utils";
 export class ViewComponent {
   weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-  templateSubjects: Lesson[] = []
+  templateLessons: Lesson[] = []
 
   maxWidth: number = 0
   maxHeight: number = 0
@@ -26,17 +26,17 @@ export class ViewComponent {
 
   isEditMode = false
 
-  schedule: Schedule | undefined
+  schedule$: Observable<Schedule>
   cells: Cell[] = []
 
   templatesFilter: string = ""
 
   constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService, public dialog: MatDialog) {
     this.route.queryParams.subscribe(() => {
-      this.scheduleService.getSchedule().subscribe({
-        next: schedule => {
+      this.schedule$ = this.scheduleService.getSchedule().pipe(
+        map(schedule => {
           this.maxWidth = schedule.info.daysNumber * 200 + 180
-          this.maxHeight = schedule.info.maxTime.hours() - schedule.info.minTime.hours()
+          this.maxHeight = ( schedule.info.maxTime.hours() - schedule.info.minTime.hours()) * 60 * 2
           this.days = new Array(schedule.info.daysNumber).fill(0).map((_, i) => i)
 
           this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.daysNumber, 'days').format('YYYY-MM-DD')
@@ -52,17 +52,16 @@ export class ViewComponent {
 
           this.initSchedule(schedule)
 
-          this.schedule = schedule
-        },
-        error: errorHandler
-      })
+          return schedule
+        })
+      )
     });
   }
 
   initSchedule(schedule: Schedule) {
     schedule.lessons.forEach(lesson => {
       let add = true
-      this.templateSubjects.forEach(templateSubject => {
+      this.templateLessons.forEach(templateSubject => {
         if (templateSubject.subject == lesson.subject
           && templateSubject.group == lesson.group
           && templateSubject.room == lesson.room
@@ -71,7 +70,7 @@ export class ViewComponent {
       })
       if (!add || lesson.type != "STAY") return
 
-      this.templateSubjects.push(lesson)
+      this.templateLessons.push(lesson)
     })
   }
 

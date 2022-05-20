@@ -27,6 +27,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatNativeDateModule} from "@angular/material/core";
 import { SelectSubjectDialogComponent } from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
 import { MomentPipe } from './pipes/moment.pipe';
+import { ScheduleCellDirective } from './components/schedule/view/cell/cell-directive/schedule-cell.directive';
 
 
 const appRoutes: Routes = [
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
         AddSubjectDialogComponent,
         ErrorInfoComponent,
         SelectSubjectDialogComponent,
-        MomentPipe
+        MomentPipe,
+        ScheduleCellDirective
     ],
   imports: [
     BrowserModule,

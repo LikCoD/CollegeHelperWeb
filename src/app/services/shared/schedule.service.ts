@@ -4,7 +4,7 @@ import {Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
 import * as rxjs from "rxjs";
-import {Schedule} from "../../models";
+import {Lesson, Schedule} from "../../models";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class ScheduleService {
   removedLessons: Subject[] = [];
   private currentAddId = 1;
 
-  scheduleChange: rxjs.SubjectLike<Schedule> = new rxjs.Subject<Schedule>()
+  scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
 
   constructor(private httpService: HttpService) {
 
@@ -55,49 +55,37 @@ export class ScheduleService {
     schedule.info.times = times.toArray()
 
     this.schedule = schedule
+    console.log(schedule)
+
     this.scheduleChange.next(schedule)
   }
 
-  getSchedule(): rxjs.SubjectLike<Schedule> {
+  getSchedule(): rxjs.Subject<Schedule> {
     this.httpService.getSchedule().subscribe(this.initSchedule.bind(this));
 
     return this.scheduleChange
   }
 
-  addLesson(subject: Subject) {
+  addLesson(lesson: Lesson) {
     if (this.schedule == undefined) return
 
-    subject.id = this.currentAddId.toString()
+    lesson.id = this.currentAddId.toString()
     this.currentAddId += 1
 
-    this.addedLessons.push(subject)
-
-/*    let lessons = this.schedule.lessons.find(lesson => lesson.startDate.isSame(subject.startTime) && lesson.endDate.isSame(subject.endTime))
-    if (lessons != undefined) {
-      lessons.subjects.push(subject)
-
-      return
-    }
-
-    this.schedule.lessons.push(<ScheduleLesson>{
-      studyPlaceId: 0,
-      updated: false,
-      startDate: subject.startTime,
-      endDate: subject.endTime,
-      subjects: [subject]
-    })*/
+    this.addedLessons.push(lesson)
+    this.schedule.lessons.push(lesson)
 
     this.initSchedule(this.schedule)
   }
 
-/*  removeLesson(lesson: Subject, startTime: moment.Moment, endTime: moment.Moment){
-    this.removedLessons.push(lesson)
+  /*  removeLesson(lesson: Subject, startTime: moment.Moment, endTime: moment.Moment){
+      this.removedLessons.push(lesson)
 
-    let lessons = this.schedule!!.lessons.find(l => l.startDate.isSame(startTime) && l.endDate.isSame(endTime))!!
-    lessons.subjects.splice(lessons.subjects.indexOf(lesson), 1)
+      let lessons = this.schedule!!.lessons.find(l => l.startDate.isSame(startTime) && l.endDate.isSame(endTime))!!
+      lessons.subjects.splice(lessons.subjects.indexOf(lesson), 1)
 
-    this.scheduleChange.next(this.schedule!!)
-  }*/
+      this.scheduleChange.next(this.schedule!!)
+    }*/
 
   confirmEdit() {
     this.addedLessons.forEach(value => value.id = "")
