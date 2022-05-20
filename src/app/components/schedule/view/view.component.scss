@@ -1,5 +1,13 @@
 @use "../../../../styles";
 
+.main-schedule-container {
+  display: flex;
+}
+
+.schedule-container {
+  display: flex;
+}
+
 .schedule-wrapper {
   width: 0;
   overflow: scroll;
@@ -128,4 +136,8 @@
 
 .add-subject-dialog {
   align-self: center;
+}
+
+app-schedule-subject {
+  width: 180px;
 }

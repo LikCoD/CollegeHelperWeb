@@ -16,7 +16,7 @@ export class CellComponent implements OnInit {
 
   @Input() cell: Cell
 
-  @Input() height: number
+  height: number
 
   @Input() isEditMode: boolean
 
@@ -29,11 +29,12 @@ export class CellComponent implements OnInit {
   @ViewChild('subject') subjectElement: ScheduleSubjectComponent | undefined
   @ViewChild('root') root: ElementRef
 
-  constructor(public dialog: MatDialog, private scheduleService: ScheduleService) {
+  constructor(public dialog: MatDialog, private scheduleService: ScheduleService, private elRef: ElementRef) {
   }
 
   ngOnInit(): void {
-    let fitAmount = Math.floor(this.height / CellComponent.oneCellHeight)
+    let height = this.elRef.nativeElement.clientHeight
+    let fitAmount = Math.floor(height / CellComponent.oneCellHeight)
 
     let lessons: Lesson[][] = []
 

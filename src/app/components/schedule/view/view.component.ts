@@ -74,24 +74,8 @@ export class ViewComponent {
     })
   }
 
-  x(lesson: Cell): number {
-    return lesson.startDate.diff(this.scheduleService.schedule!!.info.startWeekDate, 'days') * 200
-  }
-
-  y(lesson: Cell): number {
-    return ((lesson.startDate.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + lesson.startDate.minutes()) * 2
-  }
-
   yTime(time: moment.Moment): number {
     return ((time.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
-  }
-
-  width(_: Cell): number {
-    return 180
-  }
-
-  height(lesson: Cell): number {
-    return ((lesson.endDate.hours() * 60 + lesson.endDate.minutes()) - (lesson.startDate.hours() * 60 + lesson.startDate.minutes())) * 2
   }
 
   add(lesson: Lesson | undefined = undefined) {
