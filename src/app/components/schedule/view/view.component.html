@@ -1,17 +1,6 @@
 <div *ngIf="schedule$ | async as schedule">
   <div class="main-schedule-container">
-    <div class="edit" *ngIf="isEditMode">
-      <div class="edit-control">
-        <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
-        <button type="button" class="btn btn-light" (click)="add()">Add</button>
-      </div>
-      <div *ngFor="let lesson of templateLessons" (click)="add(lesson)" style="margin-top: 10px">
-        <app-schedule-subject *ngIf="templateFilter(templatesFilter, lesson)" [lesson]="lesson"></app-schedule-subject>
-      </div>
-      <div class="edit-control-footer">
-        <button type="button" class="btn btn-light" (click)="confirmEdit()">Confirm</button>
-      </div>
-    </div>
+    <app-edit-scdedule [schedule]="schedule"></app-edit-scdedule>
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">
         <div class="layout">

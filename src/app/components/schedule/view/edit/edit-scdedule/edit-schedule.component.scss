@@ -1,0 +1,35 @@
+:host {
+  width: 200px;
+}
+
+.edit-control, .edit-control-footer {
+  position: sticky;
+  width: -webkit-fill-available;
+
+  * {
+    width: 100%;
+  }
+}
+
+.edit-control {
+  top: 0;
+}
+
+.edit-control-footer {
+  bottom: 0;
+}
+
+section {
+  overflow-y: scroll;
+  height: calc(var(--vh, 1vh) * 100 - 260px);
+
+  margin: 10px 0;
+
+  * {
+    margin: 10px 0;
+  }
+}
+
+app-schedule-subject {
+  height: 180px;
+}

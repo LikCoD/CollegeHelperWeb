@@ -28,6 +28,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { SelectSubjectDialogComponent } from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
 import { MomentPipe } from './pipes/moment.pipe';
 import { ScheduleCellDirective } from './components/schedule/view/cell/cell-directive/schedule-cell.directive';
+import { EditScheduleComponent } from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
 
 
 const appRoutes: Routes = [
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
         ErrorInfoComponent,
         SelectSubjectDialogComponent,
         MomentPipe,
-        ScheduleCellDirective
+        ScheduleCellDirective,
+        EditScheduleComponent
     ],
   imports: [
     BrowserModule,

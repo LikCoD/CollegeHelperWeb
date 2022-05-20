@@ -1,0 +1,15 @@
+<div class="edit-control">
+  <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
+  <button type="button" class="btn btn-light" (click)="add()">Add</button>
+</div>
+<section>
+  <ng-container *ngFor="let lesson of templateLessons">
+    <div>
+      <app-schedule-subject *ngIf="filter(templatesFilter, lesson)" [lesson]="lesson"
+                            (click)="add(lesson)" class="lesson"></app-schedule-subject>
+    </div>
+  </ng-container>
+</section>
+<div class="edit-control-footer">
+  <button type="button" class="btn btn-light" (click)="confirmEdit()">Confirm</button>
+</div>
