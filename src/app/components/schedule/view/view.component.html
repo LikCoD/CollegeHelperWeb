@@ -29,14 +29,12 @@
           <div class="lessons-container">
             <app-schedule-cell
               *ngFor="let cell of cells"
+              [schedule]="schedule"
+              [appScheduleCell]="cell"
               class="cell"
               [cell]="cell"
               [height]="height(cell)"
-              [isEditMode]="isEditMode"
-              [style.top.px]="y(cell)"
-              [style.left.px]="x(cell)"
-              [style.width.px]="width(cell)"
-              [style.height.px]="height(cell)"></app-schedule-cell>
+              [isEditMode]="isEditMode"></app-schedule-cell>
           </div>
         </div>
       </div>
