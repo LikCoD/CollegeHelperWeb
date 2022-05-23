@@ -23,7 +23,7 @@ export class AddSubjectDialogComponent {
       updated: true
     }
 
-    this.lesson = value
+    this.lesson = {...value}
     this.lesson.type = "ADDED"
 
     this.form.get("subject")!!.setValue(this.lesson);
@@ -51,8 +51,8 @@ export class AddSubjectDialogComponent {
 
     let lesson = <Lesson>{
       ...value.subject,
-      startTime: moment(value.date + ' ' + value.startTime),
-      endTime: moment(value.date + ' ' + value.endTime),
+      startDate: moment(value.date + ' ' + value.startTime),
+      endDate: moment(value.date + ' ' + value.endTime),
     }
 
     this.dialogRef.close(lesson)

@@ -4,13 +4,14 @@ import {Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
 import * as rxjs from "rxjs";
-import {Lesson, Schedule} from "../../models";
+import {Cell, Lesson, Schedule} from "../../models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleService {
   schedule: Schedule | undefined;
+  cells: Cell[]
 
   addedLessons: Subject[] = [];
   removedLessons: Subject[] = [];
@@ -23,6 +24,8 @@ export class ScheduleService {
   }
 
   initSchedule(schedule: Schedule) {
+    let cells = new Map<string, Cell>()
+
     let minHours = 24
     let maxHours = 0
 
@@ -30,6 +33,16 @@ export class ScheduleService {
     let daysNumber = 0
 
     for (let lesson of schedule.lessons) {
+      let key = lesson.endDate!!.format() + lesson.startDate!!.format()
+      let cell = cells.get(key)
+      if (cell == null) cells.set(key, {
+        endDate: lesson.endDate!!,
+        lessons: [lesson],
+        startDate: lesson.startDate!!,
+        updated: lesson.updated
+      })
+      else cell.lessons.push(lesson)
+
       times.add(moment(lesson.startDate!!.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
       times.add(moment(lesson.endDate!!.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
 
@@ -55,7 +68,7 @@ export class ScheduleService {
     schedule.info.times = times.toArray()
 
     this.schedule = schedule
-    console.log(schedule)
+    this.cells = Array.from(cells.values())
 
     this.scheduleChange.next(schedule)
   }
@@ -78,14 +91,14 @@ export class ScheduleService {
     this.initSchedule(this.schedule)
   }
 
-  /*  removeLesson(lesson: Subject, startTime: moment.Moment, endTime: moment.Moment){
-      this.removedLessons.push(lesson)
+  removeLesson(lesson: Lesson) {
+    if (this.schedule == undefined) return
 
-      let lessons = this.schedule!!.lessons.find(l => l.startDate.isSame(startTime) && l.endDate.isSame(endTime))!!
-      lessons.subjects.splice(lessons.subjects.indexOf(lesson), 1)
+    this.removedLessons.push(lesson)
+    this.schedule.lessons.splice(this.schedule.lessons.indexOf(lesson), 1)
 
-      this.scheduleChange.next(this.schedule!!)
-    }*/
+    this.initSchedule(this.schedule)
+  }
 
   confirmEdit() {
     this.addedLessons.forEach(value => value.id = "")

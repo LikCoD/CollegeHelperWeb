@@ -34,15 +34,7 @@ export class ViewComponent {
           this.days = new Array(schedule.info.daysNumber).fill(0).map((_, i) => i)
 
           this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.daysNumber, 'days').format('YYYY-MM-DD')
-
-          this.cells = groupBy(schedule.lessons, lesson => lesson.startDate!!.format() + lesson.endDate!!.format())
-            .map((value: Lesson[]) => <Cell>{
-                startDate: value[0].startDate,
-                endDate: value[0].endDate,
-                updated: value[0].updated,
-                lessons: value
-              }
-            )
+          this.cells = this.scheduleService.cells
 
           return schedule
         })
