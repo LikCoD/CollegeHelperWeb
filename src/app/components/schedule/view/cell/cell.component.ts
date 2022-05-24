@@ -38,13 +38,10 @@ export class CellComponent implements OnInit {
 
     let lessons: Lesson[][] = []
 
-    for (let i = 0; i < Math.ceil(this.cell.lessons.length / fitAmount); i++) {
-      lessons.push([])
+    for (let i = 0; i < this.cell.lessons.length; i += fitAmount) {
+      const chunk = this.cell.lessons.slice(i, i + fitAmount);
+      lessons.push(chunk)
     }
-
-    this.cell.lessons.forEach((lesson, i) => {
-      lessons[Math.floor(i / fitAmount)].push(lesson)
-    });
 
     this.lessons = lessons
   }
