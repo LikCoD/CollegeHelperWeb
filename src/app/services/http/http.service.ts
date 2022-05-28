@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {errorHandler} from "../../app.component";
 import {map, Observable, Subscription} from "rxjs";
 import {StudyPlace, User, Types, Subject} from "../../data";
-import {Schedule} from "../../models";
+import {Lesson, Schedule} from "../../models";
 import * as moment from "moment";
 
 @Injectable({
@@ -65,11 +65,16 @@ export class HttpService {
   }
 
   getTypes(): Observable<Types> {
-    return this.http.get<Types>(`${this.API_PATH}/schedule/types/get`)
+    return this.http.get<Types>(`${this.API_PATH}/schedule/getTypes`)
   }
 
   getSchedule(): Observable<Schedule> {
-    return this.http.get<Schedule>(`${this.API_PATH}/schedule/view${this.router.url.substring(9)}`).pipe(map(schedule => {
+    let params = this.router.parseUrl(this.router.url).queryParams
+
+    let url = `${params["type"]}/${params["name"]}`
+    if (params["type"] == undefined || params["name"] == undefined) url = "my"
+
+    return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`).pipe(map(schedule => {
       schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)
       schedule.info.date = moment.utc(schedule.info.date)
 
@@ -82,7 +87,7 @@ export class HttpService {
     }))
   }
 
-  addLessons(lessons: Subject[]): Observable<Schedule> {
+  addLessons(lessons: Lesson): Observable<Schedule> {
     return this.http.put<Schedule>(`${this.API_PATH}/schedule`, lessons)
   }
 }

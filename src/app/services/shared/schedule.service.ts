@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
 import * as rxjs from "rxjs";
@@ -13,8 +12,8 @@ export class ScheduleService {
   schedule: Schedule | undefined;
   cells: Cell[]
 
-  addedLessons: Subject[] = [];
-  removedLessons: Subject[] = [];
+  addedLessons: Lesson[] = [];
+  removedLessons: Lesson[] = [];
   private currentAddId = 1;
 
   scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
@@ -101,10 +100,11 @@ export class ScheduleService {
   }
 
   confirmEdit() {
-    this.addedLessons.forEach(value => value.id = "")
-    this.httpService.addLessons(this.addedLessons).subscribe(() => {
-      this.addedLessons = []
-    })
+    this.addedLessons.forEach(value =>
+      this.httpService.addLessons(value).subscribe((s) => {
+        console.log(s)
+      })
+    )
 
     this.getSchedule()
   }
