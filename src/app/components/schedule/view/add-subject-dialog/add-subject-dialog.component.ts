@@ -20,26 +20,28 @@ export class AddSubjectDialogComponent {
       teacher: "TEACHER",
       subject: "SUBJECT",
       type: "ADDED",
-      updated: true
     }
 
     this.lesson = {...value}
     this.lesson.type = "ADDED"
 
     this.form.get("subject")!!.setValue(this.lesson);
+    this.form.get("startTime")!!.setValue(this.lesson.startDate?.format("HH:mm"))
+    this.form.get("endTime")!!.setValue(this.lesson.endDate?.format("HH:mm"))
   }
 
   form = new FormGroup({
-    date: new FormControl(moment().format("YYYY-MM-DD"), Validators.required),
-    startTime: new FormControl(moment().format("hh:mm"), Validators.required),
-    endTime: new FormControl(moment().add(1, "hour").format("hh:mm"), Validators.required),
+    date: new FormControl(moment().add(1, "days").format("YYYY-MM-DD"), Validators.required),
+    startTime: new FormControl(moment().format("HH:mm"), Validators.required),
+    endTime: new FormControl(moment().add(1, "hour").format("HH:mm"), Validators.required),
     subject: new FormControl(undefined),
   })
 
   currentDate: string = moment().format('YYYY-MM-DD');
 
-  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Lesson) {
-    this.templateSubject = data
+  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.templateSubject = data.lesson
+    if (data.date != undefined) this.form.get("date")!!.setValue(data.date.format("YYYY-MM-DD"))
   }
 
   close() {
@@ -51,8 +53,8 @@ export class AddSubjectDialogComponent {
 
     let lesson = <Lesson>{
       ...value.subject,
-      startDate: moment(value.date + ' ' + value.startTime),
-      endDate: moment(value.date + ' ' + value.endTime),
+      startDate: moment.utc(value.date + ' ' + value.startTime),
+      endDate: moment.utc(value.date + ' ' + value.endTime),
     }
 
     this.dialogRef.close(lesson)

@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
-import {Cell, Lesson, Schedule} from "../../../models";
-import {groupBy} from "../../../utils";
+import {Cell, Schedule} from "../../../models";
 import {map, Observable} from "rxjs";
 
 @Component({

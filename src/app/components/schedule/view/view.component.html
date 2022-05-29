@@ -1,6 +1,6 @@
 <div *ngIf="schedule$ | async as schedule">
   <div class="main-schedule-container">
-    <app-edit-scdedule *ngIf="isEditMode" [schedule]="schedule"></app-edit-scdedule>
+    <app-edit-schedule *ngIf="isEditMode" [schedule]="schedule"></app-edit-schedule>
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">
         <div class="layout">
