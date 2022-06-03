@@ -5,13 +5,13 @@ import {AddSubjectDialogComponent} from "../../add-subject-dialog/add-subject-di
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-edit-scdedule',
+  selector: 'app-edit-schedule',
   templateUrl: './edit-schedule.component.html',
   styleUrls: ['./edit-schedule.component.scss']
 })
 export class EditScheduleComponent implements OnInit {
 
-  @Input() set schedule(schedule: Schedule){
+  @Input() set schedule(schedule: Schedule) {
     let lessons: Lesson[] = []
 
     schedule.lessons.forEach(lesson => {
@@ -24,9 +24,9 @@ export class EditScheduleComponent implements OnInit {
           && templateSubject.teacher == lesson.teacher)
           add = false;
       })
-      if (!add || lesson.type != "STAY") return
+      if (!add) return
 
-      lessons.push(lesson)
+      lessons.push({...lesson, type: "STAY"})
     })
 
     this.templateLessons = lessons
@@ -51,11 +51,7 @@ export class EditScheduleComponent implements OnInit {
   }
 
   add(lesson: Lesson | undefined = undefined) {
-    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: lesson})
-    dialogRef.afterClosed().subscribe((lesson: Lesson) => this.scheduleService.addLesson(lesson))
-  }
-
-  confirmEdit() {
-    this.scheduleService.confirmEdit()
+    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: {lesson: lesson}})
+    dialogRef.afterClosed().subscribe((lesson: Lesson) => this.scheduleService.addLesson(lesson, false))
   }
 }

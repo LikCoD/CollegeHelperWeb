@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {Subject} from "../../data";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
 import * as rxjs from "rxjs";
@@ -13,14 +12,9 @@ export class ScheduleService {
   schedule: Schedule | undefined;
   cells: Cell[]
 
-  addedLessons: Subject[] = [];
-  removedLessons: Subject[] = [];
-  private currentAddId = 1;
-
   scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
 
   constructor(private httpService: HttpService) {
-
   }
 
   initSchedule(schedule: Schedule) {
@@ -39,7 +33,6 @@ export class ScheduleService {
         endDate: lesson.endDate!!,
         lessons: [lesson],
         startDate: lesson.startDate!!,
-        updated: lesson.updated
       })
       else cell.lessons.push(lesson)
 
@@ -79,33 +72,67 @@ export class ScheduleService {
     return this.scheduleChange
   }
 
-  addLesson(lesson: Lesson) {
-    if (this.schedule == undefined) return
+  checkAddGeneral(lesson: Lesson, add: boolean): Lesson[] {
+    if (this.schedule == undefined) return []
 
-    lesson.id = this.currentAddId.toString()
-    this.currentAddId += 1
+    let dayLessons = this.schedule.lessons.filter(value => value.endDate?.format("YY-MM-DD") == lesson.endDate?.format("YY-MM-DD") && value.type === "GENERAL")
+    dayLessons.forEach(value => this.schedule!!.lessons.splice(this.schedule!!.lessons.indexOf(value), 1))
 
-    this.addedLessons.push(lesson)
-    this.schedule.lessons.push(lesson)
+    if (!add) return []
 
-    this.initSchedule(this.schedule)
+    return dayLessons
   }
 
-  removeLesson(lesson: Lesson) {
+  addLesson(lesson: Lesson, addGeneral: boolean) {
     if (this.schedule == undefined) return
 
-    this.removedLessons.push(lesson)
-    this.schedule.lessons.splice(this.schedule.lessons.indexOf(lesson), 1)
+    this.checkAddGeneral(lesson, addGeneral).forEach(value => this.httpService.addLesson(value).subscribe(value => {
+      this.schedule!!.lessons.push(value)
+      this.initSchedule(this.schedule!!)
+    }))
 
-    this.initSchedule(this.schedule)
-  }
-
-  confirmEdit() {
-    this.addedLessons.forEach(value => value.id = "")
-    this.httpService.addLessons(this.addedLessons).subscribe(() => {
-      this.addedLessons = []
+    this.httpService.addLesson(lesson).subscribe(value => {
+      this.schedule!!.lessons.push(value)
+      this.initSchedule(this.schedule!!)
     })
+  }
 
-    this.getSchedule()
+  removeLesson(lesson: Lesson, addGeneral: boolean) {
+    if (this.schedule == undefined) return
+
+    let lessons = this.checkAddGeneral(lesson, addGeneral)
+    let i = lessons.indexOf(lesson)
+    if (i != -1) {
+      lessons.splice(i, 1)
+      lessons.forEach(value => this.httpService.addLesson(value).subscribe(value => {
+        this.schedule!!.lessons.push(value)
+        this.initSchedule(this.schedule!!)
+      }))
+    } else {
+      this.httpService.removeLesson(lesson).subscribe(_ => {
+        this.schedule!!.lessons.splice(this.schedule!!.lessons.indexOf(lesson), 1)
+        this.initSchedule(this.schedule!!)
+      })
+    }
+  }
+
+  editLesson(oldLessons: Lesson, lesson: Lesson, addGeneral: boolean) {
+    if (this.schedule == undefined) return
+    lesson.id = oldLessons.id
+
+    let lessons = this.checkAddGeneral(oldLessons, addGeneral)
+    let i = lessons.indexOf(oldLessons)
+    if (i != -1) {
+      lessons[i] = lesson
+      lessons.forEach(value => this.httpService.addLesson(value).subscribe(value => {
+        this.schedule!!.lessons.push(value)
+        this.initSchedule(this.schedule!!)
+      }))
+    } else {
+      this.httpService.updateLesson(lesson).subscribe(value => {
+        this.schedule!!.lessons[this.schedule!!.lessons.indexOf(oldLessons)] = value
+        this.initSchedule(this.schedule!!)
+      })
+    }
   }
 }

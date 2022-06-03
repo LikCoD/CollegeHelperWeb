@@ -3,8 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {errorHandler} from "../../app.component";
 import {map, Observable, Subscription} from "rxjs";
-import {StudyPlace, User, Types, Subject} from "../../data";
-import {Schedule} from "../../models";
+import {StudyPlace, User, Types} from "../../data";
+import {Lesson, Schedule} from "../../models";
 import * as moment from "moment";
 
 @Injectable({
@@ -65,11 +65,16 @@ export class HttpService {
   }
 
   getTypes(): Observable<Types> {
-    return this.http.get<Types>(`${this.API_PATH}/schedule/types/get`)
+    return this.http.get<Types>(`${this.API_PATH}/schedule/getTypes`)
   }
 
   getSchedule(): Observable<Schedule> {
-    return this.http.get<Schedule>(`${this.API_PATH}/schedule/view${this.router.url.substring(9)}`).pipe(map(schedule => {
+    let params = this.router.parseUrl(this.router.url).queryParams
+
+    let url = `${params["type"]}/${params["name"]}`
+    if (params["type"] == undefined || params["name"] == undefined) url = "my"
+
+    return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`).pipe(map(schedule => {
       schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)
       schedule.info.date = moment.utc(schedule.info.date)
 
@@ -82,7 +87,31 @@ export class HttpService {
     }))
   }
 
-  addLessons(lessons: Subject[]): Observable<Schedule> {
-    return this.http.put<Schedule>(`${this.API_PATH}/schedule`, lessons)
+  addLesson(lesson: Lesson): Observable<Lesson> {
+    return this.http.post<Lesson>(`${this.API_PATH}/schedule`, lesson).pipe(map(value => {
+      value.endDate = moment.utc(value.endDate)
+      value.startDate = moment.utc(value.startDate)
+      return value
+    }))
+  }
+
+  updateLesson(lesson: Lesson): Observable<Lesson> {
+    return this.http.put<Lesson>(`${this.API_PATH}/schedule`, lesson).pipe(map(value => {
+      value.endDate = moment.utc(value.endDate)
+      value.startDate = moment.utc(value.startDate)
+      return value
+    }))
+  }
+
+  removeLesson(lesson: Lesson): Observable<string> {
+    return this.http.delete<string>(`${this.API_PATH}/schedule/${lesson.id}`)
+  }
+
+  getLesson(lesson: Lesson): Observable<Lesson> {
+    return this.http.get<Lesson>(`${this.API_PATH}/schedule/${lesson.id}`).pipe(map(value => {
+      value.endDate = moment.utc(value.endDate)
+      value.startDate = moment.utc(value.startDate)
+      return value
+    }))
   }
 }

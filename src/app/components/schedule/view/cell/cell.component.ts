@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
 import {ScheduleService} from "../../../../services/shared/schedule.service";
 import {Cell, Lesson} from "../../../../models";
+import {AddSubjectDialogComponent} from "../add-subject-dialog/add-subject-dialog.component";
 
 @Component({
   selector: 'app-schedule-cell',
@@ -38,13 +39,10 @@ export class CellComponent implements OnInit {
 
     let lessons: Lesson[][] = []
 
-    for (let i = 0; i < Math.ceil(this.cell.lessons.length / fitAmount); i++) {
-      lessons.push([])
+    for (let i = 0; i < this.cell.lessons.length; i += fitAmount) {
+      const chunk = this.cell.lessons.slice(i, i + fitAmount);
+      lessons.push(chunk)
     }
-
-    this.cell.lessons.forEach((lesson, i) => {
-      lessons[Math.floor(i / fitAmount)].push(lesson)
-    });
 
     this.lessons = lessons
   }
@@ -67,19 +65,40 @@ export class CellComponent implements OnInit {
     }
   }
 
-  removeSubjectDialog(): void {
+  showSelectLessonDialog(callback: any): void {
     if (this.cell.lessons.length < 2) {
-      this.removeSubject(this.cell.lessons)
+      callback(this.cell.lessons)
       return
     }
 
     const dialogRef = this.dialog.open(SelectSubjectDialogComponent, {data: this.cell})
     dialogRef.afterClosed().subscribe((lessons: Lesson[] | undefined) => {
-      if (lessons != undefined) this.removeSubject(lessons)
+      console.log(lessons)
+      if (lessons != undefined) callback(lessons)
     })
   }
 
+  removeLessonDialog(): void {
+    this.showSelectLessonDialog(this.removeSubject.bind(this))
+  }
+
+  editLessonDialog(): void {
+    this.showSelectLessonDialog(this.editLesson.bind(this))
+  }
+
   removeSubject(lessons: Lesson[]): void {
-    for (let lesson of lessons) this.scheduleService.removeLesson(lesson)
+    for (let lesson of lessons) this.scheduleService.removeLesson(lesson, true)
+  }
+
+  editLesson(lessons: Lesson[]): void {
+    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
+      data: {
+        lesson: lessons[0],
+        date: lessons[0].startDate
+      }
+    })
+    dialogRef.afterClosed().subscribe((lesson: Lesson | undefined) => {
+      if (lesson != undefined) this.scheduleService.editLesson(lessons[0], lesson, true)
+    })
   }
 }

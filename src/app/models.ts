@@ -4,7 +4,6 @@ import {StudyPlace} from "./data";
 export interface Lesson {
   id?: string
   studyPlaceId?: string
-  updated: boolean
   type: string
   endDate?: moment.Moment
   startDate?: moment.Moment
@@ -38,7 +37,6 @@ export interface Schedule {
 export interface Cell {
   startDate: moment.Moment
   endDate: moment.Moment
-  updated: boolean
   lessons: Lesson[]
 }
 

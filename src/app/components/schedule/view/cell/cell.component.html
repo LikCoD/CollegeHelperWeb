@@ -1,7 +1,7 @@
 <div class="cell" #root>
   <div class="edit-container" *ngIf="showEditControls()">
-    <button class="edit-control-button transparent-btn remove-btn" (click)="removeSubjectDialog()"></button>
-    <button class="edit-control-button transparent-btn edit-btn"></button>
+    <button class="edit-control-button transparent-btn remove-btn" (click)="removeLessonDialog()"></button>
+    <button class="edit-control-button transparent-btn edit-btn" (click)="editLessonDialog()"></button>
   </div>
   <section>
     <div *ngFor="let lesson of lessons[selectedSubjectIndex]; first as isFirst; last as isLast; index as index"
@@ -10,7 +10,6 @@
       </app-schedule-subject>
     </div>
   </section>
-  <div *ngIf="!cell?.updated" class="not-updated"></div>
   <div class="btn-cell">
     <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
     <button (click)="nextSubject()" class="transparent-btn switchers-btn"></button>
