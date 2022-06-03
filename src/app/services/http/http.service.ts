@@ -17,16 +17,8 @@ export class HttpService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  login(email: string, password: string): Subscription {
-    return this.http.put(`${this.API_PATH}/user/login`, {
-      email: email,
-      password: password
-    }).subscribe({
-      next: _ => {
-        this.router.navigate(["/"])
-      },
-      error: errorHandler
-    })
+  login(credentials: any): Observable<User> {
+    return this.http.put<User>(`${this.API_PATH}/user/login`, credentials)
   }
 
   register(email: string, password: string, passwordRepeat: string, name: string, type: string, studyPlace: StudyPlace, group: string | null): Subscription {
