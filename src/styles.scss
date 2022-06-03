@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 
 @include mat.core();
 
@@ -37,13 +38,13 @@ header {
   text-decoration: none;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
   .header_text {
     display: none;
   }
 }
 
-@media (min-width: 801px) {
+@media (min-width: 701px) {
   .header-image-bar {
     display: none;
   }

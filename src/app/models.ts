@@ -41,3 +41,20 @@ export interface Cell {
   updated: boolean
   lessons: Lesson[]
 }
+
+export interface User {
+  email: string
+  login: string
+  name: string
+  type: string
+  typeName: string
+  studyPlaceId: number
+  password: string
+  passwordRepeat: string
+  studyPlace: string,
+  permissions: string[],
+  accepted: boolean,
+  id: string,
+  verifiedEmail: boolean,
+  picture: string,
+}

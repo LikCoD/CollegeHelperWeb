@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {AppComponent, setUser, user} from "../../../app.component";
+import {AppComponent} from "../../../app.component";
 import {JournalCellComponent} from "./cell/journal-cell.component";
-import {GroupMember, Journal, Lesson, Options, User} from "../../../data";
+import {GroupMember, Journal, Lesson, Options} from "../../../data";
 
 @Component({
   selector: 'app-login',
