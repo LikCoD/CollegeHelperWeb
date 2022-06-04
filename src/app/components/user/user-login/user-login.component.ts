@@ -13,9 +13,6 @@ export class UserLoginComponent {
     password: new FormControl("", Validators.required),
   })
 
-  email: string = ""
-  password: string = ""
-
   constructor(private userService: UserService) {
   }
 

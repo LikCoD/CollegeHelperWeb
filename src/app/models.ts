@@ -1,5 +1,4 @@
 import * as moment from "moment";
-import {StudyPlace} from "./data";
 
 export interface Lesson {
   id?: string
@@ -55,4 +54,9 @@ export interface User {
   id: string,
   verifiedEmail: boolean,
   picture: string,
+}
+
+export interface StudyPlace {
+  id: number,
+  name: string
 }

@@ -86,6 +86,10 @@ a:hover, a:focus {
   background: transparent;
 }
 
+input::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
 p {
   margin: 0;
 }

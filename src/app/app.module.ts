@@ -13,7 +13,6 @@ import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/se
 import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 import {LogComponent} from "./components/general/log/log/log.component";
-import {UserRegisterComponent} from "./components/user/register/user-register.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -22,18 +21,23 @@ import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subj
 import {AuthComponent} from "./components/general/auth/auth.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
 import {AddSubjectDialogComponent} from "./components/schedule/view/add-subject-dialog/add-subject-dialog.component";
-import { ErrorInfoComponent } from './components/general/error-info/error-info.component';
+import {ErrorInfoComponent} from './components/general/error-info/error-info.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatNativeDateModule} from "@angular/material/core";
-import { SelectSubjectDialogComponent } from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
-import { MomentPipe } from './pipes/moment.pipe';
-import { ScheduleCellDirective } from './components/schedule/view/cell/cell-directive/schedule-cell.directive';
-import { EditScheduleComponent } from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
+import {
+  SelectSubjectDialogComponent
+} from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
+import {MomentPipe} from './pipes/moment.pipe';
+import {ScheduleCellDirective} from './components/schedule/view/cell/cell-directive/schedule-cell.directive';
+import {EditScheduleComponent} from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
+import {UserSignupComponent} from './components/user/signup/user-signup.component';
+import {SignupStage1Component} from './components/user/signup/stage1/signup-stage1.component';
 
 
 const appRoutes: Routes = [
   {path: 'user', component: ProfileComponent},
-  {path: 'register', component: UserRegisterComponent},
+  {path: 'signup', component: UserSignupComponent},
+  {path: 'signup/stage1', component: SignupStage1Component},
   {path: 'login', component: UserLoginComponent},
   {path: 'schedule/login', component: LoginScheduleComponent},
   {path: 'journal/view', component: JournalViewComponent},
@@ -43,30 +47,31 @@ const appRoutes: Routes = [
 ]
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginScheduleComponent,
-        CellComponent,
-        ViewComponent,
-        JournalViewComponent,
-        JournalCellComponent,
-        DatePropertyComponent,
-        SelectMarkComponent,
-        LogComponent,
-        AcceptUsersComponent,
-        UserRegisterComponent,
-        ProfileComponent,
-        ProfileOptionComponent,
-        ScheduleSubjectComponent,
-        AuthComponent,
-        UserLoginComponent,
-        AddSubjectDialogComponent,
-        ErrorInfoComponent,
-        SelectSubjectDialogComponent,
-        MomentPipe,
-        ScheduleCellDirective,
-        EditScheduleComponent
-    ],
+  declarations: [
+    AppComponent,
+    LoginScheduleComponent,
+    CellComponent,
+    ViewComponent,
+    JournalViewComponent,
+    JournalCellComponent,
+    DatePropertyComponent,
+    SelectMarkComponent,
+    LogComponent,
+    AcceptUsersComponent,
+    ProfileComponent,
+    ProfileOptionComponent,
+    ScheduleSubjectComponent,
+    AuthComponent,
+    UserLoginComponent,
+    AddSubjectDialogComponent,
+    ErrorInfoComponent,
+    SelectSubjectDialogComponent,
+    MomentPipe,
+    ScheduleCellDirective,
+    EditScheduleComponent,
+    UserSignupComponent,
+    SignupStage1Component
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

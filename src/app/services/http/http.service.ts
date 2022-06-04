@@ -3,8 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {errorHandler} from "../../app.component";
 import {map, Observable, Subscription} from "rxjs";
-import {StudyPlace, User, Types} from "../../data";
-import {Lesson, Schedule} from "../../models";
+import {Types} from "../../data";
+import {Lesson, Schedule, StudyPlace, User} from "../../models";
 import * as moment from "moment";
 
 @Injectable({
@@ -17,26 +17,16 @@ export class HttpService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  login(credentials: any): Observable<User> {
-    return this.http.put<User>(`${this.API_PATH}/user/login`, credentials)
+  signUp(data: any): Observable<User> {
+    return this.http.post<User>(`${this.API_PATH}/user/signup`, data)
   }
 
-  register(email: string, password: string, passwordRepeat: string, name: string, type: string, studyPlace: StudyPlace, group: string | null): Subscription {
-    let user = new User(email, name, name, type, name, studyPlace.id, password, passwordRepeat)
-    if (type == "Student" && group != null) {
-      user!!.typeName = group
-      user!!.type = "group"
-    } else {
-      user!!.type = "teacher"
-      user!!.typeName = name
-    }
+  signUpStage1(data: any): Observable<User> {
+    return this.http.put<User>(`${this.API_PATH}/user/signup/stage1`, data)
+  }
 
-    return this.http.post(`${this.API_PATH}/user`, user).subscribe({
-      next: _ => {
-        this.router.navigate(["/login"])
-      },
-      error: errorHandler
-    })
+  login(credentials: any): Observable<User> {
+    return this.http.put<User>(`${this.API_PATH}/user/login`, credentials)
   }
 
   getUser(): Observable<User> {

@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="submit()" *ngIf="this.userService.user$ | async as user">
+  <div class="form-floating" *ngIf="generalService.studyPlaces$ | async as studyPlaces">
+    <input id="studyPlace" class="form-control" list="studyPlaces" placeholder="Study Place"
+           (change)="studyPlaceChange($event, studyPlaces)" (focusout)="markStudyPlaceAsTouched()"/>
+    <label for="studyPlace">Study place</label>
+
+    <datalist id="studyPlaces">
+      <option *ngFor="let studyPlace of studyPlaces" data-value="{{studyPlace.id}}" [value]="studyPlace.name"></option>
+    </datalist>
+    <app-error-info [property]="form.get('studyPlaceId')!!"></app-error-info>
+  </div>
+
+  <div class="form-floating">
+    <select id="type" class="form-control" formControlName="type" (change)="onTypeChange(user)">
+      <option label="Group" value="group"></option>
+      <option label="Teacher" value="teacher"></option>
+    </select>
+    <label for="type">Name</label>
+
+    <app-error-info [property]="form.get('type')!!"></app-error-info>
+  </div>
+
+  <div class="form-floating">
+    <input id="typeName" class="form-control" formControlName="typeName" placeholder="Type name">
+    <label for="typeName">Type name</label>
+
+    <app-error-info [property]="form.get('typeName')!!"></app-error-info>
+  </div>
+
+  <button type="submit" class="btn btn-outline-light" [disabled]="!form.valid">Continue</button>
+</form>

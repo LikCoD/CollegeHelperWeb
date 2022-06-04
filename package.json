@@ -21,7 +21,6 @@
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
     "@popperjs/core": "^2.11.2",
-    "@syncfusion/ej2-angular-schedule": "^20.1.47",
     "angular-popper": "^2.0.1",
     "logrocket": "^2.2.1",
     "luxon-angular": "^5.0.0",

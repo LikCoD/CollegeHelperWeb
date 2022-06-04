@@ -13,7 +13,23 @@ export class UserService {
     this.user$ = httpService.getUser()
   }
 
-  login(credentials: any){
+  signUp(data: any) {
+    this.user$ = this.httpService.signUp(data).pipe(map(value => {
+      this.router.navigate(["signup/stage1"])
+
+      return value
+    }))
+  }
+
+  signUpStage1(data: any) {
+    this.user$ = this.httpService.signUpStage1(data).pipe(map(value => {
+      this.router.navigate([""])
+
+      return value
+    }))
+  }
+
+  login(credentials: any) {
     this.user$ = this.httpService.login(credentials).pipe(map((value) => {
       this.router.navigate([""])
 
