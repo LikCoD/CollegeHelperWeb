@@ -1,18 +1,23 @@
 @use "../../../../styles";
 
-.main-container {
+:host {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
-@media (max-width: 570px){
-  .main-container{
+
+@media (max-width: 570px) {
+  :host {
     justify-content: center;
     flex-wrap: wrap;
   }
 }
 
-.children-container {
+hr {
+  width: 100%;
+}
+
+section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -37,6 +42,10 @@
   height: auto;
   padding: 10px;
   margin-bottom: 15px;
+
+  div {
+    display: flex;
+  }
 
   p {
     margin: 2px;
@@ -65,11 +74,18 @@
   }
 }
 
-.profile-container{
+.profile-container {
+  display: flex;
+  flex-direction: column;
+
   margin: 15px 0 15px 15px;
+
+  > * {
+    margin: 5px 0;
+  }
 }
 
-.revoke-btn{
+button {
   width: 230px;
   border-radius: 15px;
 }

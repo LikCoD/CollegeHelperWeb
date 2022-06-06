@@ -1,28 +1,26 @@
-<div class="main-container">
+<ng-container class="main-container" *ngIf="userService.user$ | async as user">
   <div class="profile-container">
-    <div  class="profile-card">
-      <div style="display: flex">
-        <img *ngIf="user" [src]="user.picture" referrerpolicy="no-referrer" alt="profile" width="48" height="48"
-             class="rounded-circle">
-        <h3 *ngIf="user">{{user.login}}</h3>
-        <h5 *ngIf="!user">Loading...</h5>
+    <div class="profile-card">
+      <div>
+        <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" width="48" height="48" class="rounded-circle">
+        <h3>{{user.login}}</h3>
       </div>
-      <hr style="width: 100%">
-      <p>{{status}}</p>
-      <p>{{user?.name}}</p>
-      <p>{{user?.email}}</p>
-      <p>{{user?.studyPlace}}</p>
-      <p>{{user?.typeName}}</p>
+      <hr>
+      <p>{{user.name}}</p>
+      <p>{{user.email}}</p>
+      <p>{{user.studyPlace}}</p>
+      <p>{{user.typeName}}</p>
     </div>
-    <button class="btn btn-danger revoke-btn" (click)="revoke()">Revoke token</button>
+    <button class="btn btn-warning" (click)="signOut()">Sing out</button>
+    <button class="btn btn-danger" (click)="revoke()">Revoke token</button>
   </div>
-  <div class="children-container">
+  <section>
     <app-profile-option title="Info" [opened]="true">
       <div>Not implemented yet</div>
     </app-profile-option>
     <app-profile-option title="Accept users">
       <app-accept-users></app-accept-users>
     </app-profile-option>
-  </div>
+  </section>
   <div></div>
-</div>
+</ng-container>

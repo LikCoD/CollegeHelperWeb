@@ -1,29 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {User, userStatus} from "../../../data";
-import {HttpService} from "../../../services/http/http.service";
+import {Component} from '@angular/core';
+import {UserService} from "../../../services/shared/user.service";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
-  user: User | undefined;
-  status: string | undefined;
-
-  constructor(private httpService: HttpService) {
+  constructor(public userService: UserService) {
   }
 
-  ngOnInit(): void {
-    this.httpService.getUser().subscribe(user => {
-      this.user = user;
-      this.status = userStatus(user);
-    });
+  revoke() {
+    this.userService.revokeToken()
   }
 
-  revoke(){
-    this.httpService.revokeToken()
+  signOut() {
+    this.userService.signOut()
   }
 }

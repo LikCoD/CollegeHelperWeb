@@ -33,13 +33,18 @@ export class HttpService {
     return this.http.get<User>(`${this.API_PATH}/user`)
   }
 
-  revokeToken(): Subscription {
-    return this.http.put(`${this.API_PATH}/user/revoke`, {}).subscribe({
-      next: _ => {
-        this.router.navigate(["/login"])
-      },
-      error: errorHandler
-    })
+  signOut(): Observable<undefined> {
+    return this.http.delete(`${this.API_PATH}/user/signout`).pipe(map(_ => {
+      this.router.navigate(["/login"])
+      return undefined
+    }))
+  }
+
+  revokeToken(): Observable<undefined> {
+    return this.http.delete(`${this.API_PATH}/user/revoke`).pipe(map(_ => {
+      this.router.navigate(["/login"])
+      return undefined
+    }))
   }
 
   getStudyPlaces(): Observable<StudyPlace[]> {
