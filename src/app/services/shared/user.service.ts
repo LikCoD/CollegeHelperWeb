@@ -12,6 +12,9 @@ export class UserService {
   constructor(private httpService: HttpService, private router: Router) {
     httpService.getUser().subscribe({
       next: value => {
+        if (value.type == "") this.router.navigate(["signup/stage1"])
+        else this.router.navigate([""])
+
         this.user$.next(value)
       }
     })
