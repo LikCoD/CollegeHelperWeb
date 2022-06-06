@@ -32,6 +32,7 @@ import {ScheduleCellDirective} from './components/schedule/view/cell/cell-direct
 import {EditScheduleComponent} from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
 import {UserSignupComponent} from './components/user/signup/user-signup.component';
 import {SignupStage1Component} from './components/user/signup/stage1/signup-stage1.component';
+import { EditUserComponent } from './components/user/profile/edit-user/edit-user.component';
 
 
 const appRoutes: Routes = [
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     ScheduleCellDirective,
     EditScheduleComponent,
     UserSignupComponent,
-    SignupStage1Component
+    SignupStage1Component,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

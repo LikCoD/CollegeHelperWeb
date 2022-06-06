@@ -54,6 +54,14 @@ export class UserService {
     })
   }
 
+  update(data: any) {
+    this.httpService.updateUser(data).subscribe({
+      next: value => {
+        this.user$.next(value)
+      }
+    })
+  }
+
   signOut() {
     this.httpService.signOut().subscribe({
       next: value => {

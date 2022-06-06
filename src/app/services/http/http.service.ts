@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {errorHandler} from "../../app.component";
-import {map, Observable, Subscription} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Types} from "../../data";
 import {Lesson, Schedule, StudyPlace, User} from "../../models";
 import * as moment from "moment";
@@ -31,6 +30,10 @@ export class HttpService {
 
   getUser(): Observable<User> {
     return this.http.get<User>(`${this.API_PATH}/user`)
+  }
+
+  updateUser(data: any): Observable<User> {
+    return this.http.put<User>(`${this.API_PATH}/user`, data)
   }
 
   signOut(): Observable<undefined> {
