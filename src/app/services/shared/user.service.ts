@@ -13,7 +13,6 @@ export class UserService {
     httpService.getUser().subscribe({
       next: value => {
         if (value.type == "") this.router.navigate(["signup/stage1"])
-        else this.router.navigate([""])
 
         this.user$.next(value)
       }
@@ -83,7 +82,8 @@ export class UserService {
 
   putToken(token: string) {
     this.httpService.putToken(token).subscribe({
-      next: _ => {
+      next: value => {
+        this.user$.next(value)
         this.router.navigate(["/"])
       }
     })

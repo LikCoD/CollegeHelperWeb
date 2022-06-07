@@ -18,15 +18,12 @@ import {AcceptUsersComponent} from "./components/user/profile/accept-users/accep
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component";
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component";
-import {AuthComponent} from "./components/general/auth/auth.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
 import {AddSubjectDialogComponent} from "./components/schedule/view/add-subject-dialog/add-subject-dialog.component";
 import {ErrorInfoComponent} from './components/general/error-info/error-info.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatNativeDateModule} from "@angular/material/core";
-import {
-  SelectSubjectDialogComponent
-} from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
+import {SelectSubjectDialogComponent} from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
 import {MomentPipe} from './pipes/moment.pipe';
 import {ScheduleCellDirective} from './components/schedule/view/cell/cell-directive/schedule-cell.directive';
 import {EditScheduleComponent} from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
@@ -63,7 +60,6 @@ const appRoutes: Routes = [
     ProfileComponent,
     ProfileOptionComponent,
     ScheduleSubjectComponent,
-    AuthComponent,
     UserLoginComponent,
     AddSubjectDialogComponent,
     ErrorInfoComponent,

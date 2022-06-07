@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 
 export const errorHandler = (err: HttpErrorResponse, router: Router) => {
   if (err.error == "not authorized") {
+    console.log("login page")
     router.navigate(["login"])
 
     return
