@@ -80,4 +80,12 @@ export class UserService {
       }
     })
   }
+
+  putToken(token: string) {
+    this.httpService.putToken(token).subscribe({
+      next: _ => {
+        this.router.navigate(["/"])
+      }
+    })
+  }
 }

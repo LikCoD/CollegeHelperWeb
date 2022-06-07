@@ -16,6 +16,6 @@ export function sameAs(controlName: string) {
   }
 }
 
-export function continueViaGoogle(page: string = "") {
-  window.location.href = `/api/user/auth/google?redirect=${window.location.host}/${page}`
+export function continueViaGoogle() {
+  window.location.href = `/api/user/auth/google?host=${window.location.host}`
 }

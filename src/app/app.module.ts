@@ -32,7 +32,8 @@ import {ScheduleCellDirective} from './components/schedule/view/cell/cell-direct
 import {EditScheduleComponent} from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
 import {UserSignupComponent} from './components/user/signup/user-signup.component';
 import {SignupStage1Component} from './components/user/signup/stage1/signup-stage1.component';
-import { EditUserComponent } from './components/user/profile/edit-user/edit-user.component';
+import {EditUserComponent} from './components/user/profile/edit-user/edit-user.component';
+import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
 
 
 const appRoutes: Routes = [
@@ -44,7 +45,7 @@ const appRoutes: Routes = [
   {path: 'journal/view', component: JournalViewComponent},
   {path: 'schedule', component: ViewComponent},
   {path: 'log', component: LogComponent},
-  {path: 'user/callback', component: AuthComponent},
+  {path: 'user/receiveToken', component: ReceiveTokenComponent},
 ]
 
 @NgModule({
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     EditScheduleComponent,
     UserSignupComponent,
     SignupStage1Component,
-    EditUserComponent
+    EditUserComponent,
+    ReceiveTokenComponent
   ],
   imports: [
     BrowserModule,

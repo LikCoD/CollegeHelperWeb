@@ -50,6 +50,10 @@ export class HttpService {
     }))
   }
 
+  putToken(token: string): Observable<undefined> {
+    return this.http.put<undefined>(`${this.API_PATH}/user/auth/token`, token)
+  }
+
   getStudyPlaces(): Observable<StudyPlace[]> {
     return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces`)
   }
