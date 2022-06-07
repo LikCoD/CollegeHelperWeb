@@ -15,3 +15,7 @@ export function sameAs(controlName: string) {
     return group.value === value ? null : {notSame: true}
   }
 }
+
+export function continueViaGoogle(page: string = "") {
+  window.location.href = `/api/user/auth/google?redirect=${window.location.host}/${page}`
+}

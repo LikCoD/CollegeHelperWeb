@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import { UserService } from './services/shared/user.service';
+import {Router} from "@angular/router";
 
-export const errorHandler = (err: HttpErrorResponse) => {
+export const errorHandler = (err: HttpErrorResponse, router: Router) => {
   if (err.error == "not authorized") {
-    window.location.href = `/api/user/auth?redirect=http://${window.location.host}/user/callback`
+    router.navigate(["login"])
 
     return
   }

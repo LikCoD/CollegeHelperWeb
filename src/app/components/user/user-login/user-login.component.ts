@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {UserService} from "../../../services/shared/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {continueViaGoogle} from "../../../utils";
 
 @Component({
   selector: 'app-user-login',
@@ -20,7 +21,5 @@ export class UserLoginComponent {
     this.userService.login(this.form.value)
   }
 
-  continueViaGoogle(){
-    window.location.href = `/api/user/auth?redirect=http://${window.location.host}/user/callback`
-  }
+  continueViaGoogle = () => continueViaGoogle()
 }
