@@ -31,18 +31,19 @@ import {UserSignupComponent} from './components/user/signup/user-signup.componen
 import {SignupStage1Component} from './components/user/signup/stage1/signup-stage1.component';
 import {EditUserComponent} from './components/user/profile/edit-user/edit-user.component';
 import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
+import {RoutesGuard} from "./guards/routes.guard";
 
 
 const appRoutes: Routes = [
-  {path: 'user', component: ProfileComponent},
-  {path: 'signup', component: UserSignupComponent},
-  {path: 'signup/stage1', component: SignupStage1Component},
-  {path: 'login', component: UserLoginComponent},
-  {path: 'schedule/login', component: LoginScheduleComponent},
-  {path: 'journal/view', component: JournalViewComponent},
-  {path: 'schedule', component: ViewComponent},
-  {path: 'log', component: LogComponent},
-  {path: 'user/receiveToken', component: ReceiveTokenComponent},
+  {path: 'user', component: ProfileComponent, canActivate: [RoutesGuard]},
+  {path: 'signup', component: UserSignupComponent, canActivate: [RoutesGuard]},
+  {path: 'signup/stage1', component: SignupStage1Component, canActivate: [RoutesGuard]},
+  {path: 'login', component: UserLoginComponent, canActivate: [RoutesGuard]},
+  {path: 'schedule/login', component: LoginScheduleComponent, canActivate: [RoutesGuard]},
+  {path: 'journal/view', component: JournalViewComponent, canActivate: [RoutesGuard]},
+  {path: 'schedule', component: ViewComponent, canActivate: [RoutesGuard]},
+  {path: 'log', component: LogComponent, canActivate: [RoutesGuard]},
+  {path: 'user/receiveToken', component: ReceiveTokenComponent, canActivate: [RoutesGuard]},
 ]
 
 @NgModule({
