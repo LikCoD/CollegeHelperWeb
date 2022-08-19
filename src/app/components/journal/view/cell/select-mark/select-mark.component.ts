@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JournalCellComponent} from "../journal-cell.component";
 import {HttpClient} from "@angular/common/http";
-import {Lesson, Mark} from "../../../../../data";
+import {Lesson, Mark} from "../../../../../models";
 
 @Component({
   selector: 'app-select-mark',
@@ -10,8 +10,8 @@ import {Lesson, Mark} from "../../../../../data";
 })
 export class SelectMarkComponent implements OnInit {
 
-  @Input() lesson: Lesson | undefined
-  @Input() marks: any[] = []
+  @Input() lesson: Lesson
+  @Input() userId: string
 
   availableMarks: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "н", "зч"]
 
@@ -54,26 +54,24 @@ export class SelectMarkComponent implements OnInit {
     let selectedToggle = this.getSelectedOption()
     if (selectedToggle == undefined) return
 
-    console.log(this.lesson!!.userId)
-
     if (selectedToggle.id == "mark-add") {
-      let mark = new Mark(mark_, this.lesson!!.userId, this.lesson!!.id, this.lesson!!.studyPlaceId)
+      let mark: Mark = {mark: mark_, userId: this.userId, lessonId: this.lesson!!.id, studyPlaceId: this.lesson!!.studyPlaceId}
 
-      this.http.post<Lesson>("api/journal/teachers/mark", mark).subscribe({
+      this.http.post<Lesson>("api/journal/mark", mark).subscribe({
         next: value => {
           this.lesson!!.marks = value.marks
         },
         error: console.log
       })
     } else {
-      let mark = this.lesson!!.marks.find(mark => {
+      let mark = this.lesson?.marks?.find(mark => {
         return mark.id == selectedToggle!!.id
       })
       if (mark == undefined) return
 
       mark.mark = mark_
 
-      this.http.put<Lesson>("api/journal/teachers/mark", mark).subscribe({
+      this.http.put<Lesson>("api/journal/mark", mark).subscribe({
         next: value => {
           this.lesson!!.marks = value.marks
         },
@@ -88,8 +86,7 @@ export class SelectMarkComponent implements OnInit {
     let selectedToggle = this.getSelectedOption()
     if (selectedToggle == undefined || selectedToggle.id == 'mark-add') return
 
-    this.http.delete<Lesson>("api/journal/teachers/mark?markId=" + selectedToggle.id + "&subjectId=" + this.lesson!!.id + "&userId=" + this.lesson!!.userId).subscribe(lesson => {
-      console.log(lesson)
+    this.http.delete<Lesson>("api/journal/mark?markId=" + selectedToggle.id + "&subjectId=" + this.lesson!!.id + "&userId=" + this.userId).subscribe(lesson => {
       this.lesson!!.marks = lesson.marks
     })
 

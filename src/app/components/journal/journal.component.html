@@ -1,0 +1,8 @@
+<ng-container *ngIf="journalService.options$ | async as options">
+  <div *ngFor="let option of options" (click)="selectOption(option)">
+    <h5>{{option.subject}}</h5>
+    <p>{{option.group}}</p>
+    <p>{{option.teacher}}</p>
+    <ng-container *ngIf="!option.editable">(View only)</ng-container>
+  </div>
+</ng-container>

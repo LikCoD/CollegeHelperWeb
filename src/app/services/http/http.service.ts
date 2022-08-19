@@ -66,7 +66,7 @@ export class HttpService {
     let params = this.router.parseUrl(this.router.url).queryParams
 
     let url = `${params["type"]}/${params["name"]}`
-    if (params["type"] == undefined || params["name"] == undefined) url = "my"
+    if (params["type"] == undefined || params["name"] == undefined) url = ""
 
     return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`).pipe(map(schedule => {
       schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)

@@ -1,0 +1,22 @@
+@use '../../../styles';
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+div {
+  width: 250px;
+  height: 150px;
+
+  background: styles.$usualColor;
+  border-radius: 25px;
+
+  gap: 15px;
+  padding: 5px 10px;
+}
+
+h5 {
+  text-align: center;
+}

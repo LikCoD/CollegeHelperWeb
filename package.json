@@ -24,7 +24,7 @@
     "angular-popper": "^2.0.1",
     "logrocket": "^2.2.1",
     "luxon-angular": "^5.0.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "ngx-popperjs": "^13.0.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
