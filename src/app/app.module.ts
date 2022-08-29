@@ -32,7 +32,6 @@ import {SignupStage1Component} from './components/user/signup/stage1/signup-stag
 import {EditUserComponent} from './components/user/profile/edit-user/edit-user.component';
 import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
 import {RoutesGuard} from "./guards/routes.guard";
-import { JournalComponent } from './components/journal/journal.component';
 
 
 const appRoutes: Routes = [
@@ -41,7 +40,6 @@ const appRoutes: Routes = [
   {path: 'signup/stage1', component: SignupStage1Component, canActivate: [RoutesGuard]},
   {path: 'login', component: UserLoginComponent, canActivate: [RoutesGuard]},
   {path: 'schedule/login', component: LoginScheduleComponent, canActivate: [RoutesGuard]},
-  {path: 'journal', component: JournalComponent, canActivate: [RoutesGuard]},
   {path: 'journal/view', component: JournalViewComponent, canActivate: [RoutesGuard]},
   {path: 'schedule', component: ViewComponent, canActivate: [RoutesGuard]},
   {path: 'log', component: LogComponent, canActivate: [RoutesGuard]},
@@ -73,8 +71,7 @@ const appRoutes: Routes = [
     UserSignupComponent,
     SignupStage1Component,
     EditUserComponent,
-    ReceiveTokenComponent,
-    JournalComponent
+    ReceiveTokenComponent
   ],
   imports: [
     BrowserModule,

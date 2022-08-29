@@ -72,6 +72,8 @@ export class HttpService {
       schedule.info.startWeekDate = moment.utc(schedule.info.startWeekDate)
       schedule.info.date = moment.utc(schedule.info.date)
 
+      if (schedule.lessons == undefined) schedule.lessons = []
+
       for (let lesson of schedule.lessons) {
         lesson.startDate = moment.utc(lesson.startDate)
         lesson.endDate = moment.utc(lesson.endDate)
@@ -107,5 +109,9 @@ export class HttpService {
       value.startDate = moment.utc(value.startDate)
       return value
     }))
+  }
+
+  makeGeneral(type: string, typeName: string) {
+    this.http.post(`${this.API_PATH}/schedule/makeGeneral?type=${type}&typeName=${typeName}`, {}).subscribe()
   }
 }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {Journal, JournalOption} from "../../models";
+import {Journal, JournalOption, Mark} from "../../models";
 import * as moment from "moment";
 import {Options} from "../../data";
 
@@ -23,5 +23,17 @@ export class JournalHttpService {
 
   getOptions(): Observable<JournalOption[]> {
     return this.http.get<Options[]>("api/journal/options")
+  }
+
+  addMark(mark: Mark): Observable<Mark> {
+    return this.http.post<Mark>("api/journal/mark", mark)
+  }
+
+  editMark(mark: Mark): Observable<Mark> {
+    return this.http.put<Mark>("api/journal/mark", mark)
+  }
+
+  deleteMark(id: string): Observable<string> {
+    return this.http.delete<string>(`api/journal/mark?id=${id}`)
   }
 }

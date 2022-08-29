@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {JournalHttpService} from "../http/journal-http.service";
 import {Observable} from "rxjs";
-import {Journal, JournalOption} from "../../models";
+import {Journal, JournalOption, Mark} from "../../models";
 
 @Injectable({providedIn: 'root'})
 export class JournalService {
@@ -20,5 +20,17 @@ export class JournalService {
   getOptions(): Observable<JournalOption[]> {
     this.options$ = this.httpService.getOptions()
     return this.options$
+  }
+
+  addMark(mark: Mark): Observable<Mark> {
+    return this.httpService.addMark(mark)
+  }
+
+  editMark(mark: Mark): Observable<Mark> {
+    return this.httpService.editMark(mark)
+  }
+
+  deleteMark(id: string): Observable<string> {
+    return this.httpService.deleteMark(id)
   }
 }

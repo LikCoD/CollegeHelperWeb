@@ -6,7 +6,7 @@
            (keydown)="confirmInput($event.code, markInput.value)">
 
     <div class="action-container btn-group" id="action-toggle-container">
-      <div *ngFor="let mark of lesson.marks">
+      <div *ngFor="let mark of marks">
         <input type="radio" class="btn-check" name="action" [id]="mark.id" (click)="selectedMark = mark">
         <label class="mark-button btn btn-outline-dark" [for]="mark.id">{{mark.mark}}</label>
       </div>

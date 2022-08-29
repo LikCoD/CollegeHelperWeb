@@ -44,4 +44,8 @@ export class ViewComponent {
   yTime(time: moment.Moment): number {
     return ((time.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
   }
+
+  makeGeneral() {
+    this.scheduleService.makeGeneral()
+  }
 }

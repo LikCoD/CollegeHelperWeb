@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Lesson} from "../../../../models";
-import * as moment from "moment";
+import {Lesson} from "../../../../data";
 
 @Component({
   selector: 'app-date-property',
@@ -36,9 +35,9 @@ export class DatePropertyComponent implements OnInit {
   confirm() {
     if (this.lesson == undefined) return
 
-    this.http.put<Lesson>(`api/schedule`, this.lesson!!).subscribe({
+    this.http.put<Lesson>(`api/journal/teachers/info`, this.lesson!!).subscribe({
       next: lesson => {
-        lesson!!.startDate = moment.utc(lesson!!.startDate)
+        lesson!!.date = new Date(lesson!!.date)
         this.lesson!! = lesson!
       },
       error: this.onError

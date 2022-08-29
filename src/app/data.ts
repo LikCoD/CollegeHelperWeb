@@ -88,6 +88,28 @@ export function userStatus(user: User): string {
 }
 
 
+interface Row {
+  id: string
+  subject: string,
+  group: string,
+  title: string,
+  userType: string,
+  lessons: Lesson[]
+}
+
+export interface JournalInfo {
+  editable: boolean,
+  studyPlaceId: number
+  group: string
+  teacher: string
+  subject: string
+}
+
+export interface Journal {
+  dates: Lesson[]
+  rows: Row[]
+  info: JournalInfo
+}
 
 
 export interface Schedule {

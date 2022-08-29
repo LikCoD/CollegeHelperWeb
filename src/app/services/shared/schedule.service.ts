@@ -135,4 +135,10 @@ export class ScheduleService {
       })
     }
   }
+
+  makeGeneral() {
+    if (this.schedule == undefined) return
+
+    this.httpService.makeGeneral(this.schedule!!.info.type, this.schedule!!.info.typeName)
+  }
 }
