@@ -25,26 +25,19 @@ import {Lesson} from "../../../../models";
   ]
 })
 export class ScheduleSubjectComponent implements OnInit, Validator, ControlValueAccessor {
-  type: string = "ADDED"
-
-  value: any = ""
-
   @Input()
   set lesson(value: Lesson | undefined) {
     if (value == undefined) return
-
-    this.type = value!!.type
 
     this.form.get("subject")!!.setValue(value.subject);
     this.form.get("teacher")!!.setValue(value.teacher);
     this.form.get("room")!!.setValue(value.room);
     this.form.get("group")!!.setValue(value.group);
+    this.form.get("primaryColor")!!.setValue(value.primaryColor);
+    this.form.get("secondaryColor")!!.setValue(value.secondaryColor == "" || !value.secondaryColor ? "transparent" : value.secondaryColor);
   }
 
   @Input() editable: boolean = false;
-
-  @Input() topCorner: boolean = true;
-  @Input() bottomCorner: boolean = true;
 
   onChange: any
 
@@ -53,13 +46,15 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
     teacher: new FormControl("TEACHER", Validators.required),
     room: new FormControl("ROOM", Validators.required),
     group: new FormControl("GROUP", Validators.required),
+    primaryColor: new FormControl("#F1F1F1"),
+    secondaryColor: new FormControl("transparent")
   })
 
   ngOnInit(): void {
     this.form.statusChanges.subscribe(() => {
       if (typeof this.onChange !== "function") return
 
-      this.onChange({...this.form.value, type: this.type})
+      this.onChange({...this.form.value})
     })
   }
 

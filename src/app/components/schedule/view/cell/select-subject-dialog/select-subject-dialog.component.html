@@ -2,8 +2,8 @@
   <button (click)="close()" class="btn-close"></button>
   <h4>Select subject</h4>
   <section>
-    <div *ngFor="let lesson of lessons; first as isFirst; last as isLast;">
-      <app-schedule-subject [lesson]="lesson" [topCorner]="isFirst" [bottomCorner]="isLast" (click)="select(lesson)"></app-schedule-subject>
+    <div *ngFor="let lesson of lessons;">
+      <app-schedule-subject [lesson]="lesson" (click)="select(lesson)"></app-schedule-subject>
     </div>
   </section>
   <button class="btn btn-outline-light select-all-btn" (click)="selectAll()">Select all</button>

@@ -1,5 +1,10 @@
 @use "../../../../../styles";
 
+:host {
+  border-radius: 25px;
+  overflow: hidden;
+}
+
 input {
   background: transparent;
   border: none;
@@ -18,45 +23,34 @@ input:read-only:focus-visible {
   font-weight: bold;
 }
 
-.cell {
-  padding: 10px 15px 10px 15px;
+main {
   display: flex;
-  flex-direction: column;
 
+  padding: 0 15px 0 5px;
   height: 100%;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
 
-.STAY {
-  background: styles.$usualColor
+  flex-grow: 1;
+  flex-basis: 0;
+
+  height: 100%;
+  min-width: 0;
+
+  padding: 10px 0;
 }
 
-
-.REMOVED {
-  background: styles.$removedColor
-}
-
-
-.ADDED {
-  background: styles.$addedColor
-}
-
-.GENERAL {
-  background: #B4B4B4FF
-}
-
-.topCorner {
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-}
-
-.bottomCorner {
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+.secondaryColorContainer {
+  width: 10px;
+  height: inherit;
 }
 
 div {
   display: flex;
+
   * {
     width: 50%;
 

@@ -1,20 +1,18 @@
 @use "../../../../../styles";
 
-.dialog {
+:host {
   position: relative;
+}
 
-  width: 345px;
-  height: 300px;
+form {
+  width: 310px;
+  height: 320px;
 
   background-color: styles.$usualColor;
-  border-radius: 15px;
+  border-radius: 25px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
 
   padding: 10px;
-}
-
-.subject-cell {
-  width: 180px;
 }
 
 .btn-close {
@@ -41,20 +39,88 @@
   align-items: center;
 }
 
-input[type="date"] {
-  width: 250px;
+input[type="datetime-local"] {
+  width: 185px;
 }
 
 app-schedule-subject {
   width: 180px;
+  height: 90px;
+
+  display: block;
 }
 
-.subject-row {
+.lesson-row {
+  background-color: styles.$primaryBackgroundColor;
+  border-radius: 25px;
+  padding: 10px;
+
   display: flex;
   justify-content: space-between;
+
+  .colors {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    width: 75px;
+
+    * {
+      width: inherit;
+    }
+
+    div {
+      display: flex;
+
+      button {
+        border-color: var(--secondaryColor);
+        color: var(--secondaryColor);
+
+        padding: 0;
+
+        height: 30px;
+        width: 30px;
+
+        transition: none;
+
+        &:hover {
+          transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+          color: white;
+          background-color: var(--secondaryColor);
+        }
+      }
+    }
+  }
 }
 
 button[type="submit"] {
   margin-top: 15px;
   width: 100%;
+}
+
+
+input[type="color"] {
+  padding: 0;
+  height: 30px;
+
+  border: none;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+
+  border-radius: 0.25rem;
+}
+
+.btn-group {
+  input[type="color"]:last-child::-webkit-color-swatch {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input[type="color"]:first-child::-webkit-color-swatch {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }

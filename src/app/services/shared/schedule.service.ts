@@ -75,7 +75,7 @@ export class ScheduleService {
   checkAddGeneral(lesson: Lesson, add: boolean): Lesson[] {
     if (this.schedule == undefined) return []
 
-    let dayLessons = this.schedule.lessons.filter(value => value.endDate?.format("YY-MM-DD") == lesson.endDate?.format("YY-MM-DD") && value.type === "GENERAL")
+    let dayLessons = this.schedule.lessons.filter(value => value.endDate?.format("YY-MM-DD") == lesson.endDate?.format("YY-MM-DD"))
     dayLessons.forEach(value => this.schedule!!.lessons.splice(this.schedule!!.lessons.indexOf(value), 1))
 
     if (!add) return []
@@ -85,11 +85,6 @@ export class ScheduleService {
 
   addLesson(lesson: Lesson, addGeneral: boolean) {
     if (this.schedule == undefined) return
-
-    this.checkAddGeneral(lesson, addGeneral).forEach(value => this.httpService.addLesson(value).subscribe(value => {
-      this.schedule!!.lessons.push(value)
-      this.initSchedule(this.schedule!!)
-    }))
 
     this.httpService.addLesson(lesson).subscribe(value => {
       this.schedule!!.lessons.push(value)

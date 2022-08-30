@@ -1,9 +1,15 @@
-<form class="cell {{type}}" [ngClass]="{'topCorner': topCorner, 'bottomCorner': bottomCorner}"
-      [formGroup]="form">
-  <input class="subject-name" [readOnly]="!editable" formControlName="subject">
-  <input [readOnly]="!editable" formControlName="teacher">
-  <div>
-    <input [readOnly]="!editable" formControlName="room">
-    <input [readOnly]="!editable" formControlName="group">
-  </div>
-</form>
+<main [style.background-color]="form.get('primaryColor')!!.value">
+  <div
+    class="secondaryColorContainer"
+    [style.background]="form.get('secondaryColor')!!.value"
+    [style.margin-right.px]="form.get('secondaryColor')!!.value == 'transparent' ? 0 : 5"
+  ></div>
+  <form [formGroup]="form">
+    <input class="subject-name" [readOnly]="!editable" formControlName="subject">
+    <input [readOnly]="!editable" formControlName="teacher">
+    <div>
+      <input [readOnly]="!editable" formControlName="room">
+      <input [readOnly]="!editable" formControlName="group">
+    </div>
+  </form>
+</main>

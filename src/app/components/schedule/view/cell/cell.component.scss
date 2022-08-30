@@ -76,13 +76,8 @@ section {
   display: flex;
   flex-direction: column;
 
-  &:first-child {
-    border-radius: 25px 25px 0 0;
-  }
-
-  &:last-child {
-    border-radius: 0 0 25px 25px;
-  }
+  border-radius: 25px;
+  overflow: hidden;
 }
 
 .subject-cell {

@@ -26,7 +26,7 @@ export class EditScheduleComponent implements OnInit {
       })
       if (!add) return
 
-      lessons.push({...lesson, type: "STAY"})
+      lessons.push({...lesson})
     })
 
     this.templateLessons = lessons

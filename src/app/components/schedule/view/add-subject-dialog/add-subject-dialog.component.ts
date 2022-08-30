@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import * as moment from "moment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -9,9 +9,12 @@ import {Lesson} from "../../../../models";
   templateUrl: './add-subject-dialog.component.html',
   styleUrls: ['./add-subject-dialog.component.scss']
 })
-export class AddSubjectDialogComponent {
+export class AddSubjectDialogComponent implements AfterViewInit {
 
   lesson: Lesson | undefined
+
+  @ViewChild('primaryColorInput') primaryColorInput: ElementRef;
+  @ViewChild('secondaryColorInput') secondaryColorInput: ElementRef;
 
   set templateSubject(value: Lesson | undefined) {
     if (value == undefined) value = {
@@ -19,22 +22,19 @@ export class AddSubjectDialogComponent {
       room: "ROOM",
       teacher: "TEACHER",
       subject: "SUBJECT",
-      type: "ADDED",
+      primaryColor: "#F1F1F1",
+      secondaryColor: "transparent"
     }
 
     this.lesson = {...value}
-    this.lesson.type = "ADDED"
 
-    this.form.get("subject")!!.setValue(this.lesson);
-    this.form.get("startTime")!!.setValue(this.lesson.startDate?.format("HH:mm"))
-    this.form.get("endTime")!!.setValue(this.lesson.endDate?.format("HH:mm"))
+    this.form.get("lesson")!!.setValue(this.lesson)
   }
 
   form = new FormGroup({
-    date: new FormControl(moment().add(1, "days").format("YYYY-MM-DD"), Validators.required),
-    startTime: new FormControl(moment().format("HH:mm"), Validators.required),
-    endTime: new FormControl(moment().add(1, "hour").format("HH:mm"), Validators.required),
-    subject: new FormControl(undefined),
+    startDate: new FormControl(moment().add(1, "days").format("YYYY-MM-DDTHH:mm"), Validators.required),
+    endDate: new FormControl(moment().add(1, "days").format("YYYY-MM-DDTHH:mm"), Validators.required),
+    lesson: new FormControl(undefined),
   })
 
   currentDate: string = moment().format('YYYY-MM-DD');
@@ -52,12 +52,28 @@ export class AddSubjectDialogComponent {
     let value = this.form.value
 
     let lesson = <Lesson>{
-      ...value.subject,
-      startDate: moment.utc(value.date + ' ' + value.startTime),
-      endDate: moment.utc(value.date + ' ' + value.endTime),
+      ...value.lesson,
+      startDate: moment.utc(value.startDate),
+      endDate: moment.utc(value.endDate)
     }
 
     this.dialogRef.close(lesson)
   }
 
+  onPrimaryColorChange(color: string) {
+    let lesson = this.form.get("lesson")!!
+    lesson.value.primaryColor = color
+    lesson.setValue(lesson.value)
+  }
+
+  onSecondaryColorChange(color: string) {
+    let lessonControl = this.form.get("lesson")!!
+    lessonControl.value.secondaryColor = color
+    lessonControl.setValue(lessonControl.value)
+  }
+
+  ngAfterViewInit(): void {
+    this.primaryColorInput.nativeElement.value = this.lesson!!.primaryColor
+    this.secondaryColorInput.nativeElement.value = this.lesson!!.secondaryColor == "" || !this.lesson!!.secondaryColor ? this.lesson!!.primaryColor : this.lesson!!.secondaryColor
+  }
 }

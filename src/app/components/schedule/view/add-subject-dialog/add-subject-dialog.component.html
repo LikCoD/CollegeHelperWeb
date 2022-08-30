@@ -1,38 +1,38 @@
-<div class="dialog">
-  <button (click)="close()" class="btn-close"></button>
+<button (click)="close()" class="btn-close"></button>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <h3>Add Subject</h3>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3>Add Lesson</h3>
 
-    <div class="date-container">
-      <p>Date:</p>
-      <div style="display: block">
-        <input type="date" class="form-control" [min]="currentDate" formControlName="date">
-        <app-error-info [property]="form.get('date')!!"></app-error-info>
+  <div class="date-container">
+    <p>Start date:</p>
+    <app-form-property [property]="form.get('startDate')!!">
+      <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="startDate">
+    </app-form-property>
+  </div>
+  <div class="date-container">
+    <p>End date:</p>
+    <app-form-property [property]="form.get('endDate')!!">
+      <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="endDate">
+    </app-form-property>
+  </div>
+
+  <div class="lesson-row">
+    <div class="colors">
+      <input #primaryColorInput type="color" class="form-control"
+             (input)="onPrimaryColorChange(primaryColorInput.value)">
+      <div class="btn-group mr-2">
+        <input #secondaryColorInput type="color" class="form-control"
+               (input)="onSecondaryColorChange(secondaryColorInput.value)">
+        <button type="button" class="btn" (click)="onSecondaryColorChange('transparent')"
+                [style.--secondaryColor]="secondaryColorInput.value">
+          X
+        </button>
       </div>
     </div>
-    <div class="subject-row">
-      <div style="display: block">
-        <div style="width: 180px; height: 90px">
-          <app-schedule-subject [editable]="true" [topCorner]="true" [bottomCorner]="true"
-                                formControlName="subject"></app-schedule-subject>
-        </div>
-        <app-error-info [property]="form.get('subject')!!"></app-error-info>
-      </div>
+    <app-form-property [property]="form.get('lesson')!!">
+      <app-schedule-subject [editable]="true" formControlName="lesson"></app-schedule-subject>
+    </app-form-property>
+  </div>
 
-      <div class="time-container">
-        <div>
-          <input type="time" class="form-control" formControlName="startTime">
-          <app-error-info [property]="form.get('startTime')!!"></app-error-info>
-        </div>
-
-        <div>
-          <input type="time" class="form-control" formControlName="endTime">
-          <app-error-info [property]="form.get('endTime')!!"></app-error-info>
-        </div>
-      </div>
-    </div>
-
-    <button [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">Add</button>
-  </form>
-</div>
+  <button [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">Add</button>
+</form>

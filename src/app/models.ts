@@ -3,7 +3,8 @@ import * as moment from "moment";
 export interface Lesson {
   id?: string
   studyPlaceId?: string
-  type: string
+  primaryColor: string
+  secondaryColor?: string
   endDate?: moment.Moment
   startDate?: moment.Moment
   subject: string

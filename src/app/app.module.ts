@@ -32,6 +32,7 @@ import {SignupStage1Component} from './components/user/signup/stage1/signup-stag
 import {EditUserComponent} from './components/user/profile/edit-user/edit-user.component';
 import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
 import {RoutesGuard} from "./guards/routes.guard";
+import {FormPropertyComponent} from "./components/general/form-property/form-property.component";
 
 
 const appRoutes: Routes = [
@@ -64,6 +65,7 @@ const appRoutes: Routes = [
     UserLoginComponent,
     AddSubjectDialogComponent,
     ErrorInfoComponent,
+    FormPropertyComponent,
     SelectSubjectDialogComponent,
     MomentPipe,
     ScheduleCellDirective,
