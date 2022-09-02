@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from '@angular/
 import * as moment from "moment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Lesson} from "../../../../models";
+import {Lesson} from "../../../../../models";
 
 @Component({
   selector: 'app-add-subject-dialog',
@@ -41,7 +41,10 @@ export class AddSubjectDialogComponent implements AfterViewInit {
 
   constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.templateSubject = data.lesson
-    if (data.date != undefined) this.form.get("date")!!.setValue(data.date.format("YYYY-MM-DD"))
+    if (data.date != undefined) {
+      this.form.get("startDate")!!.setValue(data.date.format("YYYY-MM-DDTHH:mm"))
+      this.form.get("endDate")!!.setValue(data.date.format("YYYY-MM-DDTHH:mm"))
+    }
   }
 
   close() {

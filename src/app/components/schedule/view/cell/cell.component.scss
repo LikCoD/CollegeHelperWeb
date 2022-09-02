@@ -103,7 +103,7 @@ section {
 
   transition: all 0.3s;
 
-  background: linear-gradient(90deg, styles.$removedColor 50%, styles.$secondaryBackgroundColor 50%);
+  background: linear-gradient(90deg, styles.$secondaryBackgroundColor 50%, styles.$removedColor 50%);
 
   border-radius: 25px 25px 0 0;
   border: none;

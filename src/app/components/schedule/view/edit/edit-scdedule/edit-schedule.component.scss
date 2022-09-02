@@ -1,22 +1,16 @@
 :host {
-  width: 200px;
-}
-
-.edit-control, .edit-control-footer {
-  position: sticky;
-  width: -webkit-fill-available;
-
-  * {
-    width: 100%;
-  }
+  width: 215px;
 }
 
 .edit-control {
   top: 0;
-}
 
-.edit-control-footer {
-  bottom: 0;
+  position: sticky;
+  width: inherit;
+
+  * {
+    width: 100%;
+  }
 }
 
 section {
@@ -26,10 +20,7 @@ section {
   margin: 10px 0;
 
   * {
-    margin: 10px 0;
+    margin: 10px auto;
+    width: fit-content;
   }
-}
-
-app-schedule-subject {
-  height: 180px;
 }

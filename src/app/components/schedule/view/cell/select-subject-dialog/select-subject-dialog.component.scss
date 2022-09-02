@@ -19,30 +19,8 @@ h4 {
   top: -20px;
   left: 0;
   border-radius: 15px 15px 0 0;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   width: fit-content;
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  max-height: 450px;
-  margin-top: 20px;
-
-  overflow: auto;
-  border-radius: 25px;
-
-  * {
-    transition: all .15s;
-    width: 180px;
-
-    &:hover {
-      color: black;
-      width: 200px;
-    }
-  }
 }
 
 .select-all-btn {
@@ -58,4 +36,8 @@ section {
   height: 20px;
   background-color: aliceblue;
   border-radius: 10px;
+}
+
+app-subject-selection {
+  margin-top: 15px;
 }

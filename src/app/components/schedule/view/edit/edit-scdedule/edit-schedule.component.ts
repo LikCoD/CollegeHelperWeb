@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Lesson, Schedule} from "../../../../../models";
 import {ScheduleService} from "../../../../../services/shared/schedule.service";
-import {AddSubjectDialogComponent} from "../../add-subject-dialog/add-subject-dialog.component";
+import {AddSubjectDialogComponent} from "../add-subject-dialog/add-subject-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -9,7 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
   templateUrl: './edit-schedule.component.html',
   styleUrls: ['./edit-schedule.component.scss']
 })
-export class EditScheduleComponent implements OnInit {
+export class EditScheduleComponent {
 
   @Input() set schedule(schedule: Schedule) {
     let lessons: Lesson[] = []
@@ -38,7 +38,8 @@ export class EditScheduleComponent implements OnInit {
   constructor(public dialog: MatDialog, private scheduleService: ScheduleService) {
   }
 
-  ngOnInit(): void {
+  filterLessons(input: string): Lesson[] {
+    return this.templateLessons.filter(value => this.filter(input, value))
   }
 
   filter(input: string, lesson: Lesson): boolean {
@@ -52,6 +53,6 @@ export class EditScheduleComponent implements OnInit {
 
   add(lesson: Lesson | undefined = undefined) {
     const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: {lesson: lesson}})
-    dialogRef.afterClosed().subscribe((lesson: Lesson) => this.scheduleService.addLesson(lesson, false))
+    dialogRef.afterClosed().subscribe(this.scheduleService.addLesson.bind(this.scheduleService))
   }
 }

@@ -83,8 +83,8 @@ export class ScheduleService {
     return dayLessons
   }
 
-  addLesson(lesson: Lesson, addGeneral: boolean) {
-    if (this.schedule == undefined) return
+  addLesson(lesson: Lesson) {
+    if (!this.schedule || !lesson) return
 
     this.httpService.addLesson(lesson).subscribe(value => {
       this.schedule!!.lessons.push(value)

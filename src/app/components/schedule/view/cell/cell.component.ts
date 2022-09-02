@@ -5,7 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
 import {ScheduleService} from "../../../../services/shared/schedule.service";
 import {Cell, Lesson} from "../../../../models";
-import {AddSubjectDialogComponent} from "../add-subject-dialog/add-subject-dialog.component";
+import {AddSubjectDialogComponent} from "../edit/add-subject-dialog/add-subject-dialog.component";
 
 @Component({
   selector: 'app-schedule-cell',
@@ -47,10 +47,6 @@ export class CellComponent implements OnInit {
     this.lessons = lessons
   }
 
-  showEditControls(): boolean {
-    return this.isEditMode && moment().utc(true).isBefore(this.cell.startDate)
-  }
-
   nextSubject(): void {
     this.selectedSubjectIndex++
     if (this.selectedSubjectIndex >= this.lessons.length) {
@@ -73,7 +69,6 @@ export class CellComponent implements OnInit {
 
     const dialogRef = this.dialog.open(SelectSubjectDialogComponent, {data: this.cell})
     dialogRef.afterClosed().subscribe((lessons: Lesson[] | undefined) => {
-      console.log(lessons)
       if (lessons != undefined) callback(lessons)
     })
   }

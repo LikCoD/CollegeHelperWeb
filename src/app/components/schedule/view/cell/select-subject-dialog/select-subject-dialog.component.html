@@ -1,10 +1,6 @@
 <main>
   <button (click)="close()" class="btn-close"></button>
   <h4>Select subject</h4>
-  <section>
-    <div *ngFor="let lesson of lessons;">
-      <app-schedule-subject [lesson]="lesson" (click)="select(lesson)"></app-schedule-subject>
-    </div>
-  </section>
+  <app-subject-selection [lessons]="lessons" (select)="select($event)"></app-subject-selection>
   <button class="btn btn-outline-light select-all-btn" (click)="selectAll()">Select all</button>
 </main>

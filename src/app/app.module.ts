@@ -19,7 +19,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component";
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
-import {AddSubjectDialogComponent} from "./components/schedule/view/add-subject-dialog/add-subject-dialog.component";
+import {AddSubjectDialogComponent} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component";
 import {ErrorInfoComponent} from './components/general/error-info/error-info.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatNativeDateModule} from "@angular/material/core";
@@ -33,6 +33,7 @@ import {EditUserComponent} from './components/user/profile/edit-user/edit-user.c
 import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
 import {RoutesGuard} from "./guards/routes.guard";
 import {FormPropertyComponent} from "./components/general/form-property/form-property.component";
+import { SubjectSelectionComponent } from './components/schedule/view/subject-selection/subject-selection.component';
 
 
 const appRoutes: Routes = [
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     UserSignupComponent,
     SignupStage1Component,
     EditUserComponent,
-    ReceiveTokenComponent
+    ReceiveTokenComponent,
+    SubjectSelectionComponent
   ],
   imports: [
     BrowserModule,
