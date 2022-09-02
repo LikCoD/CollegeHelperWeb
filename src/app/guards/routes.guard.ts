@@ -13,8 +13,8 @@ export class RoutesGuard implements CanActivate {
   isUserInitialized = false
 
   routes = {
-    undefined: ["login", "signup", "user/receiveToken", ""],
-    singUpStage1: ["signup/stage1", "user", ""],
+    undefined: ["login", "signup", "user/receiveToken", "schedule", ""],
+    singUpStage1: ["signup/stage1", "user", "schedule", ""],
 
     elseNot: ["login", "signup", "signup/stage1"]
   }

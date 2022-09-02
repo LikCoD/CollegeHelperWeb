@@ -66,8 +66,8 @@ export class ScheduleService {
     this.scheduleChange.next(schedule)
   }
 
-  getSchedule(): rxjs.Subject<Schedule> {
-    this.httpService.getSchedule().subscribe(this.initSchedule.bind(this));
+  getSchedule(isRestricted: boolean): rxjs.Subject<Schedule> {
+    this.httpService.getSchedule(isRestricted).subscribe(this.initSchedule.bind(this));
 
     return this.scheduleChange
   }

@@ -62,10 +62,12 @@ export class HttpService {
     return this.http.get<Types>(`${this.API_PATH}/schedule/getTypes`)
   }
 
-  getSchedule(): Observable<Schedule> {
+  getSchedule(isRestricted: boolean): Observable<Schedule> {
     let params = this.router.parseUrl(this.router.url).queryParams
 
     let url = `${params["type"]}/${params["name"]}`
+    if (!isRestricted) url = `preview/${url}?studyPlaceID=${params["studyPlaceID"]}`
+
     if (params["type"] == undefined || params["name"] == undefined) url = ""
 
     return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`).pipe(map(schedule => {
