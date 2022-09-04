@@ -144,12 +144,3 @@ export interface StudyPlace {
   name: string
 }
 
-export class Types {
-  constructor(
-    public groups: string[] = [],
-    public teachers: string[] = [],
-    public subjects: string[] = [],
-    public rooms: string[] = []
-  ) {
-  }
-}

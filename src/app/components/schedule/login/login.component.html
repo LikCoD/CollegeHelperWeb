@@ -1,6 +1,18 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" *ngIf="types$ | async as types">
+  <div class="form-floating" *ngIf="studyPlaces">
+    <input #studyPlaceSelect id="studyPlace" class="form-control" list="studyPlaces" type="text"
+           placeholder="StudyPlace" (change)="selectStudyPlace(studyPlaces, studyPlaceSelect.value)"
+           [(ngModel)]="studyPlaceName" [ngModelOptions]="{standalone: true}">
+    <label for="studyPlace">Study place</label>
+    <datalist id="studyPlaces">
+      <option *ngFor="let studyPlace of studyPlaces" [value]="studyPlace.name"></option>
+    </datalist>
+
+    <app-error-info [property]="form.get('studyPlaceID')!!"></app-error-info>
+  </div>
+
   <div class="form-floating">
-    <select #typeSelect id="type" class="form-select" (change)="onTypeChanged(typeSelect.value)" formControlName="type">
+    <select #typeSelect id="type" class="form-select" formControlName="type">
       <option value="group">Group</option>
       <option value="teacher">Teacher</option>
       <option value="subject">Subject</option>
@@ -15,7 +27,7 @@
     <input id="name" class="form-control" list="names" formControlName="name" type="text" placeholder="Name">
     <label for="name">Name</label>
     <datalist id="names">
-      <option *ngFor="let selectedType of availableTypes" value="{{selectedType}}">
+      <option *ngFor="let type of getTypeByName(types, typeSelect.value + 's')" [value]="type">
     </datalist>
 
     <app-error-info [property]="form.get('name')!!"></app-error-info>

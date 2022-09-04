@@ -8,9 +8,10 @@ export class GeneralService {
   studyPlaces$: Observable<StudyPlace[]>
 
   constructor(private httpService: HttpService) {
-    this.studyPlaces$ = httpService.getStudyPlaces().pipe(map(value => {
-      console.log(value)
-      return value
-    }))
+    this.studyPlaces$ = httpService.getStudyPlaces()
+  }
+
+  getNotRestrictedStudyPlaces() {
+    return this.httpService.getStudyPlaces(false)
   }
 }

@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {map, Observable} from "rxjs";
-import {Types} from "../../data";
-import {Lesson, Schedule, StudyPlace, User} from "../../models";
+import {Lesson, Schedule, StudyPlace, Types, User} from "../../models";
 import * as moment from "moment";
 
 @Injectable({
@@ -54,20 +53,18 @@ export class HttpService {
     return this.http.put<User>(`${this.API_PATH}/user/auth/token`, token)
   }
 
-  getStudyPlaces(): Observable<StudyPlace[]> {
-    return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces`)
+  getStudyPlaces(restricted = true): Observable<StudyPlace[]> {
+    return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces?restricted=${restricted}`)
   }
 
-  getTypes(): Observable<Types> {
-    return this.http.get<Types>(`${this.API_PATH}/schedule/getTypes`)
+  getTypes(studyPlaceID: string): Observable<Types> {
+    return this.http.get<Types>(`${this.API_PATH}/schedule/getTypes?id=${studyPlaceID}`)
   }
 
-  getSchedule(isRestricted: boolean): Observable<Schedule> {
+  getSchedule(): Observable<Schedule> {
     let params = this.router.parseUrl(this.router.url).queryParams
 
-    let url = `${params["type"]}/${params["name"]}`
-    if (!isRestricted) url = `preview/${url}?studyPlaceID=${params["studyPlaceID"]}`
-
+    let url = `${params["type"]}/${params["name"]}?studyPlaceID=${params["studyPlaceID"]}`
     if (params["type"] == undefined || params["name"] == undefined) url = ""
 
     return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`).pipe(map(schedule => {
@@ -116,4 +113,5 @@ export class HttpService {
   makeGeneral(type: string, typeName: string) {
     this.http.post(`${this.API_PATH}/schedule/makeGeneral?type=${type}&typeName=${typeName}`, {}).subscribe()
   }
+
 }

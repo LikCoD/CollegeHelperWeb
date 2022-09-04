@@ -1,6 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
-import * as moment from "moment";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
 import {ScheduleService} from "../../../../services/shared/schedule.service";
@@ -82,7 +81,7 @@ export class CellComponent implements OnInit {
   }
 
   removeSubject(lessons: Lesson[]): void {
-    for (let lesson of lessons) this.scheduleService.removeLesson(lesson, true)
+    for (let lesson of lessons) this.scheduleService.removeLesson(lesson)
   }
 
   editLesson(lessons: Lesson[]): void {

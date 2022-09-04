@@ -27,7 +27,7 @@ export class ViewComponent {
   constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService) {
     this.route.queryParams.subscribe(() => {
       let fragment = this.router.parseUrl(this.router.url).fragment
-      this.schedule$ = this.scheduleService.getSchedule(fragment != "preview").pipe(
+      this.schedule$ = this.scheduleService.getSchedule().pipe(
         map(schedule => {
           this.maxWidth = schedule.info.daysNumber * 200 + 180
           this.maxHeight = ( schedule.info.maxTime.hours() - schedule.info.minTime.hours()) * 60 * 2

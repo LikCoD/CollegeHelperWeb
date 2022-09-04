@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import {A} from "@angular/cdk/keycodes";
 
 export interface Lesson {
   id?: string
@@ -46,7 +47,7 @@ export interface User {
   name: string
   type: string
   typeName: string
-  studyPlaceId: number
+  studyPlaceId: string
   password: string
   passwordRepeat: string
   studyPlace: string,
@@ -58,6 +59,8 @@ export interface User {
 }
 
 export interface StudyPlace {
-  id: number,
+  id: string,
   name: string
 }
+
+export type Types = Map<string, string[]>
