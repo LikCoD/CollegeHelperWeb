@@ -71,17 +71,6 @@ export class ScheduleService {
     return this.scheduleChange
   }
 
-  checkAddGeneral(lesson: Lesson, add: boolean): Lesson[] {
-    if (this.schedule == undefined) return []
-
-    let dayLessons = this.schedule.lessons.filter(value => value.endDate?.format("YY-MM-DD") == lesson.endDate?.format("YY-MM-DD"))
-    dayLessons.forEach(value => this.schedule!!.lessons.splice(this.schedule!!.lessons.indexOf(value), 1))
-
-    if (!add) return []
-
-    return dayLessons
-  }
-
   addLesson(lesson: Lesson) {
     if (!this.schedule || !lesson) return
 
@@ -104,20 +93,10 @@ export class ScheduleService {
     if (this.schedule == undefined) return
     lesson.id = oldLessons.id
 
-    let lessons = this.checkAddGeneral(oldLessons, addGeneral)
-    let i = lessons.indexOf(oldLessons)
-    if (i != -1) {
-      lessons[i] = lesson
-      lessons.forEach(value => this.httpService.addLesson(value).subscribe(value => {
-        this.schedule!!.lessons.push(value)
-        this.initSchedule(this.schedule!!)
-      }))
-    } else {
-      this.httpService.updateLesson(lesson).subscribe(value => {
-        this.schedule!!.lessons[this.schedule!!.lessons.indexOf(oldLessons)] = value
-        this.initSchedule(this.schedule!!)
-      })
-    }
+    this.httpService.updateLesson(lesson).subscribe(value => {
+      this.schedule!!.lessons[this.schedule!!.lessons.indexOf(oldLessons)] = value
+      this.initSchedule(this.schedule!!)
+    })
   }
 
   makeGeneral() {
