@@ -41,9 +41,9 @@ export class AddSubjectDialogComponent implements AfterViewInit {
 
   constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.templateSubject = data.lesson
-    if (data.date != undefined) {
-      this.form.get("startDate")!!.setValue(data.date.format("YYYY-MM-DDTHH:mm"))
-      this.form.get("endDate")!!.setValue(data.date.format("YYYY-MM-DDTHH:mm"))
+    if (this.lesson != undefined) {
+      this.form.get("startDate")!!.setValue(data.lesson.startDate.format("YYYY-MM-DDTHH:mm"))
+      this.form.get("endDate")!!.setValue(data.lesson.endDate.format("YYYY-MM-DDTHH:mm"))
     }
   }
 

@@ -87,8 +87,7 @@ export class CellComponent implements OnInit {
   editLesson(lessons: Lesson[]): void {
     const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
       data: {
-        lesson: lessons[0],
-        date: lessons[0].startDate
+        lesson: lessons[0]
       }
     })
     dialogRef.afterClosed().subscribe((lesson: Lesson | undefined) => {
