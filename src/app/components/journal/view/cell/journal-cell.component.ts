@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
-import { Lesson } from 'src/app/data';
 import {JournalViewComponent} from "../view.component";
+import {Lesson} from "../../../../models";
 
 @Component({
   selector: 'app-journal-cell',
@@ -12,7 +12,8 @@ export class JournalCellComponent implements OnInit {
   popperTrigger = NgxPopperjsTriggers.hover
   popperPlacement = NgxPopperjsPlacements.BOTTOMEND
 
-  @Input() lesson: Lesson | undefined
+  @Input() lesson: Lesson
+  @Input() userId: string
   @Input() show: boolean = true
 
   selectMarkPopup: boolean = false

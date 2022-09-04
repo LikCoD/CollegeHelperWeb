@@ -1,5 +1,4 @@
 import * as moment from "moment";
-import {A} from "@angular/cdk/keycodes";
 
 export interface Lesson {
   id?: string
@@ -12,6 +11,7 @@ export interface Lesson {
   group: string
   teacher: string
   room: string
+  marks?: Mark[]
   title?: string
   homework?: string
   description?: string
@@ -64,3 +64,41 @@ export interface StudyPlace {
 }
 
 export type Types = Map<string, string[]>
+
+export interface JournalInfo {
+  editable: boolean,
+  studyPlaceId: string
+  group: string
+  teacher: string
+  subject: string
+}
+
+interface JournalRow {
+  id: string
+  subject: string,
+  group: string,
+  title: string,
+  userType: string,
+  lessons: Lesson[]
+}
+
+export interface Journal {
+  dates: Lesson[]
+  rows: JournalRow[]
+  info: JournalInfo
+}
+
+export interface JournalOption {
+  subject: string
+  teacher: string
+  group: string
+  editable: boolean
+}
+
+export interface Mark {
+  mark: string,
+  studentID?: string,
+  lessonId?: string,
+  studyPlaceId?: string,
+  id?: string
+}

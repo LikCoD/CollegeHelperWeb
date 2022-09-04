@@ -6,8 +6,8 @@ import * as moment from "moment";
 })
 export class MomentPipe implements PipeTransform {
 
-  transform(value: moment.Moment, pattern?: string): string {
-    return value.format(pattern)
+  transform(value?: moment.Moment, pattern?: string): string {
+    return value?.format(pattern) ?? ""
   }
 
 }

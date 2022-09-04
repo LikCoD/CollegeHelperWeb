@@ -8,7 +8,7 @@ form {
   width: 310px;
   height: 320px;
 
-  background-color: styles.$usualColor;
+  background-color: styles.$onBackgroundColor;
   border-radius: 25px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
 
@@ -51,7 +51,7 @@ app-schedule-subject {
 }
 
 .lesson-row {
-  background-color: styles.$primaryBackgroundColor;
+  background-color: styles.$backgroundColor;
   border-radius: 25px;
   padding: 10px;
 

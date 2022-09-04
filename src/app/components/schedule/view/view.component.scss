@@ -31,7 +31,7 @@
   height: 100%;
   margin-top: 50px;
 
-  background: styles.$primaryBackgroundColor;
+  background: styles.$backgroundColor;
   z-index: 4;
 }
 
@@ -54,7 +54,7 @@
   height: 30px;
   top: 0;
 
-  background: styles.$primaryBackgroundColor;
+  background: styles.$backgroundColor;
 
   z-index: 3;
 }
@@ -77,12 +77,12 @@
 .time {
   position: absolute;
 
-  color: styles.$usualColor;
+  color: styles.$onBackgroundColor;
   text-align: center;
 }
 
 .weekday {
-  color: styles.$usualColor;
+  color: styles.$onBackgroundColor;
   text-align: center;
   margin: 0 10px;
 
@@ -94,7 +94,7 @@
   margin: 0;
   width: 98vw;
 
-  border-top: 1px dashed styles.$usualColor;
+  border-top: 1px dashed styles.$onBackgroundColor;
   opacity: 0.6;
 }
 

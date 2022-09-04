@@ -12,18 +12,21 @@ import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.
 import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/select-mark.component";
 import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
-import {LogComponent} from "./components/general/log/log/log.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component";
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component";
 import {UserLoginComponent} from "./components/user/user-login/user-login.component";
-import {AddSubjectDialogComponent} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component";
+import {
+  AddSubjectDialogComponent
+} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component";
 import {ErrorInfoComponent} from './components/general/error-info/error-info.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatNativeDateModule} from "@angular/material/core";
-import {SelectSubjectDialogComponent} from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
+import {
+  SelectSubjectDialogComponent
+} from './components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component';
 import {MomentPipe} from './pipes/moment.pipe';
 import {ScheduleCellDirective} from './components/schedule/view/cell/cell-directive/schedule-cell.directive';
 import {EditScheduleComponent} from './components/schedule/view/edit/edit-scdedule/edit-schedule.component';
@@ -33,7 +36,8 @@ import {EditUserComponent} from './components/user/profile/edit-user/edit-user.c
 import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
 import {RoutesGuard} from "./guards/routes.guard";
 import {FormPropertyComponent} from "./components/general/form-property/form-property.component";
-import { SubjectSelectionComponent } from './components/schedule/view/subject-selection/subject-selection.component';
+import {SubjectSelectionComponent} from './components/schedule/view/subject-selection/subject-selection.component';
+import {JournalComponent} from "./components/journal/journal.component";
 
 
 const appRoutes: Routes = [
@@ -42,9 +46,9 @@ const appRoutes: Routes = [
   {path: 'signup/stage1', component: SignupStage1Component, canActivate: [RoutesGuard]},
   {path: 'login', component: UserLoginComponent, canActivate: [RoutesGuard]},
   {path: 'schedule/login', component: LoginScheduleComponent, canActivate: [RoutesGuard]},
+  {path: 'journal', component: JournalComponent, canActivate: [RoutesGuard]},
   {path: 'journal/view', component: JournalViewComponent, canActivate: [RoutesGuard]},
   {path: 'schedule', component: ViewComponent, canActivate: [RoutesGuard]},
-  {path: 'log', component: LogComponent, canActivate: [RoutesGuard]},
   {path: 'user/receiveToken', component: ReceiveTokenComponent, canActivate: [RoutesGuard]},
 ]
 
@@ -58,7 +62,6 @@ const appRoutes: Routes = [
     JournalCellComponent,
     DatePropertyComponent,
     SelectMarkComponent,
-    LogComponent,
     AcceptUsersComponent,
     ProfileComponent,
     ProfileOptionComponent,
@@ -75,7 +78,8 @@ const appRoutes: Routes = [
     SignupStage1Component,
     EditUserComponent,
     ReceiveTokenComponent,
-    SubjectSelectionComponent
+    SubjectSelectionComponent,
+    JournalComponent
   ],
   imports: [
     BrowserModule,

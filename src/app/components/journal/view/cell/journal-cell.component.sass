@@ -30,7 +30,7 @@
 
 
 .cell :target
-  border: solid styles.$secondaryBackgroundColor70 4px
+  border: solid styles.$secondaryColor 4px
   border-radius: 15px
 
 
@@ -63,14 +63,14 @@
   margin-left: 15px
 
 .not-empty-cell
-  background: styles.$usualColor
+  background: styles.$onBackgroundColor
   border-radius: 15px
   height: 50px
   width: 50px
 
 
 .empty-cell
-  background: styles.$emptyColor
+  background: styles.$secondaryColor
   border-radius: 15px
   height: 50px
   width: 50px
@@ -78,7 +78,7 @@
 .more-circle
   width: 7px
   height: 7px
-  background-color: styles.$secondaryBackgroundColor
+  background-color: styles.$secondaryColor
   border-radius: 50%
 
   margin-left: auto
@@ -89,7 +89,7 @@
 .markTooltip
   display: flex
 
-  background: styles.$primaryBackgroundColorCC
+  background: styles.$backgroundColor
   border-radius: 10px
 
   .mark-cell
@@ -97,7 +97,7 @@
     align-items: center
     justify-content: center
 
-    background: styles.$usualColor
+    background: styles.$onBackgroundColor
     padding: 5px
     margin: 5px
     border-radius: 10px

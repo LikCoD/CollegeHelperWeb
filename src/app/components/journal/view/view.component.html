@@ -1,44 +1,30 @@
-<div>
-  <div *ngIf="!isSelected">
-    <div *ngFor="let option of options">
-      <a href="journal/view?group={{option.group}}&subject={{option.subject}}&teacher={{option.teacher}}"
-         *ngIf="!option.editable">
-        {{option.group}}: {{option.subject}} (View only)
-      </a>
-      <a href="journal/view?group={{option.group}}&subject={{option.subject}}&teacher={{option.teacher}}"
-         *ngIf="option.editable">
-        {{option.group}}: {{option.subject}}
-      </a>
-    </div>
-  </div>
-
-  <div *ngIf="journal">
-    <table style="border-spacing: 15px; border-collapse: separate" id="mainTable">
-      <tr>
-        <td></td>
-        <td></td>
-        <td *ngFor="let date of journal.dates;">
-          <div class="date" (click)="appDateProperty.onClick()">
-            <span>{{date.date.toLocaleDateString('ru', {month: 'short'})}}</span>
-            <span>{{date.date.toLocaleDateString('ru', {day: 'numeric', weekday: 'short'})}}</span>
-          </div>
-          <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes" [show]="journal.info.editable"></app-date-property>
-        </td>
-      </tr>
-      <tr *ngFor="let subject of journal.rows; let y = index" [attr.data-index]="y">
-        <td class="number">{{y + 1}}</td>
-        <td class="name">{{subject.title}}</td>
-        <td *ngFor="let lesson of subject.lessons; let x = index" [attr.data-index]="x"
-            (keydown.arrowUp)="focusCell(x + 2, y)"
-            (keydown.arrowRight)="focusCell(x + 3, y + 1)"
-            (keydown.arrowDown)="focusCell(x + 2, y + 2)"
-            (keydown.arrowLeft)="focusCell(x + 1, y + 1)"
-            (keydown)="onKeyPressed($event.key, cell)"
-            class="cell"
-            tabindex="0">
-          <app-journal-cell #cell [lesson]="lesson" [show]="journal.info.editable"></app-journal-cell>
-        </td>
-      </tr>
-    </table>
-  </div>
+<div *ngIf="journalService.journal$ | async as journal">
+  <table style="border-spacing: 15px; border-collapse: separate" id="mainTable">
+    <tr>
+      <td></td>
+      <td></td>
+      <td *ngFor="let date of journal.dates;">
+        <div class="date" (click)="appDateProperty.onClick()">
+          <span>{{date.startDate | moment: "MMM"}}</span>
+          <span>{{date.startDate | moment: "dd w"}}</span>
+        </div>
+        <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes"
+                           [show]="journal.info.editable"></app-date-property>
+      </td>
+    </tr>
+    <tr *ngFor="let row of journal.rows; let y = index" [attr.data-index]="y">
+      <td class="number">{{y + 1}}</td>
+      <td class="name">{{row.title}}</td>
+      <td *ngFor="let lesson of row.lessons; let x = index" [attr.data-index]="x"
+          (keydown.arrowUp)="focusCell(x + 2, y)"
+          (keydown.arrowRight)="focusCell(x + 3, y + 1)"
+          (keydown.arrowDown)="focusCell(x + 2, y + 2)"
+          (keydown.arrowLeft)="focusCell(x + 1, y + 1)"
+          (keydown)="onKeyPressed($event.key, cell)"
+          class="cell"
+          tabindex="0">
+        <app-journal-cell #cell [lesson]="lesson" [show]="journal.info.editable" [userId]="row.id"></app-journal-cell>
+      </td>
+    </tr>
+  </table>
 </div>

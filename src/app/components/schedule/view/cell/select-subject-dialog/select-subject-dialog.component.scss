@@ -5,7 +5,7 @@ main {
 
   width: 230px;
 
-  background-color: styles.$primaryBackgroundColor;
+  background-color: styles.$backgroundColor;
   border-radius: 25px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
 
@@ -13,8 +13,8 @@ main {
 }
 
 h4 {
-  color: styles.$usualColor;
-  background: styles.$primaryBackgroundColor;
+  color: styles.$onBackgroundColor;
+  background: styles.$backgroundColor;
   position: absolute;
   top: -20px;
   left: 0;

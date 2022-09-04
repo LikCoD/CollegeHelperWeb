@@ -31,16 +31,18 @@ header {
   img {
     width: 38px;
     height: 38px;
+
+    border-radius: 12px;
   }
 }
 
 .header-user {
-  color: styles.$usualColor;
+  color: styles.$onBackgroundColor;
   padding: 0.5rem 1rem;
   cursor: pointer !important;
   text-decoration: none;
 }
 
 .header-text:hover, .header-text:focus {
-  color: styles.$usualColor;
+  color: styles.$onBackgroundColor;
 }

@@ -13,32 +13,40 @@ $my-theme: mat.define-light-theme((
 
 @include mat.core-theme($my-theme);
 
-$primaryBackgroundColor: #434C5D;
-$primaryBackgroundColorCC: #434C5Dcc;
-$secondaryBackgroundColor: #E6BA92;
-$secondaryBackgroundColor70: rgba(230, 186, 146, 0.7);
-$addedColor: #71AB7F;
-$removedColor: #FA6F46;
-$emptyColor: #505A64;
-$usualColor: #f1f1f1;
+$primaryColor: #B33A0D;
+$secondaryColor: #CF805F;
+$backgroundColor: #23313A;
+
+$onBackgroundColor: #F5EDD9;
+
+
+$dangerColor: #FF5517;
+$dangerHoverColor: #eb4117;
+
+$warningColor: #FFB802;
+$warningHoverColor: #eba400;
+
+$successColor: #494D32;
+$successHoverColor: #5d6146;
+
 
 body {
-  background: $primaryBackgroundColor;
+  background: $backgroundColor;
   font-family: 'Roboto', sans-serif;
 }
 
 header {
-  background: $secondaryBackgroundColor;
+  background: $secondaryColor;
 }
 
 a {
-  color: $usualColor;
+  color: $onBackgroundColor;
   cursor: pointer !important;
   text-decoration: none;
 }
 
 a:hover, a:focus {
-  color: $usualColor;
+  color: $onBackgroundColor;
 }
 
 .header_text {
@@ -96,4 +104,37 @@ p {
 
 a {
   text-decoration: none !important;
+}
+
+.btn-success {
+  color: $onBackgroundColor;
+  background-color: $successColor;
+  border-color: $successColor;
+
+  &:hover {
+    background-color: $successHoverColor;
+    border-color: $successHoverColor;
+  }
+}
+
+.btn-warning {
+  color: $onBackgroundColor;
+  background-color: $warningColor;
+  border-color: $warningColor;
+
+  &:hover {
+    background-color: $warningHoverColor;
+    border-color: $warningHoverColor;
+  }
+}
+
+.btn-danger {
+  color: $onBackgroundColor;
+  background-color: $dangerColor;
+  border-color: $dangerColor;
+
+  &:hover {
+    background-color: $dangerHoverColor;
+    border-color: $dangerHoverColor;
+  }
 }
