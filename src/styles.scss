@@ -71,6 +71,12 @@ a:hover, a:focus {
   }
 }
 
+@media (max-width: 501px) {
+  .signup-header-btn {
+    display: none;
+  }
+}
+
 .header-image-bar {
   width: 24px;
   height: 24px;
