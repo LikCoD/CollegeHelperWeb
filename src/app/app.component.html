@@ -16,14 +16,12 @@
     </div>
 
     <a routerLink="user" class="header-user">
-      <p class="header-login-text">{{user.login}}</p>
+      <p>{{user.login}}</p>
       <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile">
     </a>
   </ng-container>
 </header>
-<div class="main-container">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>
 
 <ng-template #notLoginHeader>
   <div class="action">

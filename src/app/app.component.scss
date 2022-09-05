@@ -39,10 +39,6 @@ header {
   }
 }
 
-.main-container {
-  margin-top: 80px;
-}
-
 .header-name {
   font-family: 'Comfortaa', cursive;
   font-size: 36px;
@@ -66,6 +62,11 @@ header {
   }
 }
 
+router-outlet {
+  display: block;
+  margin-top: 80px;
+}
+
 @media (max-width: 760px) {
   .action p {
     display: none;
@@ -73,7 +74,7 @@ header {
 }
 
 @media (max-width: 451px) {
-  .header-login-text {
+  .header-user p {
     display: none;
   }
 }
