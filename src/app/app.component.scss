@@ -28,19 +28,20 @@ header {
 }
 
 .header-user {
+  display: flex;
+  align-items: center;
+
+  color: styles.$onBackgroundColor;
+  padding: 0.5rem 1rem;
+  cursor: pointer !important;
+  text-decoration: none;
+
   img {
     width: 38px;
     height: 38px;
 
     border-radius: 25%;
   }
-}
-
-.header-user {
-  color: styles.$onBackgroundColor;
-  padding: 0.5rem 1rem;
-  cursor: pointer !important;
-  text-decoration: none;
 }
 
 .header-text:hover, .header-text:focus {

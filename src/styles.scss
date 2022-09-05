@@ -65,6 +65,12 @@ a:hover, a:focus {
   }
 }
 
+@media (max-width: 451px) {
+  .header-login-text {
+    display: none;
+  }
+}
+
 .header-image-bar {
   width: 24px;
   height: 24px;
