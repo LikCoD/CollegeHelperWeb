@@ -35,58 +35,27 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-header {
-  background: $secondaryColor;
+p {
+  margin: 0;
 }
 
 a {
   color: $onBackgroundColor;
   cursor: pointer !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:hover, a:focus {
   color: $onBackgroundColor;
 }
 
-.header_text {
-  padding: 0.5rem 1rem;
-}
-
-@media (max-width: 700px) {
-  .header_text {
-    display: none;
-  }
-}
-
-@media (min-width: 701px) {
-  .header-image-bar {
-    display: none;
-  }
-}
-
-@media (max-width: 451px) {
-  .header-login-text {
-    display: none;
-  }
-}
-
-@media (max-width: 551px) {
-  .signup-header-btn {
-    display: none;
-  }
-}
-
-.header-image-bar {
-  width: 24px;
-  height: 24px;
-
-  margin-right: 15px;
-}
-
 ::-webkit-scrollbar {
   width: 9px;
   height: 9px;
+}
+
+input::-webkit-calendar-picker-indicator {
+  display: none !important;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -104,18 +73,6 @@ a:hover, a:focus {
 
 ::-webkit-scrollbar-corner {
   background: transparent;
-}
-
-input::-webkit-calendar-picker-indicator {
-  display: none !important;
-}
-
-p {
-  margin: 0;
-}
-
-a {
-  text-decoration: none !important;
 }
 
 .btn-success {

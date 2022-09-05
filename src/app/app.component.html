@@ -1,17 +1,17 @@
 <header>
   <ng-container class="container" *ngIf="userService.user$ | async as user else notLoginHeader">
-    <div style="display: flex">
+    <div class="action">
       <a routerLink="schedule">
-        <p class="header_text">Schedule</p>
-        <img src="assets/schedule.svg" alt="schedule" class="header-image-bar">
+        <img src="assets/schedule.svg" alt="schedule">
+        <p>Schedule</p>
       </a>
       <a routerLink="schedule/login">
-        <p class="header_text">Find schedule</p>
-        <img src="assets/search-schedule.svg" alt="schedule search" class="header-image-bar">
+        <img src="assets/search-schedule.svg" alt="schedule search">
+        <p>Find schedule</p>
       </a>
       <a routerLink="journal">
-        <p class="header_text">Journal</p>
-        <img src="assets/journal.svg" alt="journal" class="header-image-bar">
+        <img src="assets/journal.svg" alt="journal">
+        <p>Journal</p>
       </a>
     </div>
 
@@ -26,11 +26,13 @@
 </div>
 
 <ng-template #notLoginHeader>
+  <div class="action">
+    <a routerLink="schedule/login">
+      <img src="assets/search-schedule.svg" alt="schedule search">
+      <p>Schedule</p>
+    </a>
+  </div>
   <p class="header-name">Studyum</p>
-  <a routerLink="schedule/login">
-    <p class="header_text">Schedule</p>
-    <img src="assets/search-schedule.svg" alt="schedule search" class="header-image-bar">
-  </a>
   <div>
     <button type="button" class="btn btn-outline-light" routerLink="login">Login</button>
     <button type="button" class="btn btn-outline-light signup-header-btn" routerLink="signup">SignUp</button>
