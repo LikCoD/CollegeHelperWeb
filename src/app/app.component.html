@@ -2,11 +2,11 @@
   <ng-container class="container" *ngIf="userService.user$ | async as user else notLoginHeader">
     <div style="display: flex">
       <a routerLink="schedule">
-        <p class="header_text">My schedule</p>
+        <p class="header_text">Schedule</p>
         <img src="assets/schedule.svg" alt="schedule" class="header-image-bar">
       </a>
       <a routerLink="schedule/login">
-        <p class="header_text">Schedule</p>
+        <p class="header_text">Find schedule</p>
         <img src="assets/search-schedule.svg" alt="schedule search" class="header-image-bar">
       </a>
       <a routerLink="journal">
@@ -27,6 +27,10 @@
 
 <ng-template #notLoginHeader>
   <p class="header-name">Studyum</p>
+  <a routerLink="schedule/login">
+    <p class="header_text">Schedule</p>
+    <img src="assets/search-schedule.svg" alt="schedule search" class="header-image-bar">
+  </a>
   <div>
     <button type="button" class="btn btn-outline-light" routerLink="login">Login</button>
     <button type="button" class="btn btn-outline-light signup-header-btn" routerLink="signup">SignUp</button>

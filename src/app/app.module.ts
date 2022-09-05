@@ -34,52 +34,65 @@ import {UserSignupComponent} from './components/user/signup/user-signup.componen
 import {SignupStage1Component} from './components/user/signup/stage1/signup-stage1.component';
 import {EditUserComponent} from './components/user/profile/edit-user/edit-user.component';
 import {ReceiveTokenComponent} from './components/user/receive-token/receive-token.component';
-import {RoutesGuard} from "./guards/routes.guard";
 import {FormPropertyComponent} from "./components/general/form-property/form-property.component";
 import {SubjectSelectionComponent} from './components/schedule/view/subject-selection/subject-selection.component';
 import {JournalComponent} from "./components/journal/journal.component";
+import {NotLoginGuard} from "./guards/not-login.guard";
+import {LoginGuard} from "./guards/login.guard";
+import {SignupStage1Guard} from "./guards/signup-stage1.guard";
 
 
 const appRoutes: Routes = [
-  {path: 'user', component: ProfileComponent, canActivate: [RoutesGuard]},
-  {path: 'signup', component: UserSignupComponent, canActivate: [RoutesGuard]},
-  {path: 'signup/stage1', component: SignupStage1Component, canActivate: [RoutesGuard]},
-  {path: 'login', component: UserLoginComponent, canActivate: [RoutesGuard]},
-  {path: 'schedule/login', component: LoginScheduleComponent, canActivate: [RoutesGuard]},
-  {path: 'journal', component: JournalComponent, canActivate: [RoutesGuard]},
-  {path: 'journal/view', component: JournalViewComponent, canActivate: [RoutesGuard]},
-  {path: 'schedule', component: ViewComponent, canActivate: [RoutesGuard]},
-  {path: 'user/receiveToken', component: ReceiveTokenComponent, canActivate: [RoutesGuard]},
+  {path: 'user', component: ProfileComponent, canActivate: [NotLoginGuard]},
+
+  {path: 'login', component: UserLoginComponent, canActivate: [LoginGuard]},
+  {path: 'signup', component: UserSignupComponent, canActivate: [LoginGuard]},
+  {path: 'signup/stage1', component: SignupStage1Component, canActivate: [NotLoginGuard, SignupStage1Guard]},
+
+  {path: 'journal', component: JournalComponent, canActivate: [NotLoginGuard]},
+  {path: 'journal/view', component: JournalViewComponent, canActivate: [NotLoginGuard]},
+
+  {path: 'schedule', component: ViewComponent, canActivate: []},
+  {path: 'schedule/login', component: LoginScheduleComponent, canActivate: []},
+
+  {path: 'user/receiveToken', component: ReceiveTokenComponent, canActivate: [NotLoginGuard]},
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
+
+    AcceptUsersComponent,
+    ProfileComponent,
+    ProfileOptionComponent,
+    EditUserComponent,
+
+    UserSignupComponent,
+    SignupStage1Component,
+    UserLoginComponent,
+
+    ScheduleSubjectComponent,
+    AddSubjectDialogComponent,
+    SubjectSelectionComponent,
+    SelectSubjectDialogComponent,
+    ScheduleCellDirective,
+    EditScheduleComponent,
     LoginScheduleComponent,
+
     CellComponent,
     ViewComponent,
     JournalViewComponent,
     JournalCellComponent,
+    JournalComponent,
     DatePropertyComponent,
     SelectMarkComponent,
-    AcceptUsersComponent,
-    ProfileComponent,
-    ProfileOptionComponent,
-    ScheduleSubjectComponent,
-    UserLoginComponent,
-    AddSubjectDialogComponent,
+
     ErrorInfoComponent,
     FormPropertyComponent,
-    SelectSubjectDialogComponent,
+
     MomentPipe,
-    ScheduleCellDirective,
-    EditScheduleComponent,
-    UserSignupComponent,
-    SignupStage1Component,
-    EditUserComponent,
+
     ReceiveTokenComponent,
-    SubjectSelectionComponent,
-    JournalComponent
   ],
   imports: [
     BrowserModule,
