@@ -1,10 +1,10 @@
 <div *ngIf="schedule$ | async as schedule">
-  <div class="main-schedule-container">
+  <main>
     <app-edit-schedule *ngIf="isEditMode" [schedule]="schedule"></app-edit-schedule>
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">
-        <div class="layout">
-          <hr *ngFor="let time of schedule.info.times" class="time-line" [style.top.px]="yTime(time)">
+        <div class="markup">
+          <hr *ngFor="let time of schedule.info.times" [style.top.px]="yTime(time)">
         </div>
         <div class="time-container">
           <p *ngFor="let time of schedule.info.times" class="time"
@@ -26,8 +26,12 @@
         </div>
       </div>
     </div>
-  </div>
-  <button (click)="isEditMode = !isEditMode">Edit</button>
-  <button (click)="makeGeneral()">Make general</button>
+  </main>
+  <ng-container *ngIf="userService.user$ | async as user">
+    <div class="edit-control" *ngIf="canEdit(user)">
+      <button class="btn btn-outline-light" (click)="isEditMode = !isEditMode">Edit</button>
+      <button class="btn btn-outline-light" (click)="makeGeneral()">Make general</button>
+    </div>
+  </ng-container>
 </div>
 

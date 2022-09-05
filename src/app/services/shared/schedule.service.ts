@@ -46,7 +46,7 @@ export class ScheduleService {
       let st = moment(lesson.startDate!!.format("H:m"), ['H:m'])
       if (minTime > st) minTime = st
 
-      let et = moment(lesson.startDate!!.format("H:m"), ['H:m'])
+      let et = moment(lesson.endDate!!.format("H:m"), ['H:m'])
       if (maxTime < et) maxTime = et
     }
     schedule.info.daysNumber = daysNumber + 1

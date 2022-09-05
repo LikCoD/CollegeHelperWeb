@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
 import {map, Observable} from "rxjs";
 import {Cell, Schedule} from "../../../models/schedule";
+import {UserService} from "../../../services/shared/user.service";
+import {User} from "../../../models/user";
 
 @Component({
   selector: 'app-view',
@@ -24,12 +26,12 @@ export class ViewComponent {
   schedule$: Observable<Schedule>
   cells: Cell[] = []
 
-  constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService) {
+  constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService, public userService: UserService) {
     this.route.queryParams.subscribe(() => {
       this.schedule$ = this.scheduleService.getSchedule().pipe(
         map(schedule => {
           this.maxWidth = schedule.info.daysNumber * 200 + 180
-          this.maxHeight = ( schedule.info.maxTime.hours() - schedule.info.minTime.hours()) * 60 * 2
+          this.maxHeight = schedule.info.maxTime.diff(schedule.info.minTime, 'minutes') * 2
           this.days = new Array(schedule.info.daysNumber).fill(0).map((_, i) => i)
 
           this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.daysNumber, 'days').format('YYYY-MM-DD')
@@ -47,5 +49,9 @@ export class ViewComponent {
 
   makeGeneral() {
     this.scheduleService.makeGeneral()
+  }
+
+  canEdit(user: User): boolean {
+    return user.permissions.findIndex(value => value == "editSchedule") != -1
   }
 }

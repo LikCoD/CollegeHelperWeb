@@ -1,7 +1,9 @@
 @use "../../../../styles";
 
-.main-schedule-container {
+main {
   display: flex;
+
+  margin-left: 10px;
 }
 
 .schedule-container {
@@ -12,7 +14,7 @@
   width: 0;
   overflow: scroll;
   display: flex;
-  height: calc(var(--vh, 1vh) * 100 - 130px);
+  height: calc(var(--vh, 1vh) * 100 - 150px);
 
   flex-grow: 1;
 
@@ -35,15 +37,18 @@
   z-index: 4;
 }
 
-.layout {
+.markup {
   position: sticky;
-  left: 0;
-
-  height: 100%;
-
   margin-top: 50px;
 
-  z-index: 1;
+  hr {
+    position: absolute;
+    margin: 0;
+    width: 98vw;
+
+    border-top: 1px dashed styles.$onBackgroundColor;
+    opacity: 0.6;
+  }
 }
 
 .weekdays-container {
@@ -89,15 +94,13 @@
   width: 180px;
 }
 
-.time-line {
-  position: absolute;
-  margin: 0;
-  width: 98vw;
-
-  border-top: 1px dashed styles.$onBackgroundColor;
-  opacity: 0.6;
-}
-
 app-schedule-subject {
   width: 180px;
+}
+
+.edit-control {
+  display: flex;
+  gap: 10px;
+
+  margin-left: 10px;
 }
