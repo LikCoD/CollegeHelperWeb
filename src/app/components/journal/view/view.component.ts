@@ -3,9 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AppComponent} from "../../../app.component";
 import {JournalCellComponent} from "./cell/journal-cell.component";
-import {Lesson} from "../../../models";
 import {JournalService} from "../../../services/shared/journal.service";
-import {GroupMember} from "../../../data";
+import {Lesson} from "../../../models/schedule";
 
 @Component({
   selector: 'app-login',

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {JournalHttpService} from "../http/journal-http.service";
 import {Observable} from "rxjs";
-import {Journal, JournalOption, Mark} from "../../models";
+import {Journal, JournalOption, Mark} from "../../models/journal";
 
 @Injectable({providedIn: 'root'})
 export class JournalService {

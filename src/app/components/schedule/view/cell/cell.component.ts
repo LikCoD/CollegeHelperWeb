@@ -3,8 +3,8 @@ import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.com
 import {MatDialog} from "@angular/material/dialog";
 import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
 import {ScheduleService} from "../../../../services/shared/schedule.service";
-import {Cell, Lesson} from "../../../../models";
 import {AddSubjectDialogComponent} from "../edit/add-subject-dialog/add-subject-dialog.component";
+import {Cell, Lesson} from "../../../../models/schedule";
 
 @Component({
   selector: 'app-schedule-cell',
@@ -91,7 +91,7 @@ export class CellComponent implements OnInit {
       }
     })
     dialogRef.afterClosed().subscribe((lesson: Lesson | undefined) => {
-      if (lesson != undefined) this.scheduleService.editLesson(lessons[0], lesson, true)
+      if (lesson != undefined) this.scheduleService.editLesson(lessons[0], lesson)
     })
   }
 }

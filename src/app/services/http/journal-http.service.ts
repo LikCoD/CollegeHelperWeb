@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {Journal, JournalOption, Mark} from "../../models";
 import * as moment from "moment";
-import {Options} from "../../data";
+import {Journal, JournalOption, Mark} from "../../models/journal";
 
 @Injectable({providedIn: 'root'})
 export class JournalHttpService {
@@ -22,7 +21,7 @@ export class JournalHttpService {
   }
 
   getOptions(): Observable<JournalOption[]> {
-    return this.http.get<Options[]>("api/journal/options")
+    return this.http.get<JournalOption[]>("api/journal/options")
   }
 
   addMark(mark: Mark): Observable<Mark> {

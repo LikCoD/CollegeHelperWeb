@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Lesson, Schedule} from "../../../../../models";
+import {Component, Input} from '@angular/core';
 import {ScheduleService} from "../../../../../services/shared/schedule.service";
 import {AddSubjectDialogComponent} from "../add-subject-dialog/add-subject-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Lesson, Schedule} from "../../../../../models/schedule";
 
 @Component({
   selector: 'app-edit-schedule',

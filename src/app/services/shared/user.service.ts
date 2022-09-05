@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
 import {map, ReplaySubject} from "rxjs";
-import {User} from "../../models";
 import {Router} from "@angular/router";
+import {User} from "../../models/user";
 
 @Injectable({providedIn: 'root'})
 export class UserService {

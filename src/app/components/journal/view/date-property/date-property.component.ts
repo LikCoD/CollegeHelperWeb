@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Lesson} from "../../../../models";
 import * as moment from "moment";
+import {Lesson} from "../../../../models/schedule";
 
 @Component({
   selector: 'app-date-property',

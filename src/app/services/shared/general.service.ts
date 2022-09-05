@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {map, Observable} from "rxjs";
-import {StudyPlace} from "../../models";
+import {Observable} from "rxjs";
+import {StudyPlace} from "../../models/general";
 
 @Injectable({providedIn: 'root'})
 export class GeneralService {

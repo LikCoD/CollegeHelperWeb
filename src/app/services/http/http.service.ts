@@ -2,8 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {map, Observable} from "rxjs";
-import {Lesson, Schedule, StudyPlace, Types, User} from "../../models";
 import * as moment from "moment";
+import {Lesson, Schedule, Types} from "../../models/schedule";
+import {User} from "../../models/user";
+import {StudyPlace} from "../../models/general";
 
 @Injectable({
   providedIn: 'root'

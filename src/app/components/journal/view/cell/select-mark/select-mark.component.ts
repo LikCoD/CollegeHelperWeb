@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JournalCellComponent} from "../journal-cell.component";
-import {HttpClient} from "@angular/common/http";
-import {Lesson, Mark} from "../../../../../models";
 import {JournalService} from "../../../../../services/shared/journal.service";
+import {Lesson} from "../../../../../models/schedule";
+import {Mark} from "../../../../../models/journal";
 
 @Component({
   selector: 'app-select-mark',

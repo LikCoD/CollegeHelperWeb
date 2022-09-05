@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
-import {Cell, Schedule} from "../../../models";
 import {map, Observable} from "rxjs";
+import {Cell, Schedule} from "../../../models/schedule";
 
 @Component({
   selector: 'app-view',
@@ -26,7 +26,6 @@ export class ViewComponent {
 
   constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService) {
     this.route.queryParams.subscribe(() => {
-      let fragment = this.router.parseUrl(this.router.url).fragment
       this.schedule$ = this.scheduleService.getSchedule().pipe(
         map(schedule => {
           this.maxWidth = schedule.info.daysNumber * 200 + 180

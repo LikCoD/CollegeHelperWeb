@@ -4,8 +4,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ScheduleService} from "../../../services/shared/schedule.service";
 import {GeneralService} from "../../../services/shared/general.service";
 import {Observable} from "rxjs";
-import {StudyPlace, Types} from "../../../models";
 import {UserService} from "../../../services/shared/user.service";
+import {Types} from "../../../models/schedule";
+import {StudyPlace} from "../../../models/general";
 
 @Component({
   selector: 'app-login',

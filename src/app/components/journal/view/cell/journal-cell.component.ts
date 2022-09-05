@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 import {JournalViewComponent} from "../view.component";
-import {Lesson} from "../../../../models";
+import {Lesson} from "../../../../models/schedule";
 
 @Component({
   selector: 'app-journal-cell',

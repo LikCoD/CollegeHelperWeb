@@ -6,7 +6,7 @@ import {
   NG_VALUE_ACCESSOR, ValidationErrors,
   Validator, Validators
 } from "@angular/forms";
-import {Lesson} from "../../../../models";
+import {Lesson} from "../../../../models/schedule";
 
 @Component({
   selector: 'app-schedule-subject',

@@ -3,8 +3,8 @@ import {HttpService} from "../http/http.service";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
 import * as rxjs from "rxjs";
-import {Cell, Lesson, Schedule, Types} from "../../models";
 import {Observable} from "rxjs";
+import {Cell, Lesson, Schedule, Types} from "../../models/schedule";
 
 @Injectable({
   providedIn: 'root'
@@ -89,7 +89,7 @@ export class ScheduleService {
     })
   }
 
-  editLesson(oldLessons: Lesson, lesson: Lesson, addGeneral: boolean) {
+  editLesson(oldLessons: Lesson, lesson: Lesson) {
     if (this.schedule == undefined) return
     lesson.id = oldLessons.id
 

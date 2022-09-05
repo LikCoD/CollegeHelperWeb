@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../../data";
 import {HttpClient} from "@angular/common/http";
+import {User} from "../../../../models/user";
 
 @Component({
   selector: 'app-accept-users',
