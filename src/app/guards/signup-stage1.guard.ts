@@ -15,9 +15,9 @@ export class SignupStage1Guard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.userService.user$.pipe(map((user?: User) => {
-      if (user == undefined) return true
+      if (user == undefined) return false
 
-      return user.type != "";
+      return user.type == "";
     }))
   }
 }
