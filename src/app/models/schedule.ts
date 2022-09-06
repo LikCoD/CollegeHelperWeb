@@ -19,6 +19,7 @@ export interface Lesson {
   title?: string
   homework?: string
   description?: string
+  isGeneral?: boolean;
 }
 
 export interface ScheduleInfo {

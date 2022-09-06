@@ -25,9 +25,13 @@ import {Lesson} from "../../../../models/schedule";
   ]
 })
 export class ScheduleSubjectComponent implements OnInit, Validator, ControlValueAccessor {
+  isUpdated: boolean
+
   @Input()
   set lesson(value: Lesson | undefined) {
     if (value == undefined) return
+
+    this.isUpdated = value.isGeneral ?? false;
 
     this.form.get("subject")!!.setValue(value.subject);
     this.form.get("teacher")!!.setValue(value.teacher);
