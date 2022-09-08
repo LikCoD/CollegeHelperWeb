@@ -1,7 +1,8 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 import {JournalViewComponent} from "../view.component";
 import {Lesson} from "../../../../models/schedule";
+import {Mark} from "../../../../models/journal";
 
 @Component({
   selector: 'app-journal-cell',
@@ -16,7 +17,14 @@ export class JournalCellComponent implements OnInit {
   @Input() userId: string
   @Input() show: boolean = true
 
-  selectMarkPopup: boolean = false
+  @Input() x: number
+  @Input() y: number
+
+  @Output() markAdd: EventEmitter<Mark> = new EventEmitter<Mark>()
+  @Output() markEdit: EventEmitter<Mark> = new EventEmitter<Mark>()
+  @Output() markDelete: EventEmitter<string> = new EventEmitter<string>()
+
+  selectMarkPopup = false
 
   constructor(public parent: JournalViewComponent, private elRef: ElementRef) {
   }

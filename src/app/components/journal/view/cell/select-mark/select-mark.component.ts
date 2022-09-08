@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {JournalCellComponent} from "../journal-cell.component";
 import {JournalService} from "../../../../../services/shared/journal.service";
 import {Lesson} from "../../../../../models/schedule";
@@ -13,6 +13,10 @@ export class SelectMarkComponent implements OnInit {
 
   @Input() lesson: Lesson
   @Input() userId: string
+
+  @Output() markAdd: EventEmitter<Mark> = new EventEmitter<Mark>()
+  @Output() markEdit: EventEmitter<Mark> = new EventEmitter<Mark>()
+  @Output() markDelete: EventEmitter<string> = new EventEmitter<string>()
 
   availableMarks: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "н", "зч"]
 
@@ -56,13 +60,7 @@ export class SelectMarkComponent implements OnInit {
     if (selectedToggle.id == "mark-add") {
       let mark: Mark = {mark: mark_, studentID: this.userId, lessonId: this.lesson!!.id, studyPlaceId: this.lesson!!.studyPlaceId}
 
-      this.journalService.addMark(mark).subscribe({
-        next: value => {
-          if (this.lesson!!.marks == undefined) this.lesson.marks = [value]
-          else this.lesson!!.marks.push(value)
-        },
-        error: console.log
-      })
+      this.markAdd.emit(mark)
     } else {
       let mark = this.lesson?.marks?.find(mark => {
         return mark.id == selectedToggle!!.id
@@ -70,13 +68,7 @@ export class SelectMarkComponent implements OnInit {
       if (mark == undefined) return
 
       mark.mark = mark_
-
-      this.journalService.editMark(mark).subscribe({
-        next: value => {
-          mark!!.mark = value.mark
-        },
-        error: console.log
-      })
+      this.markEdit.emit(mark)
     }
 
     this.closePopup()
@@ -86,12 +78,7 @@ export class SelectMarkComponent implements OnInit {
     let selectedToggle = this.getSelectedOption()
     if (selectedToggle == undefined || selectedToggle.id == 'mark-add') return
 
-    this.journalService.deleteMark(selectedToggle.id).subscribe(id => {
-      const index = this.lesson!!.marks!!.findIndex(el => {return el.id == id})
-      if (index > -1) {
-        this.lesson!!.marks!!.splice(index, 1);
-      }
-    })
+    this.markDelete.emit(selectedToggle.id)
 
     this.closePopup()
   }

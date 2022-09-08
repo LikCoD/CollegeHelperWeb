@@ -6,7 +6,7 @@
       <td *ngFor="let date of journal.dates;">
         <div class="date" (click)="appDateProperty.onClick()">
           <span>{{date.startDate | moment: "MMM"}}</span>
-          <span>{{date.startDate | moment: "dd w"}}</span>
+          <span>{{date.startDate | moment: "dd D"}}</span>
         </div>
         <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes"
                            [show]="journal.info.editable"></app-date-property>
@@ -20,10 +20,26 @@
           (keydown.arrowRight)="focusCell(x + 3, y + 1)"
           (keydown.arrowDown)="focusCell(x + 2, y + 2)"
           (keydown.arrowLeft)="focusCell(x + 1, y + 1)"
+          (keydown.control)="isCtrlPressed = true"
+          (keyup.control)="isCtrlPressed = false"
+          (keydown.shift)="isShiftPressed = true"
+          (keyup.shift)="isShiftPressed = false"
           (keydown)="onKeyPressed($event.key, cell)"
+          (focus)="focus(x, y, lesson, row.id, journal)"
+          [ngClass]="{focused: isFocused(x, y)}"
           class="cell"
           tabindex="0">
-        <app-journal-cell #cell [lesson]="lesson" [show]="journal.info.editable" [userId]="row.id"></app-journal-cell>
+        <app-journal-cell
+          #cell
+          [lesson]="lesson"
+          [show]="journal.info.editable"
+          [userId]="row.id"
+          [x]="x"
+          [y]="y"
+          (markAdd)="markAdd($event)"
+          (markEdit)="markEdit($event)"
+          (markDelete)="markDelete($event)"
+        ></app-journal-cell>
       </td>
     </tr>
   </table>
