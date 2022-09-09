@@ -66,7 +66,10 @@ export class JournalViewComponent implements OnInit {
   }
 
   addFocusedPoint(point: Point) {
-    if (this.isFocused(point.x, point.y)) return
+    if (this.isFocused(point.x, point.y)) {
+      this.focusedCells = this.focusedCells.filter(value => value.x != point.x || value.y != point.y)
+      return
+    }
 
     this.focusedCells.push(point)
   }
@@ -99,6 +102,7 @@ export class JournalViewComponent implements OnInit {
           let row = journal.rows[y]
           let lesson = row.lessons[x]
 
+          if (x == sx && y == sy) continue
           this.addFocusedPoint({x: x, y: y, lesson: lesson, studentID: row.id})
         }
       }
