@@ -1,0 +1,104 @@
+@use '../../../../../styles';
+
+.mark1 {
+  align-self: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mark2 {
+  align-self: center;
+  height: 100%;
+  width: 100%;
+
+  p {
+    text-align: center;
+
+    &:first-child {
+      margin-right: 15px;
+    }
+
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+
+  hr {
+    transform: rotate(-45deg);
+    height: 1px;
+    background-color: #000000;
+    border: none;
+    margin: 0;
+    opacity: 1;
+  }
+}
+
+.not-empty-cell {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: styles.$onBackgroundColor;
+  border-radius: 15px;
+  height: 50px;
+  width: 50px;
+}
+
+
+.empty-cell {
+  background: styles.$secondaryBackgroundColor;
+  border-radius: 15px;
+  height: 50px;
+  width: 50px;
+}
+
+.more-circle {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+  background-color: styles.$secondaryColor;
+  border-radius: 50%;
+
+  right: -4px;
+  top: -4px;
+}
+
+popper-content {
+  z-index: 3;
+}
+
+.markTooltip {
+  display: flex;
+
+  background: styles.$backgroundColor;
+  border-radius: 10px;
+
+  .mark-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: styles.$onBackgroundColor;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+
+    width: 30px;
+    height: 30px;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+app-select-mark {
+  position: absolute;
+  z-index: 1;
+}

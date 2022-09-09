@@ -7,7 +7,7 @@ import {Mark} from "../../../../models/journal";
 @Component({
   selector: 'app-journal-cell',
   templateUrl: './journal-cell.component.html',
-  styleUrls: ['./journal-cell.component.sass']
+  styleUrls: ['./journal-cell.component.scss']
 })
 export class JournalCellComponent implements OnInit {
   popperTrigger = NgxPopperjsTriggers.hover

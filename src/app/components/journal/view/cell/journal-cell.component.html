@@ -1,4 +1,4 @@
-<div class="cell" id="cell"
+<div class="cell"
      [popper]="marksTooltip"
      [popperTrigger]='popperTrigger'
      [popperPlacement]="popperPlacement"
@@ -6,31 +6,30 @@
      [popperHideOnScroll]="true"
      [popperDisableStyle]="true"
      (click)="this.parent.showPopup(this, x, y)">
-  <div *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell"
-       class="not-empty-cell">
-    <div *ngIf="lesson.marks.length == 1" class="not-empty-cell">
-      <div class="mark_1  cell-element"><p class="mark-text">{{lesson.marks[0].mark}}</p></div>
-    </div>
-    <div *ngIf="lesson.marks.length > 1" class="not-empty-cell">
-      <div class="mark_2">
-        <p class="mark-text mark_2-1">{{lesson.marks[0].mark}}</p>
-        <hr class="mark_2-divider">
-        <p class="mark-text mark_2-2">{{lesson.marks[1].mark}}</p>
+  <div *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell" class="not-empty-cell">
+    <ng-container *ngIf="lesson.marks.length == 1">
+      <p>{{lesson.marks[0].mark}}</p>
+    </ng-container>
+    <ng-container *ngIf="lesson.marks.length > 1">
+      <div class="mark2">
+        <p>{{lesson.marks[0].mark}}</p>
+        <hr>
+        <p>{{lesson.marks[1].mark}}</p>
       </div>
-    </div>
+    </ng-container>
     <div *ngIf="lesson.marks.length > 2" class="more-circle"></div>
   </div>
 </div>
-<div class="select-mark" *ngIf="selectMarkPopup">
+
+<ng-container *ngIf="selectMarkPopup">
   <app-select-mark
-    style="position: absolute; z-index: 1;"
     *ngIf="lesson != undefined"
     [lesson]="lesson"
     [userId]="userId"
     (markAdd)="markAdd.emit($event)"
     (markEdit)="markEdit.emit($event)"
     (markDelete)="markDelete.emit($event)"></app-select-mark>
-</div>
+</ng-container>
 
 <ng-template #emptyCell>
   <div class="empty-cell"></div>
