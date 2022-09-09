@@ -20,3 +20,13 @@
   outline: solid styles.$secondaryColor 4px;
   border-radius: 15px;
 }
+
+tr {
+  position: relative;
+}
+
+app-select-mark {
+  position: absolute;
+  top: 56px;
+  z-index: 10;
+}

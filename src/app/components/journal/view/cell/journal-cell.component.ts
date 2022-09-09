@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 import {JournalViewComponent} from "../view.component";
 import {Lesson} from "../../../../models/schedule";
@@ -9,7 +9,7 @@ import {Mark} from "../../../../models/journal";
   templateUrl: './journal-cell.component.html',
   styleUrls: ['./journal-cell.component.scss']
 })
-export class JournalCellComponent implements OnInit {
+export class JournalCellComponent {
   popperTrigger = NgxPopperjsTriggers.hover
   popperPlacement = NgxPopperjsPlacements.BOTTOMEND
 
@@ -24,24 +24,6 @@ export class JournalCellComponent implements OnInit {
   @Output() markEdit: EventEmitter<Mark> = new EventEmitter<Mark>()
   @Output() markDelete: EventEmitter<string> = new EventEmitter<string>()
 
-  selectMarkPopup = false
-
-  constructor(public parent: JournalViewComponent, private elRef: ElementRef) {
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  closePopup() {
-    this.selectMarkPopup = false
-
-    this.elRef.nativeElement.parentElement.focus()
-  }
-
-  onMarkClick() {
-    if (!this.show) return
-
-    this.selectMarkPopup = !this.selectMarkPopup
+  constructor(public parent: JournalViewComponent) {
   }
 }

@@ -1,4 +1,8 @@
-<div *ngIf="journalService.journal$ | async as journal">
+<div *ngIf="journalService.journal$ | async as journal"
+     (keydown.control)="isCtrlPressed = true"
+     (keyup.control)="isCtrlPressed = false"
+     (keydown.shift)="isShiftPressed = true"
+     (keyup.shift)="isShiftPressed = false">
   <table style="border-spacing: 15px; border-collapse: separate" id="mainTable">
     <tr>
       <td></td>
@@ -20,17 +24,11 @@
           (keydown.arrowRight)="focusCell(x + 3, y + 1)"
           (keydown.arrowDown)="focusCell(x + 2, y + 2)"
           (keydown.arrowLeft)="focusCell(x + 1, y + 1)"
-          (keydown.control)="isCtrlPressed = true"
-          (keyup.control)="isCtrlPressed = false"
-          (keydown.shift)="isShiftPressed = true"
-          (keyup.shift)="isShiftPressed = false"
-          (keydown)="onKeyPressed($event.key, cell)"
           (focus)="focus(x, y, lesson, row.id, journal)"
           [ngClass]="{focused: isFocused(x, y)}"
           class="cell"
           tabindex="0">
         <app-journal-cell
-          #cell
           [lesson]="lesson"
           [show]="journal.info.editable"
           [userId]="row.id"
@@ -40,6 +38,17 @@
           (markEdit)="markEdit($event)"
           (markDelete)="markDelete($event)"
         ></app-journal-cell>
+        <ng-container
+          *ngIf="focusedCells.length > 0
+          && focusedCells[focusedCells.length - 1].x == x && focusedCells[focusedCells.length - 1].y == y">
+          <app-select-mark
+            [lesson]="lesson"
+            [userId]="row.id"
+            (markAdd)="markAdd($event)"
+            (markEdit)="markEdit($event)"
+            (markDelete)="markDelete($event)"
+            (close)="closeMarkPopup()"></app-select-mark>
+        </ng-container>
       </td>
     </tr>
   </table>

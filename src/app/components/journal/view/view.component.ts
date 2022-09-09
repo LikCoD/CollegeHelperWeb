@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AppComponent} from "../../../app.component";
-import {JournalCellComponent} from "./cell/journal-cell.component";
 import {JournalService} from "../../../services/shared/journal.service";
 import {Lesson} from "../../../models/schedule";
 import {Journal, Mark} from "../../../models/journal";
@@ -15,8 +14,6 @@ import {Journal, Mark} from "../../../models/journal";
 export class JournalViewComponent implements OnInit {
   lessons: Lesson[] = []
   lessonTypes: string[] = ["Laboratory", "Practice", "General"]
-
-  selectedCell: JournalCellComponent | undefined
 
   focusedCells: Point[] = []
   isCtrlPressed = false
@@ -34,31 +31,9 @@ export class JournalViewComponent implements OnInit {
   }
 
   focusCell(x: number, y: number) {
-    this.hidePopup()
-
     let table = <HTMLTableElement>document.getElementById("mainTable")
     let cell = table.rows[y]?.cells[x]
     cell?.focus()
-  }
-
-  showPopup(cell: JournalCellComponent, x: number, y: number) {
-    if (cell != this.selectedCell)
-      this.hidePopup()
-
-    this.selectedCell = cell
-    cell.onMarkClick()
-  }
-
-  hidePopup(cell: JournalCellComponent | undefined = this.selectedCell) {
-    if (cell != undefined) cell.selectMarkPopup = false
-  }
-
-  onKeyPressed(key: string, cell: JournalCellComponent) {
-    this.selectedCell = cell
-
-    if (key.length == 1 && cell.show) {
-      cell.selectMarkPopup = true
-    }
   }
 
   isFocused(x: number, y: number): boolean {
@@ -76,33 +51,19 @@ export class JournalViewComponent implements OnInit {
 
   focus(x: number, y: number, lesson: Lesson, studentID: string, journal: Journal) {
     if (this.isShiftPressed && this.focusedCells.length > 0) {
-      this.hidePopup()
-
       let previousPoint = this.focusedCells[this.focusedCells.length - 1]
+      this.addFocusedPoint(previousPoint)
 
       let sx = x
       let sy = y
       let ex = previousPoint.x
       let ey = previousPoint.y
 
-      if (sx > ex) {
-        let temp = ex
-        ex = sx
-        sx = temp
-      }
-
-      if (sy > ey) {
-        let temp = ey
-        ey = sy
-        sy = temp
-      }
-
-      for (let x1 = sx; x <= ex; x++) {
-        for (let y1 = sy; y <= ey; y++) {
+      for (let x1 = sx; x1 != ex; ex > x1 ? x1++: x1--) {
+        for (let y1 = sy; y1 != ey; ey > y1 ? y1++ : y1--) {
           let row = journal.rows[y1]
           let lesson = row.lessons[x1]
 
-          if (x == x1 && y == y1) continue
           this.addFocusedPoint({x: x1, y: y1, lesson: lesson, studentID: row.id})
         }
       }
@@ -110,7 +71,6 @@ export class JournalViewComponent implements OnInit {
     }
 
     if (this.isCtrlPressed) {
-      this.hidePopup()
       this.addFocusedPoint({x: x, y: y, lesson: lesson, studentID: studentID})
       return
     }
@@ -155,6 +115,13 @@ export class JournalViewComponent implements OnInit {
         lesson!!.marks = lesson!!.marks?.filter(value => value.id != id)
       }
     })
+  }
+
+  closeMarkPopup() {
+    let focusedCell = this.focusedCells[this.focusedCells.length - 1]
+    this.focusCell(focusedCell.x, focusedCell.y)
+
+    this.focusedCells = []
   }
 }
 

@@ -9,7 +9,7 @@ import {LoginScheduleComponent} from './components/schedule/login/login.componen
 import {ViewComponent} from './components/schedule/view/view.component';
 import {JournalViewComponent} from "./components/journal/view/view.component";
 import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.component";
-import {SelectMarkComponent} from "./components/journal/view/cell/select-mark/select-mark.component";
+import {SelectMarkComponent} from "./components/journal/view/select-mark/select-mark.component";
 import {NgxPopperjsModule} from "ngx-popperjs";
 import {DatePropertyComponent} from "./components/journal/view/date-property/date-property.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";

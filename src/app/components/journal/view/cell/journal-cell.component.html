@@ -4,8 +4,7 @@
      [popperPlacement]="popperPlacement"
      [popperHideOnClickOutside]="true"
      [popperHideOnScroll]="true"
-     [popperDisableStyle]="true"
-     (click)="this.parent.showPopup(this, x, y)">
+     [popperDisableStyle]="true">
   <div *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell" class="not-empty-cell">
     <ng-container *ngIf="lesson.marks.length == 1">
       <p>{{lesson.marks[0].mark}}</p>
@@ -20,16 +19,6 @@
     <div *ngIf="lesson.marks.length > 2" class="more-circle"></div>
   </div>
 </div>
-
-<ng-container *ngIf="selectMarkPopup">
-  <app-select-mark
-    *ngIf="lesson != undefined"
-    [lesson]="lesson"
-    [userId]="userId"
-    (markAdd)="markAdd.emit($event)"
-    (markEdit)="markEdit.emit($event)"
-    (markDelete)="markDelete.emit($event)"></app-select-mark>
-</ng-container>
 
 <ng-template #emptyCell>
   <div class="empty-cell"></div>
