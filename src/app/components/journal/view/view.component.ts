@@ -97,13 +97,13 @@ export class JournalViewComponent implements OnInit {
         sy = temp
       }
 
-      for (let x = sx; x <= ex; x++) {
-        for (let y = sy; y <= ey; y++) {
-          let row = journal.rows[y]
-          let lesson = row.lessons[x]
+      for (let x1 = sx; x <= ex; x++) {
+        for (let y1 = sy; y <= ey; y++) {
+          let row = journal.rows[y1]
+          let lesson = row.lessons[x1]
 
-          if (x == sx && y == sy) continue
-          this.addFocusedPoint({x: x, y: y, lesson: lesson, studentID: row.id})
+          if (x == x1 && y == y1) continue
+          this.addFocusedPoint({x: x1, y: y1, lesson: lesson, studentID: row.id})
         }
       }
       return;
