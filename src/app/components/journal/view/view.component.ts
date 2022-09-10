@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AppComponent} from "../../../app.component";
@@ -19,6 +19,8 @@ export class JournalViewComponent implements OnInit {
   isCtrlPressed = false
   isShiftPressed = false
 
+  @ViewChild("table") table: ElementRef
+
   constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService) {
   }
 
@@ -31,7 +33,7 @@ export class JournalViewComponent implements OnInit {
   }
 
   focusCell(x: number, y: number) {
-    let table = <HTMLTableElement>document.getElementById("mainTable")
+    let table = <HTMLTableElement>this.table.nativeElement
     let cell = table.rows[y]?.cells[x]
     cell?.focus()
   }
@@ -54,20 +56,28 @@ export class JournalViewComponent implements OnInit {
       let previousPoint = this.focusedCells[this.focusedCells.length - 1]
       this.addFocusedPoint(previousPoint)
 
-      let sx = x
-      let sy = y
-      let ex = previousPoint.x
-      let ey = previousPoint.y
+      let ex = x
+      let ey = y
+      let sx = previousPoint.x
+      let sy = previousPoint.y
+
+      if (sx > ex) ex--
+      else ex++
+
+      if (sy > ey) ey--
+      else ey++
 
       for (let x1 = sx; x1 != ex; ex > x1 ? x1++: x1--) {
         for (let y1 = sy; y1 != ey; ey > y1 ? y1++ : y1--) {
           let row = journal.rows[y1]
           let lesson = row.lessons[x1]
 
-          this.addFocusedPoint({x: x1, y: y1, lesson: lesson, studentID: row.id})
+          if (this.isFocused(x, y) == this.isFocused(x1, y1))
+            this.addFocusedPoint({x: x1, y: y1, lesson: lesson, studentID: row.id})
         }
       }
-      return;
+
+      return
     }
 
     if (this.isCtrlPressed) {
@@ -122,6 +132,16 @@ export class JournalViewComponent implements OnInit {
     this.focusCell(focusedCell.x, focusedCell.y)
 
     this.focusedCells = []
+  }
+
+  keyDown(event: KeyboardEvent) {
+    if (event.key == 'Control') this.isCtrlPressed = true
+    if (event.key == 'Shift') this.isShiftPressed = true
+  }
+
+  keyUp(event: KeyboardEvent) {
+    if (event.key == 'Control') this.isCtrlPressed = false
+    if (event.key == 'Shift') this.isShiftPressed = false
   }
 }
 
