@@ -13,10 +13,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  * {
-    margin: 0 10px;
-  }
 }
 
 .action {
@@ -43,6 +39,12 @@ header {
   font-family: 'Comfortaa', cursive;
   font-size: 36px;
   color: styles.$onBackgroundColor;
+}
+
+@media(max-width: 470px) {
+  header {
+    padding: 0 5px;
+  }
 }
 
 .header-user {
@@ -77,6 +79,10 @@ router-outlet {
   .header-user p {
     display: none;
   }
+}
+
+.signup-header-btn {
+  margin-left: 10px;
 }
 
 @media (max-width: 571px) {
