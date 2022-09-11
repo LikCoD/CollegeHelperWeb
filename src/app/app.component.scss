@@ -6,13 +6,12 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 50px;
   z-index: 999;
-
-  padding: 0 45px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .action {
@@ -39,12 +38,6 @@ header {
   font-family: 'Comfortaa', cursive;
   font-size: 36px;
   color: styles.$onBackgroundColor;
-}
-
-@media(max-width: 470px) {
-  header {
-    padding: 0 5px;
-  }
 }
 
 .header-user {
@@ -87,6 +80,13 @@ router-outlet {
 
 @media (max-width: 571px) {
   .signup-header-btn {
+    display: none;
+  }
+}
+
+
+@media (max-width: 300px) {
+  .header-name {
     display: none;
   }
 }
