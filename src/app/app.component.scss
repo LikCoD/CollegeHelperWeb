@@ -17,6 +17,10 @@ header {
 .action {
   display: flex;
 
+  & > * {
+    margin: 0 15px;
+  }
+
   a {
     display: flex;
     align-items: center;
@@ -55,6 +59,10 @@ header {
 
     border-radius: 25%;
   }
+
+  .header-name {
+    margin-right: 10px;
+  }
 }
 
 router-outlet {
@@ -84,9 +92,18 @@ router-outlet {
   }
 }
 
-
 @media (max-width: 300px) {
   .header-name {
     display: none;
+  }
+
+  .action > * {
+    margin: 0;
+  }
+}
+
+@media (max-width: 210px) {
+  .header-user {
+    padding: 0;
   }
 }
