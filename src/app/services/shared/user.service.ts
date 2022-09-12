@@ -52,6 +52,16 @@ export class UserService {
     })
   }
 
+  signUpWithCode(data: any) {
+    this.httpService.signUpWithCode(data).subscribe({
+      next: value => {
+        this.router.navigate([""])
+
+        this.user$.next(value)
+      }
+    })
+  }
+
   login(credentials: any) {
     this.httpService.login(credentials).pipe(map((value) => {
       if (value.type == "") this.router.navigate(["signup/stage1"])
@@ -72,7 +82,6 @@ export class UserService {
       }
     })
   }
-
   signOut() {
     this.httpService.signOut().subscribe({
       next: value => {

@@ -40,14 +40,16 @@ import {JournalComponent} from "./components/journal/journal.component";
 import {NotLoginGuard} from "./guards/not-login.guard";
 import {LoginGuard} from "./guards/login.guard";
 import {SignupStage1Guard} from "./guards/signup-stage1.guard";
+import {SignUpWithTokenComponent} from './components/user/signup/with-token/sign-up-with-token.component';
 
 
 const appRoutes: Routes = [
   {path: 'user', component: ProfileComponent, canActivate: [NotLoginGuard]},
 
-  {path: 'login', component: UserLoginComponent, canActivate: [LoginGuard]},
   {path: 'signup', component: UserSignupComponent, canActivate: [LoginGuard]},
   {path: 'signup/stage1', component: SignupStage1Component, canActivate: [NotLoginGuard, SignupStage1Guard]},
+  {path: 'signup/withToken', component: SignUpWithTokenComponent, canActivate: [LoginGuard]},
+  {path: 'login', component: UserLoginComponent, canActivate: [LoginGuard]},
 
   {path: 'journal', component: JournalComponent, canActivate: [NotLoginGuard]},
   {path: 'journal/view', component: JournalViewComponent, canActivate: [NotLoginGuard]},
@@ -69,6 +71,7 @@ const appRoutes: Routes = [
 
     UserSignupComponent,
     SignupStage1Component,
+    SignUpWithTokenComponent,
     UserLoginComponent,
 
     ScheduleSubjectComponent,

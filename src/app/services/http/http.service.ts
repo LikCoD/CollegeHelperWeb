@@ -25,6 +25,11 @@ export class HttpService {
     return this.http.put<User>(`${this.API_PATH}/user/signup/stage1`, data)
   }
 
+
+  signUpWithCode(data: any): Observable<User> {
+    return this.http.post<User>(`${this.API_PATH}/user/signup/withToken`, data)
+  }
+
   login(credentials: any): Observable<User> {
     return this.http.put<User>(`${this.API_PATH}/user/login`, credentials)
   }
@@ -111,9 +116,7 @@ export class HttpService {
       return value
     }))
   }
-
   makeGeneral(type: string, typeName: string) {
     this.http.post(`${this.API_PATH}/schedule/makeGeneral?type=${type}&typeName=${typeName}`, {}).subscribe()
   }
-
 }
