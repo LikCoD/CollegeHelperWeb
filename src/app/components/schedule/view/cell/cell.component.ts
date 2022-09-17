@@ -35,6 +35,7 @@ export class CellComponent implements OnInit {
   ngOnInit(): void {
     let height = this.elRef.nativeElement.clientHeight
     let fitAmount = Math.floor(height / CellComponent.oneCellHeight)
+    if (fitAmount < 1) fitAmount = 1
 
     let lessons: Lesson[][] = []
 
