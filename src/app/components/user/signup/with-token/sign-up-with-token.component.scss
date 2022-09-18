@@ -15,11 +15,6 @@ form {
     margin: 10px 0;
   }
 
-  .use-code {
-    display: block;
-    text-align: end;
-  }
-
   button[type="submit"] {
     width: 260px;
   }
@@ -33,7 +28,7 @@ form {
     }
   }
 
-  .login {
+  .actions {
     text-align: center;
 
     a {
