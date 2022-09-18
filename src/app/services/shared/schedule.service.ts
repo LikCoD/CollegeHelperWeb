@@ -14,8 +14,45 @@ export class ScheduleService {
   cells: Cell[]
 
   scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
+  scaleChange = new rxjs.Subject<number>();
 
   constructor(private httpService: HttpService) {
+  }
+
+  readonly lessonHeight = 90
+  minLessonMinutes = 0
+
+  set scaleY(value: number) {
+    if (value < this.minYScale) value = this.minYScale
+    if (value > this.maxYScale) value = this.maxYScale
+
+    this.scaleY_ = value
+
+    this.scaleChange.next(value)
+  }
+
+  private scaleY_ = 1
+  minYScale = 1
+  maxYScale = 1
+
+  getCellHeight(cell: Cell): number {
+    return cell.endDate.diff(cell.startDate, 'minutes') * this.scaleY_
+  }
+
+  getCellWidth(_: Cell): number {
+    return 180
+  }
+
+  getCellX(cell: Cell): number {
+    return cell.startDate.diff(this.schedule!!.info.startWeekDate, 'days') * 200
+  }
+
+  getCellY(cell: Cell): number {
+    return this.getTimeY(cell.startDate)
+  }
+
+  getTimeY(time: moment.Moment): number {
+    return ((time.hours() - this.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * this.scaleY_
   }
 
   initSchedule(schedule: Schedule) {
@@ -49,6 +86,27 @@ export class ScheduleService {
       let et = moment(lesson.endDate!!.format("H:m"), ['H:m'])
       if (maxTime < et) maxTime = et
     }
+
+    this.minLessonMinutes = Number.MAX_VALUE
+
+    let maxCellLessonsMinutes = 0
+    let maxCellLessons = 0
+
+    for (let cell of cells.values()) {
+      let height = cell.endDate.diff(cell.startDate, 'minutes')
+      if (this.minLessonMinutes > height) this.minLessonMinutes = height
+
+      if (cell.lessons.length * height > maxCellLessons * maxCellLessonsMinutes) {
+        maxCellLessonsMinutes = height
+        maxCellLessons = cell.lessons.length
+      }
+    }
+
+    this.minYScale = this.lessonHeight / this.minLessonMinutes
+    this.maxYScale = this.lessonHeight / maxCellLessonsMinutes * maxCellLessons
+
+    this.scaleY_ = this.minYScale
+
     schedule.info.daysNumber = daysNumber + 1
 
     schedule.info.maxTime = moment(maxTime, [moment.ISO_8601, 'H'])

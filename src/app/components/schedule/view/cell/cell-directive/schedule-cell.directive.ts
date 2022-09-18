@@ -1,22 +1,28 @@
 import {Directive, ElementRef, Input} from '@angular/core';
-import {Cell, Schedule} from "../../../../../models/schedule";
+import {Cell} from "../../../../../models/schedule";
+import {ScheduleService} from "../../../../../services/shared/schedule.service";
 
 @Directive({
   selector: '[appScheduleCell]'
 })
-export class ScheduleCellDirective {
+export class ScheduleCellDirective{
 
-  @Input() schedule: Schedule;
+  constructor(private el: ElementRef, private scheduleService: ScheduleService) {
+  }
 
   @Input() set appScheduleCell(cell: Cell) {
-    this.el.nativeElement.style.top = ((cell.startDate.hours() - this.schedule!!.info.minTime.hours()) * 60 + cell.startDate.minutes()) * 2 + 'px'
-    this.el.nativeElement.style.left = cell.startDate.diff(this.schedule.info.startWeekDate, 'days') * 200 + 'px'
-    this.el.nativeElement.style.width = '180px'
-    this.el.nativeElement.style.height = cell.endDate.diff(cell.startDate, 'minutes') * 2 + 'px'
+    this.update(cell)
+
+    this.scheduleService.scaleChange.subscribe({
+      next: _ => this.update(cell)
+    })
   }
 
-  constructor(private el: ElementRef) {
+  update(cell: Cell) {
+    this.el.nativeElement.style.top = this.scheduleService.getCellY(cell) + 'px'
+    this.el.nativeElement.style.left = this.scheduleService.getCellX(cell) + 'px'
+
+    this.el.nativeElement.style.width = this.scheduleService.getCellWidth(cell) + 'px'
+    this.el.nativeElement.style.height = this.scheduleService.getCellHeight(cell) + 'px'
   }
-
-
 }

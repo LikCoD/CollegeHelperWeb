@@ -4,11 +4,11 @@
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">
         <div class="markup">
-          <hr *ngFor="let time of schedule.info.times" [style.top.px]="yTime(time)">
+          <hr *ngFor="let time of schedule.info.times" [style.top.px]="scheduleService.getTimeY(time)">
         </div>
         <div class="time-container">
           <p *ngFor="let time of schedule.info.times" class="time"
-             [style.top.px]="yTime(time) - 20">{{time | moment : "hh:mm A"}}</p>
+             [style.top.px]="scheduleService.getTimeY(time) - 20">{{time | moment : "hh:mm A"}}</p>
         </div>
         <div>
           <div class="weekdays-container">
@@ -17,7 +17,6 @@
           <div class="lessons-container">
             <app-schedule-cell
               *ngFor="let cell of cells"
-              [schedule]="schedule"
               [appScheduleCell]="cell"
               class="cell"
               [cell]="cell"
@@ -27,8 +26,12 @@
       </div>
     </div>
   </main>
+  <div class="bottom-control">
+    <button class="btn btn-outline-light" (click)="this.scheduleService.scaleY = this.scheduleService.maxYScale">Max scale</button>
+    <button class="btn btn-outline-light" (click)="this.scheduleService.scaleY = this.scheduleService.minYScale">Min scale</button>
+  </div>
   <ng-container *ngIf="userService.user$ | async as user">
-    <div class="edit-control" *ngIf="canEdit(user)">
+    <div class="bottom-control" *ngIf="canEdit(user)">
       <button class="btn btn-outline-light" (click)="isEditMode = !isEditMode">Edit</button>
       <button class="btn btn-outline-light" (click)="makeGeneral()">Make general</button>
     </div>

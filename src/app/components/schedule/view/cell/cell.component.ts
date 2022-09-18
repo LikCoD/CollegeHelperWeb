@@ -33,6 +33,14 @@ export class CellComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.update()
+
+    this.scheduleService.scaleChange.subscribe({
+      next: _ => this.update()
+    })
+  }
+
+  update() {
     let height = this.elRef.nativeElement.clientHeight
     let fitAmount = Math.floor(height / CellComponent.oneCellHeight)
     if (fitAmount < 1) fitAmount = 1

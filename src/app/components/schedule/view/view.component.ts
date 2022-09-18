@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import * as moment from 'moment';
 import {ScheduleService} from "../../../services/shared/schedule.service";
 import {map, Observable} from "rxjs";
 import {Cell, Schedule} from "../../../models/schedule";
@@ -41,10 +40,6 @@ export class ViewComponent {
         })
       )
     });
-  }
-
-  yTime(time: moment.Moment): number {
-    return ((time.hours() - this.scheduleService.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * 2
   }
 
   makeGeneral() {
