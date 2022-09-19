@@ -11,6 +11,7 @@ export class ScheduleBottomControllerComponent {
   @Input() user: User | undefined | null
   @Input() minScale: number
   @Input() maxScale: number
+  @Input() preferredMaxScale: number
 
   @Output() editMode = new EventEmitter<boolean>()
   @Output() makeGeneral = new EventEmitter<null>()
@@ -29,5 +30,10 @@ export class ScheduleBottomControllerComponent {
 
   rangeChange(value: string) {
     this.scale.emit(Number(value))
+  }
+
+  setScale(scale: number, range: HTMLInputElement) {
+    this.scale.emit(scale)
+    range.value = scale.toString()
   }
 }

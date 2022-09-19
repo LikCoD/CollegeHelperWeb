@@ -29,8 +29,8 @@ export class ScheduleService {
 
   private scaleY_ = 1
   minYScale = 1
-  maxYScale = 1
-  scalesY: number[] = []
+  maxYScale = 10
+  preferredMaxYSScale = 1
 
   getCellHeight(cell: Cell): number {
     return cell.endDate.diff(cell.startDate, 'minutes') * this.scaleY_
@@ -100,7 +100,9 @@ export class ScheduleService {
     }
 
     this.minYScale = this.lessonHeight / this.minLessonMinutes
-    this.maxYScale = this.lessonHeight / maxCellLessonsMinutes * maxCellLessons
+    this.preferredMaxYSScale = this.lessonHeight / maxCellLessonsMinutes * maxCellLessons
+
+    if (this.maxYScale < this.preferredMaxYSScale) this.maxYScale = this.preferredMaxYSScale
 
     this.scaleY_ = this.minYScale
 

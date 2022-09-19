@@ -4,9 +4,14 @@
 </div>
 <div class="scale">
   <p>Scale</p>
-  <button class="btn btn-outline-light" (click)="scale.emit(minScale); rangeInput.value = minScale.toString()">Min</button>
-  <input #rangeInput type="range"
+  <input #range type="range"
          [min]="minScale" [max]="maxScale" [value]="minScale" step="0.1"
-         (input)="rangeChange(rangeInput.value)">
-  <button class="btn btn-outline-light" (click)="scale.emit(maxScale); rangeInput.value = maxScale.toString()">Max</button>
+         (input)="rangeChange(range.value)">
+  <div>
+    <button class="btn btn-outline-light" (click)="setScale(minScale, range)">Min</button>
+    <button *ngIf="minScale < preferredMaxScale" class="btn btn-outline-light"
+            (click)="setScale(preferredMaxScale, range)">Max (pref.)
+    </button>
+    <button class="btn btn-outline-light" (click)="setScale(maxScale, range)">Max</button>
+  </div>
 </div>

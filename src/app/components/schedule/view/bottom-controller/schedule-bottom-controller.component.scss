@@ -1,9 +1,13 @@
 :host {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+
+  gap: 15px;
 
   & > * {
     display: flex;
+    justify-content: center;
     gap: 10px;
 
     margin-left: 10px;
@@ -12,8 +16,14 @@
 
 .scale {
   align-items: center;
+  flex-wrap: wrap;
 
   p {
     color: white;
+  }
+
+  div {
+    display: flex;
+    gap: 10px;
   }
 }

@@ -31,6 +31,7 @@
     [user]="userService.user$ | async"
     [minScale]="scheduleService.minYScale"
     [maxScale]="scheduleService.maxYScale"
+    [preferredMaxScale]="scheduleService.preferredMaxYSScale"
     (editMode)="isEditMode = $event"
     (makeGeneral)="makeGeneral(schedule)"
     (scale)="scheduleService.scaleY = $event"
