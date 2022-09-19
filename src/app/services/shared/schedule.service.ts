@@ -1,22 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpService} from "../http/http.service";
 import * as moment from "moment";
 import * as Collections from "typescript-collections";
-import * as rxjs from "rxjs";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Cell, Lesson, Schedule, Types} from "../../models/schedule";
+import {ScheduleHttpService} from "../http/schedule-http.service";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class ScheduleService {
-  schedule: Schedule | undefined;
-  cells: Cell[]
+  schedule$ = new Subject<Schedule>()
+  scale$ = new Subject<number>()
 
-  scheduleChange: rxjs.Subject<Schedule> = new rxjs.Subject<Schedule>()
-  scaleChange = new rxjs.Subject<number>();
+  schedule: Schedule
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: ScheduleHttpService) {
   }
 
   readonly lessonHeight = 90
@@ -28,7 +24,7 @@ export class ScheduleService {
 
     this.scaleY_ = value
 
-    this.scaleChange.next(value)
+    this.scale$.next(value)
   }
 
   private scaleY_ = 1
@@ -44,7 +40,7 @@ export class ScheduleService {
   }
 
   getCellX(cell: Cell): number {
-    return cell.startDate.diff(this.schedule!!.info.startWeekDate, 'days') * 200
+    return cell.startDate.diff(this.schedule.info.startWeekDate, 'days') * 200
   }
 
   getCellY(cell: Cell): number {
@@ -52,7 +48,7 @@ export class ScheduleService {
   }
 
   getTimeY(time: moment.Moment): number {
-    return ((time.hours() - this.schedule!!.info.minTime.hours()) * 60 + time.minutes()) * this.scaleY_
+    return ((time.hours() - this.schedule.info.minTime.hours()) * 60 + time.minutes()) * this.scaleY_
   }
 
   initSchedule(schedule: Schedule) {
@@ -117,50 +113,43 @@ export class ScheduleService {
 
     schedule.info.times = times.toArray()
 
-    this.schedule = schedule
-    this.cells = Array.from(cells.values())
+    schedule.cells = Array.from(cells.values())
 
-    this.scheduleChange.next(schedule)
+    this.schedule = schedule
+    this.schedule$.next(schedule)
   }
 
-  getSchedule(): rxjs.Subject<Schedule> {
-    this.httpService.getSchedule().subscribe(this.initSchedule.bind(this));
+  getSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
+    this.httpService.getSchedule(type, name, studyPlaceID).subscribe({
+      next: value => this.initSchedule(value)
+    })
 
-    return this.scheduleChange
+    return this.schedule$
   }
 
   addLesson(lesson: Lesson) {
-    if (!this.schedule || !lesson) return
-
     this.httpService.addLesson(lesson).subscribe(value => {
-      this.schedule!!.lessons.push(value)
-      this.initSchedule(this.schedule!!)
+      this.schedule.lessons.push(value)
+      this.initSchedule(this.schedule)
     })
   }
 
   removeLesson(lesson: Lesson) {
-    if (this.schedule == undefined) return
-
     this.httpService.removeLesson(lesson).subscribe(_ => {
-      this.schedule!!.lessons.splice(this.schedule!!.lessons.indexOf(lesson), 1)
-      this.initSchedule(this.schedule!!)
+      this.schedule.lessons.splice(this.schedule.lessons.indexOf(lesson), 1)
+      this.initSchedule(this.schedule)
     })
   }
 
-  editLesson(oldLessons: Lesson, lesson: Lesson) {
-    if (this.schedule == undefined) return
-    lesson.id = oldLessons.id
-
+  editLesson(lesson: Lesson) {
     this.httpService.updateLesson(lesson).subscribe(value => {
-      this.schedule!!.lessons[this.schedule!!.lessons.indexOf(oldLessons)] = value
-      this.initSchedule(this.schedule!!)
+      this.schedule.lessons[this.schedule.lessons.findIndex(l => l.id == lesson.id)] = value
+      this.initSchedule(this.schedule)
     })
   }
 
   makeGeneral() {
-    if (this.schedule == undefined) return
-
-    this.httpService.makeGeneral(this.schedule!!.info.type, this.schedule!!.info.typeName)
+    this.httpService.makeGeneral(this.schedule.info.type, this.schedule.info.typeName)
   }
 
   getTypes(studyPlaceID: string): Observable<Types> {

@@ -41,6 +41,7 @@ import {NotLoginGuard} from "./guards/not-login.guard";
 import {LoginGuard} from "./guards/login.guard";
 import {SignupStage1Guard} from "./guards/signup-stage1.guard";
 import {SignUpWithTokenComponent} from './components/user/signup/with-token/sign-up-with-token.component';
+import { ScheduleBottomControllerComponent } from './components/schedule/view/bottom-controller/schedule-bottom-controller.component';
 
 
 const appRoutes: Routes = [
@@ -96,6 +97,7 @@ const appRoutes: Routes = [
     MomentPipe,
 
     ReceiveTokenComponent,
+     ScheduleBottomControllerComponent,
   ],
   imports: [
     BrowserModule,

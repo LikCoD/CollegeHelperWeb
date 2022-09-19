@@ -37,6 +37,7 @@ export interface ScheduleInfo {
 
 export interface Schedule {
   lessons: Lesson[]
+  cells: Cell[]
   info: ScheduleInfo
 }
 

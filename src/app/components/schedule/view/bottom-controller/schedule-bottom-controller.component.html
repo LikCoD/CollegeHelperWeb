@@ -1,0 +1,8 @@
+<div class="bottom-control" *ngIf="canEdit(user)">
+  <button class="btn btn-outline-light" (click)="changeEditMode()">Edit</button>
+  <button class="btn btn-outline-light" (click)="makeGeneral.emit()">Make general</button>
+</div>
+<div class="bottom-control">
+  <button class="btn btn-outline-light" (click)="scale.emit(maxScale)">Max scale</button>
+  <button class="btn btn-outline-light" (click)="scale.emit(minScale)">Min scale</button>
+</div>

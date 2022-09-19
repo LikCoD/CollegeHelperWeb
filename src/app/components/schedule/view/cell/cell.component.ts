@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
@@ -12,15 +12,10 @@ import {Cell, Lesson} from "../../../../models/schedule";
   styleUrls: ['./cell.component.scss']
 })
 export class CellComponent implements OnInit {
-  static readonly oneCellHeight = 90;
-
   @Input() cell: Cell
-
-  height: number
-
   @Input() isEditMode: boolean
 
-  @Output() remove: EventEmitter<Lesson> = new EventEmitter<Lesson>();
+  height: number
 
   selectedSubjectIndex = 0
 
@@ -35,14 +30,14 @@ export class CellComponent implements OnInit {
   ngOnInit(): void {
     this.update()
 
-    this.scheduleService.scaleChange.subscribe({
+    this.scheduleService.scale$.subscribe({
       next: _ => this.update()
     })
   }
 
   update() {
     let height = this.elRef.nativeElement.clientHeight
-    let fitAmount = Math.floor(height / CellComponent.oneCellHeight)
+    let fitAmount = Math.floor(height / this.scheduleService.lessonHeight)
     if (fitAmount < 1) fitAmount = 1
 
     let lessons: Lesson[][] = []
@@ -100,7 +95,7 @@ export class CellComponent implements OnInit {
       }
     })
     dialogRef.afterClosed().subscribe((lesson: Lesson | undefined) => {
-      if (lesson != undefined) this.scheduleService.editLesson(lessons[0], lesson)
+      if (lesson != undefined) this.scheduleService.editLesson(lesson)
     })
   }
 }

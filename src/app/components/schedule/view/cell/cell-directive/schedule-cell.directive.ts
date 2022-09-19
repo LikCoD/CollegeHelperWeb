@@ -13,7 +13,7 @@ export class ScheduleCellDirective{
   @Input() set appScheduleCell(cell: Cell) {
     this.update(cell)
 
-    this.scheduleService.scaleChange.subscribe({
+    this.scheduleService.scale$.subscribe({
       next: _ => this.update(cell)
     })
   }

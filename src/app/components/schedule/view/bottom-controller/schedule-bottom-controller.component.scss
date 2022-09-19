@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-control {
+  display: flex;
+  gap: 10px;
+
+  margin-left: 10px;
+}
