@@ -26,4 +26,8 @@ export class ScheduleBottomControllerComponent {
     this.isEditMode = !this.isEditMode
     this.editMode.emit(this.isEditMode)
   }
+
+  rangeChange(value: string) {
+    this.scale.emit(Number(value))
+  }
 }

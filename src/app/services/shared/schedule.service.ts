@@ -30,6 +30,7 @@ export class ScheduleService {
   private scaleY_ = 1
   minYScale = 1
   maxYScale = 1
+  scalesY: number[] = []
 
   getCellHeight(cell: Cell): number {
     return cell.endDate.diff(cell.startDate, 'minutes') * this.scaleY_

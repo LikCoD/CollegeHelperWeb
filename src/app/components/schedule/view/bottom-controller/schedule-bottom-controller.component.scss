@@ -1,11 +1,19 @@
 :host {
   display: flex;
   justify-content: space-between;
+
+  & > * {
+    display: flex;
+    gap: 10px;
+
+    margin-left: 10px;
+  }
 }
 
-.bottom-control {
-  display: flex;
-  gap: 10px;
+.scale {
+  align-items: center;
 
-  margin-left: 10px;
+  p {
+    color: white;
+  }
 }
