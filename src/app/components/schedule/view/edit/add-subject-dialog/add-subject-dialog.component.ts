@@ -23,12 +23,16 @@ export class AddSubjectDialogComponent implements AfterViewInit {
       teacher: "TEACHER",
       subject: "SUBJECT",
       primaryColor: "#F1F1F1",
-      secondaryColor: "transparent"
+      secondaryColor: "transparent",
+      startDate: moment().add(1, "days"),
+      endDate: moment().add(1, "days")
     }
 
     this.lesson = {...value}
 
     this.form.get("lesson")!!.setValue(this.lesson)
+    this.form.get("startDate")!!.setValue(this.lesson.startDate!!.format("YYYY-MM-DDTHH:mm"))
+    this.form.get("endDate")!!.setValue(this.lesson.endDate!!.format("YYYY-MM-DDTHH:mm"))
   }
 
   form = new FormGroup({
@@ -41,10 +45,6 @@ export class AddSubjectDialogComponent implements AfterViewInit {
 
   constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.templateSubject = data.lesson
-    if (this.lesson != undefined) {
-      this.form.get("startDate")!!.setValue(data.lesson.startDate.format("YYYY-MM-DDTHH:mm"))
-      this.form.get("endDate")!!.setValue(data.lesson.endDate.format("YYYY-MM-DDTHH:mm"))
-    }
   }
 
   close() {

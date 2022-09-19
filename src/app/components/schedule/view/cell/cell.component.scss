@@ -67,12 +67,14 @@ section {
 
   border-radius: 25px;
   overflow: hidden;
-}
 
-.subject-cell {
-  min-height: 90px;
+  & > * {
+    min-height: 90px;
 
-  flex-grow: 1;
+    &:last-child {
+      flex-grow: 1;
+    }
+  }
 }
 
 .cell:hover .edit-container, .edit-container:hover {

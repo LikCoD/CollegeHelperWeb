@@ -9,8 +9,8 @@ export interface Lesson {
   studyPlaceId?: string
   primaryColor: string
   secondaryColor?: string
-  endDate?: moment.Moment
-  startDate?: moment.Moment
+  endDate: moment.Moment
+  startDate: moment.Moment
   subject: string
   group: string
   teacher: string

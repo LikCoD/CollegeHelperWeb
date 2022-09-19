@@ -2,15 +2,8 @@
   width: 215px;
 }
 
-.bottom-control {
-  top: 0;
-
-  position: sticky;
-  width: inherit;
-
-  * {
-    width: 100%;
-  }
+div > * {
+  width: 100%;
 }
 
 section {
