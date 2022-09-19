@@ -9,7 +9,7 @@
          (input)="rangeChange(range.value)">
   <div>
     <button class="btn btn-outline-light" (click)="setScale(minScale, range)">Min</button>
-    <button *ngIf="minScale < preferredMaxScale" class="btn btn-outline-light"
+    <button *ngIf="minScale < preferredMaxScale && preferredMaxScale < maxScale" class="btn btn-outline-light"
             (click)="setScale(preferredMaxScale, range)">Max (pref.)
     </button>
     <button class="btn btn-outline-light" (click)="setScale(maxScale, range)">Max</button>

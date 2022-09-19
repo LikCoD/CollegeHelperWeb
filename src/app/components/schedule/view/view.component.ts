@@ -5,6 +5,7 @@ import {map, Observable} from "rxjs";
 import {Schedule} from "../../../models/schedule";
 import {UserService} from "../../../services/shared/user.service";
 import {User} from "../../../models/user";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-view',
@@ -22,6 +23,8 @@ export class ViewComponent {
 
   isEditMode = false
 
+  maxTime: moment.Moment
+
   schedule$: Observable<Schedule>
 
   constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService, public userService: UserService) {
@@ -30,7 +33,8 @@ export class ViewComponent {
       this.schedule$ = this.scheduleService.getSchedule(params["type"], params["name"], params["studyPlaceID"]).pipe(
         map(schedule => {
           this.maxWidth = schedule.info.daysNumber * 200 + 180
-          this.maxHeight = schedule.info.maxTime.diff(schedule.info.minTime, 'minutes') * 2
+          this.maxTime = schedule.info.maxTime
+          this.maxHeight = scheduleService.getTimeY(this.maxTime)
           this.days = new Array(schedule.info.daysNumber).fill(0).map((_, i) => i)
 
           this.maxDate = schedule.info.startWeekDate.clone().add(schedule.info.daysNumber, 'days').format('YYYY-MM-DD')
@@ -38,10 +42,14 @@ export class ViewComponent {
           return schedule
         })
       )
+
+      this.scheduleService.scale$.subscribe({
+        next: _ => this.maxHeight = scheduleService.getTimeY(this.maxTime)
+      })
     });
   }
 
-  makeGeneral(schedule: Schedule) {
+  makeGeneral() {
     this.scheduleService.makeGeneral()
   }
 }
