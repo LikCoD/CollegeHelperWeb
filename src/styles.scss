@@ -31,9 +31,25 @@ $successColor: #494D32;
 $successHoverColor: #5d6146;
 
 
+html, body {
+  height: 100%;
+}
+
 body {
   background: $backgroundColor;
   font-family: 'Roboto', sans-serif;
+
+  > :first-child {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    height: 100%;
+
+    > :last-child {
+      flex-grow: 1;
+      overflow: auto;
+    }
+  }
 }
 
 p {
@@ -68,7 +84,7 @@ input::-webkit-calendar-picker-indicator {
   background: gray;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background: transparent;
 }
 

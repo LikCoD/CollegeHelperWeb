@@ -4,7 +4,6 @@ import {ScheduleService} from "../../../services/shared/schedule.service";
 import {map, Observable} from "rxjs";
 import {Schedule} from "../../../models/schedule";
 import {UserService} from "../../../services/shared/user.service";
-import {User} from "../../../models/user";
 import * as moment from "moment";
 
 @Component({

@@ -2,9 +2,8 @@
        *ngIf="journalService.journal$ | async as journal"
        (keydown)="keyDown($event)"
        (keyup)="keyUp($event)">
-  <tr>
-    <td></td>
-    <td></td>
+  <tr class="date-row">
+    <td class="row-title-cell"></td>
     <td *ngFor="let date of journal.dates;">
       <div class="date" (click)="appDateProperty.onClick()">
         <span>{{date.startDate | moment: "MMM"}}</span>
@@ -15,13 +14,12 @@
     </td>
   </tr>
   <tr *ngFor="let row of journal.rows; let y = index" [attr.data-index]="y">
-    <td class="number">{{y + 1}}</td>
-    <td class="name">{{row.title}}</td>
+    <td class="row-title-cell row-title">{{y + 1}}&nbsp;{{row.title}}</td>
     <td *ngFor="let lesson of row.lessons; let x = index" [attr.data-index]="x"
-        (keydown.arrowUp)="focusCell(x + 2, y)"
-        (keydown.arrowRight)="focusCell(x + 3, y + 1)"
-        (keydown.arrowDown)="focusCell(x + 2, y + 2)"
-        (keydown.arrowLeft)="focusCell(x + 1, y + 1)"
+        (keydown.arrowUp)="focusCell(0, -1)"
+        (keydown.arrowRight)="focusCell(1, 0)"
+        (keydown.arrowDown)="focusCell(0, 1)"
+        (keydown.arrowLeft)="focusCell(-1, 0)"
         (focus)="focus(x, y, lesson, row.id, journal)"
         [ngClass]="{focused: isFocused(x, y)}"
         class="cell"
@@ -46,6 +44,7 @@
           (markEdit)="markEdit($event)"
           (markDelete)="markDelete($event)"
           (close)="closeMarkPopup()"
+          (hide)="hideMarkPopup()"
           [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-select-mark>
       </ng-container>
     </td>

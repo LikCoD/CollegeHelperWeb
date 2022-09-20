@@ -34,7 +34,13 @@ export class JournalViewComponent implements OnInit {
 
   focusCell(x: number, y: number) {
     let table = <HTMLTableElement>this.table.nativeElement
-    let cell = table.rows[y]?.cells[x]
+
+    if (this.focusedCells.length == 0) {
+      table.rows[1].cells[1].focus()
+      return
+    }
+
+    let cell = table.rows[1+y+this.focusedCells[0].y]?.cells[1+x+this.focusedCells[0].x]
     cell?.focus()
   }
 
@@ -132,6 +138,13 @@ export class JournalViewComponent implements OnInit {
     this.focusCell(focusedCell.x, focusedCell.y)
 
     this.focusedCells = []
+  }
+
+  hideMarkPopup() {
+    let focusedCell = this.focusedCells[this.focusedCells.length - 1]
+    this.focusCell(focusedCell.x, focusedCell.y)
+
+    this.focusedCells = [focusedCell]
   }
 
   keyDown(event: KeyboardEvent) {

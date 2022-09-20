@@ -17,6 +17,7 @@ export class SelectMarkComponent implements AfterViewInit {
   @Output() markDelete = new EventEmitter<string>()
 
   @Output() close = new EventEmitter<null>()
+  @Output() hide = new EventEmitter<null>()
 
   availableMarks: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "н", "зч"]
 
@@ -26,10 +27,6 @@ export class SelectMarkComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.markInput.nativeElement.focus()
-  }
-
-  closePopup() {
-    this.close.emit()
   }
 
   confirmInput(key: string, mark: string) {
@@ -52,7 +49,7 @@ export class SelectMarkComponent implements AfterViewInit {
     }
     this.markAdd.emit(mark)
 
-    this.close.emit()
+    this.hide.emit()
   }
 
   editMark(mark_: string) {
@@ -60,15 +57,18 @@ export class SelectMarkComponent implements AfterViewInit {
 
     this.selectedMark!!.mark = mark_
     this.markEdit.emit(this.selectedMark)
+    this.hide.emit()
 
-    this.close.emit()
+    this.selectedMark = undefined
   }
 
   removeMark() {
     if (this.selectedMark == undefined) return
-    this.markDelete.emit(this.selectedMark.id)
 
-    this.close.emit()
+    this.markDelete.emit(this.selectedMark.id)
+    this.hide.emit()
+
+    this.selectedMark = undefined
   }
 
   confirm(mark: string): void {

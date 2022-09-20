@@ -1,5 +1,20 @@
 @use '../../../../styles';
 
+:host {
+  display: flex;
+  flex-flow: column;
+}
+
+table {
+  display: block;
+
+  border-spacing: 15px;
+  border-collapse: separate;
+
+  overflow: auto;
+  flex-grow: 1;
+}
+
 .date {
   vertical-align: bottom;
   text-align: center;
@@ -7,12 +22,23 @@
   color: styles.$onBackgroundColor;
 }
 
-.number {
-  color: styles.$onBackgroundColor;
+.date-row {
+  position: sticky;
+  top: 0;
+
+  z-index: 10;
+
+  background: styles.$backgroundColor;
 }
 
+.row-title-cell {
+  position: sticky;
+  left: 0;
 
-.name {
+  background: styles.$backgroundColor;
+}
+
+.row-title {
   color: styles.$onBackgroundColor;
 }
 
@@ -29,9 +55,4 @@ app-select-mark {
   position: absolute;
   top: 56px;
   z-index: 10;
-}
-
-table {
-  border-spacing: 15px;
-  border-collapse: separate
 }
