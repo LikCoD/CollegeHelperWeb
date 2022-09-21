@@ -65,5 +65,5 @@ jobs:
             docker run -d -p 80:80 -p 443:443 \
             --restart always \
             --name $(echo $IMAGE_NAME) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $IMAGE_TAG)
 
