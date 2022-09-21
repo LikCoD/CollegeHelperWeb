@@ -47,12 +47,15 @@ table {
   border-radius: 15px;
 }
 
-tr {
+td {
   position: relative;
 }
 
 app-select-mark {
   position: absolute;
+
   top: 56px;
+  right: 0;
+
   z-index: 10;
 }
