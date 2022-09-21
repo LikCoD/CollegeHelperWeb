@@ -27,6 +27,9 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v2
 
+      - name: Build container image
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $IMAGE_TAG) .
+
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
@@ -34,12 +37,6 @@ jobs:
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
-
-      - name: Remove old image
-        run: doctl registry repository delete-tag $(echo $IMAGE_NAME) $(echo $IMAGE_TAG) -f
-
-      - name: Build container image
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $IMAGE_TAG) .
 
       - name: Push image to DigitalOcean Container Registry
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $IMAGE_TAG)
