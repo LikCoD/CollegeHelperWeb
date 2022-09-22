@@ -3,7 +3,7 @@ FROM node:latest as node
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm run build --prod
+RUN npm run build --omit=dev
 #stage 2
 FROM nginx:latest
 COPY nginx.conf /etc/nginx/nginx.conf
