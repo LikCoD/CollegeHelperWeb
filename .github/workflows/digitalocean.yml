@@ -36,7 +36,7 @@ jobs:
             cd ${GITHUB_REPOSITORY#*/}
             docker build -t ${IMAGE_NAME} .
             docker run \
-            -d -p 80:80 -p 443:443
+            -d -p 80:80 -p 443:443 \
             --restart always \
             --name ${IMAGE_NAME} \
             ${IMAGE_NAME}
