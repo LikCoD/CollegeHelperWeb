@@ -37,6 +37,7 @@ jobs:
             docker build -t ${IMAGE_NAME} .
             docker stop ${IMAGE_NAME}
             docker rm ${IMAGE_NAME}
+            docker rmi ${IMAGE_NAME}
             docker run \
             -d -p 80:80 -p 443:443 \
             --restart always \
