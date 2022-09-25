@@ -1,8 +1,9 @@
-<div *ngIf="schedule$ | async as schedule">
+<div *ngIf="schedule$ | async as schedule" class="wrapper">
   <main>
     <app-edit-schedule *ngIf="isEditMode" [schedule]="schedule"></app-edit-schedule>
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">
+        <div class="empty-corner"></div>
         <div class="markup">
           <hr *ngFor="let time of schedule.info.times" [style.top.px]="scheduleService.getTimeY(time)">
         </div>
@@ -10,18 +11,16 @@
           <p *ngFor="let time of schedule.info.times" class="time"
              [style.top.px]="scheduleService.getTimeY(time) - 20">{{time | moment : "hh:mm A"}}</p>
         </div>
-        <div>
-          <div class="weekdays-container">
-            <p *ngFor="let i of days" class="weekday">{{weekDays[i % 7]}}</p>
-          </div>
-          <div class="lessons-container">
-            <app-schedule-cell
-              *ngFor="let cell of schedule.cells"
-              [appScheduleCell]="cell"
-              class="cell"
-              [cell]="cell"
-              [isEditMode]="isEditMode"></app-schedule-cell>
-          </div>
+        <div class="weekdays-container">
+          <p *ngFor="let i of days" class="weekday">{{weekDays[i % 7]}}</p>
+        </div>
+        <div class="lessons-container">
+          <app-schedule-cell
+            *ngFor="let cell of schedule.cells"
+            [appScheduleCell]="cell"
+            class="cell"
+            [cell]="cell"
+            [isEditMode]="isEditMode"></app-schedule-cell>
         </div>
       </div>
     </div>
