@@ -4,6 +4,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+
+  flex-grow: inherit !important;
 }
 
 div {
@@ -19,4 +21,5 @@ div {
 
 h5 {
   text-align: center;
+  font-weight: bold;
 }

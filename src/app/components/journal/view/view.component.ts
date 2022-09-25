@@ -1,6 +1,5 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Host, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 import {AppComponent} from "../../../app.component";
 import {JournalService} from "../../../services/shared/journal.service";
 import {Lesson} from "../../../models/schedule";
@@ -21,7 +20,7 @@ export class JournalViewComponent implements OnInit {
 
   @ViewChild("table") table: ElementRef
 
-  constructor(private router: Router, private http: HttpClient, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService) {
+  constructor(private router: Router, @Host() private host: ElementRef, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService) {
   }
 
   ngOnInit(): void {
@@ -36,11 +35,11 @@ export class JournalViewComponent implements OnInit {
     let table = <HTMLTableElement>this.table.nativeElement
 
     if (this.focusedCells.length == 0) {
-      table.rows[1].cells[1].focus()
+      table.tBodies[0].rows[0].cells[0].focus()
       return
     }
 
-    let cell = table.rows[1+y+this.focusedCells[0].y]?.cells[1+x+this.focusedCells[0].x]
+    let cell = table.tBodies[0].rows[y + this.focusedCells[0].y]?.cells[x + this.focusedCells[0].x]
     cell?.focus()
   }
 
@@ -57,7 +56,11 @@ export class JournalViewComponent implements OnInit {
     this.focusedCells.push(point)
   }
 
-  focus(x: number, y: number, lesson: Lesson, studentID: string, journal: Journal) {
+  focus(cell: HTMLTableCellElement, x: number, y: number, lesson: Lesson, studentID: string, journal: Journal) {
+    let cellX = cell.getClientRects()[0].x
+    let cellY = cell.getClientRects()[0].y
+    this.host.nativeElement.scrollBy(cellX < 180 ? cellX - 180 : 0, cellY < 120 ? cellY - 120 : 0)
+
     if (this.isShiftPressed && this.focusedCells.length > 0) {
       let previousPoint = this.focusedCells[this.focusedCells.length - 1]
       this.addFocusedPoint(previousPoint)
@@ -73,7 +76,7 @@ export class JournalViewComponent implements OnInit {
       if (sy > ey) ey--
       else ey++
 
-      for (let x1 = sx; x1 != ex; ex > x1 ? x1++: x1--) {
+      for (let x1 = sx; x1 != ex; ex > x1 ? x1++ : x1--) {
         for (let y1 = sy; y1 != ey; ey > y1 ? y1++ : y1--) {
           let row = journal.rows[y1]
           let lesson = row.lessons[x1]

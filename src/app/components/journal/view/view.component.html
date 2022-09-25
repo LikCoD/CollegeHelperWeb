@@ -1,52 +1,58 @@
-<table #table
-       *ngIf="journalService.journal$ | async as journal"
-       (keydown)="keyDown($event)"
-       (keyup)="keyUp($event)">
-  <tr class="date-row">
-    <td class="row-title-cell"></td>
-    <td *ngFor="let date of journal.dates;">
-      <div class="date" (click)="appDateProperty.onClick()">
+<ng-container *ngIf="journalService.journal$ | async as journal">
+  <main>
+    <div class="sticky-corner"></div>
+    <div class="date-row">
+      <div *ngFor="let date of journal.dates;" (click)="appDateProperty.onClick()">
         <span>{{date.startDate | moment: "MMM"}}</span>
         <span>{{date.startDate | moment: "dd D"}}</span>
+        <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes"
+                           [show]="journal.info.editable"></app-date-property>
       </div>
-      <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes"
-                         [show]="journal.info.editable"></app-date-property>
-    </td>
-  </tr>
-  <tr *ngFor="let row of journal.rows; let y = index" [attr.data-index]="y">
-    <td class="row-title-cell row-title">{{y + 1}}&nbsp;{{row.title}}</td>
-    <td *ngFor="let lesson of row.lessons; let x = index" [attr.data-index]="x"
-        (keydown.arrowUp)="focusCell(0, -1)"
-        (keydown.arrowRight)="focusCell(1, 0)"
-        (keydown.arrowDown)="focusCell(0, 1)"
-        (keydown.arrowLeft)="focusCell(-1, 0)"
-        (focus)="focus(x, y, lesson, row.id, journal)"
-        [ngClass]="{focused: isFocused(x, y)}"
-        class="cell"
-        tabindex="0">
-      <app-journal-cell
-        [lesson]="lesson"
-        [show]="journal.info.editable"
-        [userId]="row.id"
-        [x]="x"
-        [y]="y"
-        (markAdd)="markAdd($event)"
-        (markEdit)="markEdit($event)"
-        (markDelete)="markDelete($event)"
-      ></app-journal-cell>
-      <ng-container
-        *ngIf="focusedCells.length > 0
+    </div>
+    <ol class="titles">
+      <li *ngFor="let row of journal.rows">{{row.title}}</li>
+    </ol>
+    <table #table
+           (keydown)="keyDown($event)"
+           (keyup)="keyUp($event)">
+      <tbody>
+      <tr *ngFor="let row of journal.rows; let y = index">
+        <td *ngFor="let lesson of row.lessons; let x = index"
+            #cell
+            (keydown.arrowUp)="focusCell(0, -1)"
+            (keydown.arrowRight)="focusCell(1, 0)"
+            (keydown.arrowDown)="focusCell(0, 1)"
+            (keydown.arrowLeft)="focusCell(-1, 0)"
+            (focus)="focus(cell, x, y, lesson, row.id, journal)"
+            class="cell"
+            tabindex="0">
+          <app-journal-cell
+            [ngClass]="{focused: isFocused(x, y)}"
+            [lesson]="lesson"
+            [show]="journal.info.editable"
+            [userId]="row.id"
+            [x]="x"
+            [y]="y"
+            (markAdd)="markAdd($event)"
+            (markEdit)="markEdit($event)"
+            (markDelete)="markDelete($event)"
+          ></app-journal-cell>
+          <ng-container
+            *ngIf="focusedCells.length > 0
           && focusedCells[focusedCells.length - 1].x == x && focusedCells[focusedCells.length - 1].y == y">
-        <app-select-mark
-          [lesson]="lesson"
-          [userId]="row.id"
-          (markAdd)="markAdd($event)"
-          (markEdit)="markEdit($event)"
-          (markDelete)="markDelete($event)"
-          (close)="closeMarkPopup()"
-          (hide)="hideMarkPopup()"
-          [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-select-mark>
-      </ng-container>
-    </td>
-  </tr>
-</table>
+            <app-select-mark
+              [lesson]="lesson"
+              [userId]="row.id"
+              (markAdd)="markAdd($event)"
+              (markEdit)="markEdit($event)"
+              (markDelete)="markDelete($event)"
+              (close)="closeMarkPopup()"
+              (hide)="hideMarkPopup()"
+              [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-select-mark>
+          </ng-container>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+</ng-container>

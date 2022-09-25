@@ -5,41 +5,91 @@
   flex-flow: column;
 }
 
-table {
-  display: block;
+main {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
 
-  border-spacing: 15px;
-  border-collapse: separate;
-
-  overflow: auto;
-  flex-grow: 1;
+  width: fit-content;
 }
 
-.date {
-  vertical-align: bottom;
-  text-align: center;
-  display: grid;
-  color: styles.$onBackgroundColor;
+table {
+  grid-row: 2;
+  grid-column: 2;
+
+  display: block;
+
+  th {
+    font-weight: inherit;
+  }
+
+  td {
+    position: relative;
+
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  scroll-margin-left: 250px;
+}
+
+.sticky-corner {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  z-index: 2;
+
+  background: styles.$backgroundColor;
 }
 
 .date-row {
+  display: flex;
   position: sticky;
   top: 0;
 
-  z-index: 10;
+  grid-row: 1;
+  grid-column: 2;
 
   background: styles.$backgroundColor;
+
+  z-index: 1;
+
+  > * {
+    vertical-align: bottom;
+    text-align: center;
+    display: grid;
+    color: styles.$onBackgroundColor;
+
+    width: 66px;
+    min-width: 66px;
+    height: 50px;
+  }
 }
 
-.row-title-cell {
+.titles {
+  grid-row: 2;
+  grid-column: 1;
+
   position: sticky;
   left: 0;
 
-  background: styles.$backgroundColor;
-}
+  z-index: 1;
 
-.row-title {
-  color: styles.$onBackgroundColor;
+  width: 180px;
+
+  background: styles.$backgroundColor;
+
+  > * {
+    color: styles.$onBackgroundColor;
+    line-height: 66px;
+
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
 }
 
 .focused {
@@ -47,8 +97,8 @@ table {
   border-radius: 15px;
 }
 
-td {
-  position: relative;
+app-journal-cell {
+  display: block;
 }
 
 app-select-mark {
@@ -59,3 +109,16 @@ app-select-mark {
 
   z-index: 10;
 }
+
+ol {
+  counter-reset: item;
+  list-style-type: none;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  li:before {
+    content: counter(item) "\00a0\00a0";
+    counter-increment: item
+  }
+}
+
