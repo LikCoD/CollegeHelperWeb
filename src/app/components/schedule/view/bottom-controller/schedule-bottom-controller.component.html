@@ -1,4 +1,2 @@
-<div *ngIf="canEdit(user)">
-  <button class="btn btn-outline-light" (click)="changeEditMode()">Edit</button>
-  <button class="btn btn-outline-light" (click)="changeScaleMode()">Scale</button>
-</div>
+<button class="btn btn-outline-light" (click)="changeEditMode()" *ngIf="canEdit(user)">Edit</button>
+<button class="btn btn-outline-light" (click)="changeScaleMode()">Scale</button>
