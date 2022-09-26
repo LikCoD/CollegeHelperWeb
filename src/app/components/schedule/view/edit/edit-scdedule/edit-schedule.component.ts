@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ScheduleService} from "../../../../../services/shared/schedule.service";
 import {AddSubjectDialogComponent} from "../add-subject-dialog/add-subject-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -31,6 +31,8 @@ export class EditScheduleComponent {
 
     this.templateLessons = lessons
   }
+
+  @Output() makeGeneral = new EventEmitter<null>()
 
   templateLessons: Lesson[] = []
   templatesFilter: string = ""

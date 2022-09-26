@@ -1,17 +1,4 @@
 <div *ngIf="canEdit(user)">
   <button class="btn btn-outline-light" (click)="changeEditMode()">Edit</button>
-  <button class="btn btn-outline-light" (click)="makeGeneral.emit()">Make general</button>
-</div>
-<div class="scale">
-  <p>Scale</p>
-  <input #range type="range"
-         [min]="minScale" [max]="maxScale" [value]="minScale" step="0.1"
-         (input)="rangeChange(range.value)">
-  <div>
-    <button class="btn btn-outline-light" (click)="setScale(minScale, range)">Min</button>
-    <button *ngIf="minScale < preferredMaxScale && preferredMaxScale < maxScale" class="btn btn-outline-light"
-            (click)="setScale(preferredMaxScale, range)">Max (pref.)
-    </button>
-    <button class="btn btn-outline-light" (click)="setScale(maxScale, range)">Max</button>
-  </div>
+  <button class="btn btn-outline-light" (click)="changeScaleMode()">Scale</button>
 </div>

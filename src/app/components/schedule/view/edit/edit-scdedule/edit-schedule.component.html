@@ -5,3 +5,4 @@
 <section>
   <app-subject-selection [lessons]="filterLessons(templatesFilter)" (select)="add($event)"></app-subject-selection>
 </section>
+<button class="btn btn-light" (click)="makeGeneral.emit()">Make general</button>

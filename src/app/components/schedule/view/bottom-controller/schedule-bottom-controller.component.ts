@@ -14,10 +14,10 @@ export class ScheduleBottomControllerComponent {
   @Input() preferredMaxScale: number
 
   @Output() editMode = new EventEmitter<boolean>()
-  @Output() makeGeneral = new EventEmitter<null>()
   @Output() scale = new EventEmitter<number>()
 
   isEditMode = false
+  scaleMode = 0
 
   canEdit(user: User | null | undefined): boolean {
     return user != undefined && user.permissions.findIndex(value => value == "editSchedule") != -1
@@ -28,12 +28,20 @@ export class ScheduleBottomControllerComponent {
     this.editMode.emit(this.isEditMode)
   }
 
-  rangeChange(value: string) {
-    this.scale.emit(Number(value))
-  }
-
-  setScale(scale: number, range: HTMLInputElement) {
-    this.scale.emit(scale)
-    range.value = scale.toString()
+  changeScaleMode() {
+    switch (this.scaleMode) {
+      case 0:
+        this.scaleMode = 1
+        this.scale.emit(this.preferredMaxScale)
+        break
+      case 1:
+        this.scaleMode = 2
+        this.scale.emit(this.maxScale)
+        break
+      case 2:
+        this.scaleMode = 0
+        this.scale.emit(this.minScale)
+        break
+    }
   }
 }
