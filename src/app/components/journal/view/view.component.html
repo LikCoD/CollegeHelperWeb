@@ -2,11 +2,11 @@
   <main>
     <div class="sticky-corner"></div>
     <div class="date-row">
-      <div *ngFor="let date of journal.dates;" (click)="appDateProperty.onClick()">
+      <div *ngFor="let date of journal.dates;" (click)="selectedDate = date">
         <span>{{date.startDate | moment: "MMM"}}</span>
         <span>{{date.startDate | moment: "dd D"}}</span>
-        <app-date-property #appDateProperty [lesson]="date" [types]="lessonTypes"
-                           [show]="journal.info.editable"></app-date-property>
+        <app-date-property *ngIf="date == selectedDate"
+                           [lesson]="date" [types]="lessonTypes" (close)="log('aasd')"></app-date-property>
       </div>
     </div>
     <ol class="titles">
@@ -38,7 +38,8 @@
             (markDelete)="markDelete($event)"
           ></app-journal-cell>
           <ng-container
-            *ngIf="focusedCells.length > 0
+            *ngIf="journal.info.editable &&
+            focusedCells.length > 0
           && focusedCells[focusedCells.length - 1].x == x && focusedCells[focusedCells.length - 1].y == y">
             <app-select-mark
               [lesson]="lesson"
@@ -54,5 +55,8 @@
       </tr>
       </tbody>
     </table>
+    <!--    <section>
+          <app-journal-cell *ngFor="let row of journal.rows" [lesson]="row.lessons[0]"></app-journal-cell>
+        </section>-->
   </main>
 </ng-container>

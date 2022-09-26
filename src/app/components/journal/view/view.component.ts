@@ -18,6 +18,8 @@ export class JournalViewComponent implements OnInit {
   isCtrlPressed = false
   isShiftPressed = false
 
+  selectedDate: Lesson | null
+
   @ViewChild("table") table: ElementRef
 
   constructor(private router: Router, @Host() private host: ElementRef, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService) {
@@ -61,7 +63,7 @@ export class JournalViewComponent implements OnInit {
     let cellY = cell.getClientRects()[0].y
     this.host.nativeElement.scrollBy(cellX < 180 ? cellX - 180 : 0, cellY < 120 ? cellY - 120 : 0)
 
-    if (this.isShiftPressed && this.focusedCells.length > 0) {
+    if (journal.info.editable && this.isShiftPressed && this.focusedCells.length > 0) {
       let previousPoint = this.focusedCells[this.focusedCells.length - 1]
       this.addFocusedPoint(previousPoint)
 
@@ -89,7 +91,7 @@ export class JournalViewComponent implements OnInit {
       return
     }
 
-    if (this.isCtrlPressed) {
+    if (journal.info.editable && this.isCtrlPressed) {
       this.addFocusedPoint({x: x, y: y, lesson: lesson, studentID: studentID})
       return
     }
@@ -158,6 +160,11 @@ export class JournalViewComponent implements OnInit {
   keyUp(event: KeyboardEvent) {
     if (event.key == 'Control') this.isCtrlPressed = false
     if (event.key == 'Shift') this.isShiftPressed = false
+  }
+
+  log(aasd: string) {
+    console.log(this.selectedDate)
+    this.selectedDate = null
   }
 }
 

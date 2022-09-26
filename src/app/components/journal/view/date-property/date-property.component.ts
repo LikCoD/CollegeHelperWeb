@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as moment from "moment";
 import {Lesson} from "../../../../models/schedule";
@@ -6,31 +6,17 @@ import {Lesson} from "../../../../models/schedule";
 @Component({
   selector: 'app-date-property',
   templateUrl: './date-property.component.html',
-  styleUrls: ['./date-property.component.sass']
+  styleUrls: ['./date-property.component.scss']
 })
-export class DatePropertyComponent implements OnInit {
+export class DatePropertyComponent {
 
   @Input() lesson: Lesson | undefined
   @Input() types: string[] = []
-  @Input() show: boolean = true
+  @Input() visible: boolean = true
 
-  visible = false
+  @Output() close = new EventEmitter<null>()
 
   constructor(private http: HttpClient) {
-  }
-
-  onClick() {
-    if (!this.show) return
-
-    this.visible = !this.visible
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  closePopup() {
-    this.visible = false
   }
 
   confirm() {
@@ -41,13 +27,8 @@ export class DatePropertyComponent implements OnInit {
         lesson!!.startDate = moment.utc(lesson!!.startDate)
         this.lesson!! = lesson!
       },
-      error: this.onError
     })
 
-    this.closePopup()
-  }
-
-  onError(error: any) {
-    console.log(error)
+    this.close.emit()
   }
 }
