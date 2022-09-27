@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {sameAs} from "../../../../utils";
 import {UserService} from "../../../../services/shared/user.service";
@@ -10,10 +10,8 @@ import {UserService} from "../../../../services/shared/user.service";
 })
 export class SignUpWithTokenComponent {
 
-  private readonly codeLength = 32
-
   form = new FormGroup({
-    code: new FormControl("", [Validators.required, Validators.minLength(this.codeLength), Validators.maxLength(this.codeLength)]),
+    code: new FormControl("", Validators.required),
     email: new FormControl("", [Validators.required, Validators.email]),
     login: new FormControl("", Validators.required),
     password: new FormControl("", [Validators.required, Validators.minLength(8)]),
