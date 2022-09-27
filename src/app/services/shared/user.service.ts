@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
-import {map, ReplaySubject} from "rxjs";
+import {map, Observable, ReplaySubject} from "rxjs";
 import {Router} from "@angular/router";
 import {User} from "../../models/user";
 
@@ -105,5 +105,9 @@ export class UserService {
         this.router.navigate(["/"])
       }
     })
+  }
+
+  createCode(data: any): Observable<any> {
+    return this.httpService.createCode(data)
   }
 }

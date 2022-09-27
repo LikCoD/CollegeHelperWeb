@@ -63,4 +63,8 @@ export class HttpService {
   getStudyPlaces(restricted = true): Observable<StudyPlace[]> {
     return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces?restricted=${restricted}`)
   }
+
+  createCode(data: any): Observable<any> {
+    return this.http.post<any>(`${this.API_PATH}/user/code`, data)
+  }
 }

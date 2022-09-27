@@ -42,6 +42,7 @@ import {LoginGuard} from "./guards/login.guard";
 import {SignupStage1Guard} from "./guards/signup-stage1.guard";
 import {SignUpWithTokenComponent} from './components/user/signup/with-token/sign-up-with-token.component';
 import { ScheduleBottomControllerComponent } from './components/schedule/view/bottom-controller/schedule-bottom-controller.component';
+import { CreateCodeUserComponent } from './components/user/profile/create-code-user/create-code-user.component';
 
 
 const appRoutes: Routes = [
@@ -98,6 +99,7 @@ const appRoutes: Routes = [
 
     ReceiveTokenComponent,
      ScheduleBottomControllerComponent,
+     CreateCodeUserComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-floating">
+    <input id="code" class="form-control" formControlName="code" placeholder="Code">
+    <label for="code">Code</label>
+
+    <app-error-info [property]="form.get('code')!!"></app-error-info>
+  </div>
+  <div class="form-floating">
+    <input id="name" class="form-control" formControlName="name" placeholder="Name">
+    <label for="name">Name</label>
+
+    <app-error-info [property]="form.get('name')!!"></app-error-info>
+  </div>
+  <div class="form-floating">
+    <select id="type" class="form-control" formControlName="type">
+      <option label="Group" value="group"></option>
+      <option label="Teacher" value="teacher"></option>
+    </select>
+    <label for="type">Type</label>
+
+    <app-error-info [property]="form.get('type')!!"></app-error-info>
+  </div>
+  <div class="form-floating">
+    <input id="typeName" class="form-control" formControlName="typeName" placeholder="Type name">
+    <label for="typeName">Type name</label>
+
+    <app-error-info [property]="form.get('typeName')!!"></app-error-info>
+  </div>
+
+  <button type="submit" class="btn btn-success" [disabled]="!form.valid">Continue</button>
+</form>

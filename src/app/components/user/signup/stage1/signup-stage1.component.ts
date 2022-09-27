@@ -44,9 +44,6 @@ export class SignupStage1Component {
   onTypeChange(user: User) {
     if (this.form.get("type")?.value == "teacher") {
       this.form.get("typeName")?.setValue(user.name)
-      this.form.get("typeName")?.disable()
-    } else {
-      this.form.get("typeName")?.enable()
     }
   }
 
