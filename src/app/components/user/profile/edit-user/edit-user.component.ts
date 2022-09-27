@@ -15,7 +15,6 @@ export class EditUserComponent implements OnInit {
     password: new FormControl("", [Validators.minLength(8)]),
     passwordConfirm: new FormControl("", sameAs("password")),
     login: new FormControl("", Validators.required),
-    name: new FormControl("", Validators.required),
   })
 
   constructor(public userService: UserService) { }
@@ -25,7 +24,6 @@ export class EditUserComponent implements OnInit {
       next: user => {
         this.form.get("email")?.setValue(user?.email)
         this.form.get("login")?.setValue(user?.login)
-        this.form.get("name")?.setValue(user?.name)
       }
     })
   }
