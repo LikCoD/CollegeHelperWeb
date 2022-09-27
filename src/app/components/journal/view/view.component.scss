@@ -121,8 +121,12 @@ ol {
   padding-right: 10px;
 
   li:before {
-    content: counter(item) "\00a0\00a0";
+    content: counter(item) " ";
     counter-increment: item
+  }
+
+  li {
+    white-space: nowrap;
   }
 }
 
