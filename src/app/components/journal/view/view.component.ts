@@ -4,6 +4,8 @@ import {AppComponent} from "../../../app.component";
 import {JournalService} from "../../../services/shared/journal.service";
 import {Lesson} from "../../../models/schedule";
 import {Journal, Mark} from "../../../models/journal";
+import * as moment from "moment";
+import {compareDates} from "../../../utils";
 
 @Component({
   selector: 'app-login',
@@ -19,6 +21,8 @@ export class JournalViewComponent implements OnInit {
   isShiftPressed = false
 
   selectedDate: Lesson | null
+
+  collapseType?: moment.unitOfTime.StartOf
 
   @ViewChild("table") table: ElementRef
 
@@ -164,22 +168,56 @@ export class JournalViewComponent implements OnInit {
     if (event.key == 'Shift') this.isShiftPressed = false
   }
 
-  log(aasd: string) {
-    console.log(this.selectedDate)
-    this.selectedDate = null
-  }
-
   onDateClick(journal: Journal, date: Lesson) {
+    if (date.collapsedType != undefined) {
+      this.collapseType = undefined
+
+      this.journalService.groupDate(journal, date, date.collapsedType)
+      return;
+    }
+
     if (this.isCtrlPressed) {
+      this.collapseType = undefined
       this.journalService.groupDate(journal, date, 'day')
       return
     }
     if (this.isShiftPressed) {
+      this.collapseType = undefined
       this.journalService.groupDate(journal, date, 'month')
       return
     }
 
     this.selectedDate = (date == this.selectedDate) ? null : date
+  }
+
+  toggleCollapse(journal: Journal) {
+    this.journalService.expand(journal)
+
+    switch (this.collapseType) {
+      case undefined:
+        this.collapseType = "day"
+        break
+      case "day":
+        this.collapseType = "month"
+        break
+      case "month":
+        this.collapseType = undefined
+    }
+
+    if (this.collapseType == undefined) return
+
+    let lastDate: moment.Moment | undefined = undefined
+    let lessons: Lesson[] = []
+    journal.dates.forEach(value => {
+      if ((lastDate != undefined && compareDates(lastDate, value.startDate, this.collapseType!!)) || value.collapsedType != undefined) return
+
+      lastDate = value.startDate
+      lessons.push(value)
+    })
+
+    lessons.forEach(l => {
+      this.journalService.groupDate(journal, l, this.collapseType!!)
+    })
   }
 }
 

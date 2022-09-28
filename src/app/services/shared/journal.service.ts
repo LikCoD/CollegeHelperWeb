@@ -41,7 +41,7 @@ export class JournalService {
     let addNew = true
     let collapse = lesson.collapsedType
 
-    if (collapse != undefined && unit == "day") unit = "month"
+    if (collapse != undefined && unit == "day" && collapse == "month") unit = "month"
 
     let indexes: number[] = []
     journal.dates.forEach((value, index) => {
@@ -68,6 +68,12 @@ export class JournalService {
       })
 
       row.lessons.splice(indexes[0], 0, collapsedLesson)
+    })
+  }
+
+  expand(journal: Journal) {
+    journal.dates.forEach(value => {
+      value.collapsed = value.collapsedType != undefined
     })
   }
 }

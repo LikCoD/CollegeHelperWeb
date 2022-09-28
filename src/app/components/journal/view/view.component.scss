@@ -43,6 +43,10 @@ table {
 
   z-index: 2;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: styles.$backgroundColor;
 }
 
@@ -71,10 +75,13 @@ table {
       display: grid;
       align-content: center;
       color: styles.$onBackgroundColor;
+
+      height: 100%;
     }
 
     app-date-property {
       position: absolute;
+      height: auto;
     }
   }
 }
