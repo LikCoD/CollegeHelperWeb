@@ -170,8 +170,16 @@ export class JournalViewComponent implements OnInit {
   }
 
   onDateClick(journal: Journal, date: Lesson) {
-    if (this.isCtrlPressed) this.journalService.groupDate(journal, date, 'day')
-    if (this.isShiftPressed) this.journalService.groupDate(journal, date, 'month')
+    if (this.isCtrlPressed) {
+      this.journalService.groupDate(journal, date, 'day')
+      return
+    }
+    if (this.isShiftPressed) {
+      this.journalService.groupDate(journal, date, 'month')
+      return
+    }
+
+    this.selectedDate = (date == this.selectedDate) ? null : date
   }
 }
 

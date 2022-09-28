@@ -3,13 +3,16 @@
     <div class="sticky-corner"></div>
     <div class="date-row">
       <ng-container *ngFor="let date of journal.dates;">
-        <div *ngIf="!date.collapsed" (click)="onDateClick(journal, date)">
-          <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>
-          <span>{{date.startDate | moment: "MMM"}}</span>
-          <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
+        <div *ngIf="!date.collapsed">
+          <div (click)="onDateClick(journal, date)">
+            <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>
+            <span>{{date.startDate | moment: "MMM"}}</span>
+            <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
+          </div>
+
+          <app-date-property *ngIf="date == selectedDate"
+                             [lesson]="date" [types]="lessonTypes" (close)="log('aasd')"></app-date-property>
         </div>
-        <app-date-property *ngIf="date == selectedDate"
-                           [lesson]="date" [types]="lessonTypes" (close)="log('aasd')"></app-date-property>
       </ng-container>
     </div>
     <ol class="titles">

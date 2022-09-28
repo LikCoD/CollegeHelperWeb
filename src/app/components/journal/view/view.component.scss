@@ -59,16 +59,23 @@ table {
   z-index: 1;
 
   > * {
-    position: relative;
-
-    vertical-align: bottom;
-    text-align: center;
-    display: grid;
-    color: styles.$onBackgroundColor;
-
     width: 66px;
     min-width: 66px;
     height: 50px;
+
+    > * {
+      position: relative;
+
+      vertical-align: bottom;
+      text-align: center;
+      display: grid;
+      align-content: center;
+      color: styles.$onBackgroundColor;
+    }
+
+    app-date-property {
+      position: absolute;
+    }
   }
 }
 
