@@ -3,7 +3,7 @@
     <input #studyPlaceSelect id="studyPlace" class="form-control" list="studyPlaces" type="text"
            placeholder="StudyPlace" (change)="selectStudyPlace(studyPlaces, studyPlaceSelect.value)"
            [(ngModel)]="studyPlaceName" [ngModelOptions]="{standalone: true}">
-    <label for="studyPlace">Study place</label>
+    <label for="studyPlace">{{'schedule.find.studyPlace' | translate}}</label>
     <datalist id="studyPlaces">
       <option *ngFor="let studyPlace of studyPlaces" [value]="studyPlace.name"></option>
     </datalist>
@@ -13,19 +13,19 @@
 
   <div class="form-floating">
     <select #typeSelect id="type" class="form-select" formControlName="type">
-      <option value="group">Group</option>
-      <option value="teacher">Teacher</option>
-      <option value="subject">Subject</option>
-      <option value="room">Room</option>
+      <option value="group">{{'schedule.find.group' | translate}}</option>
+      <option value="teacher">{{'schedule.find.teacher' | translate}}</option>
+      <option value="subject">{{'schedule.find.subject' | translate}}</option>
+      <option value="room">{{'schedule.find.room' | translate}}</option>
     </select>
-    <label for="type">Type</label>
+    <label for="type">{{'schedule.find.type' | translate}}</label>
 
     <app-error-info [property]="form.get('type')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="name" class="form-control" list="names" formControlName="name" type="text" placeholder="Name">
-    <label for="name">Name</label>
+    <label for="name">{{'schedule.find.typename' | translate}}</label>
     <datalist id="names">
       <option *ngFor="let type of getTypeByName(types, typeSelect.value + 's')" [value]="type">
     </datalist>
@@ -33,5 +33,5 @@
     <app-error-info [property]="form.get('name')!!"></app-error-info>
   </div>
 
-  <button [disabled]="!form.valid" class="btn btn-outline-light" type="submit">Continue</button>
+  <button [disabled]="!form.valid" class="btn btn-outline-light" type="submit">{{'schedule.find.continue' | translate}}</button>
 </form>

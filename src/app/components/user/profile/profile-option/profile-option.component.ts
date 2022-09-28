@@ -21,7 +21,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ]
 })
 export class ProfileOptionComponent implements OnInit {
-  @Input() title: string | undefined
+  @Input() title: string
   @Input() opened: boolean = false
 
   contentState = 'close'

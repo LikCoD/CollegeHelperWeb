@@ -1,0 +1,88 @@
+{
+  "header": {
+    "schedule": "Schedule",
+    "findSchedule": "Find schedule",
+    "journal": "Journal",
+    "signUp": "SingUp",
+    "login": "Login"
+  },
+  "user": {
+    "login": {
+      "signUp": "SingUp",
+      "login": "Login",
+      "userLogin": "Login",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "useCode": "Use code",
+      "type": "Type",
+      "typename": "Typename",
+      "name": "Name",
+      "email": "Email",
+      "code": "Code",
+      "continue": "Continue",
+      "studyPlace": "Study place",
+      "group": "Group",
+      "teacher": "Teacher"
+    },
+    "profile": {
+      "signOut": "SignOut",
+      "revokeToken": "Revoke token"
+    },
+    "info": {
+      "info": "Info"
+    },
+    "accept": {
+      "acceptUsers": "Accept users"
+    },
+    "edit": {
+      "edit": "Edit",
+      "login": "Login",
+      "email": "Email",
+      "pictureUrl": "Picture URL",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "continue": "Continue"
+    },
+    "create": {
+      "createUsers": "Создать пользователей",
+      "code": "Code",
+      "name": "Name",
+      "type": "Type",
+      "typename": "Typename",
+      "confirm": "Confirm"
+    }
+  },
+  "schedule": {
+    "find": {
+      "studyPlace": "Study place",
+      "type": "Type",
+      "typename": "Typename",
+      "group": "Group",
+      "teacher": "Teacher",
+      "subject": "Subject",
+      "room": "Room",
+      "continue": "Continue"
+    },
+    "view": {
+      "edit": "Edit",
+      "scale": "Scale",
+      "selectSubject": "Select",
+      "selectAll": "Select all",
+      "addLesson": "Add lesson",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "add": "Add",
+      "makeGeneral": "Make general"
+    }
+  },
+  "journal": {
+    "view": {
+      "collapse": "Group",
+      "title": "Title",
+      "homework": "Homework",
+      "description": "Description",
+      "mark": "Mark",
+      "confirm": "Confirm"
+    }
+  }
+}

@@ -11,20 +11,20 @@
       <p>{{user.studyPlace}}</p>
       <p>{{user.typeName}}</p>
     </div>
-    <button class="btn btn-warning" (click)="signOut()">Sing out</button>
-    <button class="btn btn-danger" (click)="revoke()">Revoke token</button>
+    <button class="btn btn-warning" (click)="signOut()">{{'user.profile.signOut' | translate}}</button>
+    <button class="btn btn-danger" (click)="revoke()">{{'user.profile.revokeToken' | translate}}</button>
   </div>
   <section>
-    <app-profile-option title="Info" [opened]="true">
+    <app-profile-option title="user.info.info" [opened]="true">
       <div>Not implemented yet</div>
     </app-profile-option>
-    <app-profile-option title="Accept users">
+    <app-profile-option title="user.accept.acceptUsers">
       <app-accept-users></app-accept-users>
     </app-profile-option>
-    <app-profile-option title="Edit">
+    <app-profile-option title="user.edit.edit">
       <app-edit-user></app-edit-user>
     </app-profile-option>
-    <app-profile-option title="Create users">
+    <app-profile-option title="user.create.createUsers">
       <app-create-code-user></app-create-code-user>
     </app-profile-option>
   </section>

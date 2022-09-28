@@ -2,7 +2,7 @@
   <div class="form-floating" *ngIf="generalService.studyPlaces$ | async as studyPlaces">
     <input id="studyPlace" class="form-control" list="studyPlaces" placeholder="Study Place"
            (change)="studyPlaceChange($event, studyPlaces)" (focusout)="markStudyPlaceAsTouched()"/>
-    <label for="studyPlace">Study place</label>
+    <label for="studyPlace">{{'user.login.studyPlace' | translate}}</label>
 
     <datalist id="studyPlaces">
       <option *ngFor="let studyPlace of studyPlaces" data-value="{{studyPlace.id}}" [value]="studyPlace.name"></option>
@@ -12,20 +12,20 @@
 
   <div class="form-floating">
     <select id="type" class="form-control" formControlName="type" (change)="onTypeChange(user)">
-      <option label="Group" value="group"></option>
-      <option label="Teacher" value="teacher"></option>
+      <option label="{{'user.login.group' | translate}}" value="group"></option>
+      <option label="{{'user.login.teacher' | translate}}" value="teacher"></option>
     </select>
-    <label for="type">Name</label>
+    <label for="type">{{'user.login.type' | translate}}</label>
 
     <app-error-info [property]="form.get('type')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="typeName" class="form-control" formControlName="typeName" placeholder="Type name">
-    <label for="typeName">Type name</label>
+    <label for="typeName">{{'user.login.typename' | translate}}</label>
 
     <app-error-info [property]="form.get('typeName')!!"></app-error-info>
   </div>
 
-  <button type="submit" class="btn btn-outline-light" [disabled]="!form.valid">Continue</button>
+  <button type="submit" class="btn btn-outline-light" [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
 </form>

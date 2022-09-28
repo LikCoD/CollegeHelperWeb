@@ -1,6 +1,6 @@
 <div class="child">
   <div (click)="itemClicked()" class="expand-line">
-    <p>{{title}}</p>
+    <p>{{title | translate}}</p>
     <img src="assets/down-arrow.svg" referrerpolicy="no-referrer" alt="profile" width="16" height="16"
          class="rounded-circle" [@rotatedState]='arrowState'>
   </div>

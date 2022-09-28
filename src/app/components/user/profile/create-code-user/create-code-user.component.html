@@ -1,13 +1,13 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div class="form-floating">
     <input id="code" class="form-control" formControlName="code" placeholder="Code">
-    <label for="code">Code</label>
+    <label for="code">{{'user.create.code' | translate}}</label>
 
     <app-error-info [property]="form.get('code')!!"></app-error-info>
   </div>
   <div class="form-floating">
     <input id="name" class="form-control" formControlName="name" placeholder="Name">
-    <label for="name">Name</label>
+    <label for="name">{{'user.create.name' | translate}}</label>
 
     <app-error-info [property]="form.get('name')!!"></app-error-info>
   </div>
@@ -16,16 +16,16 @@
       <option label="Group" value="group"></option>
       <option label="Teacher" value="teacher"></option>
     </select>
-    <label for="type">Type</label>
+    <label for="type">{{'user.create.type' | translate}}</label>
 
     <app-error-info [property]="form.get('type')!!"></app-error-info>
   </div>
   <div class="form-floating">
     <input id="typeName" class="form-control" formControlName="typeName" placeholder="Type name">
-    <label for="typeName">Type name</label>
+    <label for="typeName">{{'user.create.typename' | translate}}</label>
 
     <app-error-info [property]="form.get('typeName')!!"></app-error-info>
   </div>
 
-  <button type="submit" class="btn btn-success" [disabled]="!form.valid">Continue</button>
+  <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
 </form>

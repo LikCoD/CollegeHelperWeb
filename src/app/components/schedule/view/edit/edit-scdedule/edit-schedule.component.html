@@ -1,8 +1,8 @@
 <div class="edit-control">
   <input type="text" class="form-control edit-input" [(ngModel)]="templatesFilter">
-  <button type="button" class="btn btn-light" (click)="add()">Add</button>
+  <button type="button" class="btn btn-light" (click)="add()">{{'schedule.view.add' | translate}}</button>
 </div>
 <section>
   <app-subject-selection [lessons]="filterLessons(templatesFilter)" (select)="add($event)"></app-subject-selection>
 </section>
-<button class="btn btn-light" (click)="makeGeneral.emit()">Make general</button>
+<button class="btn btn-light" (click)="makeGeneral.emit()">{{'schedule.view.makeGeneral' | translate}}</button>

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppComponent} from './app.component';
@@ -43,6 +43,8 @@ import {SignupStage1Guard} from "./guards/signup-stage1.guard";
 import {SignUpWithTokenComponent} from './components/user/signup/with-token/sign-up-with-token.component';
 import { ScheduleBottomControllerComponent } from './components/schedule/view/bottom-controller/schedule-bottom-controller.component';
 import { CreateCodeUserComponent } from './components/user/profile/create-code-user/create-code-user.component';
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
 
 const appRoutes: Routes = [
@@ -61,6 +63,10 @@ const appRoutes: Routes = [
 
   {path: 'user/receiveToken', component: ReceiveTokenComponent, canActivate: [NotLoginGuard]},
 ]
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -111,6 +117,14 @@ const appRoutes: Routes = [
     NgxPopperjsModule,
     MatDialogModule,
     MatNativeDateModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'ru',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

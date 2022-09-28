@@ -1,28 +1,28 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div class="form-floating">
     <input id="login" class="form-control" formControlName="login" placeholder="Login">
-    <label for="login">Login</label>
+    <label for="login">{{'user.edit.login' | translate}}</label>
 
     <app-error-info [property]="form.get('login')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="email" class="form-control" formControlName="email" placeholder="Email">
-    <label for="email">Email</label>
+    <label for="email">{{'user.edit.email' | translate}}</label>
 
     <app-error-info [property]="form.get('email')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="picture" class="form-control" formControlName="picture" placeholder="Picture url">
-    <label for="picture">Picture url</label>
+    <label for="picture">{{'user.edit.pictureUrl' | translate}}</label>
 
     <app-error-info [property]="form.get('picture')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
-    <label for="password">Password</label>
+    <label for="password">{{'user.edit.password' | translate}}</label>
 
     <app-error-info [property]="form.get('password')!!"></app-error-info>
   </div>
@@ -30,10 +30,10 @@
   <div class="form-floating">
     <input id="passwordConfirm" class="form-control" type="password" formControlName="passwordConfirm"
            placeholder="Confirm password">
-    <label for="passwordConfirm">Confirm password</label>
+    <label for="passwordConfirm">{{'user.edit.confirmPassword' | translate}}</label>
 
     <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
   </div>
 
-  <button type="submit" class="btn btn-success" [disabled]="!form.valid">Continue</button>
+  <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{'user.edit.continue' | translate}}</button>
 </form>

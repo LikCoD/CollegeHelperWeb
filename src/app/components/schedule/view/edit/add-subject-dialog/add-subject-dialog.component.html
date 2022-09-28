@@ -1,16 +1,16 @@
 <button (click)="close()" class="btn-close"></button>
 
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <h3>Add Lesson</h3>
+  <h3>{{'schedule.view.addLesson' | translate}}</h3>
 
   <div class="date-container">
-    <p>Start date:</p>
+    <p>{{'schedule.view.startDate' | translate}}</p>
     <app-form-property [property]="form.get('startDate')!!">
       <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="startDate">
     </app-form-property>
   </div>
   <div class="date-container">
-    <p>End date:</p>
+    <p>{{'schedule.view.endDate' | translate}}</p>
     <app-form-property [property]="form.get('endDate')!!">
       <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="endDate">
     </app-form-property>
@@ -34,5 +34,6 @@
     </app-form-property>
   </div>
 
-  <button [disabled]="!form.valid" type="submit" class="btn btn-outline-dark">Add</button>
+  <button [disabled]="!form.valid" type="submit"
+          class="btn btn-outline-dark">{{'schedule.view.add' | translate}}</button>
 </form>

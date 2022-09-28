@@ -6,12 +6,14 @@
     <option *ngFor="let type of types" selected>{{type}}</option>
   </select>
 
-  <input type="text" class="form-control mark-input" placeholder="Homework" [(ngModel)]="lesson!!.homework">
-  <input type="text" class="form-control mark-input" placeholder="Title" [(ngModel)]="lesson!!.title">
-  <textarea type="text" class="form-control mark-input" placeholder="Description"
+  <input type="text" class="form-control mark-input" placeholder="{{'journal.view.homework' | translate}}"
+         [(ngModel)]="lesson!!.homework">
+  <input type="text" class="form-control mark-input" placeholder="{{'journal.view.title' | translate}}"
+         [(ngModel)]="lesson!!.title">
+  <textarea type="text" class="form-control mark-input" placeholder="{{'journal.view.description' | translate}}"
             [(ngModel)]="lesson!!.description"></textarea>
 
-    <button type="button" class="btn btn-outline-secondary mark-confirm" (click)="confirm()">
-      Confirm
-    </button>
-  </div>
+  <button type="button" class="btn btn-outline-secondary mark-confirm" (click)="confirm()">
+    {{'journal.view.confirm' | translate}}
+  </button>
+</div>

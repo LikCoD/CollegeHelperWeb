@@ -1,0 +1,88 @@
+{
+  "header": {
+    "schedule": "Расписание",
+    "findSchedule": "Поиск расписания",
+    "journal": "Журнал",
+    "signUp": "Регистрация",
+    "login": "Войти"
+  },
+  "user": {
+    "login": {
+      "signUp": "Регистрация",
+      "login": "Войти",
+      "userLogin": "Логин",
+      "password": "Пароль",
+      "confirmPassword": "Подтвердить пароль",
+      "useCode": "Использовать код",
+      "type": "Тип",
+      "typename": "Имя",
+      "name": "Имя",
+      "email": "Эл. почта",
+      "code": "Код",
+      "continue": "Продолжить",
+      "studyPlace": "Место образования",
+      "group": "Группа",
+      "teacher": "Преподаватель"
+    },
+    "profile": {
+      "signOut": "Выйти",
+      "revokeToken": "Отозвать токен"
+    },
+    "info": {
+      "info": "Информация"
+    },
+    "accept": {
+      "acceptUsers": "Принять пользователей"
+    },
+    "edit": {
+      "edit": "Редактировать",
+      "login": "Логин",
+      "email": "Эл. почта",
+      "pictureUrl": "Картинка",
+      "password": "Пароль",
+      "confirmPassword": "Подтвердить пароль",
+      "continue": "Продолжить"
+    },
+    "create": {
+      "createUsers": "Создать пользователей",
+      "code": "Код",
+      "name": "Имя",
+      "type": "Тип",
+      "typename": "Имя типа",
+      "confirm": "Подтвердить"
+    }
+  },
+  "schedule": {
+    "find": {
+      "studyPlace": "Место образования",
+      "type": "Тип",
+      "typename": "Имя",
+      "group": "Группа",
+      "teacher": "Преподаватель",
+      "subject": "Предмет",
+      "room": "Кабинет",
+      "continue": "Продолжить"
+    },
+    "view": {
+      "edit": "Редактировать",
+      "scale": "Масштаб",
+      "selectSubject": "Выбрать",
+      "selectAll": "Выбрать все",
+      "addLesson": "Добавить урок",
+      "startDate": "Дата начала",
+      "endDate": "Дата конца",
+      "add": "Добавить",
+      "makeGeneral": "Сделать основным"
+    }
+  },
+  "journal": {
+    "view": {
+      "collapse": "Сгрупировать",
+      "title": "Заголовок",
+      "homework": "Домашнее задание",
+      "description": "Описание",
+      "mark": "Оценка",
+      "confirm": "Подтвердить"
+    }
+  }
+}

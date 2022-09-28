@@ -1,28 +1,28 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <a routerLink="withToken" class="use-code">Use code</a>
+  <a routerLink="withToken" class="use-code">{{'user.login.useCode' | translate}}</a>
   <div class="form-floating">
     <input id="login" class="form-control" formControlName="login" placeholder="Login">
-    <label for="login">Login</label>
+    <label for="login">{{'user.login.login' | translate}}</label>
 
     <app-error-info [property]="form.get('login')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="name" class="form-control" formControlName="name" placeholder="Login">
-    <label for="name">Name</label>
+    <label for="name">{{'user.login.name' | translate}}</label>
 
     <app-error-info [property]="form.get('name')!!"></app-error-info>
   </div>
 
   <div class="form-floating">
     <input id="email" class="form-control" formControlName="email" placeholder="Email">
-    <label for="email">Email</label>
+    <label for="email">{{'user.login.email' | translate}}</label>
 
     <app-error-info [property]="form.get('email')!!"></app-error-info>
   </div>
   <div class="form-floating">
     <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
-    <label for="password">Password</label>
+    <label for="password">{{'user.login.password' | translate}}</label>
 
     <app-error-info [property]="form.get('password')!!"></app-error-info>
   </div>
@@ -30,21 +30,21 @@
   <div class="form-floating">
     <input id="passwordConfirm" class="form-control" type="password" formControlName="passwordConfirm"
            placeholder="Confirm password">
-    <label for="passwordConfirm">Confirm password</label>
+    <label for="passwordConfirm">{{'user.login.confirmPassword' | translate}}</label>
 
     <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
   </div>
 
 
   <div class="input-group">
-    <button type="submit" class="btn btn-outline-light" [disabled]="!form.valid">Continue</button>
+    <button type="submit" class="btn btn-outline-light" [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
     <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
       <img src="assets/google-logo.svg" alt="google">
     </button>
   </div>
 
   <div class="login">
-    <a routerLink="/login">Login</a>
+    <a routerLink="/login">{{'user.login.login' | translate}}</a>
   </div>
 
 </form>

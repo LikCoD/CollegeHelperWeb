@@ -3,15 +3,15 @@
     <div class="action">
       <a routerLink="schedule">
         <img src="assets/schedule.svg" alt="schedule">
-        <p>Schedule</p>
+        <p>{{'header.schedule' | translate}}</p>
       </a>
       <a routerLink="schedule/login">
         <img src="assets/search-schedule.svg" alt="schedule search">
-        <p>Find schedule</p>
+        <p>{{'header.findSchedule' | translate}}</p>
       </a>
       <a routerLink="journal">
         <img src="assets/journal.svg" alt="journal">
-        <p>Journal</p>
+        <p>{{'header.journal' | translate}}</p>
       </a>
     </div>
 
@@ -27,12 +27,13 @@
   <div class="action">
     <a routerLink="schedule/login">
       <img src="assets/search-schedule.svg" alt="schedule search">
-      <p>Schedule</p>
+      <p>{{'header.schedule' | translate}}</p>
     </a>
   </div>
   <p class="header-name">Studyum</p>
   <div>
-    <button type="button" class="btn btn-outline-light" routerLink="login">Login</button>
-    <button type="button" class="btn btn-outline-light signup-header-btn" routerLink="signup">SignUp</button>
+    <button type="button" class="btn btn-outline-light" routerLink="login">{{'header.login' | translate}}</button>
+    <button type="button" class="btn btn-outline-light signup-header-btn"
+            routerLink="signup">{{'header.signUp' | translate}}</button>
   </div>
 </ng-template>
