@@ -1,4 +1,4 @@
-import {Component, ElementRef, Host, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Host, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppComponent} from "../../../app.component";
 import {JournalService} from "../../../services/shared/journal.service";
@@ -152,11 +152,13 @@ export class JournalViewComponent implements OnInit {
     this.focusedCells = [focusedCell]
   }
 
+  @HostListener('document:keydown', ['$event'])
   keyDown(event: KeyboardEvent) {
     if (event.key == 'Control') this.isCtrlPressed = true
     if (event.key == 'Shift') this.isShiftPressed = true
   }
 
+  @HostListener('document:keyup', ['$event'])
   keyUp(event: KeyboardEvent) {
     if (event.key == 'Control') this.isCtrlPressed = false
     if (event.key == 'Shift') this.isShiftPressed = false
@@ -165,6 +167,11 @@ export class JournalViewComponent implements OnInit {
   log(aasd: string) {
     console.log(this.selectedDate)
     this.selectedDate = null
+  }
+
+  onDateClick(journal: Journal, date: Lesson) {
+    if (this.isCtrlPressed) this.journalService.groupDate(journal, date, 'day')
+    if (this.isShiftPressed) this.journalService.groupDate(journal, date, 'month')
   }
 }
 

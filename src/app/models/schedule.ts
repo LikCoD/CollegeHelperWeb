@@ -19,7 +19,9 @@ export interface Lesson {
   title?: string
   homework?: string
   description?: string
-  isGeneral?: boolean;
+  isGeneral?: boolean
+  collapsed?: boolean
+  collapsedType?: moment.unitOfTime.StartOf
 }
 
 export interface ScheduleInfo {

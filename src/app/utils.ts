@@ -1,5 +1,6 @@
 import {AbstractControl, ValidationErrors} from "@angular/forms";
 import {Subscription} from "rxjs";
+import * as moment from "moment";
 
 export function sameAs(controlName: string) {
   let subscription: Subscription | undefined
@@ -18,4 +19,8 @@ export function sameAs(controlName: string) {
 
 export function continueViaGoogle() {
   window.location.href = `/api/user/auth/google?host=${window.location.host}`
+}
+
+export function compareDates(date1: moment.Moment, date2: moment.Moment, unit: moment.unitOfTime.StartOf) {
+  return date1.clone().startOf(unit).isSame(date2.clone().startOf(unit))
 }

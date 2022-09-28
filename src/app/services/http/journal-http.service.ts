@@ -19,6 +19,15 @@ export class JournalHttpService {
         journal.dates[i].endDate = moment.utc(journal.dates[i].endDate)
       }
 
+      journal.rows.forEach(row => {
+        row.lessons.forEach(lesson => {
+          lesson.endDate = moment.utc(lesson.endDate)
+          lesson.startDate = moment.utc(lesson.startDate)
+
+          lesson.collapsed = false
+        })
+      })
+
       return journal
     }))
   }

@@ -59,6 +59,8 @@ table {
   z-index: 1;
 
   > * {
+    position: relative;
+
     vertical-align: bottom;
     text-align: center;
     display: grid;
@@ -138,4 +140,15 @@ section {
   grid-column: 3;
 
   background: styles.$backgroundColor;
+}
+
+.more-circle {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+  background-color: styles.$secondaryColor;
+  border-radius: 50%;
+
+  right: 5px;
 }
