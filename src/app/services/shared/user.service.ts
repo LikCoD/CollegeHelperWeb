@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "../http/http.service";
 import {map, Observable, ReplaySubject} from "rxjs";
 import {Router} from "@angular/router";
-import {User} from "../../models/user";
+import {AcceptUser, User} from "../../models/user";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -109,5 +109,17 @@ export class UserService {
 
   createCode(data: any): Observable<any> {
     return this.httpService.createCode(data)
+  }
+
+  getAcceptUsers(): Observable<AcceptUser[]> {
+    return this.httpService.getAcceptUsers()
+  }
+
+  acceptUser(id: string): Observable<string> {
+    return this.httpService.acceptUser(id)
+  }
+
+  blockUser(id: string): Observable<string> {
+    return this.httpService.blockUser(id)
   }
 }

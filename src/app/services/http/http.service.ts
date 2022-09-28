@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {map, Observable} from "rxjs";
-import * as moment from "moment";
-import {Lesson, Schedule, Types} from "../../models/schedule";
-import {User} from "../../models/user";
+import {AcceptUser, User} from "../../models/user";
 import {StudyPlace} from "../../models/general";
 
 @Injectable({
@@ -66,5 +64,17 @@ export class HttpService {
 
   createCode(data: any): Observable<any> {
     return this.http.post<any>(`${this.API_PATH}/user/code`, data)
+  }
+
+  getAcceptUsers(): Observable<AcceptUser[]> {
+    return this.http.get<AcceptUser[]>(`${this.API_PATH}/user/accept`);
+  }
+
+  acceptUser(id: string) {
+    return this.http.post<string>(`${this.API_PATH}/user/accept`, `"${id}"`);
+  }
+
+  blockUser(id: string) {
+    return this.http.post<string>(`${this.API_PATH}/user/block`, `"${id}"`);
   }
 }

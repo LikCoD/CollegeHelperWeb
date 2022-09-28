@@ -14,3 +14,11 @@ export interface User {
   verifiedEmail: boolean,
   picture: string,
 }
+
+
+export interface AcceptUser {
+  id: string,
+  name: string
+  type: string
+  typename: string
+}

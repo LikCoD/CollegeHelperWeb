@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {User} from "../../../../models/user";
+import {AcceptUser} from "../../../../models/user";
+import {Observable} from "rxjs";
+import {UserService} from "../../../../services/shared/user.service";
 
 @Component({
   selector: 'app-accept-users',
@@ -8,22 +9,20 @@ import {User} from "../../../../models/user";
   styleUrls: ['./accept-users.component.scss']
 })
 export class AcceptUsersComponent implements OnInit {
-  usersToAccept: User[] | undefined
+  acceptUsers$: Observable<AcceptUser[]>
 
-  constructor(private http: HttpClient) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.http.get<User[]>("api/user/toAccept").subscribe(users => {
-      this.usersToAccept = users
-    });
+    this.acceptUsers$ = this.userService.getAcceptUsers()
   }
 
-  buildUser(user: User) {
+  buildUser(user: AcceptUser) {
     let type = "";
     switch (user.type) {
       case "group":
-        type = user.typeName;
+        type = user.typename;
         break;
       case "teacher":
         type = "Teacher";
@@ -33,17 +32,19 @@ export class AcceptUsersComponent implements OnInit {
     return `${user.name} ${type}`
   }
 
-  acceptUser(user: User) {
-    this.http.put("api/user/accept", user.id).subscribe({
-      next: () => {
-        this.usersToAccept = this.usersToAccept!!.filter(u => u.id != user.id)
+  acceptUser(users: AcceptUser[], id: string) {
+    this.userService.acceptUser(id).subscribe({
+      next: _ => {
+        users.splice(users.findIndex(u => u.id == id))
       }
     })
   }
 
-  declineUser(user: User) {
-    this.http.put("api/user/decline", user.id).subscribe(() => {
-      this.usersToAccept = this.usersToAccept!!.filter(u => u.id != user.id)
+  declineUser(users: AcceptUser[], id: string) {
+    this.userService.blockUser(id).subscribe({
+      next: _ => {
+        users.splice(users.findIndex(u => u.id == id))
+      }
     })
   }
 }
