@@ -49,7 +49,7 @@ export class JournalService {
 
       if (value.collapsedType == unit) addNew = false
 
-      indexes.push(index)
+      if (value.collapsedType == undefined) indexes.push(index)
       value.collapsed = (collapse == undefined && value.collapsedType != unit) || (collapse != undefined && value.collapsedType != undefined)
     })
 
