@@ -13,6 +13,7 @@ export class EditUserComponent implements OnInit {
   form = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.minLength(8)]),
+    picture: new FormControl("", Validators.required),
     passwordConfirm: new FormControl("", sameAs("password")),
     login: new FormControl("", Validators.required),
   })
@@ -24,6 +25,7 @@ export class EditUserComponent implements OnInit {
       next: user => {
         this.form.get("email")?.setValue(user?.email)
         this.form.get("login")?.setValue(user?.login)
+        this.form.get("picture")?.setValue(user?.picture)
       }
     })
   }

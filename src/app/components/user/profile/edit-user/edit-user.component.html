@@ -12,6 +12,14 @@
 
     <app-error-info [property]="form.get('email')!!"></app-error-info>
   </div>
+
+  <div class="form-floating">
+    <input id="picture" class="form-control" formControlName="picture" placeholder="Picture url">
+    <label for="picture">Picture url</label>
+
+    <app-error-info [property]="form.get('picture')!!"></app-error-info>
+  </div>
+
   <div class="form-floating">
     <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
     <label for="password">Password</label>
