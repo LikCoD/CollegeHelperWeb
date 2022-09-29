@@ -49,10 +49,16 @@ export class JournalService {
 
       if (value.collapsedType == unit) addNew = false
 
-      if (value.collapsedType == undefined) indexes.push(index)
+      indexes.push(index)
 
       value.collapsed = (collapse == undefined && value.collapsedType != unit) || (collapse != undefined && value.collapsedType != undefined)
     })
+
+    if (collapse != undefined) {
+      journal.dates.splice(indexes[0], 1)
+      journal.rows.forEach(row => row.lessons.splice(indexes[0], 1))
+      return
+    }
 
     if (!addNew) return
 
