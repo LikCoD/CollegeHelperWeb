@@ -5,6 +5,7 @@ import {map, Observable} from "rxjs";
 import {Schedule} from "../../../models/schedule";
 import {UserService} from "../../../services/shared/user.service";
 import * as moment from "moment";
+import {weekdays} from "moment";
 
 @Component({
   selector: 'app-view',
@@ -12,7 +13,7 @@ import * as moment from "moment";
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent {
-  weekDays: string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  weekdays: string[]
 
   maxWidth: number = 0
   maxHeight: number = 0
@@ -27,6 +28,9 @@ export class ViewComponent {
   schedule$: Observable<Schedule>
 
   constructor(private router: Router, private route: ActivatedRoute, public scheduleService: ScheduleService, public userService: UserService) {
+    this.weekdays = moment.weekdays().map(value => value.charAt(0).toUpperCase() + value.substring(1))
+    this.weekdays = [...this.weekdays.slice(1), this.weekdays[0]]
+
     this.route.queryParams.subscribe(() => {
       let params = this.router.parseUrl(this.router.url).queryParams
       this.schedule$ = this.scheduleService.getSchedule(params["type"], params["name"], params["studyPlaceID"]).pipe(

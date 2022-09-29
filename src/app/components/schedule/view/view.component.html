@@ -9,10 +9,10 @@
         </div>
         <div class="time-container">
           <p *ngFor="let time of schedule.info.times" class="time"
-             [style.top.px]="scheduleService.getTimeY(time) - 20">{{time | moment : "hh:mm A"}}</p>
+             [style.top.px]="scheduleService.getTimeY(time) - 20">{{time | moment : ('datetime.time' | translate)}}</p>
         </div>
         <div class="weekdays-container">
-          <p *ngFor="let i of days" class="weekday">{{weekDays[i % 7]}}</p>
+          <p *ngFor="let i of days" class="weekday">{{weekdays[i % 7]}}</p>
         </div>
         <div class="lessons-container">
           <app-schedule-cell

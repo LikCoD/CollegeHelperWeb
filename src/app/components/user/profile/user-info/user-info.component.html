@@ -1,0 +1,9 @@
+<div>
+  <label>
+    {{'user.info.language' | translate}}
+    <select #languageSelect class="form-select form-select-sm" (change)="selectLocale(languageSelect.value)">
+      <option *ngFor="let locale of locales" [value]="locale.code" [label]="locale.name"
+              [selected]="locale.code == currentLocaleCode"></option>
+    </select>
+  </label>
+</div>

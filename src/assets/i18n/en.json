@@ -6,6 +6,9 @@
     "signUp": "SingUp",
     "login": "Login"
   },
+  "datetime": {
+    "time": "hh:mm A"
+  },
   "user": {
     "login": {
       "signUp": "SingUp",
@@ -29,7 +32,8 @@
       "revokeToken": "Revoke token"
     },
     "info": {
-      "info": "Info"
+      "info": "Info",
+      "language": "Language"
     },
     "accept": {
       "acceptUsers": "Accept users"

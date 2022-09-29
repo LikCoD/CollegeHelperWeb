@@ -6,6 +6,9 @@
     "signUp": "Регистрация",
     "login": "Войти"
   },
+  "datetime": {
+    "time": "HH:mm"
+  },
   "user": {
     "login": {
       "signUp": "Регистрация",
@@ -29,7 +32,8 @@
       "revokeToken": "Отозвать токен"
     },
     "info": {
-      "info": "Информация"
+      "info": "Информация",
+      "language": "Язык | Lang."
     },
     "accept": {
       "acceptUsers": "Принять пользователей"

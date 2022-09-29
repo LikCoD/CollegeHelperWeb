@@ -45,6 +45,7 @@ import { ScheduleBottomControllerComponent } from './components/schedule/view/bo
 import { CreateCodeUserComponent } from './components/user/profile/create-code-user/create-code-user.component';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import { UserInfoComponent } from './components/user/profile/user-info/user-info.component';
 
 
 const appRoutes: Routes = [
@@ -76,6 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileComponent,
     ProfileOptionComponent,
     EditUserComponent,
+    CreateCodeUserComponent,
+    UserInfoComponent,
 
     UserSignupComponent,
     SignupStage1Component,
@@ -88,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectSubjectDialogComponent,
     ScheduleCellDirective,
     EditScheduleComponent,
+    ScheduleBottomControllerComponent,
     LoginScheduleComponent,
 
     CellComponent,
@@ -104,8 +108,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MomentPipe,
 
     ReceiveTokenComponent,
-     ScheduleBottomControllerComponent,
-     CreateCodeUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,7 +120,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatNativeDateModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'ru',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
