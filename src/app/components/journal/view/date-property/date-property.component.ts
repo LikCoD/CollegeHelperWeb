@@ -1,6 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import * as moment from "moment";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Lesson} from "../../../../models/schedule";
 
 @Component({
@@ -8,27 +6,19 @@ import {Lesson} from "../../../../models/schedule";
   templateUrl: './date-property.component.html',
   styleUrls: ['./date-property.component.scss']
 })
-export class DatePropertyComponent {
+export class DatePropertyComponent implements OnInit {
 
-  @Input() lesson: Lesson | undefined
+  @Input() lesson: Lesson
   @Input() types: string[] = []
   @Input() visible: boolean = true
 
-  @Output() close = new EventEmitter<null>()
+  @Output() close = new EventEmitter<Lesson | null>()
 
-  constructor(private http: HttpClient) {
+  ngOnInit() {
+    this.lesson = {...this.lesson}
   }
 
   confirm() {
-    if (this.lesson == undefined) return
-
-    this.http.put<Lesson>(`api/schedule`, this.lesson!!).subscribe({
-      next: lesson => {
-        lesson!!.startDate = moment.utc(lesson!!.startDate)
-        this.lesson!! = lesson!
-      },
-    })
-
-    this.close.emit()
+    this.close.emit(this.lesson)
   }
 }

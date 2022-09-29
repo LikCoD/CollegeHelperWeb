@@ -13,8 +13,8 @@
             <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
           </div>
 
-          <app-date-property *ngIf="date == selectedDate" [lesson]="date" [types]="lessonTypes"
-                             (close)="selectedDate = null"></app-date-property>
+          <app-date-property *ngIf="date == selectedDate" [lesson]="date"
+                             [types]="typesString(journal)" (close)="closeDatePopup(journal, $event)"></app-date-property>
         </div>
       </ng-container>
     </div>
@@ -53,6 +53,7 @@
               <app-select-mark
                 [lesson]="lesson"
                 [userId]="row.id"
+                [marks]="getMarks(journal, lesson)"
                 (markAdd)="markAdd($event)"
                 (markEdit)="markEdit($event)"
                 (markDelete)="markDelete($event)"

@@ -15,6 +15,7 @@ export interface Lesson {
   group: string
   teacher: string
   room: string
+  type?: string
   marks?: Mark[]
   title?: string
   homework?: string

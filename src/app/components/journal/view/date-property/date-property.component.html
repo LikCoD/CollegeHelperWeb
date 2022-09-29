@@ -2,8 +2,8 @@
 <div class="container">
   <p>{{lesson!!.subject + ' ' + (lesson!!.startDate | moment: 'L LT')}}</p>
 
-  <select #typeSelect class="form-select" id="typeSelect">
-    <option *ngFor="let type of types" selected>{{type}}</option>
+  <select #typeSelect class="form-select" id="typeSelect" (change)="lesson.type = typeSelect.value">
+    <option *ngFor="let type of types" [selected]="lesson.type == type">{{type}}</option>
   </select>
 
   <input type="text" class="form-control mark-input" placeholder="{{'journal.view.homework' | translate}}"

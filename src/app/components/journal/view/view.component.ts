@@ -6,6 +6,7 @@ import {Lesson} from "../../../models/schedule";
 import {Journal, Mark} from "../../../models/journal";
 import * as moment from "moment";
 import {compareDates} from "../../../utils";
+import {ScheduleService} from "../../../services/shared/schedule.service";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,6 @@ import {compareDates} from "../../../utils";
 })
 export class JournalViewComponent implements OnInit {
   lessons: Lesson[] = []
-  lessonTypes: string[] = ["Laboratory", "Practice", "General"]
 
   focusedCells: Point[] = []
   isCtrlPressed = false
@@ -26,7 +26,7 @@ export class JournalViewComponent implements OnInit {
 
   @ViewChild("table") table: ElementRef
 
-  constructor(private router: Router, @Host() private host: ElementRef, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService) {
+  constructor(private router: Router, @Host() private host: ElementRef, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService, public scheduleService: ScheduleService) {
   }
 
   ngOnInit(): void {
@@ -226,6 +226,32 @@ export class JournalViewComponent implements OnInit {
 
   filterCollapsed(lessons: Lesson[], dates = lessons): Lesson[] {
     return lessons.filter((_, i) => !dates[i].collapsed)
+  }
+
+  typesString(journal: Journal) {
+    return journal.info.studyPlace.lessonTypes.map(value => value.type)
+  }
+
+  getMarks(journal: Journal, lesson: Lesson): string[] {
+    return journal.info.studyPlace.lessonTypes
+      .find(value => value.type == lesson.type)?.marks
+      .map(value => value.mark) ?? []
+  }
+
+  closeDatePopup(journal: Journal, lesson: Lesson | null) {
+    if (lesson == null) {
+      this.selectedDate = null
+      return
+    }
+
+    this.scheduleService.updateLesson(lesson).subscribe({
+      next: lesson => {
+        let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)
+        journal.rows.forEach(value => {
+          value.lessons[columnIndex] = lesson
+        })
+      },
+    })
   }
 }
 

@@ -19,7 +19,7 @@
   </div>
 
   <div class="marks-container">
-    <ng-container *ngFor="let mark of availableMarks">
+    <ng-container *ngFor="let mark of marks">
       <button class="mark-button btn btn-outline-dark"
               (click)="mark == selectedMark?.mark ? removeMark() : addMark(mark)">
         {{mark == selectedMark?.mark ? '🗑' : mark}}

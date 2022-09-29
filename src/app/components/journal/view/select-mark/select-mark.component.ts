@@ -11,6 +11,7 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @Input() lesson: Lesson
   @Input() userId: string
+  @Input() marks: string[]
 
   @Output() markAdd = new EventEmitter<Mark>()
   @Output() markEdit = new EventEmitter<Mark>()
@@ -19,7 +20,6 @@ export class SelectMarkComponent implements AfterViewInit {
   @Output() close = new EventEmitter<null>()
   @Output() hide = new EventEmitter<null>()
 
-  availableMarks: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "н", "зч"]
 
   selectedMark: Mark | undefined = undefined
 
@@ -72,8 +72,7 @@ export class SelectMarkComponent implements AfterViewInit {
   }
 
   confirm(mark: string): void {
-    if (!this.availableMarks.includes(mark)) {
-      alert("wrong mark")
+    if (!this.marks.includes(mark)) {
       return
     }
 

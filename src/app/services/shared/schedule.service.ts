@@ -151,6 +151,10 @@ export class ScheduleService {
     })
   }
 
+  updateLesson(lesson: Lesson) {
+    return this.httpService.updateLesson(lesson)
+  }
+
   makeGeneral() {
     this.httpService.makeGeneral(this.schedule.info.type, this.schedule.info.typeName)
   }

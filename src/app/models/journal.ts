@@ -1,8 +1,9 @@
 import {Lesson} from "./schedule";
+import {StudyPlace} from "./general";
 
 export interface JournalInfo {
   editable: boolean,
-  studyPlaceId: string
+  studyPlace: StudyPlace
   group: string
   teacher: string
   subject: string
