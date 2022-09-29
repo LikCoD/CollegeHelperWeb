@@ -81,12 +81,14 @@
   },
   "journal": {
     "view": {
-      "collapse": "Group",
+      "collapse": "Collapse",
       "title": "Title",
       "homework": "Homework",
       "description": "Description",
       "mark": "Mark",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "back": "Back",
+      "absences": "Absences"
     }
   }
 }

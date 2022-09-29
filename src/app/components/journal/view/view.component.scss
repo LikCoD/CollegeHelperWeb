@@ -166,3 +166,8 @@ section {
 
   right: 5px;
 }
+
+.wrapper {
+  flex-grow: 1;
+  overflow: scroll;
+}

@@ -9,7 +9,7 @@ export interface JournalInfo {
   subject: string
 }
 
-interface JournalRow {
+export interface JournalRow {
   id: string
   subject: string,
   group: string,

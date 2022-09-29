@@ -21,6 +21,7 @@ export class JournalViewComponent implements OnInit {
   isShiftPressed = false
 
   selectedDate: Lesson | null
+  selectedStandaloneMark: StandaloneMark | null
 
   collapseType?: moment.unitOfTime.StartOf
 
@@ -39,8 +40,6 @@ export class JournalViewComponent implements OnInit {
 
   focusCell(x: number, y: number) {
     let table = <HTMLTableElement>this.table.nativeElement
-
-    console.log(x, y, this.focusedCells)
 
     if (this.focusedCells.length == 0) {
       table.tBodies[0].rows[0].cells[0].focus()
@@ -172,21 +171,23 @@ export class JournalViewComponent implements OnInit {
 
   onDateClick(journal: Journal, date: Lesson) {
     this.focusedCells = []
+
+    if (this.selectedStandaloneMark != null) return
     if (date.collapsedType != undefined) {
       this.collapseType = undefined
 
-      this.journalService.groupDate(journal, date, date.collapsedType)
-      return;
+      this.journalService.collapse(journal, date, date.collapsedType)
+      return
     }
 
     if (this.isCtrlPressed) {
       this.collapseType = undefined
-      this.journalService.groupDate(journal, date, 'day')
+      this.journalService.collapse(journal, date, 'day')
       return
     }
     if (this.isShiftPressed) {
       this.collapseType = undefined
-      this.journalService.groupDate(journal, date, 'month')
+      this.journalService.collapse(journal, date, 'month')
       return
     }
 
@@ -220,7 +221,7 @@ export class JournalViewComponent implements OnInit {
     })
 
     lessons.forEach(l => {
-      this.journalService.groupDate(journal, l, this.collapseType!!)
+      this.journalService.collapse(journal, l, this.collapseType!!)
     })
   }
 
@@ -235,6 +236,7 @@ export class JournalViewComponent implements OnInit {
   getMarks(journal: Journal, lesson: Lesson): string[] {
     return journal.info.studyPlace.lessonTypes
       .find(value => value.type == lesson.type)?.marks
+      .filter(value => value.standalone == (this.selectedStandaloneMark != null))
       .map(value => value.mark) ?? []
   }
 
@@ -253,6 +255,25 @@ export class JournalViewComponent implements OnInit {
       },
     })
   }
+
+  getStandaloneMarks(journal: Journal) {
+    return journal.info.studyPlace.lessonTypes
+      .flatMap(value => value.marks.filter(mark => mark.standalone).map(mark => <StandaloneMark>{
+        type: value.type,
+        mark: mark.mark,
+      }))
+  }
+
+  selectStandaloneMark(journal: Journal, mark: StandaloneMark) {
+    if (this.selectedStandaloneMark?.mark == mark.mark && this.selectedStandaloneMark?.type == mark.type) {
+      this.selectedStandaloneMark = null
+      this.journalService.unselectStandaloneMark()
+      return
+    }
+
+    this.selectedStandaloneMark = mark
+    this.journalService.selectStandaloneMark(journal, mark.type)
+  }
 }
 
 
@@ -262,4 +283,9 @@ interface Point {
 
   lesson: Lesson
   studentID: string
+}
+
+interface StandaloneMark {
+  type: string,
+  mark: string
 }

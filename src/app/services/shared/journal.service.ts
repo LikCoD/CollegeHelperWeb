@@ -1,22 +1,26 @@
 import {Injectable} from '@angular/core';
 import {JournalHttpService} from "../http/journal-http.service";
-import {Observable} from "rxjs";
-import {Journal, JournalOption, Mark} from "../../models/journal";
+import {Observable, Subject, tap} from "rxjs";
+import {Journal, JournalOption, JournalRow, Mark} from "../../models/journal";
 import {Lesson} from "../../models/schedule";
 import * as moment from "moment";
 import {compareDates} from "../../utils";
 
 @Injectable({providedIn: 'root'})
 export class JournalService {
-  journal$: Observable<Journal>
+  journal$ = new Subject<Journal>()
   options$: Observable<JournalOption[]>
+
+  journal: Journal
 
   constructor(private httpService: JournalHttpService) {
 
   }
 
   getJournal(group: string, subject: string, teacher: string): Observable<Journal> {
-    this.journal$ = this.httpService.getJournal(group, subject, teacher)
+    this.httpService.getJournal(group, subject, teacher).pipe(tap(j => this.journal = j)).subscribe({
+      next: value => this.journal$.next(value)
+    })
     return this.journal$
   }
 
@@ -37,7 +41,7 @@ export class JournalService {
     return this.httpService.deleteMark(id)
   }
 
-  groupDate(journal: Journal, lesson: Lesson, unit: moment.unitOfTime.StartOf) {
+  collapse(journal: Journal, lesson: Lesson, unit: moment.unitOfTime.StartOf) {
     let addNew = true
     let collapse = lesson.collapsedType
 
@@ -50,7 +54,6 @@ export class JournalService {
       if (value.collapsedType == unit) addNew = false
 
       indexes.push(index)
-
       value.collapsed = (collapse == undefined && value.collapsedType != unit) || (collapse != undefined && value.collapsedType != undefined)
     })
 
@@ -79,8 +82,31 @@ export class JournalService {
   }
 
   expand(journal: Journal) {
-    journal.dates.forEach(value => {
+    let indexes: number[] = []
+    journal.dates.forEach((value, index) => {
       value.collapsed = value.collapsedType != undefined
+      if (value.collapsed) indexes.push(index)
     })
+
+    indexes.forEach((i, amount) => {
+      journal.dates.splice(i - amount, 1)
+      journal.rows.forEach(v => v.lessons.splice(i - amount, 1))
+    })
+  }
+
+  selectStandaloneMark(journal: Journal, type: string) {
+    let sJournal: Journal = {dates: [], rows: journal.rows.map(r => <JournalRow>{...r, lessons: []}), info: journal.info}
+    journal.dates.forEach((value, i) => {
+      if (value.type != type) return
+
+      sJournal.dates.push(value)
+      sJournal.rows.forEach((r, ri) => r.lessons.push(journal.rows[ri].lessons[i]))
+    })
+
+    this.journal$.next(sJournal)
+  }
+
+  unselectStandaloneMark() {
+    this.journal$.next(this.journal)
   }
 }
