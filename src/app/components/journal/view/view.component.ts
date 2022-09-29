@@ -40,6 +40,8 @@ export class JournalViewComponent implements OnInit {
   focusCell(x: number, y: number) {
     let table = <HTMLTableElement>this.table.nativeElement
 
+    console.log(x, y, this.focusedCells)
+
     if (this.focusedCells.length == 0) {
       table.tBodies[0].rows[0].cells[0].focus()
       return
@@ -169,6 +171,7 @@ export class JournalViewComponent implements OnInit {
   }
 
   onDateClick(journal: Journal, date: Lesson) {
+    this.focusedCells = []
     if (date.collapsedType != undefined) {
       this.collapseType = undefined
 
@@ -191,6 +194,7 @@ export class JournalViewComponent implements OnInit {
   }
 
   toggleCollapse(journal: Journal) {
+    this.focusedCells = []
     this.journalService.expand(journal)
 
     switch (this.collapseType) {
@@ -218,6 +222,10 @@ export class JournalViewComponent implements OnInit {
     lessons.forEach(l => {
       this.journalService.groupDate(journal, l, this.collapseType!!)
     })
+  }
+
+  filterCollapsed(lessons: Lesson[], dates = lessons): Lesson[] {
+    return lessons.filter((_, i) => !dates[i].collapsed)
   }
 }
 

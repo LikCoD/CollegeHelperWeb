@@ -1,12 +1,12 @@
 <ng-container *ngIf="journalService.journal$ | async as journal">
-  <main>
+  <main *ngIf="filterCollapsed(journal.dates) as collapsedDates">
     <div class="sticky-corner">
       <button class="btn btn-outline-light"
               (click)="toggleCollapse(journal)">{{'journal.view.collapse' | translate}}</button>
     </div>
     <div class="date-row">
-      <ng-container *ngFor="let date of journal.dates;">
-        <div *ngIf="!date.collapsed">
+      <ng-container *ngFor="let date of collapsedDates">
+        <div>
           <div (click)="onDateClick(journal, date)">
             <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>
             <span>{{date.startDate | moment: "MMM"}}</span>
@@ -24,8 +24,8 @@
     <table #table>
       <tbody>
       <tr *ngFor="let row of journal.rows; let y = index">
-        <ng-container *ngFor="let lesson of row.lessons; let x = index">
-          <td *ngIf="!journal.dates[x].collapsed"
+        <ng-container *ngFor="let lesson of filterCollapsed(row.lessons, journal.dates); let x = index">
+          <td
               #cell
               (keydown.arrowUp)="focusCell(0, -1)"
               (keydown.arrowRight)="focusCell(1, 0)"
@@ -47,7 +47,7 @@
             ></app-journal-cell>
             <ng-container
               *ngIf="journal.info.editable &&
-                     journal.dates[x].collapsedType == undefined &&
+                     collapsedDates[x].collapsedType == undefined &&
                      focusedCells.length > 0
                      && focusedCells[focusedCells.length - 1].x == x && focusedCells[focusedCells.length - 1].y == y">
               <app-select-mark
