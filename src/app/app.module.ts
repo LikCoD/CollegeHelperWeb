@@ -46,6 +46,7 @@ import { CreateCodeUserComponent } from './components/user/profile/create-code-u
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { UserInfoComponent } from './components/user/profile/user-info/user-info.component';
+import { AbsenceAddComponent } from './components/journal/view/absence-add/absence-add.component';
 
 
 const appRoutes: Routes = [
@@ -108,6 +109,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MomentPipe,
 
     ReceiveTokenComponent,
+      AbsenceAddComponent,
   ],
   imports: [
     BrowserModule,

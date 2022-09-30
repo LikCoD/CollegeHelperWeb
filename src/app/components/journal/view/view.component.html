@@ -53,6 +53,7 @@
                      focusedCells.length > 0
                      && focusedCells[focusedCells.length - 1].x == x && focusedCells[focusedCells.length - 1].y == y">
                 <app-select-mark
+                  *ngIf="!isAbsencesSelected else absence"
                   [lesson]="lesson"
                   [userId]="row.id"
                   [marks]="getMarks(journal, lesson)"
@@ -62,6 +63,17 @@
                   (close)="closeMarkPopup()"
                   (hide)="hideMarkPopup()"
                   [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-select-mark>
+                <ng-template #absence>
+                  <app-absence-add
+                    [lesson]="lesson"
+                    [userId]="row.id"
+                    (markAdd)="markAdd($event)"
+                    (markEdit)="markEdit($event)"
+                    (markDelete)="markDelete($event)"
+                    (close)="closeMarkPopup()"
+                    (hide)="hideMarkPopup()"
+                    [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-absence-add>
+                </ng-template>
               </ng-container>
             </td>
           </ng-container>
@@ -74,7 +86,8 @@
     </main>
   </div>
   <div class="bottom-bar">
-    <button *ngFor="let lessonType of journal.info.studyPlace.lessonTypes" (click)="selectLessonType(journal, lessonType)"
+    <button *ngFor="let lessonType of journal.info.studyPlace.lessonTypes"
+            (click)="selectLessonType(journal, lessonType)"
             class="btn btn-outline-light">
       {{ (selectedLessonType == lessonType.type)
       ? ('journal.view.back' | translate) : lessonType.type }}</button>

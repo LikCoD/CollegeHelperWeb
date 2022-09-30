@@ -130,6 +130,15 @@ app-select-mark {
   z-index: 10;
 }
 
+app-absence-add {
+  position: absolute;
+
+  top: 56px;
+  right: 0;
+
+  z-index: 10;
+}
+
 ol {
   counter-reset: item;
   list-style-type: none;

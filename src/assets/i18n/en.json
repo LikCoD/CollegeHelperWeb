@@ -88,6 +88,9 @@
       "mark": "Mark",
       "confirm": "Confirm",
       "back": "Back",
+      "clear": "Clear",
+      "absent": "Absent",
+      "absentMinutes": "Minutes",
       "absences": "Absences"
     }
   }

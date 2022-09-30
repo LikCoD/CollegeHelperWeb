@@ -29,10 +29,11 @@ export class SelectMarkComponent implements AfterViewInit {
     this.markInput.nativeElement.focus()
   }
 
-  confirmInput(key: string, mark: string) {
+  confirmInput(key: string, mark: HTMLInputElement) {
     if (key != "Enter") return
 
-    this.confirm(mark)
+    this.confirm(mark.value)
+    mark.value = ""
   }
 
   addMark(mark_: string): void {
