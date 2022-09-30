@@ -67,11 +67,7 @@
                   <app-absence-add
                     [lesson]="lesson"
                     [userId]="row.id"
-                    (markAdd)="markAdd($event)"
-                    (markEdit)="markEdit($event)"
-                    (markDelete)="markDelete($event)"
                     (close)="closeMarkPopup()"
-                    (hide)="hideMarkPopup()"
                     [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-absence-add>
                 </ng-template>
               </ng-container>
