@@ -70,4 +70,12 @@ export class JournalHttpService {
   deleteMark(id: string): Observable<string> {
     return this.http.delete<string>(`api/journal/mark?id=${id}`)
   }
+
+  absent(data: any): Observable<Mark> {
+    return this.http.post<Mark>(`api/journal/absent`, data)
+  }
+
+  removeAbsent(id: string): Observable<string> {
+    return this.http.delete<string>(`api/journal/absent/id=${id}`)
+  }
 }

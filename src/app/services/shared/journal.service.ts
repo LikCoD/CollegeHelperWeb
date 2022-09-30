@@ -119,4 +119,12 @@ export class JournalService {
   getGeneralJournal() {
     this.journal$.next(this.journal)
   }
+
+  absent(lesson: Lesson, id: string, time?: number) {
+    return this.httpService.absent({lessonID: lesson.id, studentID: id, time: time})
+  }
+
+  removeAbsent(id: string) {
+    return this.httpService.removeAbsent(id)
+  }
 }

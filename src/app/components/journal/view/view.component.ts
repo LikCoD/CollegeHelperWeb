@@ -285,6 +285,24 @@ export class JournalViewComponent implements OnInit {
 
     this.journalService.getAbsentJournal(params["group"], params["subject"], params["teacher"])
   }
+
+  absent(lesson: Lesson, id: string) {
+    this.journalService.absent(lesson, id).subscribe({
+      next: mark =>  lesson.marks?.push(mark)
+    })
+  }
+
+  minutes(lesson: Lesson, id: string, minutes: string) {
+    this.journalService.absent(lesson, id, parseInt(minutes)).subscribe({
+      next: mark =>  lesson.marks?.push(mark)
+    })
+  }
+
+  removeAbsent(lesson: Lesson, id: string) {
+    this.journalService.removeAbsent(id).subscribe({
+      next: _ =>  lesson.marks = []
+    })
+  }
 }
 
 

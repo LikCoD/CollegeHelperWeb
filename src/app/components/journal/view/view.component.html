@@ -68,6 +68,9 @@
                     [lesson]="lesson"
                     [userId]="row.id"
                     (close)="closeMarkPopup()"
+                    (absent)="absent(lesson, row.id)"
+                    (minutes)="minutes(lesson, row.id, $event)"
+                    (remove)="removeAbsent(lesson, $event)"
                     [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-absence-add>
                 </ng-template>
               </ng-container>

@@ -1,6 +1,5 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Lesson} from "../../../../models/schedule";
-import {Mark} from "../../../../models/journal";
 
 @Component({
   selector: 'app-absence-add',
@@ -17,4 +16,10 @@ export class AbsenceAddComponent {
   @Output() remove = new EventEmitter<string>()
 
   @Output() close = new EventEmitter<null>()
+
+  removeAbsent() {
+    if (this.lesson.marks?.length != 1) return
+
+    this.remove.emit(this.lesson.marks[0].id)
+  }
 }
