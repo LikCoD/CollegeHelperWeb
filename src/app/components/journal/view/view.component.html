@@ -73,11 +73,11 @@
           </section>-->
     </main>
   </div>
-  <div>
-    <button *ngFor="let mark of getStandaloneMarks(journal)" (click)="selectStandaloneMark(journal, mark)"
+  <div class="bottom-bar">
+    <button *ngFor="let lessonType of journal.info.studyPlace.lessonTypes" (click)="selectLessonType(journal, lessonType)"
             class="btn btn-outline-light">
-      {{ (selectedStandaloneMark?.mark == mark.mark && selectedStandaloneMark?.type == mark.type)
-      ? ('journal.view.back' | translate) : mark.type + ' | ' + mark.mark }}</button>
+      {{ (selectedLessonType == lessonType.type)
+      ? ('journal.view.back' | translate) : lessonType.type }}</button>
 <!--    <button class="btn btn-outline-light">{{journal.view.absences}}</button>-->
   </div>
 </ng-container>

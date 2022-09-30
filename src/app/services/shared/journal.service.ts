@@ -14,7 +14,6 @@ export class JournalService {
   journal: Journal
 
   constructor(private httpService: JournalHttpService) {
-
   }
 
   getJournal(group: string, subject: string, teacher: string): Observable<Journal> {
@@ -94,13 +93,18 @@ export class JournalService {
     })
   }
 
-  selectStandaloneMark(journal: Journal, type: string) {
-    let sJournal: Journal = {dates: [], rows: journal.rows.map(r => <JournalRow>{...r, lessons: []}), info: journal.info}
-    journal.dates.forEach((value, i) => {
+  selectStandaloneMark(type: string) {
+    let sJournal = <Journal>{
+      dates: [],
+      rows: this.journal.rows.map(r => <JournalRow>{...r, lessons: []}),
+      info: this.journal.info
+    }
+
+    this.journal.dates.forEach((value, i) => {
       if (value.type != type) return
 
       sJournal.dates.push(value)
-      sJournal.rows.forEach((r, ri) => r.lessons.push(journal.rows[ri].lessons[i]))
+      sJournal.rows.forEach((r, ri) => r.lessons.push(this.journal.rows[ri].lessons[i]))
     })
 
     this.journal$.next(sJournal)

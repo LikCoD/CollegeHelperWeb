@@ -171,3 +171,11 @@ section {
   flex-grow: 1;
   overflow: scroll;
 }
+
+.bottom-bar {
+  display: flex;
+  gap: 10px;
+
+  margin-bottom: 10px;
+  margin-left: 10px;
+}

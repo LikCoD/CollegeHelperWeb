@@ -6,10 +6,11 @@ export interface StudyPlace {
 
 export interface MarkType {
   mark: string
-  standalone: boolean
+  workOutTime: bigint
 }
 
 export interface LessonType {
   type: string
   marks: MarkType[]
+  standaloneMarks: MarkType[]
 }

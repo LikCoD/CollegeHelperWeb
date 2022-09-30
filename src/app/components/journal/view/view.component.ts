@@ -7,6 +7,7 @@ import {Journal, Mark} from "../../../models/journal";
 import * as moment from "moment";
 import {compareDates} from "../../../utils";
 import {ScheduleService} from "../../../services/shared/schedule.service";
+import {LessonType} from "../../../models/general";
 
 @Component({
   selector: 'app-login',
@@ -21,11 +22,12 @@ export class JournalViewComponent implements OnInit {
   isShiftPressed = false
 
   selectedDate: Lesson | null
-  selectedStandaloneMark: StandaloneMark | null
 
   collapseType?: moment.unitOfTime.StartOf
 
   @ViewChild("table") table: ElementRef
+
+  selectedLessonType: string | null;
 
   constructor(private router: Router, @Host() private host: ElementRef, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService, public scheduleService: ScheduleService) {
   }
@@ -172,7 +174,7 @@ export class JournalViewComponent implements OnInit {
   onDateClick(journal: Journal, date: Lesson) {
     this.focusedCells = []
 
-    if (this.selectedStandaloneMark != null) return
+    if (this.selectedLessonType != null) return
     if (date.collapsedType != undefined) {
       this.collapseType = undefined
 
@@ -234,10 +236,11 @@ export class JournalViewComponent implements OnInit {
   }
 
   getMarks(journal: Journal, lesson: Lesson): string[] {
-    return journal.info.studyPlace.lessonTypes
-      .find(value => value.type == lesson.type)?.marks
-      .filter(value => value.standalone == (this.selectedStandaloneMark != null))
-      .map(value => value.mark) ?? []
+    let lessonType = journal.info.studyPlace.lessonTypes.find(value => value.type == lesson.type)
+    if (lessonType == undefined) return []
+
+    if (this.selectedLessonType == null) return lessonType.marks.map(value => value.mark)
+    else return lessonType.standaloneMarks.map(value => value.mark)
   }
 
   closeDatePopup(journal: Journal, lesson: Lesson | null) {
@@ -256,23 +259,15 @@ export class JournalViewComponent implements OnInit {
     })
   }
 
-  getStandaloneMarks(journal: Journal) {
-    return journal.info.studyPlace.lessonTypes
-      .flatMap(value => value.marks.filter(mark => mark.standalone).map(mark => <StandaloneMark>{
-        type: value.type,
-        mark: mark.mark,
-      }))
-  }
-
-  selectStandaloneMark(journal: Journal, mark: StandaloneMark) {
-    if (this.selectedStandaloneMark?.mark == mark.mark && this.selectedStandaloneMark?.type == mark.type) {
-      this.selectedStandaloneMark = null
+  selectLessonType(journal: Journal, type: LessonType) {
+    if (this.selectedLessonType == type.type) {
+      this.selectedLessonType = null
       this.journalService.unselectStandaloneMark()
       return
     }
 
-    this.selectedStandaloneMark = mark
-    this.journalService.selectStandaloneMark(journal, mark.type)
+    this.selectedLessonType = type.type
+    this.journalService.selectStandaloneMark(type.type)
   }
 }
 
@@ -283,9 +278,4 @@ interface Point {
 
   lesson: Lesson
   studentID: string
-}
-
-interface StandaloneMark {
-  type: string,
-  mark: string
 }
