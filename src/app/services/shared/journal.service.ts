@@ -23,6 +23,12 @@ export class JournalService {
     return this.journal$
   }
 
+  getAbsentJournal(group: string, subject: string, teacher: string) {
+    this.httpService.getAbsentJournal(group, subject, teacher).subscribe({
+      next: value => this.journal$.next(value)
+    })
+  }
+
   getOptions(): Observable<JournalOption[]> {
     this.options$ = this.httpService.getOptions()
     return this.options$
@@ -110,7 +116,7 @@ export class JournalService {
     this.journal$.next(sJournal)
   }
 
-  unselectStandaloneMark() {
+  getGeneralJournal() {
     this.journal$.next(this.journal)
   }
 }

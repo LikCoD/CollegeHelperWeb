@@ -32,6 +32,29 @@ export class JournalHttpService {
     }))
   }
 
+  getAbsentJournal(group: string, subject: string, teacher: string): Observable<Journal>  {
+    let url = `api/journal/absent`
+    if (group != "" && subject != "" && teacher != "") url += `/${group}/${subject}/${teacher}`
+
+    return this.http.get<Journal>(url).pipe(map(journal => {
+      for (let i = 0; i < journal.dates.length; i++) {
+        journal.dates[i].startDate = moment.utc(journal.dates[i].startDate)
+        journal.dates[i].endDate = moment.utc(journal.dates[i].endDate)
+      }
+
+      journal.rows.forEach(row => {
+        row.lessons.forEach(lesson => {
+          lesson.endDate = moment.utc(lesson.endDate)
+          lesson.startDate = moment.utc(lesson.startDate)
+
+          lesson.collapsed = false
+        })
+      })
+
+      return journal
+    }))
+  }
+
   getOptions(): Observable<JournalOption[]> {
     return this.http.get<JournalOption[]>("api/journal/options")
   }

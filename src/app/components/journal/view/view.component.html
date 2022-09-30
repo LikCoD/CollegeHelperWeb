@@ -78,6 +78,7 @@
             class="btn btn-outline-light">
       {{ (selectedLessonType == lessonType.type)
       ? ('journal.view.back' | translate) : lessonType.type }}</button>
-<!--    <button class="btn btn-outline-light">{{journal.view.absences}}</button>-->
+    <button class="btn btn-outline-light" (click)="getAbsentJournal()">
+      {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}</button>
   </div>
 </ng-container>

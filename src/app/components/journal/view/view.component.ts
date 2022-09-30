@@ -27,7 +27,8 @@ export class JournalViewComponent implements OnInit {
 
   @ViewChild("table") table: ElementRef
 
-  selectedLessonType: string | null;
+  selectedLessonType: string | null
+  isAbsencesSelected = false
 
   constructor(private router: Router, @Host() private host: ElementRef, private parent: AppComponent, private route: ActivatedRoute, public journalService: JournalService, public scheduleService: ScheduleService) {
   }
@@ -262,12 +263,27 @@ export class JournalViewComponent implements OnInit {
   selectLessonType(journal: Journal, type: LessonType) {
     if (this.selectedLessonType == type.type) {
       this.selectedLessonType = null
-      this.journalService.unselectStandaloneMark()
+      this.journalService.getGeneralJournal()
       return
     }
 
     this.selectedLessonType = type.type
     this.journalService.selectStandaloneMark(type.type)
+  }
+
+  getAbsentJournal() {
+    if (this.isAbsencesSelected) {
+      this.isAbsencesSelected = false
+      this.journalService.getGeneralJournal()
+      return
+    }
+
+    this.isAbsencesSelected = true
+
+    let params = this.router.parseUrl(this.router.url).queryParams
+    if (params["group"] == undefined || params["subject"] == undefined || params["teacher"] == undefined) return
+
+    this.journalService.getAbsentJournal(params["group"], params["subject"], params["teacher"])
   }
 }
 
