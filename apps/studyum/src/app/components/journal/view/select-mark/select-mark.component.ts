@@ -45,8 +45,8 @@ export class SelectMarkComponent implements AfterViewInit {
     let mark: Mark = {
       mark: mark_,
       studentID: this.userId,
-      lessonId: this.lesson!!.id,
-      studyPlaceId: this.lesson!!.studyPlaceId
+      lessonID: this.lesson!!.id,
+      studyPlaceID: this.lesson!!.studyPlaceId
     }
     this.markAdd.emit(mark)
 

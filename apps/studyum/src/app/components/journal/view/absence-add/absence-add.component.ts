@@ -1,25 +1,42 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Lesson} from "../../../../models/schedule";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Lesson } from '../../../../models/schedule';
+import { Mark } from '../../../../models/journal';
 
 @Component({
   selector: 'app-absence-add',
   templateUrl: './absence-add.component.html',
   styleUrls: ['./absence-add.component.scss']
 })
-export class AbsenceAddComponent {
+export class AbsenceAddComponent implements OnInit {
 
-  @Input() lesson: Lesson
-  @Input() userId: string
+  @Input() lesson: Lesson;
+  @Input() userId: string;
+  @Input() absentMark: string;
 
-  @Output() minutes = new EventEmitter<string>()
-  @Output() absent = new EventEmitter<null>()
-  @Output() remove = new EventEmitter<string>()
+  @Output() set = new EventEmitter<number | null>();
+  @Output() update = new EventEmitter<number | null>();
+  @Output() remove = new EventEmitter<string>();
 
-  @Output() close = new EventEmitter<null>()
+  @Output() close = new EventEmitter<null>();
 
-  removeAbsent() {
-    if (this.lesson.marks?.length != 1) return
+  mark: Mark | undefined;
 
-    this.remove.emit(this.lesson.marks[0].id)
+  ngOnInit() {
+    if (this.lesson.marks?.length != 1) return;
+
+    this.mark = this.lesson.marks[0];
+  }
+
+  confirm(minutes: string | null) {
+    if (minutes == '') {
+      this.remove.emit(this.mark?.id);
+      return;
+    }
+
+    let iMinutes = minutes ? parseInt(minutes) : null;
+    if (this.mark) this.update.emit(iMinutes);
+    else this.set.emit(iMinutes);
+
+    this.close.emit();
   }
 }

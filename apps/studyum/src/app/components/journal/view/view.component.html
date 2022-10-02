@@ -67,9 +67,10 @@
                   <app-absence-add
                     [lesson]="lesson"
                     [userId]="row.id"
+                    [absentMark]="journal.info.studyPlace.absentMark"
                     (close)="closeMarkPopup()"
-                    (absent)="absent(lesson, row.id)"
-                    (minutes)="minutes(lesson, row.id, $event)"
+                    (set)="setAbsent(lesson, row.id, $event)"
+                    (update)="updateAbsent(lesson, row.id, $event)"
                     (remove)="removeAbsent(lesson, $event)"
                     [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-absence-add>
                 </ng-template>

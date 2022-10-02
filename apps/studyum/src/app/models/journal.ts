@@ -1,40 +1,41 @@
-import {Lesson} from "./schedule";
-import {StudyPlace} from "./general";
+import { Lesson } from './schedule';
+import { StudyPlace } from './general';
 
 export interface JournalInfo {
-  editable: boolean,
-  studyPlace: StudyPlace
-  group: string
-  teacher: string
-  subject: string
+  editable: boolean;
+  studyPlace: StudyPlace;
+  group: string;
+  teacher: string;
+  subject: string;
 }
 
 export interface JournalRow {
-  id: string
-  subject: string,
-  group: string,
-  title: string,
-  userType: string,
-  lessons: Lesson[]
+  id: string;
+  subject: string;
+  group: string;
+  title: string;
+  userType: string;
+  lessons: Lesson[];
 }
 
 export interface Journal {
-  dates: Lesson[]
-  rows: JournalRow[]
-  info: JournalInfo
+  dates: Lesson[];
+  rows: JournalRow[];
+  info: JournalInfo;
 }
 
 export interface JournalOption {
-  subject: string
-  teacher: string
-  group: string
-  editable: boolean
+  subject: string;
+  teacher: string;
+  group: string;
+  editable: boolean;
 }
 
 export interface Mark {
-  mark: string,
-  studentID?: string,
-  lessonId?: string,
-  studyPlaceId?: string,
-  id?: string
+  mark: string;
+  studentID?: string;
+  lessonID?: string;
+  studyPlaceID?: string;
+  time?: string;
+  id?: string;
 }
