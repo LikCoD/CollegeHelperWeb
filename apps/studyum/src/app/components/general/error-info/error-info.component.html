@@ -1,4 +1,4 @@
-<div *ngIf="!property.valid && (property.touched || property.dirty) && property.errors">
+<div *ngIf='!property.valid && (property.touched || property.dirty) && property.errors'>
   <small *ngIf="property.errors['notSame']">Not match</small>
   <small *ngIf="property.errors['email']">Enter valid email</small>
   <small *ngIf="property.errors['required']">This field is required</small>

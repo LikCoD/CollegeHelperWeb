@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {GeneralService} from 'src/app/services/shared/general.service';
 import {UserService} from "../../../../services/shared/user.service";
 import {StudyPlace} from "../../../../models/general";
 import {User} from "../../../../models/user";
+import { GeneralService } from '../../../../services/shared/general.service';
 
 @Component({
   selector: 'app-stage1',
