@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import * as moment from 'moment';
 import { Journal, JournalOption, Mark } from '../../models/journal';
+import {Lesson} from "../../models/schedule";
 
 @Injectable({ providedIn: 'root' })
 export class JournalHttpService {
@@ -20,12 +21,24 @@ export class JournalHttpService {
       }
 
       journal.rows.forEach(row => {
-        row.lessons.forEach(lesson => {
-          lesson.endDate = moment.utc(lesson.endDate);
-          lesson.startDate = moment.utc(lesson.startDate);
+        for (let i = 0; i < row.lessons.length; i++) {
+          if (row.lessons[i].subject == "") {
+            row.lessons[i] = <Lesson>{
+              startDate: journal.dates[i].startDate.clone(),
+              endDate: journal.dates[i].startDate.clone(),
+              group: "",
+              primaryColor: "",
+              room: "",
+              subject: "",
+              teacher: ""
+            }
+          }
 
-          lesson.collapsed = false;
-        });
+          row.lessons[i].endDate = moment.utc(row.lessons[i].endDate);
+          row.lessons[i].startDate = moment.utc(row.lessons[i].startDate);
+
+          row.lessons[i].collapsed = false;
+        }
       });
 
       return journal;
