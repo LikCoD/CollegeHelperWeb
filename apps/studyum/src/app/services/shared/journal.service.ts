@@ -79,7 +79,8 @@ export class JournalService {
       };
 
       indexes.forEach(i => {
-        collapsedLesson.marks = collapsedLesson.marks!!.concat(row.lessons[i].marks!!);
+        if (row.lessons[i].marks == undefined || row.lessons[i].marks!!.length < 1) return
+        collapsedLesson.marks = collapsedLesson.marks!!.concat();
       });
 
       row.lessons.splice(indexes[0], 0, collapsedLesson);
