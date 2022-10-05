@@ -9,6 +9,7 @@ export interface Lesson {
   studyPlaceId?: string
   primaryColor: string
   secondaryColor?: string
+  journalCellColor?: string
   endDate: moment.Moment
   startDate: moment.Moment
   subject: string

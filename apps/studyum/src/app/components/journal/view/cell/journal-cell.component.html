@@ -5,7 +5,8 @@
      [popperHideOnClickOutside]="true"
      [popperHideOnScroll]="true"
      [popperDisableStyle]="true">
-  <div *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell" class="not-empty-cell">
+  <div *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell"
+       class="not-empty-cell" [ngStyle]="{'backgroundColor': lesson.journalCellColor}">
     <ng-container *ngIf="lesson.marks.length == 1">
       <p>{{lesson.marks[0]?.mark}}</p>
     </ng-container>
