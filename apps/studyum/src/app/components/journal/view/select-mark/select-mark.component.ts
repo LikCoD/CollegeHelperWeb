@@ -18,7 +18,6 @@ export class SelectMarkComponent implements AfterViewInit {
   @Output() markDelete = new EventEmitter<string>()
 
   @Output() close = new EventEmitter<null>()
-  @Output() hide = new EventEmitter<null>()
 
 
   selectedMark: Mark | undefined = undefined
@@ -49,8 +48,6 @@ export class SelectMarkComponent implements AfterViewInit {
       studyPlaceID: this.lesson!!.studyPlaceId
     }
     this.markAdd.emit(mark)
-
-    this.hide.emit()
   }
 
   editMark(mark_: string) {
@@ -58,7 +55,6 @@ export class SelectMarkComponent implements AfterViewInit {
 
     this.selectedMark!!.mark = mark_
     this.markEdit.emit(this.selectedMark)
-    this.hide.emit()
 
     this.selectedMark = undefined
   }
@@ -67,7 +63,6 @@ export class SelectMarkComponent implements AfterViewInit {
     if (this.selectedMark == undefined) return
 
     this.markDelete.emit(this.selectedMark.id)
-    this.hide.emit()
 
     this.selectedMark = undefined
   }

@@ -1,32 +1,33 @@
-<div class="cell"
-     [popper]="marksTooltip"
+<div class='cell'
+     [popper]='marksTooltip'
      [popperTrigger]='popperTrigger'
-     [popperPlacement]="popperPlacement"
-     [popperHideOnClickOutside]="true"
-     [popperHideOnScroll]="true"
-     [popperDisableStyle]="true">
-  <div *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell" class="not-empty-cell">
-    <ng-container *ngIf="lesson.marks.length == 1">
+     [popperPlacement]='popperPlacement'
+     [popperHideOnClickOutside]='true'
+     [popperHideOnScroll]='true'
+     [popperDisableStyle]='true'>
+  <div *ngIf='lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell'
+       class='not-empty-cell' [ngStyle]='{"backgroundColor": lesson.journalCellColor}'>
+    <ng-container *ngIf='lesson.marks.length == 1'>
       <p>{{lesson.marks[0]?.mark}}</p>
     </ng-container>
-    <ng-container *ngIf="lesson.marks.length > 1">
-      <div class="mark2">
+    <ng-container *ngIf='lesson.marks.length > 1'>
+      <div class='mark2'>
         <p>{{lesson.marks[0].mark}}</p>
         <hr>
         <p>{{lesson.marks[1].mark}}</p>
       </div>
     </ng-container>
-    <div *ngIf="lesson.marks.length > 2" class="more-circle"></div>
+    <div *ngIf='lesson.marks.length > 2' class='more-circle'></div>
   </div>
 </div>
 
 <ng-template #emptyCell>
-  <div class="empty-cell"></div>
+  <div class='empty-cell'></div>
 </ng-template>
 
 <popper-content #marksTooltip>
-  <div class="markTooltip" *ngIf="lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0">
-    <div *ngFor="let mark of lesson!!.marks" class="mark-cell">
+  <div class='markTooltip' *ngIf='lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0'>
+    <div *ngFor='let mark of lesson!!.marks' class='mark-cell'>
       <p>{{mark?.mark}}</p>
     </div>
   </div>

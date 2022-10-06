@@ -1,0 +1,47 @@
+<ng-container *ngIf='filterCollapsed(journal.dates) as collapsedDates'>
+  <div class='sticky-corner'>
+    <button class='btn btn-outline-light'
+            (click)='toggleCollapse(journal)'>{{'journal.view.collapse' | translate}}</button>
+  </div>
+  <div class='date-row'>
+    <div *ngFor='let date of collapsedDates' #cell (click)='onDateClick(cell, journal, date)'>
+      <div *ngIf='date.collapsedType != undefined' class='more-circle'></div>
+      <span>{{date.startDate | moment: "MMM"}}</span>
+      <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
+    </div>
+  </div>
+  <ol class='titles'>
+    <li *ngFor='let row of journal.rows'>{{row.title}}</li>
+  </ol>
+  <table #table>
+    <tbody>
+    <tr *ngFor='let row of journal.rows; let y = index'>
+      <td
+        *ngFor='let lesson of filterCollapsed(row.lessons, journal.dates); let x = index'
+        #cell
+        (keydown.arrowUp)='focusCell(0, -1)'
+        (keydown.arrowRight)='focusCell(1, 0)'
+        (keydown.arrowDown)='focusCell(0, 1)'
+        (keydown.arrowLeft)='focusCell(-1, 0)'
+        (focus)='focus(cell, x, y, lesson, row.id, journal)'
+        class='cell'
+        tabindex='0'>
+        <app-journal-cell
+          [ngClass]='{focused: isFocused(x, y)}'
+          [lesson]='lesson'
+          [show]='journal.info.editable'
+          [userId]='row.id'
+          [x]='x'
+          [y]='y'
+          (markAdd)='markAdd($event)'
+          (markEdit)='markEdit($event)'
+          (markDelete)='markDelete($event)'
+        ></app-journal-cell>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--    <section>
+        <app-journal-cell *ngFor="let row of journal.rows" [lesson]="row.lessons[0]"></app-journal-cell>
+      </section>-->
+</ng-container>

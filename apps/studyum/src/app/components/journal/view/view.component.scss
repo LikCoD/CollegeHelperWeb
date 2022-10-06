@@ -5,127 +5,8 @@
   flex-flow: column;
 }
 
-main {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-
-  width: fit-content;
-}
-
-table {
-  grid-row: 2;
-  grid-column: 2;
-
-  display: block;
-
-  th {
-    font-weight: inherit;
-  }
-
-  td {
-    position: relative;
-
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  th, td {
-    padding: 8px;
-  }
-
-  scroll-margin-left: 250px;
-}
-
-.sticky-corner {
-  position: sticky;
-  top: 0;
-  left: 0;
-
-  z-index: 2;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: styles.$backgroundColor;
-}
-
-.date-row {
-  display: flex;
-  position: sticky;
-  top: 0;
-
-  grid-row: 1;
-  grid-column: 2;
-
-  background: styles.$backgroundColor;
-
-  z-index: 1;
-
-  > * {
-    width: 66px;
-    min-width: 66px;
-    height: 50px;
-
-    > * {
-      position: relative;
-
-      vertical-align: bottom;
-      text-align: center;
-      display: grid;
-      align-content: center;
-      color: styles.$onBackgroundColor;
-
-      height: 100%;
-    }
-
-    app-date-property {
-      position: absolute;
-      height: auto;
-    }
-  }
-}
-
-.titles {
-  grid-row: 2;
-  grid-column: 1;
-
-  position: sticky;
-  left: 0;
-
-  z-index: 1;
-
-  width: 180px;
-
-  background: styles.$backgroundColor;
-
-  > * {
-    color: styles.$onBackgroundColor;
-    line-height: 66px;
-
-    overflow: hidden;
-    text-overflow: ellipsis
-  }
-}
-
-.focused {
-  outline: solid styles.$secondaryColor 4px;
-  border-radius: 15px;
-}
-
-td:focus-visible {
-  outline: unset;
-}
-
-app-journal-cell {
-  display: block;
-}
-
 app-select-mark {
   position: absolute;
-
-  top: 56px;
-  right: 0;
 
   z-index: 10;
 }
@@ -139,44 +20,9 @@ app-absence-add {
   z-index: 10;
 }
 
-ol {
-  counter-reset: item;
-  list-style-type: none;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  li:before {
-    content: counter(item) " ";
-    counter-increment: item
-  }
-
-  li {
-    white-space: nowrap;
-  }
-}
-
-section {
-  position: sticky;
-  right: 0;
-
-  grid-row: 2;
-  grid-column: 3;
-
-  background: styles.$backgroundColor;
-}
-
-.more-circle {
-  position: absolute;
-
-  width: 7px;
-  height: 7px;
-  background-color: styles.$secondaryColor;
-  border-radius: 50%;
-
-  right: 5px;
-}
-
 .wrapper {
+  position: relative;
+
   flex-grow: 1;
   overflow: scroll;
 }

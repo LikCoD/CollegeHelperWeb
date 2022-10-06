@@ -1,97 +1,28 @@
-<ng-container *ngIf="journalService.journal$ | async as journal">
-  <div class="wrapper">
-    <main *ngIf="filterCollapsed(journal.dates) as collapsedDates">
-      <div class="sticky-corner">
-        <button class="btn btn-outline-light"
-                (click)="toggleCollapse(journal)">{{'journal.view.collapse' | translate}}</button>
-      </div>
-      <div class="date-row">
-        <ng-container *ngFor="let date of collapsedDates">
-          <div>
-            <div (click)="onDateClick(journal, date)">
-              <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>
-              <span>{{date.startDate | moment: "MMM"}}</span>
-              <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
-            </div>
-
-            <app-date-property *ngIf="date == selectedDate" [lesson]="date"
-                               [types]="typesString(journal)"
-                               (close)="closeDatePopup(journal, $event)"></app-date-property>
-          </div>
-        </ng-container>
-      </div>
-      <ol class="titles">
-        <li *ngFor="let row of journal.rows">{{row.title}}</li>
-      </ol>
-      <table #table>
-        <tbody>
-        <tr *ngFor="let row of journal.rows; let y = index">
-          <ng-container *ngFor="let lesson of filterCollapsed(row.lessons, journal.dates); let x = index">
-            <td
-              #cell
-              (keydown.arrowUp)="focusCell(0, -1)"
-              (keydown.arrowRight)="focusCell(1, 0)"
-              (keydown.arrowDown)="focusCell(0, 1)"
-              (keydown.arrowLeft)="focusCell(-1, 0)"
-              (focus)="focus(cell, x, y, lesson, row.id, journal)"
-              class="cell"
-              tabindex="0">
-              <app-journal-cell
-                [ngClass]="{focused: isFocused(x, y)}"
-                [lesson]="lesson"
-                [show]="journal.info.editable"
-                [userId]="row.id"
-                [x]="x"
-                [y]="y"
-                (markAdd)="markAdd($event)"
-                (markEdit)="markEdit($event)"
-                (markDelete)="markDelete($event)"
-              ></app-journal-cell>
-              <ng-container
-                *ngIf="journal.info.editable &&
-                     collapsedDates[x].collapsedType == undefined &&
-                     focusedCells.length > 0
-                     && focusedCells[focusedCells.length - 1].x == x && focusedCells[focusedCells.length - 1].y == y">
-                <app-select-mark
-                  *ngIf="!isAbsencesSelected else absence"
-                  [lesson]="lesson"
-                  [userId]="row.id"
-                  [marks]="getMarks(journal, lesson)"
-                  (markAdd)="markAdd($event)"
-                  (markEdit)="markEdit($event)"
-                  (markDelete)="markDelete($event)"
-                  (close)="closeMarkPopup()"
-                  (hide)="hideMarkPopup()"
-                  [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-select-mark>
-                <ng-template #absence>
-                  <app-absence-add
-                    [lesson]="lesson"
-                    [userId]="row.id"
-                    [absentMark]="journal.info.studyPlace.absentMark"
-                    (close)="closeMarkPopup()"
-                    (set)="setAbsent(lesson, row.id, $event)"
-                    (update)="updateAbsent(lesson, row.id, $event)"
-                    (remove)="removeAbsent(lesson, $event)"
-                    [ngStyle]="{top: isCtrlPressed || isShiftPressed ? '-100000px' : ''}"></app-absence-add>
-                </ng-template>
-              </ng-container>
-            </td>
-          </ng-container>
-        </tr>
-        </tbody>
-      </table>
-      <!--    <section>
-            <app-journal-cell *ngFor="let row of journal.rows" [lesson]="row.lessons[0]"></app-journal-cell>
-          </section>-->
-    </main>
+<ng-container *ngIf='journal$ | async as journal'>
+  <div class='wrapper'>
+    <app-base-journal
+      [journal]='journal'
+      (cellClick)='cellClick($event)'
+    ></app-base-journal>
+    <app-select-mark
+      *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed'
+      [lesson]='selectedCell.data[0].lesson'
+      [userId]='selectedCell.data[0].studentID'
+      [marks]='getMarks(journal, selectedCell.data[0].lesson)'
+      (close)='selectedCell = undefined'
+      [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
+      (markAdd)='markAdd($event)'
+      (markEdit)='markEdit($event)'
+      (markDelete)='markDelete($event)'
+    ></app-select-mark>
   </div>
-  <div class="bottom-bar">
-    <button *ngFor="let lessonType of journal.info.studyPlace.lessonTypes"
-            (click)="selectLessonType(journal, lessonType)"
-            class="btn btn-outline-light">
+  <div class='bottom-bar'>
+    <button *ngFor='let lessonType of journal.info.studyPlace.lessonTypes'
+            (click)='selectLessonType(journal, lessonType)'
+            class='btn btn-outline-light'>
       {{ (selectedLessonType == lessonType.type)
       ? ('journal.view.back' | translate) : lessonType.type }}</button>
-    <button class="btn btn-outline-light" (click)="getAbsentJournal()">
+    <button class='btn btn-outline-light' (click)='getAbsentJournal()'>
       {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}</button>
   </div>
 </ng-container>

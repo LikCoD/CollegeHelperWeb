@@ -17,7 +17,8 @@ export class JournalService {
   }
 
   getJournal(group: string, subject: string, teacher: string): Observable<Journal> {
-    this.httpService.getJournal(group, subject, teacher).pipe(tap(j => this.journal = j)).subscribe({
+    this.httpService.getJournal(group, subject, teacher).pipe(
+      tap(j => this.journal = j)).subscribe({
       next: value => this.journal$.next(value)
     });
     return this.journal$;
@@ -79,7 +80,7 @@ export class JournalService {
       };
 
       indexes.forEach(i => {
-        if (row.lessons[i].marks == undefined || row.lessons[i].marks!!.length < 1) return
+        if (row.lessons[i].marks == undefined || row.lessons[i].marks!!.length < 1) return;
         collapsedLesson.marks = collapsedLesson.marks!!.concat();
       });
 
