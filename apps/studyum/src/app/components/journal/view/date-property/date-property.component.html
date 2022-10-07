@@ -2,7 +2,7 @@
 <div class="container">
   <p>{{lesson!!.subject + ' ' + (lesson!!.startDate | moment: 'L LT')}}</p>
 
-  <select #typeSelect class="form-select" id="typeSelect" (change)="lesson.type = typeSelect.value">
+  <select class="form-select" id="typeSelect" [(ngModel)]="lesson!!.type">
     <option *ngFor="let type of types" [selected]="lesson.type == type">{{type}}</option>
   </select>
 

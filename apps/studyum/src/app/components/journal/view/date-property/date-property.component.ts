@@ -10,7 +10,6 @@ export class DatePropertyComponent implements OnInit {
 
   @Input() lesson: Lesson
   @Input() types: string[] = []
-  @Input() visible: boolean = true
 
   @Output() close = new EventEmitter<Lesson | null>()
 

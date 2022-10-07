@@ -1,20 +1,40 @@
 <ng-container *ngIf='journal$ | async as journal'>
-  <div class='wrapper'>
+  <div #scrollJournal class='wrapper' (scroll)='selectedDate = undefined'>
     <app-base-journal
+      #baseJournal
       [journal]='journal'
       (cellClick)='cellClick($event)'
+      (dateClick)='dateClick($event)'
     ></app-base-journal>
     <app-select-mark
-      *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed'
+      *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected'
       [lesson]='selectedCell.data[0].lesson'
       [userId]='selectedCell.data[0].studentID'
       [marks]='getMarks(journal, selectedCell.data[0].lesson)'
-      (close)='selectedCell = undefined'
+      (close)='selectedCell = undefined; baseJournal.unselectCells()'
       [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
       (markAdd)='markAdd($event)'
       (markEdit)='markEdit($event)'
       (markDelete)='markDelete($event)'
     ></app-select-mark>
+    <app-absence-add
+      *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && isAbsencesSelected'
+      [lesson]='selectedCell.data[0].lesson'
+      [userId]='selectedCell.data[0].studentID'
+      [absentMark]='journal.info.studyPlace.absentMark'
+      (set)='setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
+      (update)='updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
+      (remove)='removeAbsent(selectedCell.data[0].lesson, $event)'
+      (close)='selectedCell = undefined; baseJournal.unselectCells()'
+      [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
+    ></app-absence-add>
+    <app-date-property
+      *ngIf='selectedDate && !isCtrlPressed && !isShiftPressed'
+      [lesson]='selectedDate.data'
+      [types]='typesString(journal)'
+      (close)='closeDatePopup(journal, $event); baseJournal.unselectCells()'
+      [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}"
+    ></app-date-property>
   </div>
   <div class='bottom-bar'>
     <button *ngFor='let lessonType of journal.info.studyPlace.lessonTypes'

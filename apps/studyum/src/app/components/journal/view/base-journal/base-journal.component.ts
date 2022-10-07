@@ -198,8 +198,7 @@ export class BaseJournalComponent implements OnInit {
       return;
     }
 
-    let rect = cell.getBoundingClientRect();
-    this.dateClick.emit({ x: rect.x, y: rect.y, data: date });
+    this.dateClick.emit({ x: cell.offsetLeft, y: cell.offsetTop, data: date });
   }
 
   toggleCollapse(journal: Journal) {
@@ -237,42 +236,8 @@ export class BaseJournalComponent implements OnInit {
     return lessons.filter((_, i) => !dates[i].collapsed);
   }
 
-  /*  typesString(journal: Journal) {
-      return journal.info.studyPlace.lessonTypes.map(value => value.type);
-    }
-
-    closeDatePopup(journal: Journal, lesson: Lesson | null) {
-      if (lesson == null) {
-        this.selectedDate = null;
-        return;
-      }
-
-      this.scheduleService.updateLesson(lesson).subscribe({
-        next: lesson => {
-          let columnIndex = journal.dates.findIndex(value => value.id == lesson.id);
-          journal.rows.forEach(value => {
-            value.lessons[columnIndex] = lesson;
-          });
-        }
-      });
-    }
-
-    setAbsent(lesson: Lesson, id: string, minutes: number | null) {
-      this.journalService.setAbsent(lesson, id, minutes).subscribe({
-        next: mark => lesson.marks?.push(mark)
-      });
-    }
-
-    removeAbsent(lesson: Lesson, id: string) {
-      this.journalService.removeAbsent(id).subscribe({
-        next: _ => lesson.marks = []
-      });
-    }
-
-    updateAbsent(lesson: Lesson, id: string, minutes: number | null) {
-      this.journalService.updateAbsent(lesson, id, minutes).subscribe({
-        next: mark => lesson.marks = [mark]
-      });
-    }*/
+  unselectCells() {
+    this.focusedCells = []
+  }
 }
 

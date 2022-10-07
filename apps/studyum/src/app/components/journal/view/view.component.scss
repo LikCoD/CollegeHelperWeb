@@ -11,13 +11,13 @@ app-select-mark {
   z-index: 10;
 }
 
+app-date-property {
+  position: absolute;
+}
+
 app-absence-add {
   position: absolute;
-
-  top: 56px;
-  right: 0;
-
-  z-index: 10;
+  z-index: 2;
 }
 
 .wrapper {
