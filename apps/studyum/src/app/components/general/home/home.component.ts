@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { UserService } from '../../../services/shared/user.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,41 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  cards: { title: string, url: string, route: string }[] = [
-    { title: 'header.schedule', url: 'assets/schedule-gray.svg', route: 'schedule' },
-    { title: 'header.findSchedule', url: 'assets/search-schedule-gray.svg', route: 'schedule/login' },
-    { title: 'header.journal', url: 'assets/journal-gray.svg', route: 'journal' }
+  cards: { title: string, url: string, route: string, permissions?: string[] }[] = [
+    {
+      title: 'header.schedule',
+      url: 'assets/schedule-gray.svg',
+      route: 'schedule',
+      permissions: undefined
+    },
+    {
+      title: 'header.findSchedule',
+      url: 'assets/search-schedule-gray.svg',
+      route: 'schedule/login',
+      permissions: undefined
+    },
+    {
+      title: 'header.journal',
+      url: 'assets/journal-gray.svg',
+      route: 'journal',
+      permissions: []
+    }
   ];
+
+  user?: User;
+
+  constructor(public userService: UserService) {
+    this.userService.user$.subscribe({ next: u => this.user = u });
+  }
+
+  checkPermissions(permissions?: string[]) {
+    if (permissions == undefined) return true;
+    if (this.user == undefined) return false;
+
+    for (let permission of permissions)
+      if (this.user?.permissions.findIndex(p => p == permission) == -1) return false;
+
+    return true;
+  }
 
 }
