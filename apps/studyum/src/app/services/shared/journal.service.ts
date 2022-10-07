@@ -79,10 +79,10 @@ export class JournalService {
         marks: []
       };
 
-      indexes.forEach(i => {
-        if (row.lessons[i].marks == undefined || row.lessons[i].marks!!.length < 1) return;
-        collapsedLesson.marks = row.lessons[i].marks!!.concat();
-      });
+      collapsedLesson.marks = indexes.flatMap(i => {
+        if (row.lessons[i].marks == undefined || row.lessons[i].marks!!.length < 1) return [];
+        return row.lessons[i].marks!!;
+      })
 
       row.lessons.splice(indexes[0], 0, collapsedLesson);
     });
