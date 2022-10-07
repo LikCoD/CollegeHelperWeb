@@ -1,6 +1,10 @@
 <header>
   <ng-container class="container" *ngIf="userService.user$ | async as user else notLoginHeader">
     <div class="action">
+      <a routerLink="">
+        <img src="assets/home.svg" alt="home">
+      </a>
+
       <a routerLink="schedule">
         <img src="assets/schedule.svg" alt="schedule">
         <p>{{'header.schedule' | translate}}</p>

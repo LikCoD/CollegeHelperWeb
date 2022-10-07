@@ -44,8 +44,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UserInfoComponent } from './components/user/profile/user-info/user-info.component';
 import { AbsenceAddComponent } from './components/journal/view/absence-add/absence-add.component';
 import { BaseJournalComponent } from './components/journal/view/base-journal/base-journal.component';
+import { HomeComponent } from './components/general/home/home.component';
+import { HomeCardComponent } from './components/general/home/home-card/home-card.component';
 
 const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+
   { path: 'user', component: ProfileComponent, canActivate: [NotLoginGuard] },
 
   { path: 'signup', component: UserSignupComponent, canActivate: [LoginGuard] },
@@ -131,6 +135,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReceiveTokenComponent,
     AbsenceAddComponent,
     BaseJournalComponent,
+    HomeComponent,
+    HomeCardComponent,
   ],
   imports: [
     BrowserModule,

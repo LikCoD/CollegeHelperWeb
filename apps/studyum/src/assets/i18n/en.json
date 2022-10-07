@@ -9,6 +9,11 @@
   "datetime": {
     "time": "hh:mm A"
   },
+  "home": {
+    "schedule": "Schedule",
+    "findSchedule": "Find schedule",
+    "journal": "Journal"
+  },
   "user": {
     "login": {
       "signUp": "SingUp",

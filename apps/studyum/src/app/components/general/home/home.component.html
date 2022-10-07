@@ -1,0 +1,8 @@
+<section>
+  <app-home-card
+    *ngFor='let card of cards'
+    [title]='card.title'
+    [imageUrl]='card.url'
+    [routerLink]='card.route'
+  ></app-home-card>
+</section>

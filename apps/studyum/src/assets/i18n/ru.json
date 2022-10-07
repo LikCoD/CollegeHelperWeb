@@ -9,6 +9,11 @@
   "datetime": {
     "time": "HH:mm"
   },
+  "home": {
+    "schedule": "Расписание",
+    "findSchedule": "Поиск расписания",
+    "journal": "Журнал"
+  },
   "user": {
     "login": {
       "signUp": "Регистрация",
