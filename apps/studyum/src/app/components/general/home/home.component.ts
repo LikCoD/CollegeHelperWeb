@@ -14,7 +14,7 @@ export class HomeComponent {
       title: 'header.schedule',
       url: 'assets/schedule-gray.svg',
       route: 'schedule',
-      permissions: undefined
+      permissions: []
     },
     {
       title: 'header.findSchedule',
