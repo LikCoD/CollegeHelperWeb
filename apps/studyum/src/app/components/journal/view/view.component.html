@@ -6,43 +6,45 @@
       (cellClick)='cellClick($event)'
       (dateClick)='dateClick($event)'
     ></app-base-journal>
-    <app-dialog-frame
-      *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected'
-      (close)='selectedCell = undefined; baseJournal.unselectCells()'
-      [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
-    >
-      <app-select-mark
-        [lesson]='selectedCell.data[0].lesson'
-        [userId]='selectedCell.data[0].studentID'
-        [marks]='getMarks(journal, selectedCell.data[0].lesson)'
-        (markAdd)='markAdd($event)'
-        (markEdit)='markEdit($event)'
-        (markDelete)='markDelete($event)'
-      ></app-select-mark>
-    </app-dialog-frame>
-    <app-dialog-frame
-      *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && isAbsencesSelected'
-      (close)='selectedCell = undefined; baseJournal.unselectCells()'
-      [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
-    >
-      <app-absence-add
-        [lesson]='selectedCell.data[0].lesson'
-        [userId]='selectedCell.data[0].studentID'
-        [absentMark]='journal.info.studyPlace.absentMark'
-        (set)='setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
-        (update)='updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
-        (remove)='removeAbsent(selectedCell.data[0].lesson, $event)'
-      ></app-absence-add>
-    </app-dialog-frame>
-    <app-dialog-frame
-      *ngIf='selectedDate && !isCtrlPressed && !isShiftPressed'
-      (close)='closeDatePopup(journal, $event); baseJournal.unselectCells()'
-      [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}">
-      <app-date-property
-        [lesson]='selectedDate.data'
-        [types]='typesString(journal)'
-      ></app-date-property>
-    </app-dialog-frame>
+    <ng-container *ngIf="journal.info.editable">
+      <app-dialog-frame
+        *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected'
+        (close)='selectedCell = undefined; baseJournal.unselectCells()'
+        [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
+      >
+        <app-select-mark
+          [lesson]='selectedCell.data[0].lesson'
+          [userId]='selectedCell.data[0].studentID'
+          [marks]='getMarks(journal, selectedCell.data[0].lesson)'
+          (markAdd)='markAdd($event)'
+          (markEdit)='markEdit($event)'
+          (markDelete)='markDelete($event)'
+        ></app-select-mark>
+      </app-dialog-frame>
+      <app-dialog-frame
+        *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && isAbsencesSelected'
+        (close)='selectedCell = undefined; baseJournal.unselectCells()'
+        [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
+      >
+        <app-absence-add
+          [lesson]='selectedCell.data[0].lesson'
+          [userId]='selectedCell.data[0].studentID'
+          [absentMark]='journal.info.studyPlace.absentMark'
+          (set)='setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
+          (update)='updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
+          (remove)='removeAbsent(selectedCell.data[0].lesson, $event)'
+        ></app-absence-add>
+      </app-dialog-frame>
+      <app-dialog-frame
+        *ngIf='selectedDate && !isCtrlPressed && !isShiftPressed'
+        (close)='closeDatePopup(journal, $event); baseJournal.unselectCells()'
+        [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}">
+        <app-date-property
+          [lesson]='selectedDate.data'
+          [types]='typesString(journal)'
+        ></app-date-property>
+      </app-dialog-frame>
+    </ng-container>
   </div>
   <div class='bottom-bar'>
     <button *ngFor='let lessonType of journal.info.studyPlace.lessonTypes'
