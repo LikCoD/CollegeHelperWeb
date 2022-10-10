@@ -46,6 +46,7 @@ import { AbsenceAddComponent } from './components/journal/view/absence-add/absen
 import { BaseJournalComponent } from './components/journal/view/base-journal/base-journal.component';
 import { HomeComponent } from './components/general/home/home.component';
 import { HomeCardComponent } from './components/general/home/home-card/home-card.component';
+import {DialogFrameComponent} from "./components/general/dialog-frame/dialog-frame.component";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -137,6 +138,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BaseJournalComponent,
     HomeComponent,
     HomeCardComponent,
+    DialogFrameComponent,
   ],
   imports: [
     BrowserModule,

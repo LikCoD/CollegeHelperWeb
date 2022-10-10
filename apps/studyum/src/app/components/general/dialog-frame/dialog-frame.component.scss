@@ -1,0 +1,38 @@
+@use '../../../../styles';
+
+:host {
+  position: relative;
+  display: block;
+
+  z-index: 999;
+}
+
+button {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+
+  color: black;
+  background: #f1f1f140;
+  font-weight: 600;
+
+  padding: 0;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 10px;
+  border: none;
+
+  z-index: 1;
+}
+
+:host ::ng-deep > :last-child {
+  display: block;
+
+  background-color: styles.$onBackgroundColor;
+  padding: 15px;
+
+  border: solid #505050 5px;
+  border-radius: 15px;
+}

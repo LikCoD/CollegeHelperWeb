@@ -1,26 +1,7 @@
 @use '../../../../../styles';
 
-:host {
-  position: relative;
-}
-
-.container {
-  background-color: styles.$onBackgroundColor;
-  padding: 15px;
-
-  border: solid #505050 5px;
-  border-radius: 15px;
-
-  > * {
-    width: 135px;
-
-    &:last-child {
-      margin-top: 20px;
-    }
-  }
-}
-
 .minutes-container {
+  width: 135px;
   display: flex;
 
   button {
@@ -29,17 +10,7 @@
   }
 }
 
-.close-btn {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-
-  color: black;
-  background: #f1f1f140;
-  padding: 0;
-  width: 25px;
-  height: 25px;
-  border-radius: 10px;
+.confirm-btn {
+  width: 135px;
+  margin-top: 20px;
 }
-
-

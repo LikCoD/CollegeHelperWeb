@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "nx",
     "start": "nx serve --proxy-config api.proxy.json",
+    "start prod proxy": "nx serve --proxy-config api.proxy.prod.json",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",

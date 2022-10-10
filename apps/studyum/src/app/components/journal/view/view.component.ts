@@ -162,7 +162,10 @@ export class JournalViewComponent implements OnInit {
   }
 
   closeDatePopup(journal: Journal, lesson: Lesson | null) {
-    if (this.selectedDate == undefined || lesson == null) return;
+    if (this.selectedDate == undefined || lesson == null) {
+      this.selectedDate = undefined;
+      return;
+    }
 
     this.scheduleService.updateLesson(lesson).subscribe({
       next: lesson => {

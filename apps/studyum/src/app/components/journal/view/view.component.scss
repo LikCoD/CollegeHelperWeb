@@ -5,19 +5,8 @@
   flex-flow: column;
 }
 
-app-select-mark {
+app-dialog-frame {
   position: absolute;
-
-  z-index: 10;
-}
-
-app-date-property {
-  position: absolute;
-}
-
-app-absence-add {
-  position: absolute;
-  z-index: 2;
 }
 
 .wrapper {

@@ -1,31 +1,28 @@
-<button class="btn close-btn" type="button" (click)="close.emit()" style="position: absolute">X</button>
-<div class="container">
-  <input #markInput type="text" class="form-control mark-input" placeholder="{{'journal.view.mark' | translate}}"
-         (keydown)="confirmInput($event.code, markInput);">
+<input #markInput type="text" class="form-control mark-input" placeholder="{{'journal.view.mark' | translate}}"
+       (keydown)="confirmInput($event.code, markInput);">
 
-  <div class="action-container">
-    <button
-      *ngFor="let mark of lesson.marks"
-      [ngClass]="['mark-button btn', selectedMark == mark ? 'btn-dark' : 'mark-button btn btn-outline-dark']"
-      (click)="selectedMark = mark">
-      {{mark.mark}}
-    </button>
+<div class="action-container">
+  <button
+    *ngFor="let mark of lesson.marks"
+    [ngClass]="['mark-button btn', selectedMark == mark ? 'btn-dark' : 'mark-button btn btn-outline-dark']"
+    (click)="selectedMark = mark">
+    {{mark.mark}}
+  </button>
 
-    <button
-      [ngClass]="['mark-button btn', !selectedMark ? 'btn-dark' : 'btn-outline-dark']"
-      (click)="selectedMark = undefined">
-      +
-    </button>
-  </div>
-
-  <div class="marks-container">
-    <ng-container *ngFor="let mark of marks">
-      <button class="mark-button btn btn-outline-dark"
-              (click)="mark == selectedMark?.mark ? removeMark() : addMark(mark)">
-        {{mark == selectedMark?.mark ? '🗑' : mark}}
-      </button>
-    </ng-container>
-  </div>
-  <button type="button" class="btn btn-outline-secondary mark-confirm"
-          (click)="confirm(markInput.value)">{{'journal.view.confirm' | translate}}</button>
+  <button
+    [ngClass]="['mark-button btn', !selectedMark ? 'btn-dark' : 'btn-outline-dark']"
+    (click)="selectedMark = undefined">
+    +
+  </button>
 </div>
+
+<div class="marks-container">
+  <ng-container *ngFor="let mark of marks">
+    <button class="mark-button btn btn-outline-dark"
+            (click)="mark == selectedMark?.mark ? removeMark() : addMark(mark)">
+      {{mark == selectedMark?.mark ? '🗑' : mark}}
+    </button>
+  </ng-container>
+</div>
+<button type="button" class="btn btn-outline-secondary mark-confirm"
+        (click)="confirm(markInput.value)">{{'journal.view.confirm' | translate}}</button>
