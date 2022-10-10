@@ -22,7 +22,7 @@ export class JournalHttpService {
 
       journal.rows.forEach(row => {
         for (let i = 0; i < row.lessons.length; i++) {
-          if (row.lessons[i].subject == "") {
+          if (row.lessons[i] == null) {
             row.lessons[i] = <Lesson>{
               startDate: journal.dates[i].startDate.clone(),
               endDate: journal.dates[i].startDate.clone(),
