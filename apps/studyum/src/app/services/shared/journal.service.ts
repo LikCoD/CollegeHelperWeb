@@ -152,7 +152,9 @@ export class JournalService {
       sJournal.dates.push(value);
       sJournal.rows.forEach((r, ri) => {
         let lesson = {...this.journal.rows[ri].lessons[i]};
-        lesson.marks = lesson.marks!!.filter(value => lessonType.standaloneMarks?.find(v => v.mark == value.mark) ?? false)
+        lesson.marks = lesson.marks!!.filter(value => {
+          return lessonType.standaloneMarks == undefined || lessonType.standaloneMarks.find(v => v.mark === value.mark)
+        })
 
         r.lessons.push(lesson)
       });

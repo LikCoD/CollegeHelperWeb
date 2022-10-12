@@ -62,6 +62,7 @@ export class JournalViewComponent implements OnInit {
       return;
     }
 
+    this.selectedLessonType = null;
     this.isAbsencesSelected = true;
 
     let params = this.router.parseUrl(this.router.url).queryParams;
@@ -77,7 +78,9 @@ export class JournalViewComponent implements OnInit {
       return;
     }
 
+    this.isAbsencesSelected = false;
     this.selectedLessonType = type.type;
+
     this.journalService.selectStandaloneType(type.type);
   }
 
@@ -86,7 +89,7 @@ export class JournalViewComponent implements OnInit {
     if (lessonType == undefined) return [];
 
     if (this.selectedLessonType == null) return lessonType.marks.map(value => value.mark);
-    else return lessonType.standaloneMarks.map(value => value.mark);
+    else return lessonType.standaloneMarks?.map(value => value.mark) ?? lessonType.marks.map(value => value.mark);
   }
 
   cellClick(point: DataPoint<JournalPointData[]>) {
