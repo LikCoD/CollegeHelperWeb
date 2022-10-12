@@ -1,5 +1,5 @@
 <ng-container *ngIf='journal$ | async as journal'>
-  <div #scrollJournal class='wrapper' (scroll)='selectedDate = undefined'>
+  <div #scrollJournal class='wrapper' (scroll)='selectedDate = undefined; selectedDate = undefined;'>
     <app-base-journal
       #baseJournal
       [journal]='journal'
@@ -16,9 +16,9 @@
           [lesson]='selectedCell.data[0].lesson'
           [userId]='selectedCell.data[0].studentID'
           [marks]='getMarks(journal, selectedCell.data[0].lesson)'
-          (markAdd)='markAdd($event)'
-          (markEdit)='markEdit($event)'
-          (markDelete)='markDelete($event)'
+          (markAdd)='markAdd(journal, $event)'
+          (markEdit)='markEdit(journal, $event)'
+          (markDelete)='markDelete(journal, $event)'
         ></app-select-mark>
       </app-dialog-frame>
       <app-dialog-frame

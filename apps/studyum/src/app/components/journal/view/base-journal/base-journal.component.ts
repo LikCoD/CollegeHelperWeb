@@ -10,11 +10,10 @@ import {
   ViewChild
 } from '@angular/core';
 import { Lesson } from '../../../../models/schedule';
-import { Journal, Mark } from '../../../../models/journal';
+import { Journal } from '../../../../models/journal';
 import * as moment from 'moment';
 import { compareDates } from '../../../../utils';
 import { JournalService } from '../../../../services/shared/journal.service';
-import { ScheduleService } from '../../../../services/shared/schedule.service';
 import { DataPoint, JournalPointData } from '../../../../models/dto/points';
 
 @Component({
@@ -34,14 +33,9 @@ export class BaseJournalComponent implements OnInit {
   focusedCells: DataPoint<JournalPointData>[] = [];
   isCtrlPressed = false;
   isShiftPressed = false;
-  selectedDate: Lesson | null;
   collapseType?: moment.unitOfTime.StartOf;
 
-  constructor(
-    @Host() private host: ElementRef,
-    public journalService: JournalService,
-    public scheduleService: ScheduleService
-  ) {
+  constructor(@Host() private host: ElementRef, public journalService: JournalService) {
   }
 
   ngOnInit(): void {
@@ -110,59 +104,6 @@ export class BaseJournalComponent implements OnInit {
 
     this.focusedCells = [{ x: x, y: y, data: { lesson: lesson, studentID: studentID } }];
     this.cellClick.emit({ x: cell.offsetLeft, y: cell.offsetTop, data: this.focusedCells.map(v => v.data) });
-  }
-
-  markAdd(mark: Mark) {
-    this.focusedCells.forEach(value => {
-      let mark_ = {
-        mark: mark.mark,
-        lessonId: value.data.lesson.id,
-        studentID: value.data.studentID,
-        studyPlaceId: mark.studyPlaceID
-      };
-
-      this.journalService.addMark(mark_).subscribe({
-        next: m => {
-          if (value.data.lesson.marks == null)
-            value.data.lesson.marks = [m];
-          else
-            value.data.lesson.marks.push(m);
-        }
-      });
-    });
-  }
-
-  markEdit(mark: Mark) {
-    this.journalService.editMark(mark).subscribe({
-      next: m => {
-        mark.mark = m.mark;
-      }
-    });
-  }
-
-  markDelete(id: string) {
-    let lesson = this.focusedCells[0]?.data?.lesson;
-    if (lesson == undefined) return;
-
-    this.journalService.deleteMark(id).subscribe({
-      next: id => {
-        lesson!!.marks = lesson!!.marks?.filter(value => value.id != id);
-      }
-    });
-  }
-
-  closeMarkPopup() {
-    let focusedCell = this.focusedCells[this.focusedCells.length - 1];
-    this.focusCell(focusedCell.x, focusedCell.y);
-
-    this.focusedCells = [];
-  }
-
-  hideMarkPopup() {
-    let focusedCell = this.focusedCells[this.focusedCells.length - 1];
-    this.focusCell(focusedCell.x, focusedCell.y);
-
-    this.focusedCells = [focusedCell];
   }
 
   @HostListener('document:keydown', ['$event'])

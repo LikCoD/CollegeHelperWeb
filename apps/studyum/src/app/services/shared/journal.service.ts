@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { JournalHttpService } from '../http/journal-http.service';
-import { Observable, Subject, tap } from 'rxjs';
-import { Journal, JournalOption, JournalRow, Mark } from '../../models/journal';
-import { Lesson } from '../../models/schedule';
+import {Injectable} from '@angular/core';
+import {JournalHttpService} from '../http/journal-http.service';
+import {Observable, Subject, tap} from 'rxjs';
+import {Journal, JournalOption, JournalRow, Mark} from '../../models/journal';
+import {Lesson} from '../../models/schedule';
 import * as moment from 'moment';
-import { compareDates } from '../../utils';
+import {compareDates} from '../../utils';
+import {JournalColors, LessonType, StudyPlace} from "../../models/general";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class JournalService {
   journal$ = new Subject<Journal>();
   options$: Observable<JournalOption[]>;
@@ -35,16 +36,52 @@ export class JournalService {
     return this.options$;
   }
 
-  addMark(mark: Mark): Observable<Mark> {
-    return this.httpService.addMark(mark);
+  getCellColor(colors: JournalColors, types: LessonType[], lessonType: string, date: moment.Moment, marks: Mark[]): string {
+    let color = colors.general
+    for (let mark of marks) {
+      let type = types.find(v => v.type === lessonType);
+      if (type === undefined) return color = colors.general;
+
+      let markType = type.marks.find(m => m.mark === mark.mark);
+      if (markType === undefined || markType.workOutTime === 0) return colors.general;
+
+      color = date.clone().add(markType.workOutTime, "second") > moment.utc() ? colors.warning : colors.danger;
+    }
+
+    return color
   }
 
-  editMark(mark: Mark): Observable<Mark> {
-    return this.httpService.editMark(mark);
+  addMark(studyPlace: StudyPlace, lesson: Lesson, mark: Mark) {
+    return this.httpService.addMark(mark).subscribe({
+      next: value => {
+        if (lesson.marks == undefined)
+          lesson.marks = []
+
+        lesson.marks.push(value)
+
+        lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks)
+      }
+    });
   }
 
-  deleteMark(id: string): Observable<string> {
-    return this.httpService.deleteMark(id);
+  editMark(studyPlace: StudyPlace, lesson: Lesson, mark: Mark) {
+    this.httpService.editMark(mark).subscribe({
+      next: value => {
+        lesson.marks!![lesson!!.marks?.findIndex(v => v.id == value.id)!!] = value
+
+        lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
+      }
+    });
+  }
+
+  deleteMark(studyPlace: StudyPlace, lesson: Lesson, id: string) {
+    this.httpService.deleteMark(id).subscribe({
+      next: value => {
+        lesson.marks = lesson.marks?.filter(v => v.id !== value)
+
+        lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
+      }
+    });
   }
 
   collapse(journal: Journal, lesson: Lesson, unit: moment.unitOfTime.StartOf) {
@@ -71,7 +108,7 @@ export class JournalService {
 
     if (!addNew) return;
 
-    journal.dates.splice(indexes[0], 0, { ...lesson, collapsed: false, collapsedType: unit });
+    journal.dates.splice(indexes[0], 0, {...lesson, collapsed: false, collapsedType: unit});
 
     journal.rows.forEach(row => {
       let collapsedLesson = <Lesson>{
@@ -104,7 +141,7 @@ export class JournalService {
   selectStandaloneMark(type: string) {
     let sJournal = <Journal>{
       dates: [],
-      rows: this.journal.rows.map(r => <JournalRow>{ ...r, lessons: [] }),
+      rows: this.journal.rows.map(r => <JournalRow>{...r, lessons: []}),
       info: this.journal.info
     };
 
@@ -124,7 +161,7 @@ export class JournalService {
 
   setAbsent(lesson: Lesson, id: string, time: number | null) {
     return this.httpService.setAbsent(
-      { lessonID: lesson.id, studentID: id, time: time },
+      {lessonID: lesson.id, studentID: id, time: time},
       this.journal.info.studyPlace.absentMark
     );
   }
@@ -135,7 +172,7 @@ export class JournalService {
 
   updateAbsent(lesson: Lesson, id: string, time: number | null) {
     return this.httpService.updateAbsent(
-      { id: lesson.marks!![0].id, lessonID: lesson.id, studentID: id, time: time },
+      {id: lesson.marks!![0].id, lessonID: lesson.id, studentID: id, time: time},
       this.journal.info.studyPlace.absentMark
     );
   }

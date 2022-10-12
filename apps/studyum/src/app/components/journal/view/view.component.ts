@@ -1,12 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JournalService } from '../../../services/shared/journal.service';
-import { Journal, Mark } from '../../../models/journal';
-import { LessonType } from '../../../models/general';
-import { Observable } from 'rxjs';
-import { DataPoint, JournalPointData } from '../../../models/dto/points';
-import { Lesson } from '../../../models/schedule';
-import { ScheduleService } from '../../../services/shared/schedule.service';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JournalService} from '../../../services/shared/journal.service';
+import {Journal, Mark} from '../../../models/journal';
+import {LessonType} from '../../../models/general';
+import {Observable} from 'rxjs';
+import {DataPoint, JournalPointData} from '../../../models/dto/points';
+import {Lesson} from '../../../models/schedule';
+import {ScheduleService} from '../../../services/shared/schedule.service';
 
 @Component({
   selector: 'app-login',
@@ -100,7 +100,7 @@ export class JournalViewComponent implements OnInit {
     this.selectedCell = undefined;
   }
 
-  markAdd(mark: Mark) {
+  markAdd(journal: Journal, mark: Mark) {
     this.selectedCell?.data.forEach(value => {
       let mark_ = {
         mark: mark.mark,
@@ -109,34 +109,22 @@ export class JournalViewComponent implements OnInit {
         studyPlaceId: mark.studyPlaceID
       };
 
-      this.journalService.addMark(mark_).subscribe({
-        next: m => {
-          if (value.lesson.marks == null)
-            value.lesson.marks = [m];
-          else
-            value.lesson.marks?.push(m);
-        }
-      });
+      this.journalService.addMark(journal.info.studyPlace, value.lesson, mark_)
     });
   }
 
-  markEdit(mark: Mark) {
-    this.journalService.editMark(mark).subscribe({
-      next: m => {
-        mark.mark = m.mark;
-      }
-    });
-  }
-
-  markDelete(id: string) {
+  markEdit(journal: Journal, mark: Mark) {
     let lesson = this.selectedCell?.data[0]?.lesson;
     if (lesson == undefined) return;
 
-    this.journalService.deleteMark(id).subscribe({
-      next: id => {
-        lesson!!.marks = lesson!!.marks?.filter(value => value.id != id);
-      }
-    });
+    this.journalService.editMark(journal.info.studyPlace, lesson, mark)
+  }
+
+  markDelete(journal: Journal, id: string) {
+    let lesson = this.selectedCell?.data[0]?.lesson;
+    if (lesson == undefined) return;
+
+    this.journalService.deleteMark(journal.info.studyPlace, lesson, id)
   }
 
   typesString(journal: Journal) {

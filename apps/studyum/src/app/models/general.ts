@@ -3,15 +3,22 @@ export interface StudyPlace {
   name: string,
   lessonTypes: LessonType[]
   absentMark: string
+  journalColors: JournalColors
 }
 
 export interface MarkType {
   mark: string
-  workOutTime: bigint
+  workOutTime: number
 }
 
 export interface LessonType {
   type: string
   marks: MarkType[]
   standaloneMarks: MarkType[]
+}
+
+export interface JournalColors {
+  general: string
+  warning: string
+  danger: string
 }

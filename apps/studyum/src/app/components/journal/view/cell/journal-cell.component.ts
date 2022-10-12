@@ -20,10 +20,6 @@ export class JournalCellComponent {
   @Input() x: number
   @Input() y: number
 
-  @Output() markAdd: EventEmitter<Mark> = new EventEmitter<Mark>()
-  @Output() markEdit: EventEmitter<Mark> = new EventEmitter<Mark>()
-  @Output() markDelete: EventEmitter<string> = new EventEmitter<string>()
-
   constructor(public parent: JournalViewComponent) {
   }
 }
