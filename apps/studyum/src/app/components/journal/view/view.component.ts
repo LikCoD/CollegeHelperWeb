@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {JournalService} from '../../../services/shared/journal.service';
 import {Journal, Mark} from '../../../models/journal';
@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {DataPoint, JournalPointData} from '../../../models/dto/points';
 import {Lesson} from '../../../models/schedule';
 import {ScheduleService} from '../../../services/shared/schedule.service';
+import {SelectMarkComponent} from "./select-mark/select-mark.component";
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,8 @@ export class JournalViewComponent implements OnInit {
 
   isCtrlPressed = false;
   isShiftPressed = false;
+
+  @ViewChild('selectMarkComponent') selectMarkEl?: SelectMarkComponent
 
   constructor(
     private router: Router,
@@ -95,6 +98,8 @@ export class JournalViewComponent implements OnInit {
   cellClick(point: DataPoint<JournalPointData[]>) {
     this.selectedDate = undefined;
     this.selectedCell = point;
+
+    this.selectMarkEl?.focusInput()
   }
 
   dateClick(point: DataPoint<Lesson>) {
@@ -169,6 +174,10 @@ export class JournalViewComponent implements OnInit {
     });
 
     this.selectedDate = undefined;
+  }
+
+  log() {
+    console.log(this.selectMarkEl);
   }
 }
 

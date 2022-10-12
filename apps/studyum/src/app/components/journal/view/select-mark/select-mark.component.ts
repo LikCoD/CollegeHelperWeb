@@ -24,8 +24,9 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @ViewChild('markInput') markInput: ElementRef
 
+
   ngAfterViewInit(): void {
-    this.markInput.nativeElement.focus()
+    this.focusInput()
   }
 
   confirmInput(key: string, mark: HTMLInputElement) {
@@ -73,5 +74,9 @@ export class SelectMarkComponent implements AfterViewInit {
     }
 
     this.addMark(mark)
+  }
+
+  focusInput() {
+    this.markInput.nativeElement.focus()
   }
 }
