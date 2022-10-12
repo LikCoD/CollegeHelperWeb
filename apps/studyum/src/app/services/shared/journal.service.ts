@@ -138,18 +138,24 @@ export class JournalService {
     });
   }
 
-  selectStandaloneMark(type: string) {
+  selectStandaloneType(type: string) {
     let sJournal = <Journal>{
       dates: [],
       rows: this.journal.rows.map(r => <JournalRow>{...r, lessons: []}),
       info: this.journal.info
     };
+    let lessonType = this.journal.info.studyPlace.lessonTypes.find(v => v.type == type)!!
 
     this.journal.dates.forEach((value, i) => {
       if (value.type != type) return;
 
       sJournal.dates.push(value);
-      sJournal.rows.forEach((r, ri) => r.lessons.push(this.journal.rows[ri].lessons[i]));
+      sJournal.rows.forEach((r, ri) => {
+        let lesson = {...this.journal.rows[ri].lessons[i]};
+        lesson.marks = lesson.marks!!.filter(value => lessonType.standaloneMarks?.find(v => v.mark == value.mark) ?? false)
+
+        r.lessons.push(lesson)
+      });
     });
 
     this.journal$.next(sJournal);

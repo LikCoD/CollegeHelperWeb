@@ -78,7 +78,7 @@ export class JournalViewComponent implements OnInit {
     }
 
     this.selectedLessonType = type.type;
-    this.journalService.selectStandaloneMark(type.type);
+    this.journalService.selectStandaloneType(type.type);
   }
 
   getMarks(journal: Journal, lesson: Lesson): string[] {
