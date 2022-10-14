@@ -1,13 +1,13 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {JournalService} from '../../../services/shared/journal.service';
-import {Journal, Mark} from '../../../models/journal';
-import {LessonType} from '../../../models/general';
-import {Observable} from 'rxjs';
-import {DataPoint, JournalPointData} from '../../../models/dto/points';
-import {Lesson} from '../../../models/schedule';
-import {ScheduleService} from '../../../services/shared/schedule.service';
-import {SelectMarkComponent} from "./select-mark/select-mark.component";
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JournalService } from '../../../services/shared/journal.service';
+import { Journal, Mark } from '../../../models/journal';
+import { LessonType } from '../../../models/general';
+import { Observable } from 'rxjs';
+import { DataPoint, JournalPointData } from '../../../models/dto/points';
+import { Lesson } from '../../../models/schedule';
+import { ScheduleService } from '../../../services/shared/schedule.service';
+import { SelectMarkComponent } from './select-mark/select-mark.component';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,7 @@ export class JournalViewComponent implements OnInit {
   isCtrlPressed = false;
   isShiftPressed = false;
 
-  @ViewChild('selectMarkComponent') selectMarkEl?: SelectMarkComponent
+  @ViewChild('selectMarkComponent') selectMarkEl?: SelectMarkComponent;
 
   constructor(
     private router: Router,
@@ -87,6 +87,13 @@ export class JournalViewComponent implements OnInit {
     this.journalService.selectStandaloneType(type.type);
   }
 
+  getStandaloneMarks(journal: Journal, lesson: Lesson): string[] | undefined {
+    let lessonType = journal.info.studyPlace.lessonTypes.find(value => value.type == lesson.type);
+    if (lessonType == undefined) return [];
+
+    return lessonType.standaloneMarks?.map(value => value.mark);
+  }
+
   getMarks(journal: Journal, lesson: Lesson): string[] {
     let lessonType = journal.info.studyPlace.lessonTypes.find(value => value.type == lesson.type);
     if (lessonType == undefined) return [];
@@ -99,7 +106,7 @@ export class JournalViewComponent implements OnInit {
     this.selectedDate = undefined;
     this.selectedCell = point;
 
-    this.selectMarkEl?.focusInput()
+    this.selectMarkEl?.focusInput();
   }
 
   dateClick(point: DataPoint<Lesson>) {
@@ -117,7 +124,7 @@ export class JournalViewComponent implements OnInit {
         studyPlaceId: mark.studyPlaceID
       };
 
-      this.journalService.addMark(journal.info.studyPlace, value.lesson, mark_)
+      this.journalService.addMark(journal.info.studyPlace, value.lesson, mark_);
     });
   }
 
@@ -125,14 +132,14 @@ export class JournalViewComponent implements OnInit {
     let lesson = this.selectedCell?.data[0]?.lesson;
     if (lesson == undefined) return;
 
-    this.journalService.editMark(journal.info.studyPlace, lesson, mark)
+    this.journalService.editMark(journal.info.studyPlace, lesson, mark);
   }
 
   markDelete(journal: Journal, id: string) {
     let lesson = this.selectedCell?.data[0]?.lesson;
     if (lesson == undefined) return;
 
-    this.journalService.deleteMark(journal.info.studyPlace, lesson, id)
+    this.journalService.deleteMark(journal.info.studyPlace, lesson, id);
   }
 
   typesString(journal: Journal) {
@@ -166,7 +173,7 @@ export class JournalViewComponent implements OnInit {
     this.scheduleService.updateLesson(lesson).subscribe({
       next: lesson => {
         let columnIndex = journal.dates.findIndex(value => value.id == lesson.id);
-        journal.dates[columnIndex].type = lesson.type
+        journal.dates[columnIndex].type = lesson.type;
         journal.rows.forEach(value => {
           value.lessons[columnIndex] = lesson;
         });
@@ -176,8 +183,12 @@ export class JournalViewComponent implements OnInit {
     this.selectedDate = undefined;
   }
 
-  log() {
-    console.log(this.selectMarkEl);
+  truncateCell(journal: Journal) {
+    this.selectedCell?.data.forEach(value => {
+      value.lesson.marks?.forEach(v => this.journalService.deleteMark(journal.info.studyPlace, value.lesson, v.id ?? ''));
+    });
+
+    this.selectedCell = undefined;
   }
 }
 

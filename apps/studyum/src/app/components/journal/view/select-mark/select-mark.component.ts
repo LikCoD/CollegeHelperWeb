@@ -11,11 +11,16 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @Input() lesson: Lesson
   @Input() userId: string
+
   @Input() marks: string[]
+  @Input() standaloneMarks?: string[]
+  @Input() absentMark: string
 
   @Output() markAdd = new EventEmitter<Mark>()
   @Output() markEdit = new EventEmitter<Mark>()
   @Output() markDelete = new EventEmitter<string>()
+
+  @Output() truncateCell = new EventEmitter<null>()
 
   @Output() close = new EventEmitter<null>()
 

@@ -6,7 +6,7 @@
       (cellClick)='cellClick($event)'
       (dateClick)='dateClick($event)'
     ></app-base-journal>
-    <ng-container *ngIf="journal.info.editable">
+    <ng-container *ngIf='journal.info.editable'>
       <app-dialog-frame
         *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected'
         (close)='selectedCell = undefined; baseJournal.unselectCells()'
@@ -21,9 +21,12 @@
           [lesson]='selectedCell.data[0].lesson'
           [userId]='selectedCell.data[0].studentID'
           [marks]='getMarks(journal, selectedCell.data[0].lesson)'
+          [standaloneMarks]='getStandaloneMarks(journal, selectedCell.data[0].lesson)'
+          [absentMark]='journal.info.studyPlace.absentMark'
           (markAdd)='markAdd(journal, $event)'
           (markEdit)='markEdit(journal, $event)'
           (markDelete)='markDelete(journal, $event)'
+          (truncateCell)='truncateCell(journal)'
         ></app-select-mark>
       </app-dialog-frame>
       <app-dialog-frame
