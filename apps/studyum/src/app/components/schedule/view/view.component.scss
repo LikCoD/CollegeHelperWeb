@@ -24,7 +24,7 @@ main {
 
   flex-grow: 1;
 
-  justify-content: start;
+  justify-content: flex-start;
 
   margin-bottom: 20px;
 
@@ -32,6 +32,9 @@ main {
 }
 
 .empty-corner {
+  position: sticky;
+  top: 0;
+
   background: styles.$backgroundColor;
   z-index: 4;
 
@@ -40,13 +43,13 @@ main {
 }
 
 .time-container {
+  display: grid;
   position: sticky;
   left: 0;
 
   grid-column: 1;
   grid-row: 2;
 
-  width: 80px;
   height: inherit;
 
   margin-top: 20px;
@@ -109,7 +112,8 @@ main {
 }
 
 .time {
-  position: absolute;
+  grid-row: 1;
+  grid-column: 1;
 
   color: styles.$onBackgroundColor;
   text-align: center;

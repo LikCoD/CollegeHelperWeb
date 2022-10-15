@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {UserService} from './services/shared/user.service';
 import {TranslateService} from "@ngx-translate/core";
-import * as moment from "moment/moment";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-root',

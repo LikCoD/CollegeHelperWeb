@@ -23,7 +23,11 @@
         "styles": [
           "apps/studyum/src/styles.scss"
         ],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": [
+          "moment",
+          "typescript-collections"
+        ]
       },
       "configurations": {
         "production": {
