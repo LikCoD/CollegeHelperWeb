@@ -38,7 +38,7 @@ export class AddSubjectDialogComponent implements AfterViewInit {
   form = new FormGroup({
     startDate: new FormControl(moment().add(1, "days").format("YYYY-MM-DDTHH:mm"), Validators.required),
     endDate: new FormControl(moment().add(1, "days").format("YYYY-MM-DDTHH:mm"), Validators.required),
-    lesson: new FormControl(undefined),
+    lesson: new FormControl<Lesson | null>(null),
   })
 
   currentDate: string = moment().format('YYYY-MM-DD');
@@ -65,13 +65,13 @@ export class AddSubjectDialogComponent implements AfterViewInit {
 
   onPrimaryColorChange(color: string) {
     let lesson = this.form.get("lesson")!!
-    lesson.value.primaryColor = color
+    lesson.value!!.primaryColor = color
     lesson.setValue(lesson.value)
   }
 
   onSecondaryColorChange(color: string) {
     let lessonControl = this.form.get("lesson")!!
-    lessonControl.value.secondaryColor = color
+    lessonControl.value!!.secondaryColor = color
     lessonControl.setValue(lessonControl.value)
   }
 

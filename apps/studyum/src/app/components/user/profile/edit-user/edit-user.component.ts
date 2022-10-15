@@ -23,9 +23,9 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.userService.user$.subscribe({
       next: user => {
-        this.form.get("email")?.setValue(user?.email)
-        this.form.get("login")?.setValue(user?.login)
-        this.form.get("picture")?.setValue(user?.picture)
+        this.form.get("email")?.setValue(user?.email ?? "")
+        this.form.get("login")?.setValue(user?.login ?? "")
+        this.form.get("picture")?.setValue(user?.picture ?? "")
       }
     })
   }

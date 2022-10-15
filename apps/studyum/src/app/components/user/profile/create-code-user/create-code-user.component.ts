@@ -27,8 +27,8 @@ export class CreateCodeUserComponent {
 
           this.form.reset()
 
-          this.form.get("type")?.setValue(type)
-          this.form.get("typeName")?.setValue(typeName)
+          this.form.get("type")?.setValue(type ?? "")
+          this.form.get("typeName")?.setValue(typeName ?? "")
         }
       }
     )

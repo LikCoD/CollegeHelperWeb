@@ -33,13 +33,13 @@ export class LoginScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.userService.user$.subscribe({
       next: user => {
-        this.form.get("studyPlaceID")?.setValue(user?.studyPlaceId)
+        this.form.get("studyPlaceID")?.setValue(user?.studyPlaceId ?? "")
 
         this.generalService.getNotRestrictedStudyPlaces().subscribe({
           next: studyPlaces => {
             this.studyPlaces = studyPlaces
             this.studyPlaceName = studyPlaces.find(value => value.id == user?.studyPlaceId)?.name ?? ""
-            this.form.get("studyPlaceID")?.setValue(user?.studyPlaceId)
+            this.form.get("studyPlaceID")?.setValue(user?.studyPlaceId ?? "")
           }
         })
       }
