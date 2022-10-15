@@ -155,18 +155,26 @@ export class BaseJournalComponent implements OnInit {
         break;
       case 'month':
         this.collapseType = undefined;
+        return;
     }
 
-    if (this.collapseType == undefined) return;
-
+    let sameExists = false;
     let lastDate: moment.Moment | undefined = undefined;
     let lessons: Lesson[] = [];
     journal.dates.forEach(value => {
-      if ((lastDate != undefined && compareDates(lastDate, value.startDate, this.collapseType!!)) || value.collapsedType != undefined) return;
+      if ((lastDate != undefined && compareDates(lastDate, value.startDate, this.collapseType!!)) || value.collapsedType != undefined) {
+        sameExists = true
+        return;
+      }
 
       lastDate = value.startDate;
       lessons.push(value);
     });
+
+    if (!sameExists) {
+      this.toggleCollapse(journal)
+      return;
+    }
 
     lessons.forEach(l => {
       this.journalService.collapse(journal, l, this.collapseType!!);
