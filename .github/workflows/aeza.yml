@@ -39,5 +39,5 @@ jobs:
             --restart always \
             --name ${IMAGE_NAME} \
             ${IMAGE_NAME}
-            docker rmi $(docker images -f "dangling=true" -q)
+            docker rmi -f $(docker images -f "dangling=true" -q)
 
