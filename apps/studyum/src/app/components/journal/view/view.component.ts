@@ -19,7 +19,7 @@ export class JournalViewComponent implements OnInit {
   isAbsencesSelected = false;
   selectedLessonType: string | null;
 
-  journal$: Observable<Journal>;
+  journal$: Observable<Journal[]>;
 
   selectedCell?: DataPoint<JournalPointData[]>;
   selectedDate?: DataPoint<Lesson>;
@@ -110,7 +110,6 @@ export class JournalViewComponent implements OnInit {
   }
 
   dateClick(point: DataPoint<Lesson>) {
-    console.log(point);
     this.selectedDate = point;
     this.selectedCell = undefined;
   }
