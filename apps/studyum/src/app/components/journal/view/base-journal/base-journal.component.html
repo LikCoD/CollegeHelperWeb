@@ -1,5 +1,4 @@
-<script src="base-journal.component.ts"></script>
-<ng-container *ngIf='filterCollapsed(journal.dates) as collapsedDates'>
+<ng-container *ngIf='filterCollapsed("dates", journal.dates) as collapsedDates'>
   <div class='sticky-corner'>
     <button class='btn btn-outline-light'
             (click)='toggleCollapse(journal)'>{{'journal.view.collapse' | translate}}</button>
@@ -18,15 +17,14 @@
     <tbody>
     <tr *ngFor='let row of journal.rows; let y = index'>
       <td
-        *ngFor='let lesson of filterCollapsed(row.lessons, journal.dates); let x = index'
+        *ngFor='let lesson of filterCollapsed("rows", row.lessons, journal.dates); let x = index'
         #cell
         (keydown.arrowUp)='focusCell(0, -1)'
         (keydown.arrowRight)='focusCell(1, 0)'
         (keydown.arrowDown)='focusCell(0, 1)'
         (keydown.arrowLeft)='focusCell(-1, 0)'
-        (focus)='focus(cell, x, y, lesson, row.id, journal)'
-        class='cell'
-        tabindex='0'>
+        (click)='focus(cell, x, y, lesson, row.id, journal)'
+        class='cell'>
         <app-journal-cell
           [ngClass]='{focused: isFocused(x, y)}'
           [lesson]='lesson'

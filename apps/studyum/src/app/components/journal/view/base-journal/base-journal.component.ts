@@ -181,7 +181,7 @@ export class BaseJournalComponent implements OnInit {
     });
   }
 
-  filterCollapsed(lessons: Lesson[], dates = lessons): Lesson[] {
+  filterCollapsed(type: string, lessons: Lesson[], dates = lessons): Lesson[] {
     return lessons.filter((_, i) => !dates[i].collapsed);
   }
 

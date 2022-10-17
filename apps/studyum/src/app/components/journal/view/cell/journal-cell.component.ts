@@ -1,8 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
+import {Component, Input} from '@angular/core';
 import {JournalViewComponent} from "../view.component";
 import {Lesson} from "../../../../models/schedule";
-import {Mark} from "../../../../models/journal";
 
 @Component({
   selector: 'app-journal-cell',
@@ -10,9 +8,6 @@ import {Mark} from "../../../../models/journal";
   styleUrls: ['./journal-cell.component.scss']
 })
 export class JournalCellComponent {
-  popperTrigger = NgxPopperjsTriggers.hover
-  popperPlacement = NgxPopperjsPlacements.BOTTOMEND
-
   @Input() lesson: Lesson
   @Input() userId: string
   @Input() show: boolean = true

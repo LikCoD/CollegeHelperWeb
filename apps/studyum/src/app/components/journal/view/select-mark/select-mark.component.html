@@ -1,52 +1,28 @@
-<input #markInput type='text' class='form-control mark-input' placeholder="{{'journal.view.mark' | translate}}"
-       (keydown)='confirmInput($event.code, markInput);'>
+<input #markInput type="text" class="form-control mark-input" placeholder="{{'journal.view.mark' | translate}}"
+       (keydown)="confirmInput($event.code, markInput);">
 
-<div class='action-container'>
-  <button
-    *ngFor='let mark of lesson.marks'
-    [ngClass]="['mark-button btn', selectedMark == mark ? 'btn-dark' : 'mark-button btn btn-outline-dark']"
-    (click)='selectedMark = mark'>
-    {{mark.mark}}
-  </button>
+<app-select-buttons
+  (select)="actionSelect($event)"
+  [buttons]="actionButtons()" [selectedButton]="selectedMark">
+</app-select-buttons>
 
-  <button
-    [ngClass]="['mark-button btn', !selectedMark ? 'btn-dark' : 'btn-outline-dark']"
-    (click)='selectedMark = undefined'>
-    +
-  </button>
+<app-select-buttons
+  (select)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+  [buttons]="marks" [selectedButton]="selectedMark.mark" [selectedText]="'🗑'">
+</app-select-buttons>
 
-  <button
-    *ngIf='(lesson.marks?.length ?? 0) > 0'
-    class='mark-button btn btn-outline-dark'
-    (click)='truncateCell.emit(null)'>
-    🗑
-  </button>
-</div>
+<app-select-buttons
+  *ngIf="standaloneMarks != undefined && standaloneMarks.length > 0"
+  (select)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+  [buttons]="standaloneMarks" [selectedButton]="selectedMark.mark"
+  [selectedText]="'🗑'">
+</app-select-buttons>
 
-<div class='marks-container'>
-  <ng-container *ngFor='let mark of marks'>
-    <button class='mark-button btn btn-outline-dark'
-            (click)='mark == selectedMark?.mark ? removeMark() : addMark(mark)'>
-      {{mark == selectedMark?.mark ? '🗑' : mark}}
-    </button>
-  </ng-container>
-</div>
+<app-select-buttons
+  (select)="absentMark == selectedMark.mark ? removeMark() : addMark(absentMark)"
+  [buttons]="[absentMark]" [selectedButton]="selectedMark.mark"
+  [selectedText]="'🗑'">
+</app-select-buttons>
 
-<div class='marks-container' *ngIf='standaloneMarks != undefined && standaloneMarks.length > 0'>
-  <ng-container *ngFor='let mark of standaloneMarks'>
-    <button class='mark-button btn btn-outline-dark'
-            (click)='mark == selectedMark?.mark ? removeMark() : addMark(mark)'>
-      {{mark == selectedMark?.mark ? '🗑' : mark}}
-    </button>
-  </ng-container>
-</div>
-
-<div class='marks-container'>
-  <button class='mark-button btn btn-outline-dark'
-          (click)='absentMark == selectedMark?.mark ? removeMark() : addMark(absentMark)'>
-    {{absentMark == selectedMark?.mark ? '🗑' : absentMark}}
-  </button>
-</div>
-
-<button type='button' class='btn btn-outline-secondary mark-confirm'
-        (click)='confirm(markInput.value)'>{{'journal.view.confirm' | translate}}</button>
+<button type="button" class="btn btn-outline-secondary mark-confirm"
+        (click)="confirm(markInput.value)">{{'journal.view.confirm' | translate}}</button>

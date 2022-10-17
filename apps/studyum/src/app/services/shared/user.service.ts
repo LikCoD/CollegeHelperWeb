@@ -19,8 +19,6 @@ export class UserService {
         this.user$.next(value)
       },
       error: _ => {
-        console.log(undefined)
-
         this.initialized = true
         this.user$.next(undefined)
         this.user$.next(undefined)

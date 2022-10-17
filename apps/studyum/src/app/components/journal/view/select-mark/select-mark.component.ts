@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {Lesson} from "../../../../models/schedule";
-import {Mark} from "../../../../models/journal";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core"
+import { Lesson } from "../../../../models/schedule"
+import { Mark } from "../../../../models/journal"
 
 @Component({
-  selector: 'app-select-mark',
-  templateUrl: './select-mark.component.html',
-  styleUrls: ['./select-mark.component.scss']
+  selector: "app-select-mark",
+  templateUrl: "./select-mark.component.html",
+  styleUrls: ["./select-mark.component.scss"]
 })
 export class SelectMarkComponent implements AfterViewInit {
 
@@ -24,10 +24,12 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @Output() close = new EventEmitter<null>()
 
+  addMarkEl = <Mark>{ mark: "+" }
+  removeMarkEl = <Mark>{ mark: "🗑" }
 
-  selectedMark: Mark | undefined = undefined
+  selectedMark = this.addMarkEl
 
-  @ViewChild('markInput') markInput: ElementRef
+  @ViewChild("markInput") markInput: ElementRef
 
 
   ngAfterViewInit(): void {
@@ -42,7 +44,7 @@ export class SelectMarkComponent implements AfterViewInit {
   }
 
   addMark(mark_: string): void {
-    if (this.selectedMark != undefined) {
+    if (this.selectedMark != this.addMarkEl) {
       this.editMark(mark_)
       return
     }
@@ -62,7 +64,7 @@ export class SelectMarkComponent implements AfterViewInit {
     this.selectedMark!!.mark = mark_
     this.markEdit.emit(this.selectedMark)
 
-    this.selectedMark = undefined
+    this.selectedMark = this.addMarkEl
   }
 
   removeMark() {
@@ -70,7 +72,7 @@ export class SelectMarkComponent implements AfterViewInit {
 
     this.markDelete.emit(this.selectedMark.id)
 
-    this.selectedMark = undefined
+    this.selectedMark = this.addMarkEl
   }
 
   confirm(mark: string): void {
@@ -83,5 +85,18 @@ export class SelectMarkComponent implements AfterViewInit {
 
   focusInput() {
     this.markInput.nativeElement.focus()
+  }
+
+  actionButtons() {
+    return (this.lesson.marks ?? []).concat(this.addMarkEl, this.removeMarkEl).map(v => {
+      v.toString = () => v.mark
+      return v
+    })
+  }
+
+  actionSelect(mark: Mark) {
+    if (mark == this.removeMarkEl) this.truncateCell.emit()
+
+    this.selectedMark = mark
   }
 }
