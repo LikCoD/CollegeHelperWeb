@@ -1,68 +1,73 @@
-<ng-container *ngIf='journal$ | async as journals'>
-  <div #scrollJournal class='wrapper' (scroll)='selectedDate = undefined;'>
-    <ng-container *ngFor='let journal of journals'>
+<ng-container *ngIf="journal$ | async as journals">
+  <div #scrollJournal class="wrapper" (scroll)="selectedDate = undefined;">
+    <ng-container *ngFor="let journal of journals">
       <app-base-journal
         #baseJournal
-        [journal]='journal'
-        (cellClick)='cellClick($event)'
-        (dateClick)='dateClick($event)'
+        [journal]="journal"
+        (cellClick)="cellClick($event)"
+        (dateClick)="dateClick($event)"
       ></app-base-journal>
-      <ng-container *ngIf='journal.info.editable'>
+      <ng-container *ngIf="journal.info.editable">
         <app-dialog-frame
-          *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected'
-          (close)='selectedCell = undefined; baseJournal.unselectCells()'
+          *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected"
+          (close)="selectedCell = undefined; baseJournal.unselectCells()"
           [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
-          (keydown.arrowUp)='baseJournal.focusCell(0, -1);'
-          (keydown.arrowRight)='baseJournal.focusCell(1, 0);'
-          (keydown.arrowDown)='baseJournal.focusCell(0, 1);'
-          (keydown.arrowLeft)='baseJournal.focusCell(-1, 0);'
+          (keydown.arrowUp)="baseJournal.focusCell(0, -1);"
+          (keydown.arrowRight)="baseJournal.focusCell(1, 0);"
+          (keydown.arrowDown)="baseJournal.focusCell(0, 1);"
+          (keydown.arrowLeft)="baseJournal.focusCell(-1, 0);"
         >
           <app-select-mark
             #selectMarkComponent
-            [lesson]='selectedCell.data[0].lesson'
-            [userId]='selectedCell.data[0].studentID'
-            [marks]='getMarks(journal, selectedCell.data[0].lesson)'
-            [standaloneMarks]='getStandaloneMarks(journal, selectedCell.data[0].lesson)'
-            [absentMark]='journal.info.studyPlace.absentMark'
-            (markAdd)='markAdd(journal, $event)'
-            (markEdit)='markEdit(journal, $event)'
-            (markDelete)='markDelete(journal, $event)'
-            (truncateCell)='truncateCell(journal)'
+            [lesson]="selectedCell.data[0].lesson"
+            [userId]="selectedCell.data[0].studentID"
+            [marks]="getMarks(journal, selectedCell.data[0].lesson)"
+            [standaloneMarks]="getStandaloneMarks(journal, selectedCell.data[0].lesson)"
+            [absentMark]="journal.info.studyPlace.absentMark"
+            [showAllMarks]="!selectedLessonType"
+            [showAbsents]="!selectedLessonType"
+            (markAdd)="markAdd(journal, $event)"
+            (markEdit)="markEdit(journal, $event)"
+            (markDelete)="markDelete(journal, $event)"
+            (absenceAdd)="setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (absenceEdit)="updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (absenceDelete)="removeAbsent(selectedCell.data[0].lesson, $event)"
+            (truncateCell)="truncateCell(journal)"
           ></app-select-mark>
         </app-dialog-frame>
         <app-dialog-frame
-          *ngIf='selectedCell && !isCtrlPressed && !isShiftPressed && isAbsencesSelected'
-          (close)='selectedCell = undefined; baseJournal.unselectCells()'
+          *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed && isAbsencesSelected"
+          (close)="selectedCell = undefined; baseJournal.unselectCells()"
           [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
         >
           <app-absence-add
-            [lesson]='selectedCell.data[0].lesson'
-            [userId]='selectedCell.data[0].studentID'
-            [absentMark]='journal.info.studyPlace.absentMark'
-            (set)='setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
-            (update)='updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)'
-            (remove)='removeAbsent(selectedCell.data[0].lesson, $event)'
+            [lesson]="selectedCell.data[0].lesson"
+            [userId]="selectedCell.data[0].studentID"
+            [absentMark]="journal.info.studyPlace.absentMark"
+            (set)="setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (update)="updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (remove)="removeAbsent(selectedCell.data[0].lesson, $event)"
           ></app-absence-add>
         </app-dialog-frame>
         <app-dialog-frame
-          *ngIf='selectedDate && !isCtrlPressed && !isShiftPressed'
-          (close)='closeDatePopup(journal, $event); baseJournal.unselectCells()'
+          *ngIf="selectedDate && !isCtrlPressed && !isShiftPressed"
+          (close)="closeDatePopup(journal, $event); baseJournal.unselectCells()"
           [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}">
           <app-date-property
-            [lesson]='selectedDate.data'
-            [types]='typesString(journal)'
+            [lesson]="selectedDate.data"
+            [types]="typesString(journal)"
           ></app-date-property>
         </app-dialog-frame>
       </ng-container>
     </ng-container>
   </div>
-  <div class='bottom-bar'>
-    <button *ngFor='let lessonType of journals[0].info.studyPlace.lessonTypes'
-            (click)='selectLessonType(journals[0], lessonType)'
-            class='btn btn-outline-light'>
+  <div class="bottom-bar">
+    <button *ngFor="let lessonType of journals[0].info.studyPlace.lessonTypes"
+            (click)="selectLessonType(journals[0], lessonType)"
+            class="btn btn-outline-light">
       {{ (selectedLessonType == lessonType.type)
       ? ('journal.view.back' | translate) : lessonType.type }}</button>
-    <button class='btn btn-outline-light' (click)='getAbsentJournal()'>
+    <button class="btn btn-outline-light" (click)="getAbsentJournal()">
       {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}</button>
   </div>
 </ng-container>

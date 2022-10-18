@@ -1,28 +1,29 @@
 <input #markInput type="text" class="form-control mark-input" placeholder="{{'journal.view.mark' | translate}}"
-       (keydown)="confirmInput($event.code, markInput);">
+       (keydown)="confirmInput($event.code, markInput, minutesInput);">
 
 <app-select-buttons
-  (select)="actionSelect($event)"
+  (action)="actionSelect($event)"
   [buttons]="actionButtons()" [selectedButton]="selectedMark">
 </app-select-buttons>
 
 <app-select-buttons
-  (select)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+  *ngIf="showAllMarks"
+  (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
   [buttons]="marks" [selectedButton]="selectedMark.mark" [selectedText]="'🗑'">
 </app-select-buttons>
 
 <app-select-buttons
   *ngIf="standaloneMarks != undefined && standaloneMarks.length > 0"
-  (select)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+  (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
   [buttons]="standaloneMarks" [selectedButton]="selectedMark.mark"
   [selectedText]="'🗑'">
 </app-select-buttons>
 
-<app-select-buttons
-  (select)="absentMark == selectedMark.mark ? removeMark() : addMark(absentMark)"
-  [buttons]="[absentMark]" [selectedButton]="selectedMark.mark"
-  [selectedText]="'🗑'">
-</app-select-buttons>
+<div class="absents input-group input-group-sm">
+  <input #minutesInput class="minutes-input form-control" [placeholder]="'journal.view.absentMinutes' | translate">
+  <button [appMiniSelectBtn]="isAbsent()"
+          (click)="absenceClick()">{{isAbsent() ? '🗑' : absentMark}}</button>
+</div>
 
 <button type="button" class="btn btn-outline-secondary mark-confirm"
-        (click)="confirm(markInput.value)">{{'journal.view.confirm' | translate}}</button>
+        (click)="confirm(markInput.value, minutesInput.value)">{{'journal.view.confirm' | translate}}</button>

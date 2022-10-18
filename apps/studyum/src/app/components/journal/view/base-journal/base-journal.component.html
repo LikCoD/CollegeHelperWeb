@@ -19,19 +19,20 @@
       <td
         *ngFor='let lesson of filterCollapsed("rows", row.lessons, journal.dates); let x = index'
         #cell
-        (keydown.arrowUp)='focusCell(0, -1)'
-        (keydown.arrowRight)='focusCell(1, 0)'
-        (keydown.arrowDown)='focusCell(0, 1)'
-        (keydown.arrowLeft)='focusCell(-1, 0)'
-        (click)='focus(cell, x, y, lesson, row.id, journal)'
-        class='cell'>
+        (keydown.arrowUp)="focusCell(0, -1)"
+        (keydown.arrowRight)="focusCell(1, 0)"
+        (keydown.arrowDown)="focusCell(0, 1)"
+        (keydown.arrowLeft)="focusCell(-1, 0)"
+        (focus)="focus(cell, x, y, lesson, row.id, journal)"
+        class="cell"
+        tabindex="0">
         <app-journal-cell
-          [ngClass]='{focused: isFocused(x, y)}'
-          [lesson]='lesson'
-          [show]='journal.info.editable'
-          [userId]='row.id'
-          [x]='x'
-          [y]='y'
+          [ngClass]="{focused: isFocused(x, y)}"
+          [lesson]="lesson"
+          [show]="journal.info.editable"
+          [userId]="row.id"
+          [x]="x"
+          [y]="y"
         ></app-journal-cell>
       </td>
     </tr>

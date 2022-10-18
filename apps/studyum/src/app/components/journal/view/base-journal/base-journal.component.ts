@@ -42,6 +42,7 @@ export class BaseJournalComponent implements OnInit {
   }
 
   focusCell(x: number, y: number) {
+    console.log("focus")
     let table = <HTMLTableElement>this.table.nativeElement;
 
     if (this.focusedCells.length == 0) {

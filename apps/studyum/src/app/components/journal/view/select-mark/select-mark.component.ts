@@ -16,9 +16,16 @@ export class SelectMarkComponent implements AfterViewInit {
   @Input() standaloneMarks?: string[]
   @Input() absentMark: string
 
+  @Input() showAllMarks: boolean
+  @Input() showAbsents: boolean
+
   @Output() markAdd = new EventEmitter<Mark>()
   @Output() markEdit = new EventEmitter<Mark>()
   @Output() markDelete = new EventEmitter<string>()
+
+  @Output() absenceAdd = new EventEmitter<number | null>()
+  @Output() absenceEdit = new EventEmitter<number | null>()
+  @Output() absenceDelete = new EventEmitter<string>()
 
   @Output() truncateCell = new EventEmitter<null>()
 
@@ -36,10 +43,10 @@ export class SelectMarkComponent implements AfterViewInit {
     this.focusInput()
   }
 
-  confirmInput(key: string, mark: HTMLInputElement) {
+  confirmInput(key: string, mark: HTMLInputElement, minutes: HTMLInputElement) {
     if (key != "Enter") return
 
-    this.confirm(mark.value)
+    this.confirm(mark.value, minutes.value)
     mark.value = ""
   }
 
@@ -75,12 +82,21 @@ export class SelectMarkComponent implements AfterViewInit {
     this.selectedMark = this.addMarkEl
   }
 
-  confirm(mark: string): void {
-    if (!this.marks.includes(mark)) {
+  confirm(mark: string, minutes: string): void {
+    if (this.marks.includes(mark)) this.addMark(mark)
+
+    let absence = this.lesson.marks?.find(m => m.time != null || m.mark == this.absentMark)
+    if (absence == undefined) {
+      this.absenceAdd.emit(Number.parseInt(minutes))
       return
     }
 
-    this.addMark(mark)
+    if (minutes == "" && absence.mark != this.absentMark) {
+      this.absenceDelete.emit(absence.id)
+      return
+    }
+
+    this.absenceEdit.emit(Number.parseInt(minutes))
   }
 
   focusInput() {
@@ -98,5 +114,24 @@ export class SelectMarkComponent implements AfterViewInit {
     if (mark == this.removeMarkEl) this.truncateCell.emit()
 
     this.selectedMark = mark
+  }
+
+  absenceClick() {
+    let absence = this.lesson.marks?.find(m => m.time != null || m.mark == this.absentMark)
+    if (absence == undefined) {
+      this.absenceAdd.emit(null)
+      return
+    }
+
+    if (absence.mark == this.absentMark) {
+      this.absenceDelete.emit(absence.id)
+      return
+    }
+
+    this.absenceEdit.emit(null)
+  }
+
+  isAbsent() {
+    return this.lesson.marks?.find(m => m.mark == this.absentMark) != undefined
   }
 }
