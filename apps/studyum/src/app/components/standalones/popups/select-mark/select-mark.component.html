@@ -1,1 +1,34 @@
-<div></div>
+<input
+  #markInput type="text" class="form-control mark-input"
+  placeholder="{{'journal.view.mark' | translate}}"
+  (keydown)="confirmInput($event.code, markInput)">
+
+<app-select-buttons
+  (action)="actionSelect($event)"
+  [buttons]="actionButtons()" [selectedButton]="selectedMark">
+</app-select-buttons>
+
+<app-select-buttons
+  *ngIf="showAllMarks"
+  (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+  [buttons]="marks" [selectedButton]="selectedMark.mark" [selectedText]="'🗑'"
+></app-select-buttons>
+
+<app-select-buttons
+  *ngIf="showStandaloneMarks && standaloneMarks != undefined && standaloneMarks.length > 0"
+  (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+  [buttons]="standaloneMarks" [selectedButton]="selectedMark.mark"
+  [selectedText]="'🗑'"
+></app-select-buttons>
+
+<app-absence-control
+  #absence
+  *ngIf="showAbsents"
+  [absentMark]="absentMark" [lesson]="lesson"
+  (add)="absenceAdd.emit($event)" (edit)="absenceEdit.emit($event)" (delete)="absenceDelete.emit($event)"
+></app-absence-control>
+
+<button
+  class="mark-confirm" appSecondaryBtnDirective
+  (click)="confirm(markInput.value)"
+>{{'journal.view.confirm' | translate}}</button>

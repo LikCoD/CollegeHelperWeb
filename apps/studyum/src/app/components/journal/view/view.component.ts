@@ -6,8 +6,8 @@ import { LessonType } from '../../../models/general';
 import { Observable } from 'rxjs';
 import { DataPoint, JournalPointData } from '../../../models/dto/points';
 import { Lesson } from '../../../models/schedule';
-import { ScheduleService } from '../../../services/shared/schedule.service';
-import { SelectMarkComponent } from './select-mark/select-mark.component';
+import { ScheduleService } from "../../../services/shared/schedule.service"
+import { SelectMarkComponent } from "../../standalones/popups/select-mark/select-mark.component"
 
 @Component({
   selector: 'app-login',
