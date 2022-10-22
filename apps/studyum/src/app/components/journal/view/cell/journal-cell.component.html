@@ -1,22 +1,22 @@
-<div class='cell'>
-  <div *ngIf='lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0 else emptyCell'
-       class='not-empty-cell' [ngStyle]='{"backgroundColor": lesson.journalCellColor}'>
-    <ng-container *ngIf='lesson.marks.length == 1'>
-      <p>{{lesson.marks[0].mark}}</p>
+<div class="cell" *ngIf="getEntries() as entries">
+  <div *ngIf="entries.length > 0 else emptyCell"
+       class="not-empty-cell" [ngStyle]='{"backgroundColor": lesson.journalCellColor}'>
+    <ng-container *ngIf="entries.length == 1">
+      <p>{{entries[0].title}}</p>
     </ng-container>
-    <ng-container *ngIf='lesson.marks.length > 1'>
-      <div class='mark2'>
-        <p>{{lesson.marks[0].mark}}</p>
+    <ng-container *ngIf="entries.length > 1">
+      <div class="mark2">
+        <p>{{entries[0].title}}</p>
         <hr>
-        <p>{{lesson.marks[1].mark}}</p>
+        <p>{{entries[1].title}}</p>
       </div>
     </ng-container>
-    <div *ngIf='lesson.marks.length > 2' class='more-circle'></div>
+    <div *ngIf="entries.length > 2" class="more-circle"></div>
   </div>
 </div>
 
 <ng-template #emptyCell>
-  <div class='empty-cell'></div>
+  <div class="empty-cell"></div>
 </ng-template>
 
 <!--

@@ -33,9 +33,16 @@ export interface JournalOption {
 
 export interface Mark {
   mark: string;
-  studentID?: string;
+  studentID: string;
   lessonID?: string;
   studyPlaceID?: string;
+  id?: string;
+}
+
+export interface Absence {
   time?: string;
+  studentID: string;
+  lessonID: string;
+  studyPlaceID?: string;
   id?: string;
 }

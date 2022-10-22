@@ -94,8 +94,8 @@
       "confirm": "Подтвердить",
       "back": "Назад",
       "clear": "Очистить",
-      "absent": "Отсутствует",
-      "absentMinutes": "Минуты",
+      "absence": "Отсутствует",
+      "absenceMinutes": "Минуты",
       "absences": "Отсутствия"
     }
   }

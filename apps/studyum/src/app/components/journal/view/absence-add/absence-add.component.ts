@@ -11,7 +11,7 @@ export class AbsenceAddComponent implements OnInit {
 
   @Input() lesson: Lesson;
   @Input() userId: string;
-  @Input() absentMark: string;
+  @Input() absenceMark: string;
 
   @Output() set = new EventEmitter<number | null>();
   @Output() update = new EventEmitter<number | null>();

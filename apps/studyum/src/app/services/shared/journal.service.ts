@@ -25,8 +25,8 @@ export class JournalService {
     return this.journal$;
   }
 
-  getAbsentJournal(group: string, subject: string, teacher: string) {
-    this.httpService.getAbsentJournal(group, subject, teacher).subscribe({
+  getAbsenceJournal(group: string, subject: string, teacher: string) {
+    this.httpService.getAbsenceJournal(group, subject, teacher).subscribe({
       next: value => this.journal$.next([value])
     });
   }
@@ -190,21 +190,21 @@ export class JournalService {
     this.journal$.next([this.journal]);
   }
 
-  setAbsent(lesson: Lesson, id: string, time: number | null) {
-    return this.httpService.setAbsent(
+  setAbsence(lesson: Lesson, id: string, time: number | null) {
+    return this.httpService.setAbsence(
       { lessonID: lesson.id, studentID: id, time: time },
-      this.journal.info.studyPlace.absentMark
+      this.journal.info.studyPlace.absenceMark
     );
   }
 
-  removeAbsent(id: string) {
-    return this.httpService.removeAbsent(id);
+  removeAbsence(id: string) {
+    return this.httpService.removeAbsence(id);
   }
 
-  updateAbsent(lesson: Lesson, id: string, time: number | null) {
-    return this.httpService.updateAbsent(
-      { id: lesson.marks!![0].id, lessonID: lesson.id, studentID: id, time: time },
-      this.journal.info.studyPlace.absentMark
+  updateAbsence(lesson: Lesson, id: string, time: number | null) {
+    return this.httpService.updateAbsence(
+      { id: lesson.absences!![0].id, lessonID: lesson.id, studentID: id, time: time },
+      this.journal.info.studyPlace.absenceMark
     );
   }
 }

@@ -23,15 +23,15 @@
             [userId]="selectedCell.data[0].studentID"
             [marks]="getMarks(journal, selectedCell.data[0].lesson)"
             [standaloneMarks]="getStandaloneMarks(journal, selectedCell.data[0].lesson)"
-            [absentMark]="journal.info.studyPlace.absentMark"
+            [absenceMark]="journal.info.studyPlace.absenceMark"
             [showAllMarks]="!selectedLessonType"
-            [showAbsents]="!selectedLessonType"
+            [showAbsence]="!selectedLessonType"
             (markAdd)="markAdd(journal, $event)"
             (markEdit)="markEdit(journal, $event)"
             (markDelete)="markDelete(journal, $event)"
-            (absenceAdd)="setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (absenceEdit)="updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (absenceDelete)="removeAbsent(selectedCell.data[0].lesson, $event)"
+            (absenceAdd)="setAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (absenceEdit)="updateAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (absenceDelete)="removeAbsence(selectedCell.data[0].lesson, $event)"
             (truncateCell)="truncateCell(journal)"
           ></app-select-mark>
         </app-dialog-frame>
@@ -43,10 +43,10 @@
           <app-absence-add
             [lesson]="selectedCell.data[0].lesson"
             [userId]="selectedCell.data[0].studentID"
-            [absentMark]="journal.info.studyPlace.absentMark"
-            (set)="setAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (update)="updateAbsent(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (remove)="removeAbsent(selectedCell.data[0].lesson, $event)"
+            [absenceMark]="journal.info.studyPlace.absenceMark"
+            (set)="setAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (update)="updateAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
+            (remove)="removeAbsence(selectedCell.data[0].lesson, $event)"
           ></app-absence-add>
         </app-dialog-frame>
         <app-dialog-frame
@@ -67,7 +67,7 @@
             class="btn btn-outline-light">
       {{ (selectedLessonType == lessonType.type)
       ? ('journal.view.back' | translate) : lessonType.type }}</button>
-    <button class="btn btn-outline-light" (click)="getAbsentJournal()">
+    <button class="btn btn-outline-light" (click)="getAbsenceJournal()">
       {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}</button>
   </div>
 </ng-container>

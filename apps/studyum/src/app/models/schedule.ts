@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { Mark } from './journal';
+import {Absence, Mark} from "./journal"
 import { StudyPlace } from './general';
 
 export type Types = Map<string, string[]>
@@ -18,6 +18,7 @@ export interface Lesson {
   room: string;
   type?: string;
   marks?: Mark[];
+  absences?: Absence[];
   title?: string;
   homework?: string;
   description?: string;

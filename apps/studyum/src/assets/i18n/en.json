@@ -94,8 +94,8 @@
       "confirm": "Confirm",
       "back": "Back",
       "clear": "Clear",
-      "absent": "Absent",
-      "absentMinutes": "Minutes",
+      "absence": "Absence",
+      "absenceMinutes": "Minutes",
       "absences": "Absences"
     }
   }

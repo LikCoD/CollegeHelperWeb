@@ -1,10 +1,10 @@
 <div class='minutes-container'>
-  <input #timeInput class='form-control' placeholder="{{'journal.view.absentMinutes' | translate}}"
+  <input #timeInput class='form-control' placeholder="{{'journal.view.absenceMinutes' | translate}}"
          (keydown)="$event.code == 'Enter' ? confirm(timeInput.value) : ''"
-         [value]='(mark && mark.mark != absentMark) ? mark.mark : ""'>
+         [value]='(mark && mark.mark != absenceMark) ? mark.mark : ""'>
   <button type='button' class='btn btn-outline-secondary'
-          (click)='mark?.mark == absentMark ? remove.emit(mark!!.id) : confirm(null)'>
-    {{mark?.mark == absentMark ? '🗑' : absentMark}}
+          (click)='mark?.mark == absenceMark ? remove.emit(mark!!.id) : confirm(null)'>
+    {{mark?.mark == absenceMark ? '🗑' : absenceMark}}
   </button>
 </div>
 

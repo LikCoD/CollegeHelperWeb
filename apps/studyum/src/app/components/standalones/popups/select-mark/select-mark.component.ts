@@ -15,11 +15,11 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @Input() marks: string[]
   @Input() standaloneMarks?: string[]
-  @Input() absentMark: string
+  @Input() absenceMark: string
 
   @Input() showAllMarks: boolean
   @Input() showStandaloneMarks: boolean
-  @Input() showAbsents: boolean
+  @Input() showAbsence: boolean
 
   @Output() markAdd = new EventEmitter<Mark>()
   @Output() markEdit = new EventEmitter<Mark>()

@@ -23,8 +23,8 @@
 
 <app-absence-control
   #absence
-  *ngIf="showAbsents"
-  [absentMark]="absentMark" [lesson]="lesson"
+  *ngIf="showAbsence"
+  [absenceMark]="absenceMark" [lesson]="lesson"
   (add)="absenceAdd.emit($event)" (edit)="absenceEdit.emit($event)" (delete)="absenceDelete.emit($event)"
 ></app-absence-control>
 

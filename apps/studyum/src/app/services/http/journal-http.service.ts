@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import * as moment from 'moment';
-import { Journal, JournalOption, Mark } from '../../models/journal';
+import {Absence, Journal, JournalOption, Mark} from "../../models/journal"
 import {Lesson} from "../../models/schedule";
 
 @Injectable({ providedIn: 'root' })
@@ -45,8 +45,8 @@ export class JournalHttpService {
     }));
   }
 
-  getAbsentJournal(group: string, subject: string, teacher: string): Observable<Journal> {
-    let url = `api/journal/absent`;
+  getAbsenceJournal(group: string, subject: string, teacher: string): Observable<Journal> {
+    let url = `api/journal/absence`;
     if (group != '' && subject != '' && teacher != '') url += `/${group}/${subject}/${teacher}`;
 
     return this.http.get<Journal>(url).pipe(map(journal => {
@@ -93,22 +93,22 @@ export class JournalHttpService {
   }
 
   deleteMark(id: string): Observable<string> {
-    return this.http.delete<string>(`api/journal/mark?id=${id}`);
+    return this.http.delete<string>(`api/journal/mark/${id}`);
   }
 
-  setAbsent(data: any, absentMark: string): Observable<Mark> {
-    return this.http.post<Mark>(`api/journal/absences`, data).pipe(map(v => {
-      return <Mark>{ ...v, mark: v.time ? v.time : absentMark };
+  setAbsence(data: any, absenceMark: string): Observable<Absence> {
+    return this.http.post<Absence>(`api/journal/absences`, data).pipe(map(v => {
+      return <Absence>{ ...v, mark: v.time ? v.time : absenceMark };
     }));
   }
 
-  removeAbsent(id: string): Observable<string> {
+  removeAbsence(id: string): Observable<string> {
     return this.http.delete<string>(`api/journal/absences/${id}`);
   }
 
-  updateAbsent(data: any, absentMark: string) {
-    return this.http.put<Mark>(`api/journal/absences`, data).pipe(map(v => {
-      return <Mark>{ ...v, mark: v.time ? v.time : absentMark };
+  updateAbsence(data: any, absenceMark: string) {
+    return this.http.put<Absence>(`api/journal/absences`, data).pipe(map(v => {
+      return <Absence>{ ...v, mark: v.time ? v.time : absenceMark };
     }));
   }
 }
