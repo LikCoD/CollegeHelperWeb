@@ -98,5 +98,13 @@
       "absenceMinutes": "Minutes",
       "absences": "Absences"
     }
+  },
+  "popups": {
+    "lessonAdditionData": {
+      "type": "Type",
+      "title": "Title",
+      "homework": "Homework",
+      "description": "Description"
+    }
   }
 }

@@ -98,5 +98,13 @@
       "absenceMinutes": "Минуты",
       "absences": "Отсутствия"
     }
+  },
+  "popups": {
+    "lessonAdditionData": {
+      "type": "Тип урока",
+      "title": "Заголовок",
+      "description": "Описание",
+      "homework": "Домашнее задание"
+    }
   }
 }

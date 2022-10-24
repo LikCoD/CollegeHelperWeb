@@ -38,12 +38,13 @@
         </app-dialog-frame>
         <app-dialog-frame
           *ngIf="selectedDate && !isCtrlPressed && !isShiftPressed"
-          (close)="closeDatePopup(journal, $event); baseJournal.unselectCells()"
+          (close)="this.selectedDate = undefined; baseJournal.unselectCells()"
           [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}">
-          <app-date-property
+          <app-lesson-addition-data
             [lesson]="selectedDate.data"
             [types]="typesString(journal)"
-          ></app-date-property>
+            (confirm)="updateLesson(journal, $event)"
+          ></app-lesson-addition-data>
         </app-dialog-frame>
       </ng-container>
     </ng-container>

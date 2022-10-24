@@ -1,0 +1,13 @@
+form {
+  width: 300px;
+
+  > * {
+    width: 100%;
+
+    margin: 10px 0;
+  }
+}
+
+p {
+  white-space: pre-wrap;
+}

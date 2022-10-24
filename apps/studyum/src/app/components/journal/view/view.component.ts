@@ -163,31 +163,29 @@ export class JournalViewComponent implements OnInit {
     })
   }
 
-  closeDatePopup(journal: Journal, lesson: Lesson | null) {
-    if (this.selectedDate == undefined || lesson == null) {
-      this.selectedDate = undefined
-      return
-    }
-
-    this.scheduleService.updateLesson(lesson).subscribe({
-      next: lesson => {
-        let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)
-        journal.dates[columnIndex].type = lesson.type
-        journal.rows.forEach(value => {
-          value.lessons[columnIndex] = lesson
-        })
-      }
-    })
-
-    this.selectedDate = undefined
-  }
-
   truncateCell(journal: Journal) {
     this.selectedCell?.data.forEach(value => {
       value.lesson.marks?.forEach(v => this.journalService.deleteMark(journal.info.studyPlace, value.lesson, v.id ?? ""))
     })
 
     this.selectedCell = undefined
+  }
+
+  updateLesson(journal: Journal, lesson: Lesson) {
+    this.scheduleService.updateLesson(lesson).subscribe({
+      next: lesson => {
+        let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)
+        journal.dates[columnIndex] = lesson
+        journal.rows.forEach(value => {
+          value.lessons[columnIndex] = {
+            ...lesson,
+            journalCellColor: value.lessons[columnIndex].journalCellColor,
+            marks: value.lessons[columnIndex].marks,
+            absences: value.lessons[columnIndex].absences
+          }
+        })
+      }
+    })
   }
 }
 
