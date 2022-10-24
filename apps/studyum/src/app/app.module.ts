@@ -46,7 +46,6 @@ import { CreateCodeUserComponent } from "./components/user/profile/create-code-u
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core"
 import { TranslateHttpLoader } from "@ngx-translate/http-loader"
 import { UserInfoComponent } from "./components/user/profile/user-info/user-info.component"
-import { AbsenceAddComponent } from "./components/journal/view/absence-add/absence-add.component"
 import { BaseJournalComponent } from "./components/journal/view/base-journal/base-journal.component"
 import { HomeComponent } from "./components/general/home/home.component"
 import { HomeCardComponent } from "./components/general/home/home-card/home-card.component"
@@ -139,7 +138,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     JournalCellComponent,
     JournalComponent,
     DatePropertyComponent,
-    AbsenceAddComponent,
     BaseJournalComponent,
 
     ErrorInfoComponent,

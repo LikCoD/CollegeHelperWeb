@@ -9,7 +9,7 @@
       ></app-base-journal>
       <ng-container *ngIf="journal.info.editable">
         <app-dialog-frame
-          *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed && !isAbsencesSelected"
+          *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed"
           (close)="selectedCell = undefined; baseJournal.unselectCells()"
           [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
           (keydown.arrowUp)="baseJournal.focusCell(0, -1);"
@@ -24,7 +24,8 @@
             [marks]="getMarks(journal, selectedCell.data[0].lesson)"
             [standaloneMarks]="getStandaloneMarks(journal, selectedCell.data[0].lesson)"
             [absenceMark]="journal.info.studyPlace.absenceMark"
-            [showAllMarks]="!selectedLessonType"
+            [showAllMarks]="!selectedLessonType && !isAbsencesSelected"
+            [showStandaloneMarks]="!isAbsencesSelected"
             [showAbsence]="!selectedLessonType"
             (markAdd)="markAdd(journal, $event)"
             (markEdit)="markEdit(journal, $event)"
@@ -34,20 +35,6 @@
             (absenceDelete)="removeAbsence(selectedCell.data[0].lesson, $event)"
             (truncateCell)="truncateCell(journal)"
           ></app-select-mark>
-        </app-dialog-frame>
-        <app-dialog-frame
-          *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed && isAbsencesSelected"
-          (close)="selectedCell = undefined; baseJournal.unselectCells()"
-          [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
-        >
-          <app-absence-add
-            [lesson]="selectedCell.data[0].lesson"
-            [userId]="selectedCell.data[0].studentID"
-            [absenceMark]="journal.info.studyPlace.absenceMark"
-            (set)="setAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (update)="updateAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (remove)="removeAbsence(selectedCell.data[0].lesson, $event)"
-          ></app-absence-add>
         </app-dialog-frame>
         <app-dialog-frame
           *ngIf="selectedDate && !isCtrlPressed && !isShiftPressed"

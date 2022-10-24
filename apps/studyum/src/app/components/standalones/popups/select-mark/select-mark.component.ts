@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core"
-import { Lesson } from "../../../../models/schedule"
-import { Mark } from "../../../../models/journal"
-import { AbsenceControlComponent } from "./enteries/absence-control.component"
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
+import {Lesson} from "../../../../models/schedule"
+import {Mark} from "../../../../models/journal"
+import {AbsenceControlComponent} from "./enteries/absence-control.component"
 
 @Component({
   selector: "app-select-mark",
@@ -31,12 +31,12 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @Output() truncateCell = new EventEmitter<null>()
 
-  addMarkEl = <Mark>{ mark: "+" }
-  removeMarkEl = <Mark>{ mark: "🗑" }
+  addMarkEl = <Mark>{mark: "+"}
+  removeMarkEl = <Mark>{mark: "🗑"}
 
   selectedMark = this.addMarkEl
 
-  @ViewChild("markInput") markInput: ElementRef
+  @ViewChild("markInput") markInput: ElementRef<HTMLInputElement>
 
   @ViewChild("absence") absence: AbsenceControlComponent
 
@@ -44,11 +44,11 @@ export class SelectMarkComponent implements AfterViewInit {
     this.focusInput()
   }
 
-  confirmInput(key: string, mark: HTMLInputElement) {
+  confirmInput(key: string) {
     if (key != "Enter") return
 
-    this.confirm(mark.value)
-    mark.value = ""
+    this.confirm()
+    this.markInput.nativeElement.value = ""
   }
 
   addMark(mark_: string): void {
@@ -83,7 +83,8 @@ export class SelectMarkComponent implements AfterViewInit {
     this.selectedMark = this.addMarkEl
   }
 
-  confirm(mark: string): void {
+  confirm(): void {
+    let mark = this.markInput?.nativeElement?.value
     if (this.marks.includes(mark)) this.addMark(mark)
 
     this.absence.confirm()

@@ -1,9 +1,11 @@
 <input
+  *ngIf="showStandaloneMarks || showAllMarks"
   #markInput type="text" class="form-control mark-input"
   placeholder="{{'journal.view.mark' | translate}}"
-  (keydown)="confirmInput($event.code, markInput)">
+  (keydown)="confirmInput($event.code)">
 
 <app-select-buttons
+  *ngIf="showStandaloneMarks || showAllMarks"
   (action)="actionSelect($event)"
   [buttons]="actionButtons()" [selectedButton]="selectedMark">
 </app-select-buttons>
@@ -30,5 +32,5 @@
 
 <button
   class="mark-confirm" appSecondaryBtnDirective
-  (click)="confirm(markInput.value)"
+  (click)="confirm()"
 >{{'journal.view.confirm' | translate}}</button>
