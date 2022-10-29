@@ -28,4 +28,8 @@ app-dialog-frame {
   :last-child {
     margin-left: 15px;
   }
+
+  app-action-buttons {
+    gap: 10px;
+  }
 }

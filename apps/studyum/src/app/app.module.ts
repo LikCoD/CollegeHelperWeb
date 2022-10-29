@@ -49,14 +49,16 @@ import {BaseJournalComponent} from "./components/journal/view/base-journal/base-
 import {HomeComponent} from "./components/general/home/home.component"
 import {HomeCardComponent} from "./components/general/home/home-card/home-card.component"
 import {DialogFrameComponent} from "./components/general/dialog-frame/dialog-frame.component"
-import {MiniSelectBtnDirective} from "./components/standalones/mini-select-btn.directive"
-import {SelectButtonsComponent} from "./components/standalones/select-buttons.component"
+import {MiniSelectBtnDirective} from "./components/standalones/buttons/directives/mini-select-btn.directive"
+import {SelectButtonsComponent} from "./components/standalones/buttons/select-buttons.component"
+import {ActionButtonsComponent} from "./components/standalones/buttons/action-buttons.component"
 import {AbsenceControlComponent} from "./components/standalones/popups/select-mark/enteries/absence-control.component"
-import {SecondaryBtnDirectiveDirective} from "./components/standalones/secondary-btn.directive.directive"
+import {SecondaryBtnDirective} from "./components/standalones/buttons/directives/secondary-btn.directive"
 import {SelectMarkComponent} from "./components/standalones/popups/select-mark/select-mark.component"
 import {
   LessonAdditionDataComponent
-} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
+} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component";
+import { ActionSelectBtnDirective } from './components/standalones/buttons/directives/action-select-btn.directive'
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -148,13 +150,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     MomentPipe,
 
     SelectButtonsComponent,
+    ActionButtonsComponent,
 
     MiniSelectBtnDirective,
-    SecondaryBtnDirectiveDirective,
+    SecondaryBtnDirective,
 
     AbsenceControlComponent,
     SelectMarkComponent,
-    LessonAdditionDataComponent
+    LessonAdditionDataComponent,
+    ActionSelectBtnDirective
   ],
   imports: [
     BrowserModule,

@@ -50,12 +50,17 @@
     </ng-container>
   </div>
   <div class="bottom-bar">
-    <button *ngFor="let lessonType of journals[0].info.studyPlace.lessonTypes"
-            (click)="selectLessonType(journals[0], lessonType)"
-            class="btn btn-outline-light">
-      {{ (selectedLessonType == lessonType.type)
-      ? ('journal.view.back' | translate) : lessonType.type }}</button>
-    <button class="btn btn-outline-light" (click)="getAbsenceJournal()">
-      {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}</button>
+    <app-action-buttons
+      [buttons]="getLessonTypes(journals[0])"
+      [selectedText]="'journal.view.back' | translate"
+      [selectedButton]="selectedLessonType"
+      (action)="selectLessonType(journals[0], $event)"
+    ></app-action-buttons>
+    <button
+      [appActionSelectBtn]="isAbsencesSelected"
+      (click)="getAbsenceJournal()"
+    >
+      {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}
+    </button>
   </div>
 </ng-container>

@@ -17,7 +17,7 @@ import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-m
 export class JournalViewComponent implements OnInit {
 
   isAbsencesSelected = false
-  selectedLessonType: string | null
+  selectedLessonType: LessonType | null
 
   journal$: Observable<Journal[]>
 
@@ -74,15 +74,15 @@ export class JournalViewComponent implements OnInit {
     this.journalService.getAbsenceJournal(params["group"], params["subject"], params["teacher"])
   }
 
-  selectLessonType(journal: Journal, type: LessonType) {
-    if (this.selectedLessonType == type.type) {
+  selectLessonType(journal: Journal, type: LessonType | null) {
+    if (type == null || this.selectedLessonType == type) {
       this.selectedLessonType = null
       this.journalService.getGeneralJournal()
       return
     }
 
     this.isAbsencesSelected = false
-    this.selectedLessonType = type.type
+    this.selectedLessonType = type
 
     this.journalService.selectStandaloneType(type.type)
   }
@@ -185,6 +185,13 @@ export class JournalViewComponent implements OnInit {
           }
         })
       }
+    })
+  }
+
+  getLessonTypes(journal: Journal) {
+    return journal.info.studyPlace.lessonTypes.map(type => {
+      type.toString = () => type.type
+      return type
     })
   }
 }
