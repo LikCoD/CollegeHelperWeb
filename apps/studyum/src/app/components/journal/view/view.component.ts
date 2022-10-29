@@ -187,12 +187,5 @@ export class JournalViewComponent implements OnInit {
       }
     })
   }
-
-  getLessonTypes(journal: Journal) {
-    return journal.info.studyPlace.lessonTypes.map(type => {
-      type.toString = () => type.type
-      return type
-    })
-  }
 }
 

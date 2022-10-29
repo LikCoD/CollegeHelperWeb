@@ -1,0 +1,12 @@
+<app-action-buttons
+  [buttons]="getLessonTypes()"
+  [selectedText]="'journal.view.back' | translate"
+  [selectedButton]="selectedType"
+  (action)="selectType.emit($event)"
+></app-action-buttons>
+<button
+  [appActionSelectBtn]="isAbsencesSelected"
+  (click)="toggleAbsence.emit()"
+>
+  {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}
+</button>

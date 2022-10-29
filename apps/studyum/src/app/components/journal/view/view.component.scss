@@ -18,18 +18,4 @@ app-dialog-frame {
   overflow: scroll;
 }
 
-.bottom-bar {
-  display: flex;
-  gap: 10px;
 
-  margin-bottom: 10px;
-  margin-left: 10px;
-
-  :last-child {
-    margin-left: 15px;
-  }
-
-  app-action-buttons {
-    gap: 10px;
-  }
-}

@@ -15,15 +15,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component"
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component"
 import {UserLoginComponent} from "./components/user/user-login/user-login.component"
-import {
-  AddSubjectDialogComponent
-} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component"
+import {AddSubjectDialogComponent} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component"
 import {ErrorInfoComponent} from "./components/general/error-info/error-info.component"
 import {MatDialogModule} from "@angular/material/dialog"
 import {MatNativeDateModule} from "@angular/material/core"
-import {
-  SelectSubjectDialogComponent
-} from "./components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component"
+import {SelectSubjectDialogComponent} from "./components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component"
 import {MomentPipe} from "./pipes/moment.pipe"
 import {ScheduleCellDirective} from "./components/schedule/view/cell/cell-directive/schedule-cell.directive"
 import {EditScheduleComponent} from "./components/schedule/view/edit/edit-scdedule/edit-schedule.component"
@@ -38,9 +34,7 @@ import {NotLoginGuard} from "./guards/not-login.guard"
 import {LoginGuard} from "./guards/login.guard"
 import {SignupStage1Guard} from "./guards/signup-stage1.guard"
 import {SignUpWithTokenComponent} from "./components/user/signup/with-token/sign-up-with-token.component"
-import {
-  ScheduleBottomControllerComponent
-} from "./components/schedule/view/bottom-controller/schedule-bottom-controller.component"
+import {ScheduleBottomControllerComponent} from "./components/schedule/view/bottom-controller/schedule-bottom-controller.component"
 import {CreateCodeUserComponent} from "./components/user/profile/create-code-user/create-code-user.component"
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core"
 import {TranslateHttpLoader} from "@ngx-translate/http-loader"
@@ -55,10 +49,9 @@ import {ActionButtonsComponent} from "./components/standalones/buttons/action-bu
 import {AbsenceControlComponent} from "./components/standalones/popups/select-mark/enteries/absence-control.component"
 import {SecondaryBtnDirective} from "./components/standalones/buttons/directives/secondary-btn.directive"
 import {SelectMarkComponent} from "./components/standalones/popups/select-mark/select-mark.component"
-import {
-  LessonAdditionDataComponent
-} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component";
-import { ActionSelectBtnDirective } from './components/standalones/buttons/directives/action-select-btn.directive'
+import {LessonAdditionDataComponent} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
+import {ActionSelectBtnDirective} from "./components/standalones/buttons/directives/action-select-btn.directive"
+import {JournalBottomActionBarComponent} from "./components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -69,38 +62,38 @@ const appRoutes: Routes = [
   {
     path: "signup/stage1",
     component: SignupStage1Component,
-    canActivate: [NotLoginGuard, SignupStage1Guard]
+    canActivate: [NotLoginGuard, SignupStage1Guard],
   },
   {
     path: "signup/withToken",
     component: SignUpWithTokenComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {path: "login", component: UserLoginComponent, canActivate: [LoginGuard]},
 
   {
     path: "journal",
     component: JournalComponent,
-    canActivate: [NotLoginGuard]
+    canActivate: [NotLoginGuard],
   },
   {
     path: "journal/view",
     component: JournalViewComponent,
-    canActivate: [NotLoginGuard]
+    canActivate: [NotLoginGuard],
   },
 
   {path: "schedule", component: ViewComponent, canActivate: []},
   {
     path: "schedule/login",
     component: LoginScheduleComponent,
-    canActivate: []
+    canActivate: [],
   },
 
   {
     path: "user/receiveToken",
     component: ReceiveTokenComponent,
-    canActivate: [NotLoginGuard]
-  }
+    canActivate: [NotLoginGuard],
+  },
 ]
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -158,7 +151,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AbsenceControlComponent,
     SelectMarkComponent,
     LessonAdditionDataComponent,
-    ActionSelectBtnDirective
+    ActionSelectBtnDirective,
+    JournalBottomActionBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -173,12 +167,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

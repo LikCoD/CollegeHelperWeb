@@ -49,18 +49,11 @@
       </ng-container>
     </ng-container>
   </div>
-  <div class="bottom-bar">
-    <app-action-buttons
-      [buttons]="getLessonTypes(journals[0])"
-      [selectedText]="'journal.view.back' | translate"
-      [selectedButton]="selectedLessonType"
-      (action)="selectLessonType(journals[0], $event)"
-    ></app-action-buttons>
-    <button
-      [appActionSelectBtn]="isAbsencesSelected"
-      (click)="getAbsenceJournal()"
-    >
-      {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}
-    </button>
-  </div>
+  <app-journal-bottom-action-bar
+    [journal]="journals[0]"
+    [selectedType]="selectedLessonType"
+    [isAbsencesSelected]="isAbsencesSelected"
+    (selectType)="selectLessonType(journals[0], $event)"
+    (toggleAbsence)="getAbsenceJournal()"
+  ></app-journal-bottom-action-bar>
 </ng-container>
