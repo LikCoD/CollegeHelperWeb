@@ -1,23 +1,25 @@
-<ng-container *ngIf='filterCollapsed("dates", journal.dates) as collapsedDates'>
-  <div class='sticky-corner'>
-    <button class='btn btn-outline-light'
-            (click)='toggleCollapse(journal)'>{{'journal.view.collapse' | translate}}</button>
+<ng-container *ngIf='filterLessons("dates", journal.dates) as collapsedDates'>
+  <div class="sticky-corner">
+    <button
+      class="btn btn-outline-light"
+      (click)="toggleCollapse(journal)"
+    >{{'journal.view.collapse' | translate}}</button>
   </div>
-  <div class='date-row'>
-    <div *ngFor='let date of collapsedDates' #cell (click)='onDateClick(cell, journal, date)'>
-      <div *ngIf='date.collapsedType != undefined' class='more-circle'></div>
+  <div class="date-row">
+    <div *ngFor="let date of collapsedDates" #cell (click)="onDateClick(cell, journal, date)">
+      <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>
       <span>{{date.startDate | moment: "MMM"}}</span>
       <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
     </div>
   </div>
-  <ol class='titles'>
-    <li *ngFor='let row of journal.rows'>{{row.title}}</li>
+  <ol class="titles">
+    <li *ngFor="let row of journal.rows">{{row.title}}</li>
   </ol>
   <table #table>
     <tbody>
-    <tr *ngFor='let row of journal.rows; let y = index'>
+    <tr *ngFor="let row of journal.rows; let y = index">
       <td
-        *ngFor='let lesson of filterCollapsed("rows", row.lessons, journal.dates); let x = index'
+        *ngFor='let lesson of filterLessons("rows", row.lessons, journal.dates); let x = index'
         #cell
         (keydown.arrowUp)="focusCell(0, -1)"
         (keydown.arrowRight)="focusCell(1, 0)"
@@ -32,6 +34,8 @@
           [show]="journal.info.editable"
           [userId]="row.id"
           [absenceMark]="journal.info.studyPlace.absenceMark"
+          [mode]="mode"
+          [lessonTypes]="journal.info.studyPlace.lessonTypes"
           [x]="x"
           [y]="y"
         ></app-journal-cell>

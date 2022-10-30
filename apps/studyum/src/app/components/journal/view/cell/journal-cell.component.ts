@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core"
 import {JournalViewComponent} from "../view.component"
 import {Lesson} from "../../../../models/schedule"
+import {JournalMode, LessonType} from "../../../../models/general"
 
 @Component({
   selector: "app-journal-cell",
@@ -12,6 +13,8 @@ export class JournalCellComponent {
   @Input() userId: string
   @Input() absenceMark: string
   @Input() show: boolean = true
+  @Input() mode: JournalMode
+  @Input() lessonTypes: LessonType[]
 
   @Input() x: number
   @Input() y: number
@@ -19,22 +22,33 @@ export class JournalCellComponent {
   constructor(public parent: JournalViewComponent) {
   }
 
-  getEntries() {
-    let marks = this.lesson.marks?.map(value => <Entry>{
-      title: value.mark,
-      studentID: value.studentID,
-      lessonID: value.lessonID,
-      studyPlaceID: value.studyPlaceID,
-      id: value.id
-    }) ?? []
+  getType() {
+    return this.lessonTypes.find(v => v.type == this.lesson.type)
+  }
 
-    let absences = this.lesson.absences?.map(value => <Entry>{
-      title: value.time ?? this.absenceMark,
-      studentID: value.studentID,
-      lessonID: value.lessonID,
-      studyPlaceID: value.studyPlaceID,
-      id: value.id
-    }) ?? []
+  getEntries() {
+    let type = this.getType()!!
+
+    let marks = this.lesson.marks
+      ?.filter(v => this.mode == "general" || (this.mode == "standalone" && type.standaloneMarks.find(t => t.mark == v.mark)))
+      ?.map(value => <Entry>{
+        title: value.mark,
+        studentID: value.studentID,
+        lessonID: value.lessonID,
+        studyPlaceID: value.studyPlaceID,
+        id: value.id
+      }) ?? []
+
+    if (this.mode == "standalone") return marks
+
+    let absences = this.lesson.absences
+      ?.map(value => <Entry>{
+        title: value.time ?? this.absenceMark,
+        studentID: value.studentID,
+        lessonID: value.lessonID,
+        studyPlaceID: value.studyPlaceID,
+        id: value.id
+      }) ?? []
 
     return marks.concat(absences)
   }

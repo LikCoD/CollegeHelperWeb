@@ -18,6 +18,9 @@ export class JournalHttpService {
       for (let i = 0; i < journal.dates.length; i++) {
         journal.dates[i].startDate = moment.utc(journal.dates[i].startDate);
         journal.dates[i].endDate = moment.utc(journal.dates[i].endDate);
+
+        journal.dates[i].collapsed = false;
+        journal.dates[i].visible = true;
       }
 
       journal.rows.forEach(row => {
@@ -38,41 +41,7 @@ export class JournalHttpService {
           row.lessons[i].startDate = moment.utc(row.lessons[i].startDate);
 
           row.lessons[i].collapsed = false;
-        }
-      });
-
-      return journal;
-    }));
-  }
-
-  getAbsenceJournal(group: string, subject: string, teacher: string): Observable<Journal> {
-    let url = `api/journal/absence`;
-    if (group != '' && subject != '' && teacher != '') url += `/${group}/${subject}/${teacher}`;
-
-    return this.http.get<Journal>(url).pipe(map(journal => {
-      for (let i = 0; i < journal.dates.length; i++) {
-        journal.dates[i].startDate = moment.utc(journal.dates[i].startDate);
-        journal.dates[i].endDate = moment.utc(journal.dates[i].endDate);
-      }
-
-      journal.rows.forEach(row => {
-        for (let i = 0; i < row.lessons.length; i++) {
-          if (row.lessons[i].subject == "") {
-            row.lessons[i] = <Lesson>{
-              startDate: journal.dates[i].startDate.clone(),
-              endDate: journal.dates[i].startDate.clone(),
-              group: "",
-              primaryColor: "",
-              room: "",
-              subject: "",
-              teacher: ""
-            }
-          }
-
-          row.lessons[i].endDate = moment.utc(row.lessons[i].endDate);
-          row.lessons[i].startDate = moment.utc(row.lessons[i].startDate);
-
-          row.lessons[i].collapsed = false;
+          row.lessons[i].visible = true;
         }
       });
 

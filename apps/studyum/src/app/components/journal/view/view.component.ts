@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit, ViewChild} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
 import {JournalService} from "../../../services/shared/journal.service"
 import {Journal, Mark} from "../../../models/journal"
-import {LessonType} from "../../../models/general"
+import {JournalMode, LessonType} from "../../../models/general"
 import {Observable} from "rxjs"
 import {DataPoint, JournalPointData} from "../../../models/dto/points"
 import {Lesson} from "../../../models/schedule"
@@ -35,14 +35,13 @@ export class JournalViewComponent implements OnInit {
     public journalService: JournalService,
     public scheduleService: ScheduleService
   ) {
-    this.journal$ = journalService.journal$
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params["group"] == undefined || params["subject"] == undefined || params["teacher"] == undefined) return
 
-      this.journalService.getJournal(params["group"], params["subject"], params["teacher"])
+      this.journal$ = this.journalService.getJournal(params["group"], params["subject"], params["teacher"])
     })
   }
 
@@ -58,22 +57,6 @@ export class JournalViewComponent implements OnInit {
     if (event.key == "Shift") this.isShiftPressed = false
   }
 
-  getAbsenceJournal() {
-    if (this.isAbsencesSelected) {
-      this.isAbsencesSelected = false
-      this.journalService.getGeneralJournal()
-      return
-    }
-
-    this.selectedLessonType = null
-    this.isAbsencesSelected = true
-
-    let params = this.router.parseUrl(this.router.url).queryParams
-    if (params["group"] == undefined || params["subject"] == undefined || params["teacher"] == undefined) return
-
-    this.journalService.getAbsenceJournal(params["group"], params["subject"], params["teacher"])
-  }
-
   selectLessonType(journal: Journal, type: LessonType | null) {
     if (type == null || this.selectedLessonType == type) {
       this.selectedLessonType = null
@@ -84,7 +67,7 @@ export class JournalViewComponent implements OnInit {
     this.isAbsencesSelected = false
     this.selectedLessonType = type
 
-    this.journalService.selectStandaloneType(type.type)
+    this.journalService.selectStandaloneType(journal, type.type)
   }
 
   getStandaloneMarks(journal: Journal, lesson: Lesson): string[] | undefined {
@@ -186,6 +169,12 @@ export class JournalViewComponent implements OnInit {
         })
       }
     })
+  }
+
+  mode(): JournalMode {
+    if (this.isAbsencesSelected) return "absences"
+    if (this.selectedLessonType != null) return "standalone"
+    return "general"
   }
 }
 

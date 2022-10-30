@@ -22,3 +22,5 @@ export interface JournalColors {
   warning: string
   danger: string
 }
+
+export type JournalMode = ("general" | "standalone" | "absences");

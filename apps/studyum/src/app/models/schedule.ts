@@ -24,6 +24,7 @@ export interface Lesson {
   description?: string;
   isGeneral?: boolean;
   collapsed?: boolean;
+  visible?: boolean;
   collapsedType?: moment.unitOfTime.StartOf;
 }
 
