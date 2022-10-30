@@ -131,9 +131,9 @@ export class BaseJournalComponent {
     this.dateClick.emit({x: cell.offsetLeft, y: cell.offsetTop, data: date})
   }
 
-  toggleCollapse(journal: Journal) {
+  toggleCollapse() {
     this.focusedCells = []
-    this.journalService.expand(journal)
+    this.journalService.expand(this.journal)
 
     switch (this.collapseType) {
       case undefined:
@@ -150,7 +150,7 @@ export class BaseJournalComponent {
     let sameExists = false
     let lastDate: moment.Moment | undefined = undefined
     let lessons: Lesson[] = []
-    journal.dates.forEach(value => {
+    this.journal.dates.forEach(value => {
       if ((lastDate != undefined && compareDates(lastDate, value.startDate, this.collapseType!!)) || value.collapsedType != undefined) {
         sameExists = true
         return
@@ -161,12 +161,12 @@ export class BaseJournalComponent {
     })
 
     if (!sameExists) {
-      this.toggleCollapse(journal)
+      this.toggleCollapse()
       return
     }
 
     lessons.forEach(l => {
-      this.journalService.collapse(journal, l, this.collapseType!!)
+      this.journalService.collapse(this.journal, l, this.collapseType!!)
     })
   }
 

@@ -1,10 +1,5 @@
 <ng-container *ngIf='filterLessons("dates", journal.dates) as collapsedDates'>
-  <div class="sticky-corner">
-    <button
-      class="btn btn-outline-light"
-      (click)="toggleCollapse(journal)"
-    >{{'journal.view.collapse' | translate}}</button>
-  </div>
+  <app-base-journal-corner (collapse)="toggleCollapse()"></app-base-journal-corner>
   <div class="date-row">
     <div *ngFor="let date of collapsedDates" #cell (click)="onDateClick(cell, journal, date)">
       <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>

@@ -52,6 +52,7 @@ import {SelectMarkComponent} from "./components/standalones/popups/select-mark/s
 import {LessonAdditionDataComponent} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
 import {ActionSelectBtnDirective} from "./components/standalones/buttons/directives/action-select-btn.directive"
 import {JournalBottomActionBarComponent} from "./components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
+import {BaseJournalCornerComponent} from "./components/journal/view/base-journal/base-journal-corner/base-journal-corner.component"
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -153,6 +154,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LessonAdditionDataComponent,
     ActionSelectBtnDirective,
     JournalBottomActionBarComponent,
+    BaseJournalCornerComponent,
   ],
   imports: [
     BrowserModule,
