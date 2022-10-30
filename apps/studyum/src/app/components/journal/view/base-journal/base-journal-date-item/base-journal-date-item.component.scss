@@ -1,0 +1,15 @@
+@use '../../../../../../styles';
+
+:host {
+  width: 66px;
+  min-width: 66px;
+  height: 50px;
+
+  position: relative;
+
+  vertical-align: bottom;
+  text-align: center;
+  display: grid;
+  align-content: center;
+  color: styles.$onBackgroundColor;
+}

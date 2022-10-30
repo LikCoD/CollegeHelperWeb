@@ -1,11 +1,12 @@
-<ng-container *ngIf='filterLessons("dates", journal.dates) as collapsedDates'>
+<ng-container *ngIf="filterLessons(journal.dates) as collapsedDates">
   <app-base-journal-corner (collapse)="toggleCollapse()"></app-base-journal-corner>
   <div class="date-row">
-    <div *ngFor="let date of collapsedDates" #cell (click)="onDateClick(cell, journal, date)">
-      <div *ngIf="date.collapsedType != undefined" class="more-circle"></div>
-      <span>{{date.startDate | moment: "MMM"}}</span>
-      <span *ngIf="date.collapsedType != 'month'">{{date.startDate | moment: "dd D"}}</span>
-    </div>
+    <app-base-journal-date-item
+      *ngFor="let date of collapsedDates"
+      #item
+      [lesson]="date"
+      (click)="onDateClick(item.elRef, journal, date)"
+    ></app-base-journal-date-item>
   </div>
   <ol class="titles">
     <li *ngFor="let row of journal.rows">{{row.title}}</li>
@@ -14,7 +15,7 @@
     <tbody>
     <tr *ngFor="let row of journal.rows; let y = index">
       <td
-        *ngFor='let lesson of filterLessons("rows", row.lessons, journal.dates); let x = index'
+        *ngFor="let lesson of filterLessons(row.lessons, journal.dates); let x = index"
         #cell
         (keydown.arrowUp)="focusCell(0, -1)"
         (keydown.arrowRight)="focusCell(1, 0)"
@@ -23,22 +24,16 @@
         (focus)="focus(cell, x, y, lesson, row.id, journal)"
         class="cell"
         tabindex="0">
-        <app-journal-cell
+        <app-base-journal-cell
           [ngClass]="{focused: isFocused(x, y)}"
-          [lesson]="lesson"
-          [show]="journal.info.editable"
-          [userId]="row.id"
-          [absenceMark]="journal.info.studyPlace.absenceMark"
-          [mode]="mode"
-          [lessonTypes]="journal.info.studyPlace.lessonTypes"
-          [x]="x"
-          [y]="y"
-        ></app-journal-cell>
+          [entries]="cellEntities(lesson)"
+          [color]="lesson.journalCellColor ?? 'white'"
+        ></app-base-journal-cell>
       </td>
     </tr>
     </tbody>
   </table>
   <!--    <section>
-        <app-journal-cell *ngFor="let row of journal.rows" [lesson]="row.lessons[0]"></app-journal-cell>
+        <app-journal-base-journal-cell *ngFor="let row of journal.rows" [lesson]="row.lessons[0]"></app-journal-base-journal-cell>
       </section>-->
 </ng-container>

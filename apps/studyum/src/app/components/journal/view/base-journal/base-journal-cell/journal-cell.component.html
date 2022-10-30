@@ -1,6 +1,6 @@
-<div class="cell" *ngIf="getEntries() as entries">
+<div class="cell">
   <div *ngIf="entries.length > 0 else emptyCell"
-       class="not-empty-cell" [ngStyle]='{"backgroundColor": lesson.journalCellColor}'>
+       class="not-empty-cell" [ngStyle]='{"backgroundColor": color}'>
     <ng-container *ngIf="entries.length == 1">
       <p>{{entries[0].title}}</p>
     </ng-container>
@@ -22,7 +22,7 @@
 <!--
 <popper-content #marksTooltip>
   <div class='markTooltip' *ngIf='lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0'>
-    <div *ngFor='let mark of lesson!!.marks' class='mark-cell'>
+    <div *ngFor='let mark of lesson!!.marks' class='mark-base-journal-cell'>
       <p>{{mark?.mark}}</p>
     </div>
   </div>

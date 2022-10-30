@@ -6,6 +6,7 @@ import {compareDates} from "../../../../utils"
 import {JournalService} from "../../../../services/shared/journal.service"
 import {DataPoint, JournalPointData} from "../../../../models/dto/points"
 import {JournalMode} from "../../../../models/general"
+import {Entry} from "./base-journal-cell/journal-cell.component"
 
 @Component({
   selector: "app-base-journal",
@@ -107,7 +108,7 @@ export class BaseJournalComponent {
     if (event.key == "Shift") this.isShiftPressed = false
   }
 
-  onDateClick(cell: HTMLDivElement, journal: Journal, date: Lesson) {
+  onDateClick(cell: ElementRef, journal: Journal, date: Lesson) {
     this.focusedCells = []
 
     if (date.collapsedType != undefined) {
@@ -128,7 +129,7 @@ export class BaseJournalComponent {
       return
     }
 
-    this.dateClick.emit({x: cell.offsetLeft, y: cell.offsetTop, data: date})
+    this.dateClick.emit({x: cell.nativeElement.offsetLeft, y: cell.nativeElement.offsetTop, data: date})
   }
 
   toggleCollapse() {
@@ -170,12 +171,39 @@ export class BaseJournalComponent {
     })
   }
 
-  filterLessons(type: string, lessons: Lesson[], dates = lessons): Lesson[] {
+  filterLessons(lessons: Lesson[], dates = lessons): Lesson[] {
     return lessons.filter((_, i) => !dates[i].collapsed && dates[i].visible)
   }
 
   unselectCells() {
     this.focusedCells = []
+  }
+
+  cellEntities(lesson: Lesson) {
+    let type = this.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)
+
+    let marks = lesson.marks
+      ?.filter(v => this.mode == "general" || (this.mode == "standalone" && type?.standaloneMarks?.find(t => t.mark == v.mark)))
+      ?.map(value => <Entry>{
+        title: value.mark,
+        studentID: value.studentID,
+        lessonID: value.lessonID,
+        studyPlaceID: value.studyPlaceID,
+        id: value.id
+      }) ?? []
+
+    if (this.mode == "standalone") return marks
+
+    let absences = lesson.absences
+      ?.map(value => <Entry>{
+        title: value.time ?? this.journal.info.studyPlace.absenceMark,
+        studentID: value.studentID,
+        lessonID: value.lessonID,
+        studyPlaceID: value.studyPlaceID,
+        id: value.id
+      }) ?? []
+
+    return marks.concat(absences)
   }
 }
 

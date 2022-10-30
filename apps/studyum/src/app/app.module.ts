@@ -8,7 +8,7 @@ import {CellComponent} from "./components/schedule/view/cell/cell.component"
 import {LoginScheduleComponent} from "./components/schedule/login/login.component"
 import {ViewComponent} from "./components/schedule/view/view.component"
 import {JournalViewComponent} from "./components/journal/view/view.component"
-import {JournalCellComponent} from "./components/journal/view/cell/journal-cell.component"
+import {JournalCellComponent} from "./components/journal/view/base-journal/base-journal-cell/journal-cell.component"
 import {ProfileComponent} from "./components/user/profile/profile.component"
 import {AcceptUsersComponent} from "./components/user/profile/accept-users/accept-users.component"
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
@@ -53,6 +53,8 @@ import {LessonAdditionDataComponent} from "./components/standalones/popups/lesso
 import {ActionSelectBtnDirective} from "./components/standalones/buttons/directives/action-select-btn.directive"
 import {JournalBottomActionBarComponent} from "./components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
 import {BaseJournalCornerComponent} from "./components/journal/view/base-journal/base-journal-corner/base-journal-corner.component"
+import {BaseJournalDateItemComponent} from "./components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
+import {MoreIndicatorComponent} from "./components/standalones/more-indicator.component"
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -155,6 +157,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ActionSelectBtnDirective,
     JournalBottomActionBarComponent,
     BaseJournalCornerComponent,
+    BaseJournalDateItemComponent,
+    MoreIndicatorComponent,
   ],
   imports: [
     BrowserModule,

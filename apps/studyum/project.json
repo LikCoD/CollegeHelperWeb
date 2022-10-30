@@ -11,6 +11,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
+        "inlineStyleLanguage": "scss",
         "outputPath": "dist/apps/studyum",
         "index": "apps/studyum/src/index.html",
         "main": "apps/studyum/src/main.ts",
@@ -81,6 +82,7 @@
       }
     },
     "test": {
+      "inlineStyleLanguage": "scss",
       "executor": "@angular-devkit/build-angular:karma",
       "options": {
         "main": "apps/studyum/src/test.ts",
