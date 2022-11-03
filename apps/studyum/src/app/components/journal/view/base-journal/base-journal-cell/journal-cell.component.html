@@ -11,7 +11,7 @@
         <p>{{entries[1]}}</p>
       </div>
     </ng-container>
-    <div *ngIf="entries.length > 2" class="more-circle"></div>
+    <app-more-indicator *ngIf="entries.length > 2"></app-more-indicator>
   </div>
 </div>
 

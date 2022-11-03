@@ -13,8 +13,6 @@ import {Component} from "@angular/core"
       height: 7px;
       background-color: styles.$secondaryColor;
       border-radius: 50%;
-
-      right: 5px;
     }
   `],
 })
