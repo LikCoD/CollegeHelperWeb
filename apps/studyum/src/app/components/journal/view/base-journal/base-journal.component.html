@@ -33,7 +33,12 @@
     </tr>
     </tbody>
   </table>
-  <!--    <section>
-        <app-journal-base-journal-cell *ngFor="let row of journal.rows" [lesson]="row.lessons[0]"></app-journal-base-journal-cell>
-      </section>-->
+  <div class="average-corner">{{'journal.view.avg' | translate}}</div>
+  <section>
+    <app-base-journal-cell
+      *ngFor="let row of journal.rows"
+      [entries]="[getAverage(row)]"
+      [color]="row.color">
+    </app-base-journal-cell>
+  </section>
 </ng-container>

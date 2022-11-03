@@ -92,7 +92,7 @@ app-base-journal-corner {
 }
 
 .focused {
-  outline: solid styles.$secondaryColor 4px;
+  box-shadow: 0 0 0 4px styles.$secondaryColor;
   border-radius: 15px;
 }
 
@@ -120,6 +120,18 @@ section {
   grid-column: 3;
 
   background: styles.$backgroundColor;
+
+   > * {
+    margin: 16px 5px;
+
+    &:first-child {
+      margin-top: 8px;
+    }
+  }
+
+  app-base-journal-cell {
+    font-weight: bold;
+  }
 }
 
 .more-circle {
@@ -131,4 +143,22 @@ section {
   border-radius: 50%;
 
   right: 5px;
+}
+
+.average-corner {
+  position: sticky;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  grid-row: 1;
+  grid-column: 3;
+
+  color: styles.$onBackgroundColor;
+  background: styles.$backgroundColor;
+
+  z-index: 3;
 }

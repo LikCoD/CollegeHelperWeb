@@ -96,7 +96,8 @@
       "clear": "Clear",
       "absence": "Absence",
       "absenceMinutes": "Minutes",
-      "absences": "Absences"
+      "absences": "Absences",
+      "avg": "Avg"
     }
   },
   "popups": {

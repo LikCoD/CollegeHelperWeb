@@ -11,11 +11,11 @@ export interface JournalInfo {
 
 export interface JournalRow {
   id: string;
-  subject: string;
-  group: string;
   title: string;
-  userType: string;
   lessons: Lesson[];
+  color: string;
+  marksSum: number
+  numericMarksAmount: number
 }
 
 export interface Journal {

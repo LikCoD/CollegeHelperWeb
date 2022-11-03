@@ -96,7 +96,8 @@
       "clear": "Очистить",
       "absence": "Отсутствует",
       "absenceMinutes": "Минуты",
-      "absences": "Отсутствия"
+      "absences": "Отсутствия",
+      "avg": "Ср."
     }
   },
   "popups": {

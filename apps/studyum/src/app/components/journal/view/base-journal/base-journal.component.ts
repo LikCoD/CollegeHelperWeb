@@ -1,12 +1,12 @@
 import {Component, ElementRef, EventEmitter, Host, HostListener, Input, Output, ViewChild} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
-import {Journal} from "../../../../models/journal"
+import {Journal, JournalRow} from "../../../../models/journal"
 import * as moment from "moment"
 import {compareDates} from "../../../../utils"
 import {JournalService} from "../../../../services/shared/journal.service"
 import {DataPoint, JournalPointData} from "../../../../models/dto/points"
 import {JournalMode} from "../../../../models/general"
-import {Entry} from "./base-journal-cell/journal-cell.component"
+import {defaultLocale} from "../../../../app.component"
 
 @Component({
   selector: "app-base-journal",
@@ -179,31 +179,26 @@ export class BaseJournalComponent {
     this.focusedCells = []
   }
 
-  cellEntities(lesson: Lesson) {
+  cellEntities(lesson: Lesson): string[] {
     let type = this.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)
 
     let marks = lesson.marks
       ?.filter(v => this.mode == "general" || (this.mode == "standalone" && type?.standaloneMarks?.find(t => t.mark == v.mark)))
-      ?.map(value => <Entry>{
-        title: value.mark,
-        studentID: value.studentID,
-        lessonID: value.lessonID,
-        studyPlaceID: value.studyPlaceID,
-        id: value.id
-      }) ?? []
+      ?.map(value => value.mark) ?? []
 
     if (this.mode == "standalone") return marks
 
     let absences = lesson.absences
-      ?.map(value => <Entry>{
-        title: value.time ?? this.journal.info.studyPlace.absenceMark,
-        studentID: value.studentID,
-        lessonID: value.lessonID,
-        studyPlaceID: value.studyPlaceID,
-        id: value.id
-      }) ?? []
+      ?.map(value => value.time ?? this.journal.info.studyPlace.absenceMark) ?? []
 
     return marks.concat(absences)
+  }
+
+  getAverage(row: JournalRow): string {
+    if (row.numericMarksAmount == 0) return "-"
+
+    let locale = localStorage.getItem("locale") ?? defaultLocale
+    return (row.marksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2})
   }
 }
 

@@ -2,13 +2,13 @@
   <div *ngIf="entries.length > 0 else emptyCell"
        class="not-empty-cell" [ngStyle]='{"backgroundColor": color}'>
     <ng-container *ngIf="entries.length == 1">
-      <p>{{entries[0].title}}</p>
+      <p>{{entries[0]}}</p>
     </ng-container>
     <ng-container *ngIf="entries.length > 1">
       <div class="mark2">
-        <p>{{entries[0].title}}</p>
+        <p>{{entries[0]}}</p>
         <hr>
-        <p>{{entries[1].title}}</p>
+        <p>{{entries[1]}}</p>
       </div>
     </ng-container>
     <div *ngIf="entries.length > 2" class="more-circle"></div>
@@ -18,13 +18,3 @@
 <ng-template #emptyCell>
   <div class="empty-cell"></div>
 </ng-template>
-
-<!--
-<popper-content #marksTooltip>
-  <div class='markTooltip' *ngIf='lesson != undefined && lesson.marks != undefined && lesson.marks.length != 0'>
-    <div *ngFor='let mark of lesson!!.marks' class='mark-base-journal-cell'>
-      <p>{{mark?.mark}}</p>
-    </div>
-  </div>
-</popper-content>
--->

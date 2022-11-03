@@ -6,14 +6,6 @@ import {Component, Input} from "@angular/core"
   styleUrls: ["./journal-cell.component.scss"]
 })
 export class JournalCellComponent {
-  @Input() entries: Entry[]
+  @Input() entries: string[]
   @Input() color: string
-}
-
-export interface Entry {
-  title: string;
-  studentID: string;
-  lessonID: string;
-  studyPlaceID: string;
-  id?: string;
 }
