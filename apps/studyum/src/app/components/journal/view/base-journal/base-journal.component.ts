@@ -198,7 +198,7 @@ export class BaseJournalComponent {
     if (row.numericMarksAmount == 0) return "-"
 
     let locale = localStorage.getItem("locale") ?? defaultLocale
-    return (row.marksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2})
+    return (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2})
   }
 }
 

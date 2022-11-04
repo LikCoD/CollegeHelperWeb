@@ -14,7 +14,7 @@ export interface JournalRow {
   title: string;
   lessons: Lesson[];
   color: string;
-  marksSum: number
+  numericMarksSum: number
   numericMarksAmount: number
 }
 

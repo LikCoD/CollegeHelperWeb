@@ -55,6 +55,7 @@ import {JournalBottomActionBarComponent} from "./components/journal/view/journal
 import {BaseJournalCornerComponent} from "./components/journal/view/base-journal/base-journal-corner/base-journal-corner.component"
 import {BaseJournalDateItemComponent} from "./components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
 import {MoreIndicatorComponent} from "./components/standalones/more-indicator.component"
+import {CellExpandComponent} from "./components/standalones/popups/cell-expand/cell-expand.component"
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -159,6 +160,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BaseJournalCornerComponent,
     BaseJournalDateItemComponent,
     MoreIndicatorComponent,
+    CellExpandComponent,
   ],
   imports: [
     BrowserModule,
