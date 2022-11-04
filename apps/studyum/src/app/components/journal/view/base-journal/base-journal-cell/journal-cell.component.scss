@@ -2,6 +2,12 @@
 
 :host {
   display: block;
+
+  &:hover {
+    app-cell-expand {
+      display: inline-flex;
+    }
+  }
 }
 
 .mark1 {
@@ -51,7 +57,6 @@
   width: 50px;
 }
 
-
 .empty-cell {
   background: styles.$secondaryBackgroundColor;
   border-radius: 15px;
@@ -59,39 +64,14 @@
   width: 50px;
 }
 
-popper-content {
-  z-index: 3;
-}
+app-cell-expand {
+  display: none;
 
-.markTooltip {
-  display: flex;
-
-  background: styles.$backgroundColor;
-  border-radius: 10px;
-
-  .mark-cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: styles.$onBackgroundColor;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 10px;
-
-    width: 30px;
-    height: 30px;
-
-    p {
-      padding: 0;
-      margin: 0;
-    }
-  }
-}
-
-app-select-mark {
   position: absolute;
   z-index: 1;
+
+  bottom: -40px;
+  left: 0;
 }
 
 app-more-indicator {

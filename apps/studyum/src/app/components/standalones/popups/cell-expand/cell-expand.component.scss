@@ -1,0 +1,26 @@
+@use '../../../../../styles';
+
+:host {
+  display: flex;
+  background: styles.$backgroundColor;
+  border-radius: 15px;
+}
+
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: styles.$onBackgroundColor;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}

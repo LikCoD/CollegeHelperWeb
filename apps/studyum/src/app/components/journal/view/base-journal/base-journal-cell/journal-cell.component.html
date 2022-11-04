@@ -12,6 +12,8 @@
       </div>
     </ng-container>
     <app-more-indicator *ngIf="entries.length > 2"></app-more-indicator>
+
+    <app-cell-expand *ngIf="entries.length > 2" [entries]="entries"></app-cell-expand>
   </div>
 </div>
 
