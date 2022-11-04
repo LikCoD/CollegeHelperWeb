@@ -1,22 +1,17 @@
-<div class="cell">
-  <div *ngIf="entries.length > 0 else emptyCell"
-       class="not-empty-cell" [ngStyle]='{"backgroundColor": color}'>
-    <ng-container *ngIf="entries.length == 1">
+<ng-container *ngIf="entries.length > 0">
+  <ng-container *ngIf="entries.length == 1">
+    <p>{{entries[0]}}</p>
+  </ng-container>
+  <ng-container *ngIf="entries.length > 1">
+    <div class="mark2">
       <p>{{entries[0]}}</p>
-    </ng-container>
-    <ng-container *ngIf="entries.length > 1">
-      <div class="mark2">
-        <p>{{entries[0]}}</p>
-        <hr>
-        <p>{{entries[1]}}</p>
-      </div>
-    </ng-container>
-    <app-more-indicator *ngIf="entries.length > 2"></app-more-indicator>
+      <hr>
+      <p>{{entries[1]}}</p>
+    </div>
+  </ng-container>
 
-    <app-cell-expand *ngIf="entries.length > 2" [entries]="entries"></app-cell-expand>
-  </div>
-</div>
 
-<ng-template #emptyCell>
-  <div class="empty-cell"></div>
-</ng-template>
+  <app-more-indicator *ngIf="entries.length > 2"></app-more-indicator>
+
+  <app-cell-expand *ngIf="entries.length > 2" [entries]="entries"></app-cell-expand>
+</ng-container>

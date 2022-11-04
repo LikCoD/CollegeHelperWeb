@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core"
+import {Component, HostBinding, Input} from "@angular/core"
 
 @Component({
   selector: "app-base-journal-cell",
@@ -8,4 +8,8 @@ import {Component, Input} from "@angular/core"
 export class JournalCellComponent {
   @Input() entries: string[]
   @Input() color: string
+
+  @HostBinding("style.background") get bgColor() {
+    return this.entries.length ? this.color : "#29363E"
+  }
 }
