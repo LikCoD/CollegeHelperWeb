@@ -53,6 +53,12 @@ export class JournalService {
 
         lesson.marks.push(value)
 
+        let row = this.journal.rows.find(r => r.id === value.studentID)!
+        if (!!Number.parseInt(value.mark) && row) {
+          row.numericMarksAmount++
+          row.numericMarksSum += Number.parseInt(value.mark)
+        }
+
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks)
       }
     })
@@ -63,6 +69,11 @@ export class JournalService {
       next: value => {
         lesson.marks!![lesson!!.marks?.findIndex(v => v.id == value.id)!!] = value
 
+        let row = this.journal.rows.find(r => r.id === value.studentID)!
+        if (!!Number.parseInt(value.mark) && row) {
+          row.numericMarksSum += Number.parseInt(value.mark) - Number.parseInt(mark.mark) ?? 0
+        }
+
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
       }
     })
@@ -71,7 +82,14 @@ export class JournalService {
   deleteMark(studyPlace: StudyPlace, lesson: Lesson, id: string) {
     this.httpService.deleteMark(id).subscribe({
       next: value => {
+        let mark = lesson.marks?.find(v => v.id === value)!
         lesson.marks = lesson.marks?.filter(v => v.id !== value)
+
+        let row = this.journal.rows.find(r => r.id === mark.studentID)!
+        if (!!Number.parseInt(mark.mark) && row) {
+          row.numericMarksAmount--
+          row.numericMarksSum -= Number.parseInt(mark.mark)
+        }
 
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
       }
