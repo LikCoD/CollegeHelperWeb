@@ -86,7 +86,13 @@
   },
   "journal": {
     "view": {
-      "collapse": "Сгруппировать",
+      "collapse": {
+        "custom": "Групп. | Своя",
+        "smartCollapse": "Групп. | Умная",
+        "monthCollapse": "Групп. | Месяц",
+        "dayCollapse": "Групп. | День",
+        "expanded": "Не сгрупп."
+      },
       "title": "Заголовок",
       "homework": "Домашнее задание",
       "description": "Описание",

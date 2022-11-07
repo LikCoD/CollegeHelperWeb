@@ -86,7 +86,13 @@
   },
   "journal": {
     "view": {
-      "collapse": "Collapse",
+      "collapse": {
+        "custom": "Collapse | Custom",
+        "smartCollapse": "Collapse | Smart",
+        "monthCollapse": "Collapse | Month",
+        "dayCollapse": "Collapse | Day",
+        "expanded": "Expanded"
+      },
       "title": "Title",
       "homework": "Homework",
       "description": "Description",

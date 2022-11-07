@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Host, HostListener, Input, Output, ViewChild} from "@angular/core"
+import {Component, ElementRef, EventEmitter, Host, HostListener, Input, OnInit, Output, ViewChild} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow} from "../../../../models/journal"
 import * as moment from "moment"
@@ -13,7 +13,7 @@ import {defaultLocale} from "../../../../app.component"
   templateUrl: "./base-journal.component.html",
   styleUrls: ["./base-journal.component.scss"]
 })
-export class BaseJournalComponent {
+export class BaseJournalComponent implements OnInit{
 
   @Input() mode: JournalMode
   @Input() journal: Journal
@@ -26,7 +26,7 @@ export class BaseJournalComponent {
   focusedCells: DataPoint<JournalPointData>[] = []
   isCtrlPressed = false
   isShiftPressed = false
-  collapseType?: moment.unitOfTime.StartOf
+  collapseType: CollapseType = "smart"
 
   constructor(@Host() private host: ElementRef, public journalService: JournalService) {
   }
@@ -112,19 +112,19 @@ export class BaseJournalComponent {
     this.focusedCells = []
 
     if (date.collapsedType != undefined) {
-      this.collapseType = undefined
+      this.collapseType = "null"
 
       this.journalService.collapse(journal, date, date.collapsedType)
       return
     }
 
     if (this.isCtrlPressed) {
-      this.collapseType = undefined
+      this.collapseType = "null"
       this.journalService.collapse(journal, date, "day")
       return
     }
     if (this.isShiftPressed) {
-      this.collapseType = undefined
+      this.collapseType = "null"
       this.journalService.collapse(journal, date, "month")
       return
     }
@@ -132,28 +132,47 @@ export class BaseJournalComponent {
     this.dateClick.emit({x: cell.nativeElement.offsetLeft, y: cell.nativeElement.offsetTop, data: date})
   }
 
-  toggleCollapse() {
+  smartCollapse() {
+    let monthLessons: Lesson[] = []
+    let dayLessons: Lesson[] = []
+
+    let today = moment.utc()
+    let lastDate: moment.Moment | undefined = undefined
+    this.journal.dates.forEach(value => {
+      if ((lastDate == undefined || compareDates(lastDate, value.startDate, "month")) && !compareDates(today, value.startDate, "month")) {
+        monthLessons.push(value)
+      } else if (lastDate == undefined || compareDates(lastDate, value.startDate, "day") && !compareDates(today, value.startDate, "day")) {
+        dayLessons.push(value)
+      }
+
+      lastDate = value.startDate
+    })
+
+    monthLessons.forEach(l => {
+      this.journalService.collapse(this.journal, l, "month")
+    })
+
+    dayLessons.forEach(l => {
+      this.journalService.collapse(this.journal, l, "day")
+    })
+  }
+
+  toggleCollapse(type: CollapseType) {
     this.focusedCells = []
     this.journalService.expand(this.journal)
 
-    switch (this.collapseType) {
-      case undefined:
-        this.collapseType = "day"
-        break
-      case "day":
-        this.collapseType = "month"
-        break
-      case "month":
-        this.collapseType = undefined
-        return
+    this.collapseType = type
+    if (this.collapseType == "null" || this.collapseType == "expanded") return
+
+    if (this.collapseType == "smart") {
+      this.smartCollapse()
+      return
     }
 
-    let sameExists = false
     let lastDate: moment.Moment | undefined = undefined
     let lessons: Lesson[] = []
     this.journal.dates.forEach(value => {
-      if ((lastDate != undefined && compareDates(lastDate, value.startDate, this.collapseType!!)) || value.collapsedType != undefined) {
-        sameExists = true
+      if ((lastDate != undefined && compareDates(lastDate, value.startDate, this.collapseType as moment.unitOfTime.StartOf)) || value.collapsedType != undefined) {
         return
       }
 
@@ -161,13 +180,8 @@ export class BaseJournalComponent {
       lessons.push(value)
     })
 
-    if (!sameExists) {
-      this.toggleCollapse()
-      return
-    }
-
     lessons.forEach(l => {
-      this.journalService.collapse(this.journal, l, this.collapseType!!)
+      this.journalService.collapse(this.journal, l, this.collapseType as moment.unitOfTime.StartOf)
     })
   }
 
@@ -200,5 +214,10 @@ export class BaseJournalComponent {
     let locale = localStorage.getItem("locale") ?? defaultLocale
     return (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2})
   }
+
+  ngOnInit(): void {
+    this.smartCollapse()
+  }
 }
 
+export type CollapseType = ("month" | "day" | "smart" | "expanded" | "null")
