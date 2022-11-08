@@ -157,11 +157,12 @@ export class JournalService {
     })
   }
 
-  selectStandaloneType(journal: Journal, type: string) {
-    if (journal.rows.find(r => r.lessons.find(l => l?.teacher == ""))) {
+  selectStandaloneType(type: string) {
+    if (this.journal.rows.find(r => r.lessons.find(l => l?.teacher == ""))) {
       let journals: Journal[] = []
-      journal.rows.forEach(row => {
-        let filteredLessons = row.lessons.filter(value => value?.teacher != "")
+      this.journal.rows.forEach(row => {
+        let filteredLessons = row.lessons.filter(value => value?.teacher != "" && value?.type == type)
+        if (filteredLessons.length == 0) return
 
         journals.push(<Journal>{
           dates: [...filteredLessons],
@@ -170,11 +171,11 @@ export class JournalService {
         })
       })
 
-      this.journal$.next(journals)
+      if (journals.length > 0) this.journal$.next(journals)
       return
     }
 
-    journal.dates.forEach(d => d.visible = d.type == type)
+    this.journal.dates.forEach(d => d.visible = d.type == type)
   }
 
   getGeneralJournal() {

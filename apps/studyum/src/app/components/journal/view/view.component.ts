@@ -67,7 +67,7 @@ export class JournalViewComponent implements OnInit {
     this.isAbsencesSelected = false
     this.selectedLessonType = type
 
-    this.journalService.selectStandaloneType(journal, type.type)
+    this.journalService.selectStandaloneType(type.type)
   }
 
   getStandaloneMarks(journal: Journal, lesson: Lesson): string[] | undefined {

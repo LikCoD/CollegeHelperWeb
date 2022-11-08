@@ -113,7 +113,6 @@ export class BaseJournalComponent implements OnInit{
 
     if (date.collapsedType != undefined) {
       this.collapseType = "null"
-
       this.journalService.collapse(journal, date, date.collapsedType)
       return
     }
@@ -186,7 +185,7 @@ export class BaseJournalComponent implements OnInit{
   }
 
   filterLessons(lessons: Lesson[], dates = lessons): Lesson[] {
-    return lessons.filter((_, i) => !dates[i].collapsed && dates[i].visible)
+    return lessons.filter((_, i) => !dates[i]?.collapsed && dates[i]?.visible)
   }
 
   unselectCells() {
