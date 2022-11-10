@@ -52,10 +52,12 @@ export class BaseJournalComponent implements OnInit{
     else this.focusedCells = this.focusedCells.filter(value => value.x != point.x || value.y != point.y)
   }
 
-  focus(cell: HTMLTableCellElement, x: number, y: number, lesson: Lesson, studentID: string, journal: Journal) {
+  focus(cell: HTMLTableCellElement, x: number, y: number, lesson: Lesson, studentID: string, journal: Journal, dates: Lesson[]) {
     let cellX = cell.getClientRects()[0].x
     let cellY = cell.getClientRects()[0].y
     this.host.nativeElement.scrollBy(cellX < 180 ? cellX - 180 : 0, cellY < 120 ? cellY - 120 : 0)
+
+    if (dates[x].collapsedType) return
 
     if (journal.info.editable && this.isShiftPressed && this.focusedCells.length > 0) {
       let previousPoint = this.focusedCells[this.focusedCells.length - 1]
