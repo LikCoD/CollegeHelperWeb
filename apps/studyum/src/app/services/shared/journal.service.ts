@@ -96,6 +96,18 @@ export class JournalService {
     })
   }
 
+  getColorOfLessons(journal: Journal, lessons: Lesson[]) {
+    let colors = journal.info.studyPlace.journalColors
+
+    let color = colors.general
+    for (let lesson of lessons) {
+      if (lesson.journalCellColor == colors.warning) color = colors.warning
+      if (lesson.journalCellColor == colors.danger) return colors.danger
+    }
+
+    return color
+  }
+
   collapse(journal: Journal, lesson: Lesson, unit: moment.unitOfTime.StartOf) {
     let addNew = true
     let collapse = lesson.collapsedType
@@ -128,15 +140,22 @@ export class JournalService {
     journal.dates.splice(indexes[0], 0, {...lesson, collapsed: false, collapsedType: unit})
 
     journal.rows.forEach(row => {
+      let lessons = indexes.map(i => row.lessons[i])
+
       let collapsedLesson = <Lesson>{
         ...row.lessons[indexes[0]],
-        marks: []
+        journalCellColor: this.getColorOfLessons(journal, lessons),
+        marks: [],
+        absences: []
       }
 
-      collapsedLesson.marks = indexes.flatMap(i => {
-        if (row.lessons[i].marks == undefined || row.lessons[i].marks!!.length < 1) return []
-        return row.lessons[i].marks!!
-      })
+      collapsedLesson.marks = lessons.flatMap(l =>
+        l.marks == undefined || l.marks!!.length == 0 ? [] : l.marks!!
+      )
+
+      collapsedLesson.absences = lessons.flatMap(l =>
+        l.absences == undefined || l.absences!!.length == 0 ? [] : l.absences!!
+      )
 
       row.lessons.splice(indexes[0], 0, collapsedLesson)
     })
