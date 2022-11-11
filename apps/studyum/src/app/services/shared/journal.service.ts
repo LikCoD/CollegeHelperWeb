@@ -60,6 +60,7 @@ export class JournalService {
         }
 
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks)
+        row.color = this.getColorOfLessons(this.journal, row.lessons)
       }
     })
   }
@@ -75,7 +76,7 @@ export class JournalService {
         }
 
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
-      }
+        row.color = this.getColorOfLessons(this.journal, row.lessons)}
     })
   }
 
@@ -92,6 +93,7 @@ export class JournalService {
         }
 
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
+        row.color = this.getColorOfLessons(this.journal, row.lessons)
       }
     })
   }

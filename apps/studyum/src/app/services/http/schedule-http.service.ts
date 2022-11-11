@@ -43,6 +43,9 @@ export class ScheduleHttpService {
     return this.http.put<Lesson>(`${this.API_PATH}/schedule`, lesson).pipe(map(value => {
       value.endDate = moment.utc(value.endDate)
       value.startDate = moment.utc(value.startDate)
+      value.collapsed = false
+      value.collapsedType = null
+      value.visible = true
       return value
     }))
   }

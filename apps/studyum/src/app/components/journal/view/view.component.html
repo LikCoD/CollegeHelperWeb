@@ -1,5 +1,5 @@
 <ng-container *ngIf="journal$ | async as journals">
-  <div #scrollJournal class="wrapper" (scroll)="selectedDate = undefined;">
+  <div #scrollJournal class="wrapper" (scroll)="null"><!-- null -> trigger event to update scrollJournal -->
     <ng-container *ngFor="let journal of journals">
       <app-base-journal
         #baseJournal
@@ -44,7 +44,7 @@
           <app-lesson-addition-data
             [lesson]="selectedDate.data"
             [types]="typesString(journal)"
-            (confirm)="updateLesson(journal, $event)"
+            (confirm)="updateLesson(baseJournal, journal, $event)"
           ></app-lesson-addition-data>
         </app-dialog-frame>
       </ng-container>

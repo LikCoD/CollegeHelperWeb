@@ -8,6 +8,7 @@ import {DataPoint, JournalPointData} from "../../../models/dto/points"
 import {Lesson} from "../../../models/schedule"
 import {ScheduleService} from "../../../services/shared/schedule.service"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
+import {BaseJournalComponent} from "./base-journal/base-journal.component"
 
 @Component({
   selector: "app-login",
@@ -154,7 +155,9 @@ export class JournalViewComponent implements OnInit {
     this.selectedCell = undefined
   }
 
-  updateLesson(journal: Journal, lesson: Lesson) {
+  updateLesson(baseJournal: BaseJournalComponent, journal: Journal, lesson: Lesson) {
+    this.selectedDate = undefined
+    baseJournal.unselectCells()
     this.scheduleService.updateLesson(lesson).subscribe({
       next: lesson => {
         let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)
