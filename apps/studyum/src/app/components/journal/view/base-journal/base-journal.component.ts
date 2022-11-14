@@ -203,7 +203,7 @@ export class BaseJournalComponent implements OnInit{
 
     if (this.mode == "standalone") return marks
 
-    let absences = lesson.absences
+    let absences = lesson.absences?.filter(v => this.mode == "absences" || !v.time)
       ?.map(value => value.time ?? this.journal.info.studyPlace.absenceMark) ?? []
 
     return marks.concat(absences)
