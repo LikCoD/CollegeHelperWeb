@@ -103,7 +103,9 @@
       "absence": "Absence",
       "absenceMinutes": "Minutes",
       "absences": "Absences",
-      "avg": "Avg"
+      "avg": "Avg",
+      "absencesTime": "Min",
+      "absencesAmount": "Absences"
     }
   },
   "popups": {

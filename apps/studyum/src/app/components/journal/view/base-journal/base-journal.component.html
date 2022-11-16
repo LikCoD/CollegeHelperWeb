@@ -36,12 +36,38 @@
     </tr>
     </tbody>
   </table>
-  <div class="average-corner">{{'journal.view.avg' | translate}}</div>
   <section>
-    <app-base-journal-cell
-      *ngFor="let row of journal.rows"
-      [entries]="[getAverage(row)]"
-      [color]="row.color">
-    </app-base-journal-cell>
+    <div *ngIf="mode == 'general'">
+      <p>{{'journal.view.avg' | translate}}</p>
+      <app-base-journal-cell
+        *ngFor="let row of journal.rows"
+        [entries]="[getAverage(row)]"
+        [color]="row.color">
+      </app-base-journal-cell>
+    </div>
+    <div *ngIf="mode == 'absences'">
+      <p>{{'journal.view.absencesAmount' | translate}}</p>
+      <app-base-journal-cell
+        *ngFor="let row of journal.rows"
+        [entries]="[row.absencesAmount.toString()]"
+        [color]="row.color">
+      </app-base-journal-cell>
+    </div>
+    <div *ngIf="mode == 'absences'">
+      <p>{{'journal.view.absencesTime' | translate}}</p>
+      <app-base-journal-cell
+        *ngFor="let row of journal.rows"
+        [entries]="[row.absencesTime.toString()]"
+        [color]="row.color">
+      </app-base-journal-cell>
+    </div>
+    <div *ngIf="mode == 'standalone'">
+      <p>{{journal.rows[0].marksAmount[10].mark}}</p>
+      <app-base-journal-cell
+        *ngFor="let row of journal.rows"
+        [entries]="[row.marksAmount[10].amount.toString()]"
+        [color]="row.color">
+      </app-base-journal-cell>
+    </div>
   </section>
 </ng-container>

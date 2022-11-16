@@ -1,5 +1,5 @@
-import { Lesson } from './schedule';
-import { StudyPlace } from './general';
+import {Lesson} from "./schedule"
+import {StudyPlace} from "./general"
 
 export interface JournalInfo {
   editable: boolean;
@@ -16,6 +16,14 @@ export interface JournalRow {
   color: string;
   numericMarksSum: number
   numericMarksAmount: number
+  absencesAmount: number
+  absencesTime: number
+  marksAmount: MarkAmount[]
+}
+
+export interface MarkAmount {
+  mark: string
+  amount: string
 }
 
 export interface Journal {

@@ -113,19 +113,39 @@ ol {
 }
 
 section {
+  display: flex;
+
   position: sticky;
   right: 0;
 
-  grid-row: 2;
+  grid-row: 1 / 3;
   grid-column: 3;
 
   background: styles.$backgroundColor;
 
-   > * {
-    margin: 16px 5px;
+  z-index: 4;
 
-    &:first-child {
-      margin-top: 8px;
+  > div {
+    > p {
+      position: sticky;
+      top: 0;
+
+      padding: 13px 5px;
+      margin: 0 0 2px;
+
+      text-align: center;
+      color: styles.$onBackgroundColor;
+      background: styles.$backgroundColor;
+
+      z-index: 10;
+    }
+
+    > * {
+      margin: 16px 5px;
+
+      &:nth-child(2) {
+        margin-top: 8px;
+      }
     }
   }
 

@@ -103,7 +103,9 @@
       "absence": "Отсутствует",
       "absenceMinutes": "Минуты",
       "absences": "Отсутствия",
-      "avg": "Ср."
+      "avg": "Ср.",
+      "absencesTime": "Мин",
+      "absencesAmount": "Отсут."
     }
   },
   "popups": {
