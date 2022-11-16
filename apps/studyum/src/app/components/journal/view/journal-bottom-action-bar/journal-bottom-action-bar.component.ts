@@ -12,9 +12,11 @@ export class JournalBottomActionBarComponent {
   @Input() journal: Journal
   @Input() selectedType: LessonType | null
   @Input() isAbsencesSelected: boolean
+  @Input() isShowAmount: boolean
 
   @Output() selectType = new EventEmitter<LessonType | null>()
   @Output() toggleAbsence = new EventEmitter()
+  @Output() toggleAmount = new EventEmitter()
 
   getLessonTypes() {
     return this.journal.info.studyPlace.lessonTypes.map(type => {

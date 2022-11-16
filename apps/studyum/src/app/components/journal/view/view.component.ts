@@ -18,6 +18,7 @@ import {BaseJournalComponent} from "./base-journal/base-journal.component"
 export class JournalViewComponent implements OnInit {
 
   isAbsencesSelected = false
+  isAmountSelected = false
   selectedLessonType: LessonType | null
 
   journal$: Observable<Journal[]>
@@ -67,6 +68,9 @@ export class JournalViewComponent implements OnInit {
 
     this.isAbsencesSelected = false
     this.selectedLessonType = type
+
+    if (journal.info.studyPlace.lessonTypes.find(v => v.type == type.type)?.standaloneMarks)
+      this.isAmountSelected = true
 
     this.journalService.selectStandaloneType(type.type)
   }

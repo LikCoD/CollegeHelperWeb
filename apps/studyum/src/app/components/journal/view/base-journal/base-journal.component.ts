@@ -1,11 +1,11 @@
 import {Component, ElementRef, EventEmitter, Host, HostListener, Input, OnInit, Output, ViewChild} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
-import {Journal, JournalRow} from "../../../../models/journal"
+import {Journal, JournalRow, MarkAmount} from "../../../../models/journal"
 import * as moment from "moment"
 import {compareDates} from "../../../../utils"
 import {JournalService} from "../../../../services/shared/journal.service"
 import {DataPoint, JournalPointData} from "../../../../models/dto/points"
-import {JournalMode} from "../../../../models/general"
+import {JournalMode, LessonType} from "../../../../models/general"
 import {defaultLocale} from "../../../../app.component"
 
 @Component({
@@ -13,7 +13,7 @@ import {defaultLocale} from "../../../../app.component"
   templateUrl: "./base-journal.component.html",
   styleUrls: ["./base-journal.component.scss"]
 })
-export class BaseJournalComponent implements OnInit{
+export class BaseJournalComponent implements OnInit {
 
   @Input() mode: JournalMode
   @Input() journal: Journal
@@ -27,6 +27,12 @@ export class BaseJournalComponent implements OnInit{
   isCtrlPressed = false
   isShiftPressed = false
   collapseType: CollapseType = "smart"
+
+  @Input()
+  showAmount = false
+
+  @Input()
+  selectedLessonType: LessonType | null = null
 
   constructor(@Host() private host: ElementRef, public journalService: JournalService) {
   }
@@ -218,6 +224,20 @@ export class BaseJournalComponent implements OnInit{
 
   ngOnInit(): void {
     this.smartCollapse()
+  }
+
+
+  marksAmount(row: JournalRow): MarkAmount[] {
+    let type = this.journal.info.studyPlace.lessonTypes
+      .find(t => t.type == this.selectedLessonType?.type)
+
+    let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
+    console.log(type, marks)
+
+    return row.marksAmount.filter(v =>
+      this.mode == "general" ||
+      !!marks.find(m => m.mark == v.mark)
+    )
   }
 }
 

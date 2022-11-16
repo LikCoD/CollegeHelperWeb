@@ -5,6 +5,8 @@
         #baseJournal
         [journal]="journal"
         [mode]="mode()"
+        [showAmount]="isAmountSelected"
+        [selectedLessonType]="selectedLessonType"
         (cellClick)="cellClick($event)"
         (dateClick)="dateClick($event)"
       ></app-base-journal>
@@ -54,7 +56,9 @@
     [journal]="journals[0]"
     [selectedType]="selectedLessonType"
     [isAbsencesSelected]="isAbsencesSelected"
+    [isShowAmount]="isAmountSelected"
     (selectType)="selectLessonType(journals[0], $event)"
     (toggleAbsence)="isAbsencesSelected = !isAbsencesSelected"
+    (toggleAmount)="isAmountSelected = !isAmountSelected"
   ></app-journal-bottom-action-bar>
 </ng-container>

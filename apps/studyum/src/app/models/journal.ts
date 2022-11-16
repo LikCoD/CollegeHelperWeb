@@ -23,7 +23,7 @@ export interface JournalRow {
 
 export interface MarkAmount {
   mark: string
-  amount: string
+  amount: number
 }
 
 export interface Journal {

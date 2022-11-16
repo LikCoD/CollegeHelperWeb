@@ -61,13 +61,15 @@
         [color]="row.color">
       </app-base-journal-cell>
     </div>
-    <div *ngIf="mode == 'standalone'">
-      <p>{{journal.rows[0].marksAmount[10].mark}}</p>
+    <ng-container *ngIf="mode != 'absences' && showAmount">
+    <div *ngFor="let markAmount of marksAmount(journal.rows[0]); let i = index">
+      <p>{{markAmount.mark}}</p>
       <app-base-journal-cell
         *ngFor="let row of journal.rows"
-        [entries]="[row.marksAmount[10].amount.toString()]"
+        [entries]="[marksAmount(row)[i].amount.toString()]"
         [color]="row.color">
       </app-base-journal-cell>
     </div>
+    </ng-container>
   </section>
 </ng-container>

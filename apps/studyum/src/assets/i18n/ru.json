@@ -105,7 +105,9 @@
       "absences": "Отсутствия",
       "avg": "Ср.",
       "absencesTime": "Мин",
-      "absencesAmount": "Отсут."
+      "absencesAmount": "Отсут.",
+      "hideAmount": "Скрыть",
+      "showAmount": "Показать кол-во оценок"
     }
   },
   "popups": {

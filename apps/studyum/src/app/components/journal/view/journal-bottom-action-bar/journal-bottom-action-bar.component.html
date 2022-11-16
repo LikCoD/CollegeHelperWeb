@@ -7,6 +7,8 @@
 <button
   [appActionSelectBtn]="isAbsencesSelected"
   (click)="toggleAbsence.emit()"
->
-  {{ (isAbsencesSelected) ? ('journal.view.back' | translate) : ('journal.view.absences' | translate) }}
-</button>
+>{{ 'journal.view.' + (isAbsencesSelected ? 'back' : 'absences') | translate }}</button>
+<button
+  [appActionSelectBtn]="isShowAmount"
+  (click)="toggleAmount.emit()"
+>{{ 'journal.view.' + (isShowAmount ? 'hideAmount' : 'showAmount') | translate }}</button>
