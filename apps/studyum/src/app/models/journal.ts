@@ -1,5 +1,6 @@
 import {Lesson} from "./schedule"
 import {StudyPlace} from "./general"
+import * as moment from "moment"
 
 export interface JournalInfo {
   editable: boolean;
@@ -7,6 +8,7 @@ export interface JournalInfo {
   group: string;
   teacher: string;
   subject: string;
+  time: moment.Moment;
 }
 
 export interface JournalRow {

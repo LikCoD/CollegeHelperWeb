@@ -1,0 +1,17 @@
+@use 'apps/studyum/src/styles';
+
+:host {
+  display: flex;
+  align-items: center;
+}
+
+select {
+  width: fit-content;
+}
+
+p {
+  flex-grow: 1;
+  text-align: center;
+  height: auto;
+  color: styles.$onBackgroundColor;
+}

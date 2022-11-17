@@ -8,7 +8,7 @@ import {DataPoint, JournalPointData} from "../../../models/dto/points"
 import {Lesson} from "../../../models/schedule"
 import {ScheduleService} from "../../../services/shared/schedule.service"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
-import {BaseJournalComponent} from "./base-journal/base-journal.component"
+import {BaseJournalComponent, CollapseType} from "./base-journal/base-journal.component"
 
 @Component({
   selector: "app-login",
@@ -28,6 +28,8 @@ export class JournalViewComponent implements OnInit {
 
   isCtrlPressed = false
   isShiftPressed = false
+
+  collapseType: CollapseType = "smart"
 
   @ViewChild("selectMarkComponent") selectMarkEl?: SelectMarkComponent
 

@@ -88,10 +88,10 @@
     "view": {
       "collapse": {
         "custom": "Групп. | Своя",
-        "smartCollapse": "Групп. | Умная",
-        "monthCollapse": "Групп. | Месяц",
-        "dayCollapse": "Групп. | День",
-        "expanded": "Не сгрупп."
+        "smartCollapse": "Группировка | Умная",
+        "monthCollapse": "Группировка | Месяц",
+        "dayCollapse": "Группировка | День",
+        "expanded": "Не сгруппированно"
       },
       "title": "Заголовок",
       "homework": "Домашнее задание",

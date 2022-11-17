@@ -52,10 +52,10 @@ import {SelectMarkComponent} from "./components/standalones/popups/select-mark/s
 import {LessonAdditionDataComponent} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
 import {ActionSelectBtnDirective} from "./components/standalones/buttons/directives/action-select-btn.directive"
 import {JournalBottomActionBarComponent} from "./components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
-import {BaseJournalCornerComponent} from "./components/journal/view/base-journal/base-journal-corner/base-journal-corner.component"
 import {BaseJournalDateItemComponent} from "./components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
 import {MoreIndicatorComponent} from "./components/standalones/more-indicator.component"
 import {CellExpandComponent} from "./components/standalones/popups/cell-expand/cell-expand.component"
+import {BaseJournalTopActionBarComponent} from "./components/journal/view/base-journal/base-journal-top-action-bar/base-journal-top-action-bar.component"
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -158,9 +158,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LessonAdditionDataComponent,
     ActionSelectBtnDirective,
     JournalBottomActionBarComponent,
-    BaseJournalCornerComponent,
     BaseJournalDateItemComponent,
     MoreIndicatorComponent,
+    BaseJournalTopActionBarComponent,
   ],
   imports: [
     BrowserModule,

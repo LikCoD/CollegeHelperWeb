@@ -1,8 +1,4 @@
 <ng-container *ngIf="filterLessons(journal.dates) as collapsedDates">
-  <app-base-journal-corner
-    [selectedCollapseType]="collapseType"
-    (collapse)="toggleCollapse($event)"
-  ></app-base-journal-corner>
   <div class="date-row">
     <app-base-journal-date-item
       *ngFor="let date of collapsedDates"

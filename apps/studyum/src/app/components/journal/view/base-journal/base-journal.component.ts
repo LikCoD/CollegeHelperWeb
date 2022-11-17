@@ -21,6 +21,8 @@ export class BaseJournalComponent implements OnInit {
   @Output() dateClick = new EventEmitter<DataPoint<Lesson>>()
   @Output() cellClick = new EventEmitter<DataPoint<JournalPointData[]>>()
 
+  @Output() collapseChange = new EventEmitter<null>()
+
   @ViewChild("table") table: ElementRef
 
   focusedCells: DataPoint<JournalPointData>[] = []
@@ -33,6 +35,10 @@ export class BaseJournalComponent implements OnInit {
 
   @Input()
   selectedLessonType: LessonType | null = null
+
+  @Input() set selectedCollapseType(value: CollapseType) {
+    this.toggleCollapse(value)
+  }
 
   constructor(@Host() private host: ElementRef, public journalService: JournalService) {
   }
@@ -122,17 +128,26 @@ export class BaseJournalComponent implements OnInit {
     if (date.collapsedType != undefined) {
       this.collapseType = "null"
       this.journalService.collapse(journal, date, date.collapsedType)
+
+      this.collapseChange.emit()
+
       return
     }
 
     if (this.isCtrlPressed) {
       this.collapseType = "null"
       this.journalService.collapse(journal, date, "day")
+
+      this.collapseChange.emit()
+
       return
     }
     if (this.isShiftPressed) {
       this.collapseType = "null"
       this.journalService.collapse(journal, date, "month")
+
+      this.collapseChange.emit()
+
       return
     }
 
@@ -226,13 +241,11 @@ export class BaseJournalComponent implements OnInit {
     this.smartCollapse()
   }
 
-
   marksAmount(row: JournalRow): MarkAmount[] {
     let type = this.journal.info.studyPlace.lessonTypes
       .find(t => t.type == this.selectedLessonType?.type)
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
-    console.log(type, marks)
 
     return row.marksAmount.filter(v =>
       this.mode == "general" ||
