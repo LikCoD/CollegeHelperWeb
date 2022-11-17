@@ -18,6 +18,10 @@ app-dialog-frame {
   height: 0;
 
   overflow: scroll;
+
+  display: grid;
+  grid-column: 0;
+  grid-template-columns: 1fr;
 }
 
 app-base-journal-top-action-bar {
