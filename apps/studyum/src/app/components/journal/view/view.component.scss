@@ -15,6 +15,8 @@ app-dialog-frame {
   position: relative;
 
   flex-grow: 1;
+  height: 0;
+
   overflow: scroll;
 }
 
@@ -24,7 +26,6 @@ app-base-journal-top-action-bar {
 
 app-journal-bottom-action-bar {
   overflow-x: scroll;
-  height: 140px;
 
   margin: 0 10px 10px;
 }
