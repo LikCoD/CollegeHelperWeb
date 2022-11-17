@@ -47,7 +47,7 @@
           ></app-select-mark>
         </app-dialog-frame>
         <app-dialog-frame
-          *ngIf="selectedDate && !isCtrlPressed && !isShiftPressed"
+          *ngIf="selectedDate"
           (close)="this.selectedDate = undefined; baseJournal.unselectCells()"
           [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}">
           <app-lesson-addition-data
