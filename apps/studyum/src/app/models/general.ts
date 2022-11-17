@@ -14,6 +14,7 @@ export interface MarkType {
 export interface LessonType {
   type: string
   marks: MarkType[]
+  assignedColor: string
   standaloneMarks: MarkType[]
 }
 

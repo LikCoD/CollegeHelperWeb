@@ -52,7 +52,7 @@
           [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 70}">
           <app-lesson-addition-data
             [lesson]="selectedDate.data"
-            [types]="typesString(journal)"
+            [types]="journal.info.studyPlace.lessonTypes"
             (confirm)="updateLesson(baseJournal, journal, $event)"
           ></app-lesson-addition-data>
         </app-dialog-frame>

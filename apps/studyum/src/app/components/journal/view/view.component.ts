@@ -131,10 +131,6 @@ export class JournalViewComponent implements OnInit {
     this.journalService.deleteMark(journal.info.studyPlace, lesson, id)
   }
 
-  typesString(journal: Journal) {
-    return journal.info.studyPlace.lessonTypes.map(value => value.type)
-  }
-
   setAbsence(lesson: Lesson, id: string, minutes: number | null) {
     this.journalService.setAbsence(lesson, id, minutes).subscribe({
       next: absence => lesson.absences = [absence]
