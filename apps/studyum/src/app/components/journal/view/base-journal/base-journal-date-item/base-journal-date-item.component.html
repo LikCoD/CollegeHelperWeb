@@ -2,6 +2,5 @@
 <span>{{lesson.startDate | moment: "MMM"}}</span>
 <span *ngIf="lesson.collapsedType != 'month'">{{lesson.startDate | moment: "dd D"}}</span>
 <div
-  *ngIf="lesson.collapsedType == null"
-  [style.background-color]="lesson.secondaryColor"
+  [style.background-color]="lesson.collapsedType == null ? lesson.secondaryColor : 'transparent'"
 ></div>

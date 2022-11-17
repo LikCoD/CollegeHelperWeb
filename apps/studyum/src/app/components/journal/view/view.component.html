@@ -49,7 +49,7 @@
         <app-dialog-frame
           *ngIf="selectedDate"
           (close)="this.selectedDate = undefined; baseJournal.unselectCells()"
-          [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 59}">
+          [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 70}">
           <app-lesson-addition-data
             [lesson]="selectedDate.data"
             [types]="typesString(journal)"

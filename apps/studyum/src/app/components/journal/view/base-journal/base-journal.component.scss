@@ -4,8 +4,6 @@
   display: grid;
 
   grid-template-columns: auto 1fr auto;
-
-  //width: fit-content;
 }
 
 .corner {
@@ -17,7 +15,7 @@
   left: 0;
 
   background: styles.$backgroundColor;
-  z-index: 3;
+  z-index: 56
 }
 
 table {
@@ -68,7 +66,7 @@ table {
   position: sticky;
   left: 0;
 
-  z-index: 3;
+  z-index: 4;
 
   width: 180px;
 
@@ -172,5 +170,5 @@ section {
   color: styles.$onBackgroundColor;
   background: styles.$backgroundColor;
 
-  z-index: 3;
+  z-index: 4;
 }
