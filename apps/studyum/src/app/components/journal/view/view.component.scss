@@ -21,3 +21,10 @@ app-dialog-frame {
 app-base-journal-top-action-bar {
   margin: 0 10px 15px;
 }
+
+app-journal-bottom-action-bar {
+  overflow-x: scroll;
+  height: 140px;
+
+  margin: 0 10px 10px;
+}

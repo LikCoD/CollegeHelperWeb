@@ -15,7 +15,7 @@ export class JournalHttpService {
     if (group != '' && subject != '' && teacher != '') url += `/${group}/${subject}/${teacher}`;
 
     return this.http.get<Journal>(url).pipe(map(journal => {
-      journal.info.time = moment.utc(journal.info.time);
+      journal.info.time = moment(journal.info.time);
 
       for (let i = 0; i < journal.dates.length; i++) {
         journal.dates[i].startDate = moment.utc(journal.dates[i].startDate);
