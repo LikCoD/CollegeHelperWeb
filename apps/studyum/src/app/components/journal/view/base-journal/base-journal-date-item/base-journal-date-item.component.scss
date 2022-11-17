@@ -1,19 +1,28 @@
 @use '../../../../../../styles';
 
 :host {
-  width: 66px;
   min-width: 66px;
-  height: 50px;
 
   position: relative;
 
-  vertical-align: bottom;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  display: grid;
-  align-content: center;
+
+  display: flex;
+  flex-flow: column;
+
   color: styles.$onBackgroundColor;
 }
 
 app-more-indicator {
   right: 5px;
+  top: 0;
+}
+
+div {
+  width: 60%;
+  height: 8px;
+  border-radius: 4px;
+  margin: 4px 0;
 }
