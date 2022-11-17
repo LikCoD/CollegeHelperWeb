@@ -64,6 +64,7 @@ export class JournalViewComponent implements OnInit {
   selectLessonType(journal: Journal, type: LessonType | null) {
     if (type == null || this.selectedLessonType == type) {
       this.selectedLessonType = null
+      this.isAmountSelected = false
       this.journalService.getGeneralJournal()
       return
     }
@@ -71,8 +72,7 @@ export class JournalViewComponent implements OnInit {
     this.isAbsencesSelected = false
     this.selectedLessonType = type
 
-    if (journal.info.studyPlace.lessonTypes.find(v => v.type == type.type)?.standaloneMarks)
-      this.isAmountSelected = true
+    this.isAmountSelected = !!journal.info.studyPlace.lessonTypes.find(v => v.type == type.type)?.standaloneMarks
 
     this.journalService.selectStandaloneType(type.type)
   }
