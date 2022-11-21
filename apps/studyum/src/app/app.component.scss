@@ -1,7 +1,7 @@
 @use '../styles';
 
 header {
-  background: styles.$secondaryColor;
+  //background: styles.$secondaryColor;
 
   width: 100%;
   height: 50px;
@@ -10,6 +10,12 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+app-header {
+  width: 100%;
+  height: 50px;
+  z-index: 99999;
 }
 
 .action {
@@ -73,15 +79,6 @@ header {
   }
 }
 
-.signup-header-btn {
-  margin-left: 10px;
-}
-
-@media (max-width: 571px) {
-  .signup-header-btn {
-    display: none;
-  }
-}
 
 @media (max-width: 300px) {
   .header-name {

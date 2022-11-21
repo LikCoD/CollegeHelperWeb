@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core"
 import {BrowserModule} from "@angular/platform-browser"
 import {HttpClient, HttpClientModule} from "@angular/common/http"
-import {RouterModule, Routes} from "@angular/router"
+import {RouterModule, Routes, TitleStrategy} from "@angular/router"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {AppComponent} from "./app.component"
 import {CellComponent} from "./components/schedule/view/cell/cell.component"
@@ -15,11 +15,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import {ProfileOptionComponent} from "./components/user/profile/profile-option/profile-option.component"
 import {ScheduleSubjectComponent} from "./components/schedule/view/schedule-subject/schedule-subject.component"
 import {UserLoginComponent} from "./components/user/user-login/user-login.component"
-import {AddSubjectDialogComponent} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component"
+import {
+  AddSubjectDialogComponent
+} from "./components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component"
 import {ErrorInfoComponent} from "./components/general/error-info/error-info.component"
 import {MatDialogModule} from "@angular/material/dialog"
 import {MatNativeDateModule} from "@angular/material/core"
-import {SelectSubjectDialogComponent} from "./components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component"
+import {
+  SelectSubjectDialogComponent
+} from "./components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component"
 import {MomentPipe} from "./pipes/moment.pipe"
 import {ScheduleCellDirective} from "./components/schedule/view/cell/cell-directive/schedule-cell.directive"
 import {EditScheduleComponent} from "./components/schedule/view/edit/edit-scdedule/edit-schedule.component"
@@ -34,7 +38,9 @@ import {NotLoginGuard} from "./guards/not-login.guard"
 import {LoginGuard} from "./guards/login.guard"
 import {SignupStage1Guard} from "./guards/signup-stage1.guard"
 import {SignUpWithTokenComponent} from "./components/user/signup/with-token/sign-up-with-token.component"
-import {ScheduleBottomControllerComponent} from "./components/schedule/view/bottom-controller/schedule-bottom-controller.component"
+import {
+  ScheduleBottomControllerComponent
+} from "./components/schedule/view/bottom-controller/schedule-bottom-controller.component"
 import {CreateCodeUserComponent} from "./components/user/profile/create-code-user/create-code-user.component"
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core"
 import {TranslateHttpLoader} from "@ngx-translate/http-loader"
@@ -49,55 +55,71 @@ import {ActionButtonsComponent} from "./components/standalones/buttons/action-bu
 import {AbsenceControlComponent} from "./components/standalones/popups/select-mark/enteries/absence-control.component"
 import {SecondaryBtnDirective} from "./components/standalones/buttons/directives/secondary-btn.directive"
 import {SelectMarkComponent} from "./components/standalones/popups/select-mark/select-mark.component"
-import {LessonAdditionDataComponent} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
+import {
+  LessonAdditionDataComponent
+} from "./components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
 import {ActionSelectBtnDirective} from "./components/standalones/buttons/directives/action-select-btn.directive"
-import {JournalBottomActionBarComponent} from "./components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
-import {BaseJournalDateItemComponent} from "./components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
+import {
+  JournalBottomActionBarComponent
+} from "./components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
+import {
+  BaseJournalDateItemComponent
+} from "./components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
 import {MoreIndicatorComponent} from "./components/standalones/more-indicator.component"
 import {CellExpandComponent} from "./components/standalones/popups/cell-expand/cell-expand.component"
-import {BaseJournalTopActionBarComponent} from "./components/journal/view/base-journal/base-journal-top-action-bar/base-journal-top-action-bar.component"
+import {
+  BaseJournalTopActionBarComponent
+} from "./components/journal/view/base-journal/base-journal-top-action-bar/base-journal-top-action-bar.component"
+import {HeaderComponent} from "./components/general/header/header.component"
+import {HeaderTitleStrategy} from "./services/ui/header.service"
 
 const appRoutes: Routes = [
-  {path: "", component: HomeComponent},
+  {title: "Studyum", path: "", component: HomeComponent},
 
-  {path: "user", component: ProfileComponent, canActivate: [NotLoginGuard]},
+  {title: "Profile", path: "user", component: ProfileComponent, canActivate: [NotLoginGuard]},
 
-  {path: "signup", component: UserSignupComponent, canActivate: [LoginGuard]},
+  {title: "Sing up", path: "signup", component: UserSignupComponent, canActivate: [LoginGuard]},
   {
+    title: "Sing up",
     path: "signup/stage1",
     component: SignupStage1Component,
-    canActivate: [NotLoginGuard, SignupStage1Guard],
+    canActivate: [NotLoginGuard, SignupStage1Guard]
   },
   {
+    title: "Sing up",
     path: "signup/withToken",
     component: SignUpWithTokenComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard]
   },
-  {path: "login", component: UserLoginComponent, canActivate: [LoginGuard]},
+  {title: "Login", path: "login", component: UserLoginComponent, canActivate: [LoginGuard]},
 
   {
+    title: "Journal",
     path: "journal",
     component: JournalComponent,
-    canActivate: [NotLoginGuard],
+    canActivate: [NotLoginGuard]
   },
   {
+    title: "Journal",
     path: "journal/view",
     component: JournalViewComponent,
-    canActivate: [NotLoginGuard],
+    canActivate: [NotLoginGuard]
   },
 
-  {path: "schedule", component: ViewComponent, canActivate: []},
+  {title: "Schedule", path: "schedule", component: ViewComponent, canActivate: []},
   {
+    title: "Schedule",
     path: "schedule/login",
     component: LoginScheduleComponent,
-    canActivate: [],
+    canActivate: []
   },
 
   {
+    title: "Studyum",
     path: "user/receiveToken",
     component: ReceiveTokenComponent,
-    canActivate: [NotLoginGuard],
-  },
+    canActivate: [NotLoginGuard]
+  }
 ]
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -161,6 +183,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BaseJournalDateItemComponent,
     MoreIndicatorComponent,
     BaseJournalTopActionBarComponent,
+
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -175,11 +199,12 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [{provide: TitleStrategy, useClass: HeaderTitleStrategy}],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpService} from "../http/http.service";
-import {map, Observable, ReplaySubject} from "rxjs";
-import {Router} from "@angular/router";
-import {AcceptUser, User} from "../../models/user";
+import {Injectable} from "@angular/core"
+import {HttpService} from "../http/http.service"
+import {map, Observable, ReplaySubject} from "rxjs"
+import {Router} from "@angular/router"
+import {AcceptUser, User} from "../../models/user"
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -24,6 +24,10 @@ export class UserService {
         this.user$.next(undefined)
       }
     })
+  }
+
+  getUser(): Observable<User | undefined> {
+    return this.user$
   }
 
   signUp(data: any) {
