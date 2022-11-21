@@ -10,6 +10,7 @@
 main {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 
   padding: 0 70px;
@@ -54,6 +55,8 @@ nav {
     display: flex;
     align-items: center;
     gap: 15px;
+
+    white-space: nowrap;
   }
 
   > :first-child {
@@ -66,4 +69,43 @@ img {
   height: 38px;
 
   border-radius: 25%;
+}
+
+.action {
+  img {
+    display: none;
+  }
+}
+
+
+
+@media (max-width: 715px) {
+  main {
+    padding: 5px;
+
+    a {
+      display: none;
+    }
+
+    img {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .username {
+    display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .action {
+    img {
+      display: block;
+    }
+    a {
+      display: none;
+    }
+  }
 }

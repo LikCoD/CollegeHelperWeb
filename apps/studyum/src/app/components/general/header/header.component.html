@@ -12,16 +12,22 @@
       <a routerLink="schedule">{{'header.schedule' | translate}}</a>
       <a routerLink="schedule/login">{{'header.findSchedule' | translate}}</a>
       <a routerLink="journal">{{'header.journal' | translate}}</a>
+
+      <img src="assets/schedule.svg" alt="schedule" routerLink="schedule">
+      <img src="assets/search-schedule.svg" alt="find schdule" routerLink="schedule/login">
+      <img src="assets/journal.svg" alt="journal" routerLink="journal">
     </div>
 
     <div>
-      <a routerLink="user">{{user.login}}</a>
+      <a routerLink="user" class="username">{{user.login}}</a>
       <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="user">
     </div>
   </ng-container>
   <ng-template #notLoggedIn>
     <div class="action">
       <a routerLink="schedule/login">{{'header.schedule' | translate}}</a>
+
+      <img src="assets/search-schedule.svg" alt="find schdule" routerLink="schedule/login">
     </div>
 
     <div>
