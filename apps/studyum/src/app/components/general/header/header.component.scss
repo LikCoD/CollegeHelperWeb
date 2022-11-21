@@ -79,7 +79,7 @@ img {
 
 
 
-@media (max-width: 715px) {
+@media (max-width: 800px) {
   main {
     padding: 5px;
 
@@ -93,13 +93,13 @@ img {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .username {
     display: none;
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 450px) {
   .action {
     img {
       display: block;
