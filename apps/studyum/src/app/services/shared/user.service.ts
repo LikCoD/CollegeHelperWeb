@@ -8,19 +8,15 @@ import {AcceptUser, User} from "../../models/user"
 export class UserService {
 
   user$: ReplaySubject<User | undefined> = new ReplaySubject<User | undefined>(1)
-  initialized: boolean = false
 
   constructor(private httpService: HttpService, private router: Router) {
     httpService.getUser().subscribe({
       next: value => {
-        this.initialized = true
         if (value.type == "") this.router.navigate(["signup/stage1"])
 
         this.user$.next(value)
       },
       error: _ => {
-        this.initialized = true
-        this.user$.next(undefined)
         this.user$.next(undefined)
       }
     })
