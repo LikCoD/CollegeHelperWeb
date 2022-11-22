@@ -4,7 +4,14 @@
     "findSchedule": "Поиск расписания",
     "journal": "Журнал",
     "signUp": "Регистрация",
-    "login": "Войти"
+    "login": "Войти",
+    "sliders": {
+      "schedule": "Расписание",
+      "journal": "Журнал",
+      "profile": "Профиль",
+      "signup": "Регистрация",
+      "login": "Логин"
+    }
   },
   "datetime": {
     "time": "HH:mm"

@@ -4,7 +4,7 @@
   *ngIf="$title | async as title"
 >
   <img *ngIf="title !== 'Studyum'" src="assets/home.svg" alt="home" routerLink="">
-  <a routerLink="">{{title}}</a>
+  <a routerLink="">{{title | translate}}</a>
 </main>
 <nav>
   <ng-container *ngIf="$user | async as user else notLoggedIn">
@@ -40,5 +40,5 @@
 
 <main #tempTitleContainer class="temp">
   <img *ngIf="tempTitle !== 'Studyum'" src="assets/home.svg" alt="home" routerLink="">
-  <a routerLink="">{{tempTitle}}</a>
+  <a routerLink="">{{tempTitle | translate}}</a>
 </main>

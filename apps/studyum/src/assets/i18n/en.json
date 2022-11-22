@@ -4,7 +4,14 @@
     "findSchedule": "Find schedule",
     "journal": "Journal",
     "signUp": "SingUp",
-    "login": "Login"
+    "login": "Login",
+    "sliders": {
+      "schedule": "Schedule",
+      "journal": "Journal",
+      "profile": "Profile",
+      "signup": "Sign up",
+      "login": "Login"
+    }
   },
   "datetime": {
     "time": "hh:mm A"

@@ -10,6 +10,6 @@ export class JournalCellComponent {
   @Input() color: string
 
   @HostBinding("style.background") get bgColor() {
-    return this.entries.length ? this.color : "#29363E"
+    return this.entries.length ? this.color : ""
   }
 }

@@ -13,12 +13,13 @@ $my-theme: mat.define-light-theme((
 
 @include mat.core-theme($my-theme);
 
-$primaryColor: #B33A0D;
-$secondaryColor: #CF805F;
-$backgroundColor: #23313A;
-$secondaryBackgroundColor: #29363e;
+$primaryColor: #0a3e26;
+$secondaryColor: #cc88ff;
+$backgroundColor: #232323;
+$secondaryBackgroundColor: #4a4a4a;
+$thirdColor: #e2d0bf;
 
-$onBackgroundColor: #F5EDD9;
+$onBackgroundColor: #eeeeee;
 
 
 $dangerColor: #FF5517;
@@ -27,8 +28,8 @@ $dangerHoverColor: #eb4117;
 $warningColor: #FFB802;
 $warningHoverColor: #eba400;
 
-$successColor: #494D32;
-$successHoverColor: #5d6146;
+$successColor: #259806;
+$successHoverColor: #209301;
 
 
 html, body {
@@ -38,17 +39,17 @@ html, body {
 body {
   background: $backgroundColor;
   font-family: 'Roboto', sans-serif;
+}
 
-  > :first-child {
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    height: 100%;
+app-root {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  height: 100%;
 
-    > :last-child {
-      flex-grow: 1;
-      overflow: auto;
-    }
+  > :last-child {
+    flex-grow: 1;
+    overflow: auto;
   }
 }
 

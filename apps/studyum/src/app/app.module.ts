@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core"
 import {BrowserModule} from "@angular/platform-browser"
-import {HttpClient, HttpClientModule} from "@angular/common/http"
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http"
 import {RouterModule, Routes, TitleStrategy} from "@angular/router"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {AppComponent} from "./app.component"
@@ -72,43 +72,44 @@ import {
 } from "./components/journal/view/base-journal/base-journal-top-action-bar/base-journal-top-action-bar.component"
 import {HeaderComponent} from "./components/general/header/header.component"
 import {HeaderTitleStrategy} from "./services/ui/header.service"
+import {HttpAuthInterceptor} from "./interseptors/http-auth.interceptor"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
 
-  {title: "Profile", path: "user", component: ProfileComponent, canActivate: [NotLoginGuard]},
+  {title: "header.sliders.profile", path: "user", component: ProfileComponent, canActivate: [NotLoginGuard]},
 
-  {title: "Sing up", path: "signup", component: UserSignupComponent, canActivate: [LoginGuard]},
+  {title: "header.sliders.signup", path: "signup", component: UserSignupComponent, canActivate: [LoginGuard]},
   {
-    title: "Sing up",
+    title: "header.sliders.signup",
     path: "signup/stage1",
     component: SignupStage1Component,
     canActivate: [NotLoginGuard, SignupStage1Guard]
   },
   {
-    title: "Sing up",
+    title: "header.sliders.signup",
     path: "signup/withToken",
     component: SignUpWithTokenComponent,
     canActivate: [LoginGuard]
   },
-  {title: "Login", path: "login", component: UserLoginComponent, canActivate: [LoginGuard]},
+  {title: "header.sliders.login", path: "login", component: UserLoginComponent, canActivate: [LoginGuard]},
 
   {
-    title: "Journal",
+    title: "header.sliders.journal",
     path: "journal",
     component: JournalComponent,
     canActivate: [NotLoginGuard]
   },
   {
-    title: "Journal",
+    title: "header.sliders.journal",
     path: "journal/view",
     component: JournalViewComponent,
     canActivate: [NotLoginGuard]
   },
 
-  {title: "Schedule", path: "schedule", component: ViewComponent, canActivate: []},
+  {title: "header.sliders.schedule", path: "schedule", component: ViewComponent, canActivate: []},
   {
-    title: "Schedule",
+    title: "header.sliders.schedule",
     path: "schedule/login",
     component: LoginScheduleComponent,
     canActivate: []
@@ -203,7 +204,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [{provide: TitleStrategy, useClass: HeaderTitleStrategy}],
+  providers: [
+    {provide: TitleStrategy, useClass: HeaderTitleStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

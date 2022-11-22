@@ -124,4 +124,8 @@ export class UserService {
   blockUser(id: string): Observable<string> {
     return this.httpService.blockUser(id)
   }
+
+  signOutSilently(): void {
+    this.user$.next(undefined)
+  }
 }
