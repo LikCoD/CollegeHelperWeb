@@ -1,0 +1,8 @@
+<button
+  class="btn btn-outline-light btn-sm" (click)="changeEditMode()"
+  *ngIf="canEdit(user)"
+>{{'schedule.view.edit' | translate}}</button>
+
+<button
+  class="btn btn-outline-light btn-sm" (click)="changeScaleMode()"
+>{{'schedule.view.scale' | translate}}</button>

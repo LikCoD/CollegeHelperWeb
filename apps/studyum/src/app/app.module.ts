@@ -38,9 +38,6 @@ import {NotLoginGuard} from "./guards/not-login.guard"
 import {LoginGuard} from "./guards/login.guard"
 import {SignupStage1Guard} from "./guards/signup-stage1.guard"
 import {SignUpWithTokenComponent} from "./components/user/signup/with-token/sign-up-with-token.component"
-import {
-  ScheduleBottomControllerComponent
-} from "./components/schedule/view/bottom-controller/schedule-bottom-controller.component"
 import {CreateCodeUserComponent} from "./components/user/profile/create-code-user/create-code-user.component"
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core"
 import {TranslateHttpLoader} from "@ngx-translate/http-loader"
@@ -73,54 +70,75 @@ import {
 import {HeaderComponent} from "./components/general/header/header.component"
 import {HeaderTitleStrategy} from "./services/ui/header.service"
 import {HttpAuthInterceptor} from "./interseptors/http-auth.interceptor"
+import {ScheduleTopBarComponent} from "./components/schedule/view/schedule-top-bar/schedule-top-bar.component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
 
-  {title: "header.sliders.profile", path: "user", component: ProfileComponent, canActivate: [NotLoginGuard]},
+  {
+    title: "header.sliders.profile",
+    path: "user",
+    component: ProfileComponent,
+    canActivate: [NotLoginGuard],
+  },
 
-  {title: "header.sliders.signup", path: "signup", component: UserSignupComponent, canActivate: [LoginGuard]},
+  {
+    title: "header.sliders.signup",
+    path: "signup",
+    component: UserSignupComponent,
+    canActivate: [LoginGuard],
+  },
   {
     title: "header.sliders.signup",
     path: "signup/stage1",
     component: SignupStage1Component,
-    canActivate: [NotLoginGuard, SignupStage1Guard]
+    canActivate: [NotLoginGuard, SignupStage1Guard],
   },
   {
     title: "header.sliders.signup",
     path: "signup/withToken",
     component: SignUpWithTokenComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
-  {title: "header.sliders.login", path: "login", component: UserLoginComponent, canActivate: [LoginGuard]},
+  {
+    title: "header.sliders.login",
+    path: "login",
+    component: UserLoginComponent,
+    canActivate: [LoginGuard],
+  },
 
   {
     title: "header.sliders.journal",
     path: "journal",
     component: JournalComponent,
-    canActivate: [NotLoginGuard]
+    canActivate: [NotLoginGuard],
   },
   {
     title: "header.sliders.journal",
     path: "journal/view",
     component: JournalViewComponent,
-    canActivate: [NotLoginGuard]
+    canActivate: [NotLoginGuard],
   },
 
-  {title: "header.sliders.schedule", path: "schedule", component: ViewComponent, canActivate: []},
+  {
+    title: "header.sliders.schedule",
+    path: "schedule",
+    component: ViewComponent,
+    canActivate: [],
+  },
   {
     title: "header.sliders.schedule",
     path: "schedule/login",
     component: LoginScheduleComponent,
-    canActivate: []
+    canActivate: [],
   },
 
   {
     title: "Studyum",
     path: "user/receiveToken",
     component: ReceiveTokenComponent,
-    canActivate: [NotLoginGuard]
-  }
+    canActivate: [NotLoginGuard],
+  },
 ]
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -153,7 +171,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectSubjectDialogComponent,
     ScheduleCellDirective,
     EditScheduleComponent,
-    ScheduleBottomControllerComponent,
+    ScheduleTopBarComponent,
     LoginScheduleComponent,
 
     CellComponent,
@@ -185,7 +203,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MoreIndicatorComponent,
     BaseJournalTopActionBarComponent,
 
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -200,15 +218,14 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},
-    {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

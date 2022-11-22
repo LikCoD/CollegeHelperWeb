@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { User } from '../../../../models/user';
+import {Component, EventEmitter, Input, Output} from "@angular/core"
+import {User} from "../../../../models/user"
 
 @Component({
-  selector: 'app-schedule-bottom-controller',
-  templateUrl: './schedule-bottom-controller.component.html',
-  styleUrls: ['./schedule-bottom-controller.component.scss']
+  selector: "app-schedule-top-bar",
+  templateUrl: "./schedule-top-bar.component.html",
+  styleUrls: ["./schedule-top-bar.component.scss"],
 })
-export class ScheduleBottomControllerComponent {
-
+export class ScheduleTopBarComponent {
   @Input() user: User | undefined | null;
   @Input() minScale: number;
   @Input() maxScale: number;

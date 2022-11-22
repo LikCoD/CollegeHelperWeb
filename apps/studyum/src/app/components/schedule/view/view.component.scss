@@ -4,13 +4,13 @@
   display: flex;
   flex-flow: column;
   height: 100%;
+
+  margin: 0 10px;
 }
 
 main {
   display: flex;
   min-height: 350px;
-
-  margin-left: 10px;
 }
 
 .schedule-container {
@@ -53,6 +53,7 @@ main {
   height: inherit;
 
   margin-top: 20px;
+  margin-right: 10px;
 
   background: styles.$backgroundColor;
   z-index: 3;
