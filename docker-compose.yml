@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  api:
+  web:
     image: docker.studyum.net/web
     restart: always
     pull_policy: always
