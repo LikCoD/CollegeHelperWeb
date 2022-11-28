@@ -1,8 +1,12 @@
-import * as moment from 'moment';
+import * as moment from "moment"
 import {Absence, Mark} from "./journal"
-import { StudyPlace } from './general';
+import {StudyPlace} from "./general"
 
-export type Types = Map<string, string[]>
+//export type ScheduleTypes = Map<string, string[]>
+
+export interface ScheduleTypes {
+  [Key: string]: string[];
+}
 
 export interface Lesson {
   id?: string;

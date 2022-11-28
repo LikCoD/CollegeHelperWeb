@@ -1,4 +1,40 @@
 :host {
   display: flex;
   gap: 10px;
+
+  > * {
+    display: flex;
+    flex-flow: row;
+  }
+}
+
+.search {
+  display: flex;
+  gap: 15px;
+
+  flex-grow: 1;
+
+  justify-content: center;
+}
+
+.input-group:first-child {
+  width: 200px;
+}
+
+.input-group {
+  width: 300px;
+}
+
+.form-select {
+  width: fit-content;
+  flex: unset;
+}
+
+button[type=submit] {
+  width: 25px;
+
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../../../../../assets/search.svg");
 }

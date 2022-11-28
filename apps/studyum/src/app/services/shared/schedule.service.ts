@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import * as moment from "moment";
-import * as Collections from "typescript-collections";
-import {Observable, Subject} from "rxjs";
-import {Cell, Lesson, Schedule, Types} from "../../models/schedule";
-import {ScheduleHttpService} from "../http/schedule-http.service";
+import {Injectable} from "@angular/core"
+import * as moment from "moment"
+import * as Collections from "typescript-collections"
+import {Observable, Subject} from "rxjs"
+import {Cell, Lesson, Schedule, ScheduleTypes} from "../../models/schedule"
+import {ScheduleHttpService} from "../http/schedule-http.service"
 
 @Injectable({providedIn: 'root'})
 export class ScheduleService {
@@ -159,7 +159,7 @@ export class ScheduleService {
     this.httpService.makeGeneral(this.schedule.info.type, this.schedule.info.typeName)
   }
 
-  getTypes(studyPlaceID: string): Observable<Types> {
+  getTypes(studyPlaceID: string): Observable<ScheduleTypes> {
     return this.httpService.getTypes(studyPlaceID)
   }
 }

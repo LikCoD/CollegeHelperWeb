@@ -1,11 +1,10 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ScheduleService} from "../../../services/shared/schedule.service";
-import {map, Observable} from "rxjs";
-import {Schedule} from "../../../models/schedule";
-import {UserService} from "../../../services/shared/user.service";
-import * as moment from "moment";
-import {weekdays} from "moment";
+import {Component} from "@angular/core"
+import {ActivatedRoute, Router} from "@angular/router"
+import {ScheduleService} from "../../../services/shared/schedule.service"
+import {map, Observable} from "rxjs"
+import {Schedule} from "../../../models/schedule"
+import {UserService} from "../../../services/shared/user.service"
+import * as moment from "moment"
 
 @Component({
   selector: 'app-view',

@@ -1,12 +1,12 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ScheduleService} from "../../../services/shared/schedule.service";
-import {GeneralService} from "../../../services/shared/general.service";
-import {Observable} from "rxjs";
-import {UserService} from "../../../services/shared/user.service";
-import {Types} from "../../../models/schedule";
-import {StudyPlace} from "../../../models/general";
+import {Component, Injectable, OnInit} from "@angular/core"
+import {Router} from "@angular/router"
+import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {ScheduleService} from "../../../services/shared/schedule.service"
+import {GeneralService} from "../../../services/shared/general.service"
+import {Observable} from "rxjs"
+import {UserService} from "../../../services/shared/user.service"
+import {ScheduleTypes} from "../../../models/schedule"
+import {StudyPlace} from "../../../models/general"
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginScheduleComponent implements OnInit {
     name: new FormControl("", Validators.required),
   })
 
-  types$: Observable<Types> = this.scheduleService.getTypes("")
+  types$: Observable<ScheduleTypes> = this.scheduleService.getTypes("")
   studyPlaces: StudyPlace[]
 
   studyPlaceName = ""
@@ -50,7 +50,7 @@ export class LoginScheduleComponent implements OnInit {
     this.router.navigate(['schedule'], {queryParams: this.form.value});
   }
 
-  getTypeByName(types: Types, name: string) {
+  getTypeByName(types: ScheduleTypes, name: string) {
     // @ts-ignore
     return types[name]
   }

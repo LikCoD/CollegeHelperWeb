@@ -7,4 +7,4 @@ services:
     pull_policy: always
     ports:
       - "80:80"
-      - "443:433"
+      - "443:443"

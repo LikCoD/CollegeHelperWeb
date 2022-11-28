@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
-import * as moment from "moment";
-import {Lesson, Schedule, Types} from "../../models/schedule";
+import {Injectable} from "@angular/core"
+import {HttpClient} from "@angular/common/http"
+import {map, Observable} from "rxjs"
+import * as moment from "moment"
+import {Lesson, Schedule, ScheduleTypes} from "../../models/schedule"
 
 @Injectable({providedIn: 'root'})
 export class ScheduleHttpService {
@@ -58,7 +58,7 @@ export class ScheduleHttpService {
     this.http.post(`${this.API_PATH}/schedule/makeGeneral?type=${type}&typeName=${typeName}`, {}).subscribe()
   }
 
-  getTypes(studyPlaceID: string): Observable<Types> {
-    return this.http.get<Types>(`${this.API_PATH}/schedule/getTypes?id=${studyPlaceID}`)
+  getTypes(studyPlaceID: string): Observable<ScheduleTypes> {
+    return this.http.get<ScheduleTypes>(`${this.API_PATH}/schedule/getTypes?id=${studyPlaceID}`)
   }
 }
