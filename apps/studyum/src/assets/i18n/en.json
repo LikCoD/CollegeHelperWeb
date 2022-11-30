@@ -71,6 +71,7 @@
   "schedule": {
     "find": {
       "studyPlace": "Study place",
+      "name": "Name",
       "type": "Type",
       "typename": "Typename",
       "group": "Group",

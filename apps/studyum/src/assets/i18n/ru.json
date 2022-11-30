@@ -71,6 +71,7 @@
   "schedule": {
     "find": {
       "studyPlace": "Место образования",
+      "name": "Имя",
       "type": "Тип",
       "typename": "Имя",
       "group": "Группа",
