@@ -20,6 +20,9 @@ import {Component, Input} from "@angular/core"
       }
 
       p {
+        display: grid;
+        place-items: center;
+
         font-size: 14px;
         line-height: 16px;
 

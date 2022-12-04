@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import * as moment from 'moment';
+import {Injectable} from "@angular/core"
+import {HttpClient} from "@angular/common/http"
+import {map, Observable} from "rxjs"
+import * as moment from "moment"
 import {Absence, Journal, JournalOption, Mark} from "../../models/journal"
-import {Lesson} from "../../models/schedule";
+import {Lesson} from "../../models/schedule"
+import {groupBy} from "../../utils"
 
 @Injectable({ providedIn: 'root' })
 export class JournalHttpService {
@@ -17,35 +18,45 @@ export class JournalHttpService {
     return this.http.get<Journal>(url).pipe(map(journal => {
       journal.info.time = moment(journal.info.time);
 
-      for (let i = 0; i < journal.dates.length; i++) {
-        journal.dates[i].startDate = moment.utc(journal.dates[i].startDate);
-        journal.dates[i].endDate = moment.utc(journal.dates[i].endDate);
+      let dates: Lesson[] = journal.dates as unknown as Lesson[]
+      dates.forEach(l => {
+        l.startDate = moment.utc(l.startDate)
+        l.endDate = moment.utc(l.endDate)
 
-        journal.dates[i].collapsed = false;
-        journal.dates[i].visible = true;
-      }
+        l.collapsed = false;
+        l.visible = true;
+      })
+
+      let dateDays = new Array(...groupBy(dates, el => el.startDate.dayOfYear()).values())
+      journal.dates = new Array(...groupBy(dateDays, el => el[0].startDate.month()).values())
 
       journal.rows.forEach(row => {
-        for (let i = 0; i < row.lessons.length; i++) {
-          if (row.lessons[i] == null) {
-            row.lessons[i] = <Lesson>{
-              startDate: journal.dates[i].startDate.clone(),
-              endDate: journal.dates[i].startDate.clone(),
-              group: "",
-              primaryColor: "",
-              room: "",
-              subject: "",
-              teacher: ""
-            }
+        let lessons: Lesson[] = row.lessons as unknown as Lesson[]
+        lessons.forEach(l => {
+          l.startDate = moment.utc(l.startDate)
+          l.endDate = moment.utc(l.endDate)
+
+          l.collapsed = false;
+          l.visible = true;
+        })
+
+        for (let i = 0; i < lessons.length; i++) {
+          if (lessons[i] != null) continue
+
+          lessons[i] = <Lesson>{
+            startDate: dates[i].startDate.clone(),
+            endDate: dates[i].startDate.clone(),
+            group: "",
+            primaryColor: "",
+            room: "",
+            subject: "",
+            teacher: ""
           }
-
-          row.lessons[i].endDate = moment.utc(row.lessons[i].endDate);
-          row.lessons[i].startDate = moment.utc(row.lessons[i].startDate);
-
-          row.lessons[i].collapsed = false;
-          row.lessons[i].visible = true;
         }
-      });
+
+        let rowDays = new Array(...groupBy(lessons, el => el.startDate.dayOfYear()).values())
+        row.lessons = new Array(...groupBy(rowDays, el => el[0].startDate.month()).values())
+      })
 
       return journal;
     }));

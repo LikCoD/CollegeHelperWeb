@@ -1,0 +1,8 @@
+<app-base-journal-date-item [lesson]="date"></app-base-journal-date-item>
+<section>
+  <app-base-journal-cell
+    *ngFor="let lesson of lessons"
+    [entries]="mapLesson(lesson)"
+    [color]="lesson.journalCellColor ?? 'white'"
+  ></app-base-journal-cell>
+</section>

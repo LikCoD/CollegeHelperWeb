@@ -4,7 +4,6 @@ import {Observable, Subject, tap} from "rxjs"
 import {Journal, JournalOption, Mark} from "../../models/journal"
 import {Lesson} from "../../models/schedule"
 import * as moment from "moment"
-import {compareDates} from "../../utils"
 import {JournalColors, LessonType, StudyPlace} from "../../models/general"
 
 @Injectable({providedIn: "root"})
@@ -76,7 +75,8 @@ export class JournalService {
         }
 
         lesson.journalCellColor = this.getCellColor(studyPlace.journalColors, studyPlace.lessonTypes, lesson.type ?? "", lesson.startDate, lesson.marks!!)
-        row.color = this.getColorOfLessons(this.journal, row.lessons)}
+        row.color = this.getColorOfLessons(this.journal, row.lessons)
+      }
     })
   }
 
@@ -98,96 +98,35 @@ export class JournalService {
     })
   }
 
-  getColorOfLessons(journal: Journal, lessons: Lesson[]) {
+  getColorOfLessons(journal: Journal, lessons: Lesson[][][]) {
     let colors = journal.info.studyPlace.journalColors
-
     let color = colors.general
-    for (let lesson of lessons) {
-      if (lesson.journalCellColor == colors.warning) color = colors.warning
-      if (lesson.journalCellColor == colors.danger) return colors.danger
-    }
+
+    lessons.find(m => m.find(d => d.find(l => {
+      if (l.journalCellColor == colors.warning) color = colors.warning
+      if (l.journalCellColor == colors.danger) {
+        color = colors.danger
+        return true
+      }
+
+      return false
+    })))
 
     return color
   }
 
-  collapse(journal: Journal, lesson: Lesson, unit: moment.unitOfTime.StartOf) {
-    let addNew = true
-    let collapse = lesson.collapsedType
-
-    if (collapse != undefined && unit == "day" && collapse == "month") unit = "month"
-
-    let indexes: number[] = []
-    journal.dates.forEach((value, index) => {
-      if (!compareDates(value.startDate, lesson.startDate, unit)) return
-
-      if (value.collapsedType == unit) addNew = false
-
-      indexes.push(index)
-      value.collapsed = (collapse == undefined && value.collapsedType != unit) || (collapse != undefined && value.collapsedType != undefined)
-    })
-
-    if (indexes.length == 1) {
-      journal.dates[indexes[0]].collapsed = false
-      return
-    }
-
-    if (collapse != undefined) {
-      journal.dates.splice(indexes[0], 1)
-      journal.rows.forEach(row => row.lessons.splice(indexes[0], 1))
-      return
-    }
-
-    if (!addNew) return
-
-    journal.dates.splice(indexes[0], 0, {...lesson, collapsed: false, collapsedType: unit})
-
-    journal.rows.forEach(row => {
-      let lessons = indexes.map(i => row.lessons[i])
-
-      let collapsedLesson = <Lesson>{
-        ...row.lessons[indexes[0]],
-        journalCellColor: this.getColorOfLessons(journal, lessons),
-        marks: [],
-        absences: []
-      }
-
-      collapsedLesson.marks = lessons.flatMap(l =>
-        l.marks == undefined || l.marks!!.length == 0 ? [] : l.marks!!
-      )
-
-      collapsedLesson.absences = lessons.flatMap(l =>
-        l.absences == undefined || l.absences!!.length == 0 ? [] : l.absences!!
-      )
-
-      row.lessons.splice(indexes[0], 0, collapsedLesson)
-    })
-
-    return
-  }
-
-  expand(journal: Journal) {
-    let indexes: number[] = []
-    journal.dates.forEach((value, index) => {
-      value.collapsed = value.collapsedType != undefined
-      if (value.collapsed) indexes.push(index)
-    })
-
-    indexes.forEach((i, amount) => {
-      journal.dates.splice(i - amount, 1)
-      journal.rows.forEach(v => v.lessons.splice(i - amount, 1))
-    })
-  }
-
   selectStandaloneType(type: string) {
-    if (this.journal.rows.find(r => r.lessons.find(l => l?.teacher == ""))) {
+    if (this.journal.rows.find(r => r.lessons.find(m => m.find(d => d.find(l => l?.teacher == ""))))) {
       let journals: Journal[] = []
       this.journal.rows.forEach(row => {
-        let filteredLessons = row.lessons.filter(value => value?.teacher != "" && value?.type == type)
-        if (filteredLessons.length == 0) return
+        let lessons = [...row.lessons]
+        lessons.forEach(m => m.forEach(d => d.forEach(l => {
+          l.visible = l.type == type
+        })))
 
         journals.push(<Journal>{
-          dates: [...filteredLessons],
-          rows: [{...row, lessons: filteredLessons}],
+          dates: lessons,
+          rows: [{...row, lessons: lessons}],
           info: this.journal.info
         })
       })
@@ -196,19 +135,9 @@ export class JournalService {
       return
     }
 
-    this.journal.dates.forEach(d => d.visible = d.type == type)
-  }
-
-  getGeneralJournal() {
-    this.journal.dates = this.journal.dates
-      .filter(p => p.collapsedType == null)
-      .map(d => {
-        d.collapsed = false
-        d.visible = true
-        return d
-      })
-
-    this.journal$.next([this.journal])
+    this.journal.dates.forEach(m => m.forEach(d => d.forEach(l => {
+      l.visible = l.type == type
+    })))
   }
 
   setAbsence(lesson: Lesson, id: string, time: number | null) {

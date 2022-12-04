@@ -14,7 +14,7 @@ export interface JournalInfo {
 export interface JournalRow {
   id: string;
   title: string;
-  lessons: Lesson[];
+  lessons: Lesson[][][];
   color: string;
   numericMarksSum: number
   numericMarksAmount: number
@@ -29,9 +29,9 @@ export interface MarkAmount {
 }
 
 export interface Journal {
-  dates: Lesson[];
-  rows: JournalRow[];
-  info: JournalInfo;
+  dates: Lesson[][][]
+  rows: JournalRow[]
+  info: JournalInfo
 }
 
 export interface JournalOption {

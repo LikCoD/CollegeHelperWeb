@@ -1,0 +1,20 @@
+@use 'apps/studyum/src/styles';
+
+app-base-journal-date-item {
+  position: sticky;
+  top: 0;
+
+  z-index: 3;
+
+  background-color: styles.$backgroundColor;
+}
+
+section {
+  display: flex;
+  flex-flow: column;
+
+  align-items: center;
+
+  gap: 16px;
+  margin-top: 8px;
+}

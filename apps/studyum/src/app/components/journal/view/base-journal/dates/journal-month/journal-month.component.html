@@ -1,0 +1,5 @@
+<app-journal-day
+  *ngFor="let day of month; let i = index"
+  [day]="day"
+  [dayLessons]="mapMonth(monthLessons, i)"
+></app-journal-day>

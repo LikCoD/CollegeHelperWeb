@@ -71,6 +71,11 @@ import {HeaderComponent} from "./components/general/header/header.component"
 import {HeaderTitleStrategy} from "./services/ui/header.service"
 import {HttpAuthInterceptor} from "./interseptors/http-auth.interceptor"
 import {ScheduleTopBarComponent} from "./components/schedule/view/schedule-top-bar/schedule-top-bar.component"
+import {JournalMonthComponent} from "./components/journal/view/base-journal/dates/journal-month/journal-month.component"
+import {JournalDayComponent} from "./components/journal/view/base-journal/dates/journal-day/journal-day.component"
+import {
+  JournalColumnComponent
+} from "./components/journal/view/base-journal/dates/journal-column/journal-column.component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -204,6 +209,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BaseJournalTopActionBarComponent,
 
     HeaderComponent,
+    JournalMonthComponent,
+    JournalDayComponent,
+    JournalColumnComponent,
   ],
   imports: [
     BrowserModule,

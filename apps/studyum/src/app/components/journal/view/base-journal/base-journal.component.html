@@ -1,38 +1,15 @@
 <ng-container *ngIf="filterLessons(journal.dates) as collapsedDates">
   <div class="corner"></div>
-  <div class="date-row">
-    <app-base-journal-date-item
-      *ngFor="let date of collapsedDates"
-      #item
-      [lesson]="date"
-      (click)="onDateClick(item.elRef, journal, date)"
-    ></app-base-journal-date-item>
-  </div>
   <ol class="titles">
     <li *ngFor="let row of journal.rows">{{row.title}}</li>
   </ol>
-  <table #table>
-    <tbody>
-    <tr *ngFor="let row of journal.rows; let y = index">
-      <td
-        *ngFor="let lesson of filterLessons(row.lessons, journal.dates); let x = index"
-        #cell
-        (keydown.arrowUp)="focusCell(0, -1)"
-        (keydown.arrowRight)="focusCell(1, 0)"
-        (keydown.arrowDown)="focusCell(0, 1)"
-        (keydown.arrowLeft)="focusCell(-1, 0)"
-        (focus)="focus(cell, x, y, lesson, row.id, journal, collapsedDates)"
-        class="cell"
-        tabindex="0">
-        <app-base-journal-cell
-          [ngClass]="{focused: isFocused(x, y)}"
-          [entries]="cellEntities(lesson)"
-          [color]="lesson.journalCellColor ?? 'white'"
-        ></app-base-journal-cell>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="date-row">
+    <app-journal-month
+      *ngFor="let days of journal.dates; let i = index"
+      [month]="days"
+      [monthLessons]="monthLessons(journal, i)"
+    ></app-journal-month>
+  </div>
   <section>
     <div *ngIf="mode == 'general'">
       <p>{{'journal.view.avg' | translate}}</p>

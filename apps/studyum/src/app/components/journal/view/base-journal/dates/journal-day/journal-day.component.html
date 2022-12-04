@@ -1,0 +1,5 @@
+<app-journal-column
+  *ngFor="let date of day; let i = index"
+  [date]="date"
+  [lessons]="mapDay(dayLessons, i)"
+></app-journal-column>

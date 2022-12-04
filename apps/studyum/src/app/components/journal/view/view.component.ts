@@ -65,7 +65,7 @@ export class JournalViewComponent implements OnInit {
     if (type == null || this.selectedLessonType == type) {
       this.selectedLessonType = null
       this.isAmountSelected = false
-      this.journalService.getGeneralJournal()
+      //this.journalService.getGeneralJournal()
       return
     }
 
@@ -162,16 +162,16 @@ export class JournalViewComponent implements OnInit {
     baseJournal.unselectCells()
     this.scheduleService.updateLesson(lesson).subscribe({
       next: lesson => {
-        let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)
-        journal.dates[columnIndex] = lesson
-        journal.rows.forEach(value => {
-          value.lessons[columnIndex] = {
-            ...lesson,
-            journalCellColor: value.lessons[columnIndex].journalCellColor,
-            marks: value.lessons[columnIndex].marks,
-            absences: value.lessons[columnIndex].absences
-          }
-        })
+        // let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)
+        // journal.dates[columnIndex] = lesson
+        // journal.rows.forEach(value => {
+        //   value.lessons[columnIndex] = {
+        //     ...lesson,
+        //     journalCellColor: value.lessons[columnIndex].journalCellColor,
+        //     marks: value.lessons[columnIndex].marks,
+        //     absences: value.lessons[columnIndex].absences
+        //   }
+        // })
       }
     })
   }
