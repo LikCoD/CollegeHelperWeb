@@ -1,5 +1,9 @@
 @use 'apps/studyum/src/styles';
 
+:host {
+  user-select: none;
+}
+
 app-base-journal-date-item {
   position: sticky;
   top: 0;
@@ -17,4 +21,9 @@ section {
 
   gap: 16px;
   margin-top: 8px;
+}
+
+.focused {
+  box-shadow: 0 0 0 4px styles.$secondaryColor;
+  border-radius: 15px;
 }

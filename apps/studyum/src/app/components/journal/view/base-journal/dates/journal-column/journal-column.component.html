@@ -2,7 +2,9 @@
 <section>
   <app-base-journal-cell
     *ngFor="let lesson of lessons"
+    [ngClass]="{focused: isSelected(lesson.point!!)}"
     [entries]="mapLesson(lesson)"
     [color]="lesson.journalCellColor ?? 'white'"
+    (click)="onClick(lesson)"
   ></app-base-journal-cell>
 </section>

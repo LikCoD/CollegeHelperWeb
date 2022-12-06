@@ -5,6 +5,7 @@ import {JournalService} from "../../../../services/shared/journal.service"
 import {DataPoint, JournalPointData} from "../../../../models/dto/points"
 import {JournalMode, LessonType} from "../../../../models/general"
 import {defaultLocale} from "../../../../app.component"
+import {JournalCellService} from "../../../../services/ui/journal.cell.service"
 
 @Component({
   selector: "app-base-journal",
@@ -34,11 +35,11 @@ export class BaseJournalComponent implements OnInit {
   @Input()
   selectedLessonType: LessonType | null = null
 
-  @Input() set selectedCollapseType(value: CollapseType) {
-    //this.toggleCollapse(value)
+  constructor(@Host() private host: ElementRef, public journalService: JournalService, private cellService: JournalCellService) {
   }
 
-  constructor(@Host() private host: ElementRef, public journalService: JournalService) {
+  @Input() set selectedCollapseType(value: CollapseType) {
+    //this.toggleCollapse(value)
   }
 
   focusCell(x: number, y: number) {
@@ -89,8 +90,8 @@ export class BaseJournalComponent implements OnInit {
           let row = journal.rows[y1]
           let lesson = row.lessons[x1]
 
-        //   if (this.isFocused(x, y) == this.isFocused(x1, y1))
-        //     this.addFocusedPoint({x: x1, y: y1, data: {lesson: lesson, studentID: row.id}})
+          //   if (this.isFocused(x, y) == this.isFocused(x1, y1))
+          //     this.addFocusedPoint({x: x1, y: y1, data: {lesson: lesson, studentID: row.id}})
         }
       }
 
@@ -108,16 +109,15 @@ export class BaseJournalComponent implements OnInit {
     this.cellClick.emit({x: cell.offsetLeft, y: cell.offsetTop, data: this.focusedCells.map(v => v.data)})
   }
 
-  @HostListener("document:keydown", ["$event"])
-  keyDown(event: KeyboardEvent) {
-    if (event.key == "Control") this.isCtrlPressed = true
-    if (event.key == "Shift") this.isShiftPressed = true
-  }
-
-  @HostListener("document:keyup", ["$event"])
-  keyUp(event: KeyboardEvent) {
-    if (event.key == "Control") this.isCtrlPressed = false
-    if (event.key == "Shift") this.isShiftPressed = false
+  @HostListener("document:keyup.shift", ["false", "'shift'"])
+  @HostListener("document:keyup.control", ["false", "'control'"])
+  @HostListener("document:keyup.meta", ["false", "'control'"])
+  @HostListener("document:keydown.shift", ["true", "'shift'"])
+  @HostListener("document:keydown.control", ["true", "'control'"])
+  @HostListener("document:keydown.meta", ["true", "'control'"])
+  keyEvent(down: boolean, key: string) {
+    if (key == "shift") this.cellService.isShiftPressed = down
+    if (key == "control") this.cellService.isControlPressed = down
   }
 
   onDateClick(cell: ElementRef, journal: Journal, date: Lesson) {
@@ -151,6 +151,7 @@ export class BaseJournalComponent implements OnInit {
 
     this.dateClick.emit({x: cell.nativeElement.offsetLeft, y: cell.nativeElement.offsetTop, data: date})
   }
+
   //
   // smartCollapse() {
   //   let monthLessons: Lesson[] = []

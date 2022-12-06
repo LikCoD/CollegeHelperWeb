@@ -14,8 +14,10 @@
   top: 0;
   left: 0;
 
+  height: 64px;
+
   background: styles.$backgroundColor;
-  z-index: 56
+  z-index: 6
 }
 
 table {
@@ -79,11 +81,6 @@ table {
     overflow: hidden;
     text-overflow: ellipsis
   }
-}
-
-.focused {
-  box-shadow: 0 0 0 4px styles.$secondaryColor;
-  border-radius: 15px;
 }
 
 ol {
