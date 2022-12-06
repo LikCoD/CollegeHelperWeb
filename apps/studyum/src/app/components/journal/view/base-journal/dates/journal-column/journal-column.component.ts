@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
-import {JournalCellService, Point2D} from "../../../../../../services/ui/journal.cell.service"
+import {JournalCellService, Point} from "../../../../../../services/ui/journal.cell.service"
 
 @Component({
   selector: "app-journal-column",
@@ -15,10 +15,10 @@ export class JournalColumnComponent {
   }
 
   onClick(lesson: Lesson): void {
-    this.cellService.addPoint({lesson: lesson, studentID: ""})
+    this.cellService.addPoint(lesson.point!!)
   }
 
-  isSelected(point: Point2D): boolean {
+  isSelected(point: Point): boolean {
     return !!this.cellService.selectedPoints.find(p => p.x === point.x && p.y === point.y)
   }
 

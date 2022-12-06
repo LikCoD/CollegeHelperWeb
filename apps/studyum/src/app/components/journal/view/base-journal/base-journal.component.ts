@@ -42,73 +42,6 @@ export class BaseJournalComponent implements OnInit {
     //this.toggleCollapse(value)
   }
 
-  focusCell(x: number, y: number) {
-    let table = <HTMLTableElement>this.table.nativeElement
-
-    if (this.focusedCells.length == 0) {
-      table.tBodies[0].rows[0].cells[0].focus()
-      return
-    }
-
-    let cell = table.tBodies[0].rows[y + this.focusedCells[0].y]?.cells[x + this.focusedCells[0].x]
-    cell?.focus()
-  }
-
-  isFocused(x: number, y: number): boolean {
-    return this.focusedCells.find(value => value.x == x && value.y == y) != undefined
-  }
-
-  addFocusedPoint(point: DataPoint<JournalPointData>) {
-    if (!this.isFocused(point.x, point.y)) this.focusedCells.push(point)
-    else this.focusedCells = this.focusedCells.filter(value => value.x != point.x || value.y != point.y)
-  }
-
-  focus(cell: HTMLTableCellElement, x: number, y: number, lesson: Lesson, studentID: string, journal: Journal, dates: Lesson[]) {
-    let cellX = cell.getClientRects()[0].x
-    let cellY = cell.getClientRects()[0].y
-    this.host.nativeElement.scrollBy(cellX < 180 ? cellX - 180 : 0, cellY < 120 ? cellY - 120 : 0)
-
-    if (dates[x].collapsedType) return
-
-    if (journal.info.editable && this.isShiftPressed && this.focusedCells.length > 0) {
-      let previousPoint = this.focusedCells[this.focusedCells.length - 1]
-      this.addFocusedPoint(previousPoint)
-
-      let ex = x
-      let ey = y
-      let sx = previousPoint.x
-      let sy = previousPoint.y
-
-      if (sx > ex) ex--
-      else ex++
-
-      if (sy > ey) ey--
-      else ey++
-
-      for (let x1 = sx; x1 != ex; ex > x1 ? x1++ : x1--) {
-        for (let y1 = sy; y1 != ey; ey > y1 ? y1++ : y1--) {
-          let row = journal.rows[y1]
-          let lesson = row.lessons[x1]
-
-          //   if (this.isFocused(x, y) == this.isFocused(x1, y1))
-          //     this.addFocusedPoint({x: x1, y: y1, data: {lesson: lesson, studentID: row.id}})
-        }
-      }
-
-      this.cellClick.emit({x: cell.offsetLeft, y: cell.offsetTop, data: this.focusedCells.map(v => v.data)})
-      return
-    }
-
-    if (journal.info.editable && this.isCtrlPressed) {
-      this.addFocusedPoint({x: x, y: y, data: {lesson: lesson, studentID: studentID}})
-      this.cellClick.emit({x: cell.offsetLeft, y: cell.offsetTop, data: this.focusedCells.map(v => v.data)})
-      return
-    }
-
-    this.focusedCells = [{x: x, y: y, data: {lesson: lesson, studentID: studentID}}]
-    this.cellClick.emit({x: cell.offsetLeft, y: cell.offsetTop, data: this.focusedCells.map(v => v.data)})
-  }
-
   @HostListener("document:keyup.shift", ["false", "'shift'"])
   @HostListener("document:keyup.control", ["false", "'control'"])
   @HostListener("document:keyup.meta", ["false", "'control'"])
@@ -118,6 +51,14 @@ export class BaseJournalComponent implements OnInit {
   keyEvent(down: boolean, key: string) {
     if (key == "shift") this.cellService.isShiftPressed = down
     if (key == "control") this.cellService.isControlPressed = down
+  }
+
+  @HostListener("document:keydown.arrowUp", ["0", "-1"])
+  @HostListener("document:keydown.arrowRight", ["1", "0"])
+  @HostListener("document:keydown.arrowDown", ["0", "1"])
+  @HostListener("document:keydown.arrowLeft", ["-1", "0"])
+  arrowEvent(x: number, y: number) {
+    this.cellService.moveBy(x, y)
   }
 
   onDateClick(cell: ElementRef, journal: Journal, date: Lesson) {
@@ -213,6 +154,7 @@ export class BaseJournalComponent implements OnInit {
   unselectCells() {
     this.focusedCells = []
   }
+
 
   cellEntities(lesson: Lesson): string[] {
     let type = this.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)

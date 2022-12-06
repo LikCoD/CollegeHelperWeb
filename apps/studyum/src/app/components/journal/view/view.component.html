@@ -22,10 +22,6 @@
           *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed"
           (close)="selectedCell = undefined; baseJournal.unselectCells()"
           [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
-          (keydown.arrowUp)="baseJournal.focusCell(0, -1);"
-          (keydown.arrowRight)="baseJournal.focusCell(1, 0);"
-          (keydown.arrowDown)="baseJournal.focusCell(0, 1);"
-          (keydown.arrowLeft)="baseJournal.focusCell(-1, 0);"
         >
           <app-select-mark
             #selectMarkComponent

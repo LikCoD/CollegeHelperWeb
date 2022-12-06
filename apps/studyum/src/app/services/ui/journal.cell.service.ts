@@ -1,34 +1,44 @@
 import {Injectable} from "@angular/core"
-import {Lesson} from "../../models/schedule"
 
 @Injectable({
   providedIn: "root"
 })
 export class JournalCellService {
 
-  selectedPoints: Point2D[] = []
+  selectedPoints: Point[] = []
 
   isShiftPressed = false
   isControlPressed = false
 
+  get lastSelectedPoint(): Point {
+    return this.selectedPoints[this.selectedPoints.length - 1]
+  }
+
+  moveBy(x: number, y: number) {
+    let point = {...this.lastSelectedPoint}
+    point.x += x
+    point.y += y
+
+    this.addPoint(point)
+  }
+
   addPoint(point: Point) {
     if (!this.isShiftPressed && !this.isControlPressed) {
-      this.selectedPoints = [{...point.lesson.point!!}]
+      this.selectedPoints = [{...point}]
       return
     }
 
     if (this.isShiftPressed) {
-      const lastPoint = this.selectedPoints[this.selectedPoints.length - 1]
-      this.selectedPoints.push(...this.calcSquareSelector(lastPoint, {...point.lesson.point!!}))
+      this.selectedPoints.push(...this.calcSquareSelector(this.lastSelectedPoint, {...point}))
       return
     }
 
-    let i = this.selectedPoints.findIndex(p => p.x === point.lesson.point!!.x && p.y === point.lesson.point!!.y)
-    if (i == -1) this.selectedPoints.push({...point.lesson.point!!})
+    let i = this.selectedPoints.findIndex(p => p.x === point.x && p.y === point.y)
+    if (i == -1) this.selectedPoints.push({...point})
     else this.selectedPoints.splice(i, 1)
   }
 
-  private calcSquareSelector(from: Point2D, to: Point2D): Point2D[] {
+  private calcSquareSelector(from: Point, to: Point): Point[] {
     let lastPoint = {...to}
 
     if (from.y > to.y) {
@@ -43,7 +53,7 @@ export class JournalCellService {
       to.x = temp
     }
 
-    let points = new Array<Point2D>()
+    let points = new Array<Point>()
     for (let x = from.x; x <= to.x; x++) {
       for (let y = from.y; y <= to.y; y++) {
         if (!!points.find(p => p.x == x && p.y == y) || (x == lastPoint.x && y == lastPoint.y)) continue
@@ -58,11 +68,6 @@ export class JournalCellService {
 }
 
 export interface Point {
-  lesson: Lesson
-  studentID: string
-}
-
-export interface Point2D {
   x: number
   y: number
 }

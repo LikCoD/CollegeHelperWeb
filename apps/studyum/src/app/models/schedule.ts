@@ -1,7 +1,7 @@
 import * as moment from "moment"
 import {Absence, Mark} from "./journal"
 import {StudyPlace} from "./general"
-import {Point2D} from "../services/ui/journal.cell.service"
+import {Point} from "../services/ui/journal.cell.service"
 
 export interface ScheduleTypes {
   [Key: string]: string[];
@@ -29,7 +29,7 @@ export interface Lesson {
   collapsed?: boolean;
   visible?: boolean;
   collapsedType?: moment.unitOfTime.StartOf;
-  point?: Point2D
+  point?: Point
 }
 
 export interface ScheduleInfo {
