@@ -6,7 +6,7 @@ import * as moment from "moment"
 })
 export class JournalCellService {
   selectedPoints: Point[] = []
-  selectedDate: moment.Moment | null =  null
+  selectedDate: moment.Moment | null = null
 
   isShiftPressed = false
   isControlPressed = false
@@ -39,6 +39,10 @@ export class JournalCellService {
     else this.selectedPoints.splice(i, 1)
   }
 
+  clear(): void {
+    this.selectedPoints = []
+  }
+
   private calcSquareSelector(from: Point, to: Point): Point[] {
     let lastPoint = {...to}
 
@@ -57,18 +61,19 @@ export class JournalCellService {
     let points = new Array<Point>()
     for (let x = from.x; x <= to.x; x++) {
       for (let y = from.y; y <= to.y; y++) {
-        if (!!points.find(p => p.x == x && p.y == y) || (x == lastPoint.x && y == lastPoint.y)) continue
+        if (
+          !!points.find(p => p.x == x && p.y == y) ||
+          !!this.selectedPoints.find(p => p.x == x && p.y == y) ||
+          (x == lastPoint.x && y == lastPoint.y)
+        ) continue
+
         points.push({x: x, y: y})
       }
     }
 
     points.push(lastPoint)
-
+    console.log(points)
     return points
-  }
-
-  clear(): void {
-    this.selectedPoints = []
   }
 }
 

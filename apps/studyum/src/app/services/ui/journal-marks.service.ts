@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core"
 import {JournalHttpService} from "../http/journal-http.service"
 import {Absence, Journal, JournalRow, Mark, MarkAmount} from "../../models/journal"
 import {JournalService} from "../shared/journal.service"
-import {Point} from "./journal.cell.service"
+import {JournalCellService, Point} from "./journal.cell.service"
 import * as moment from "moment/moment"
 import {Lesson} from "../../models/schedule"
 
@@ -11,7 +11,7 @@ import {Lesson} from "../../models/schedule"
 })
 export class JournalMarksService {
 
-  constructor(private http: JournalHttpService, private journalService: JournalService) {
+  constructor(private http: JournalHttpService, private journalService: JournalService, private cellService: JournalCellService) {
   }
 
   private get journal(): Journal {
@@ -19,18 +19,20 @@ export class JournalMarksService {
   }
 
   addMark(point: Point, mark: Mark): void {
-    let row = this.journal.rows[point.y]
-    mark.studentID = row.id
+    this.cellService.selectedPoints.forEach(p => {
+      let row = this.journal.rows[p.y]
+      let lesson = row.lessons.flat(2)[p.x]
+      mark.studentID = row.id
+      mark.lessonID = lesson.id
 
-    this.http.addMark(mark).subscribe({
-      next: mark => {
-        let lesson = row.lessons.flat(2)[point.x]
+      this.http.addMark(mark).subscribe({
+        next: mark => {
+          if (!lesson.marks) lesson.marks = [mark]
+          else lesson.marks.push(mark)
 
-        if (!lesson.marks) lesson.marks = [mark]
-        else lesson.marks.push(mark)
-
-        this.refresh(this.journal.rows[point.y], lesson)
-      }
+          this.refresh(this.journal.rows[p.y], lesson)
+        }
+      })
     })
   }
 
@@ -64,20 +66,27 @@ export class JournalMarksService {
   }
 
   truncate(point: Point, marks: Mark[]): void {
-    marks.forEach(m => this.deleteMark(point, m.id!!))
+    this.cellService.selectedPoints.forEach(p => {
+      let row = this.journal.rows[p.y]
+      let lesson = row.lessons.flat(2)[p.x]
+
+      lesson.marks?.forEach(m => this.deleteMark(p, m.id!!))
+    })
   }
 
   addAbsence(point: Point, absence: Absence): void {
-    let row = this.journal.rows[point.y]
-    absence.studentID = row.id
+    this.cellService.selectedPoints.forEach(p => {
+      let row = this.journal.rows[p.y]
+      let lesson = row.lessons.flat(2)[p.x]
+      absence.studentID = row.id
+      absence.lessonID = lesson.id!!
 
-    this.http.setAbsence(absence, this.journal.info.studyPlace.absenceMark).subscribe({
-      next: absence => {
-        let lesson = row.lessons.flat(2)[point.x]
-
-        if (!lesson.absences) lesson.absences = [absence]
-        else lesson.absences.push(absence)
-      }
+      this.http.setAbsence(absence, this.journal.info.studyPlace.absenceMark).subscribe({
+        next: absence => {
+          if (!lesson.absences) lesson.absences = [absence]
+          else lesson.absences.push(absence)
+        }
+      })
     })
   }
 
