@@ -11,7 +11,6 @@ import {Point} from "../../../../services/ui/journal.cell.service"
   styleUrls: ["./select-mark.component.scss"]
 })
 export class SelectMarkComponent implements AfterViewInit {
-
   @Input() lesson: Lesson
   @Input() userId: string
 

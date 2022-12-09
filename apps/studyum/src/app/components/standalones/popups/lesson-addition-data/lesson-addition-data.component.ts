@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {LessonType} from "../../../../models/general"
+import {JournalLessonService} from "../../../../services/ui/journal-lesson.service"
 
 @Component({
   selector: "app-lesson-addition-data",
@@ -11,6 +12,7 @@ import {LessonType} from "../../../../models/general"
 export class LessonAdditionDataComponent {
   @Input() types: LessonType[]
   @Output() confirm = new EventEmitter<Lesson>()
+
   form = new FormGroup({
     type: new FormControl("", Validators.required),
     title: new FormControl(""),
@@ -30,6 +32,9 @@ export class LessonAdditionDataComponent {
     this.form.get("homework")?.setValue(lesson.homework ?? "")
   }
 
+  constructor(private service: JournalLessonService) {
+  }
+
   submit() {
     this._lesson.type = this.form.get("type")!.value ?? ""
     this._lesson.title = this.form.get("title")!.value ?? ""
@@ -37,6 +42,6 @@ export class LessonAdditionDataComponent {
     this._lesson.homework = this.form.get("homework")!.value ?? ""
     this._lesson.secondaryColor = this.types.find(t => t.type == this._lesson.type)?.assignedColor ?? "transparent"
 
-    this.confirm.emit(this._lesson)
+    this.service.editLesson(this._lesson)
   }
 }
