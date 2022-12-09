@@ -1,7 +1,9 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
-import {Mark} from "../../../../models/journal"
+import {Absence, Mark} from "../../../../models/journal"
 import {AbsenceControlComponent} from "./enteries/absence-control.component"
+import {JournalMarksService} from "../../../../services/ui/journal-marks.service"
+import {Point} from "../../../../services/ui/journal.cell.service"
 
 @Component({
   selector: "app-select-mark",
@@ -21,30 +23,26 @@ export class SelectMarkComponent implements AfterViewInit {
   @Input() showStandaloneMarks: boolean
   @Input() showAbsence: boolean
 
-  @Output() markAdd = new EventEmitter<Mark>()
-  @Output() markEdit = new EventEmitter<Mark>()
-  @Output() markDelete = new EventEmitter<string>()
-
-  @Output() absenceAdd = new EventEmitter<number | null>()
-  @Output() absenceEdit = new EventEmitter<number | null>()
-  @Output() absenceDelete = new EventEmitter<string>()
-
-  @Output() truncateCell = new EventEmitter<null>()
-
   addMarkEl = <Mark>{mark: "+"}
   removeMarkEl = <Mark>{mark: "🗑"}
 
   selectedMark = this.addMarkEl
 
   @ViewChild("markInput") markInput: ElementRef<HTMLInputElement>
-
   @ViewChild("absence") absence: AbsenceControlComponent
+
+  constructor(private service: JournalMarksService) {
+  }
+
+  get point(): Point {
+    return this.lesson.point!!
+  }
 
   ngAfterViewInit(): void {
     this.focusInput()
   }
 
-  confirmInput(key: string) {
+  confirmInput(key: string): void {
     if (key != "Enter") return
 
     this.confirm()
@@ -63,22 +61,22 @@ export class SelectMarkComponent implements AfterViewInit {
       lessonID: this.lesson!!.id,
       studyPlaceID: this.lesson!!.studyPlaceId
     }
-    this.markAdd.emit(mark)
+    this.service.addMark(this.point, mark)
   }
 
-  editMark(mark_: string) {
+  editMark(mark_: string): void {
     if (this.selectedMark == undefined) return
 
     this.selectedMark!!.mark = mark_
-    this.markEdit.emit(this.selectedMark)
+    this.service.editMark(this.point, this.selectedMark)
 
     this.selectedMark = this.addMarkEl
   }
 
-  removeMark() {
+  removeMark(): void {
     if (this.selectedMark == undefined) return
 
-    this.markDelete.emit(this.selectedMark.id)
+    this.service.deleteMark(this.point, this.selectedMark.id!!)
 
     this.selectedMark = this.addMarkEl
   }
@@ -102,8 +100,23 @@ export class SelectMarkComponent implements AfterViewInit {
   }
 
   actionSelect(mark: Mark) {
-    if (mark == this.removeMarkEl) this.truncateCell.emit()
+    if (mark == this.removeMarkEl) this.service.truncate(this.point, this.lesson.marks ?? [])
 
     this.selectedMark = mark
+  }
+
+  addAbsence(time: number | null): void {
+    let absence = <Absence>{time: time, lessonID: this.lesson.id, studentID: ""}
+    this.service.addAbsence(this.point, absence)
+  }
+
+  editAbsence(time: number | null): void {
+    let id = this.lesson.absences!![0].id
+    let absence = <Absence>{id: id, time: time, lessonID: this.lesson.id, studentID: ""}
+    this.service.editAbsence(this.point, absence)
+  }
+
+  deleteAbsence(id: string): void {
+    this.service.deleteAbsence(this.point, id)
   }
 }

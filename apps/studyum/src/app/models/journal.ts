@@ -50,7 +50,7 @@ export interface Mark {
 }
 
 export interface Absence {
-  time?: string;
+  time?: number;
   studentID: string;
   lessonID: string;
   studyPlaceID?: string;

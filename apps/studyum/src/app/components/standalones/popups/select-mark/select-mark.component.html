@@ -26,8 +26,11 @@
 <app-absence-control
   #absence
   *ngIf="showAbsence"
-  [absenceMark]="absenceMark" [lesson]="lesson"
-  (add)="absenceAdd.emit($event)" (edit)="absenceEdit.emit($event)" (delete)="absenceDelete.emit($event)"
+  [absenceMark]="absenceMark"
+  [lesson]="lesson"
+  (add)="addAbsence($event)"
+  (edit)="editAbsence($event)"
+  (delete)="deleteAbsence($event)"
 ></app-absence-control>
 
 <button

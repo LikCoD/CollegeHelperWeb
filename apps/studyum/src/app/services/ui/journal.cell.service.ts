@@ -1,11 +1,12 @@
 import {Injectable} from "@angular/core"
+import * as moment from "moment"
 
 @Injectable({
   providedIn: "root"
 })
 export class JournalCellService {
-
   selectedPoints: Point[] = []
+  selectedDate: moment.Moment | null =  null
 
   isShiftPressed = false
   isControlPressed = false
@@ -14,7 +15,7 @@ export class JournalCellService {
     return this.selectedPoints[this.selectedPoints.length - 1]
   }
 
-  moveBy(x: number, y: number) {
+  moveBy(x: number, y: number): void {
     let point = {...this.lastSelectedPoint}
     point.x += x
     point.y += y
@@ -22,7 +23,7 @@ export class JournalCellService {
     this.addPoint(point)
   }
 
-  addPoint(point: Point) {
+  addPoint(point: Point): void {
     if (!this.isShiftPressed && !this.isControlPressed) {
       this.selectedPoints = [{...point}]
       return
@@ -64,6 +65,10 @@ export class JournalCellService {
     points.push(lastPoint)
 
     return points
+  }
+
+  clear(): void {
+    this.selectedPoints = []
   }
 }
 

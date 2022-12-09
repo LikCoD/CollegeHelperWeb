@@ -1,10 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core"
-import { Lesson } from "../../../../../models/schedule"
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
+import {Lesson} from "../../../../../models/schedule"
 
 @Component({
   selector: "app-absence-control",
   template: `
-    <input #minutesInput class="form-control" [placeholder]="'journal.view.absenceMinutes' | translate">
+    <input #minutesInput
+           class="form-control"
+           [placeholder]="'journal.view.absenceMinutes' | translate"
+           [value]="minutes()">
     <button [appMiniSelectBtn]="isAbsence()" (click)="click()">{{isAbsence() ? '🗑' : absenceMark}}</button>
   `,
   styles: [`
@@ -13,7 +16,7 @@ import { Lesson } from "../../../../../models/schedule"
       height: 30px !important;
     }
   `],
-  host: { "[class]": "\"input-group input-group-sm\"" }
+  host: {"[class]": "\"input-group input-group-sm\""}
 })
 export class AbsenceControlComponent {
   @Input() absenceMark: string
@@ -24,6 +27,12 @@ export class AbsenceControlComponent {
   @Output() delete = new EventEmitter<string>()
 
   @ViewChild("minutesInput") minutesInput: ElementRef<HTMLInputElement>
+
+  minutes(): string | null {
+    if (this.lesson.absences?.length != 1 || !this.lesson.absences[0].time) return null
+
+    return this.lesson.absences[0].time.toString()
+  }
 
   click() {
     this.minutesInput.nativeElement.value = ""

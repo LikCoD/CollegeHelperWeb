@@ -159,7 +159,6 @@ export class JournalViewComponent implements OnInit {
 
   updateLesson(baseJournal: BaseJournalComponent, journal: Journal, lesson: Lesson) {
     this.selectedDate = undefined
-    baseJournal.unselectCells()
     this.scheduleService.updateLesson(lesson).subscribe({
       next: lesson => {
         // let columnIndex = journal.dates.findIndex(value => value.id == lesson.id)

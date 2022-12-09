@@ -4,56 +4,18 @@
     [journalInfo]="journals[0].info"
     (collapse)="collapseType = $event"
   ></app-base-journal-top-action-bar>
-  <div #scrollJournal class="wrapper" (scroll)="null"><!-- null -> trigger event to update scrollJournal -->
-    <ng-container *ngFor="let journal of journals">
-      <app-base-journal
-        #baseJournal
-        [journal]="journal"
-        [mode]="mode()"
-        [showAmount]="isAmountSelected"
-        [selectedLessonType]="selectedLessonType"
-        [selectedCollapseType]="collapseType"
-        (cellClick)="cellClick($event)"
-        (dateClick)="dateClick($event)"
-        (collapseChange)="collapseType = 'null'"
-      ></app-base-journal>
-      <ng-container *ngIf="journal.info.editable">
-        <app-dialog-frame
-          *ngIf="selectedCell && !isCtrlPressed && !isShiftPressed"
-          (close)="selectedCell = undefined; baseJournal.unselectCells()"
-          [ngStyle]="{'top.px': selectedCell.y + 62, 'left.px': selectedCell.x}"
-        >
-          <app-select-mark
-            #selectMarkComponent
-            [lesson]="selectedCell.data[0].lesson"
-            [userId]="selectedCell.data[0].studentID"
-            [marks]="getMarks(journal, selectedCell.data[0].lesson)"
-            [standaloneMarks]="getStandaloneMarks(journal, selectedCell.data[0].lesson)"
-            [absenceMark]="journal.info.studyPlace.absenceMark"
-            [showAllMarks]="!selectedLessonType && !isAbsencesSelected"
-            [showStandaloneMarks]="!isAbsencesSelected"
-            [showAbsence]="!selectedLessonType"
-            (markAdd)="markAdd(journal, $event)"
-            (markEdit)="markEdit(journal, $event)"
-            (markDelete)="markDelete(journal, $event)"
-            (absenceAdd)="setAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (absenceEdit)="updateAbsence(selectedCell.data[0].lesson, selectedCell.data[0].studentID, $event)"
-            (absenceDelete)="removeAbsence(selectedCell.data[0].lesson, $event)"
-            (truncateCell)="truncateCell(journal)"
-          ></app-select-mark>
-        </app-dialog-frame>
-        <app-dialog-frame
-          *ngIf="selectedDate"
-          (close)="this.selectedDate = undefined; baseJournal.unselectCells()"
-          [ngStyle]="{'left.px': selectedDate.x + 180, 'top.px': scrollJournal.scrollTop + 70}">
-          <app-lesson-addition-data
-            [lesson]="selectedDate.data"
-            [types]="journal.info.studyPlace.lessonTypes"
-            (confirm)="updateLesson(baseJournal, journal, $event)"
-          ></app-lesson-addition-data>
-        </app-dialog-frame>
-      </ng-container>
-    </ng-container>
+  <div class="wrapper">
+    <app-base-journal
+      *ngFor="let journal of journals"
+      [journal]="journal"
+      [mode]="mode()"
+      [showAmount]="isAmountSelected"
+      [selectedLessonType]="selectedLessonType"
+      [selectedCollapseType]="collapseType"
+      (cellClick)="cellClick($event)"
+      (dateClick)="dateClick($event)"
+      (collapseChange)="collapseType = 'null'"
+    ></app-base-journal>
   </div>
   <app-journal-bottom-action-bar
     [journal]="journals[0]"

@@ -4,13 +4,17 @@
   user-select: none;
 }
 
-app-base-journal-date-item {
+.date-block {
   position: sticky;
   top: 0;
 
   z-index: 3;
 
   background-color: styles.$backgroundColor;
+}
+
+app-base-journal-date-item {
+
 }
 
 section {
@@ -26,4 +30,13 @@ section {
 .focused {
   box-shadow: 0 0 0 4px styles.$secondaryColor;
   border-radius: 15px;
+}
+
+app-dialog-frame {
+  position: absolute;
+  z-index: 10;
+}
+
+.date-popup {
+  margin-top: 7px;
 }
