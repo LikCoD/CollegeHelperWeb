@@ -5,7 +5,7 @@ import {Journal} from "../../../models/journal"
 import {JournalMode, LessonType} from "../../../models/general"
 import {Observable} from "rxjs"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
-import {JournalCollapseService} from "../../../services/ui/journal-collapse.service"
+import {CollapseType, JournalCollapseService} from "../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-login",
@@ -58,6 +58,10 @@ export class JournalViewComponent implements OnInit {
     if (this.isAbsencesSelected) return "absences"
     if (this.selectedLessonType != null) return "standalone"
     return "general"
+  }
+
+  collapse(type: CollapseType): void {
+    this.collapseService.type = type
   }
 }
 
