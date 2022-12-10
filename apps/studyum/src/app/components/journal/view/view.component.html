@@ -1,9 +1,5 @@
 <ng-container *ngIf="journal$ | async as journals">
-  <app-base-journal-top-action-bar
-    [selectedCollapseType]="collapseType"
-    [journalInfo]="journals[0].info"
-    (collapse)="collapseType = $event"
-  ></app-base-journal-top-action-bar>
+  <app-base-journal-top-action-bar [journalInfo]="journals[0].info"></app-base-journal-top-action-bar>
   <div class="wrapper">
     <app-base-journal
       *ngFor="let journal of journals"
@@ -11,10 +7,6 @@
       [mode]="mode()"
       [showAmount]="isAmountSelected"
       [selectedLessonType]="selectedLessonType"
-      [selectedCollapseType]="collapseType"
-      (cellClick)="cellClick($event)"
-      (dateClick)="dateClick($event)"
-      (collapseChange)="collapseType = 'null'"
     ></app-base-journal>
   </div>
   <app-journal-bottom-action-bar

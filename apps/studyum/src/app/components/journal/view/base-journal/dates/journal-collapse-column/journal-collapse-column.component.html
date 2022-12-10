@@ -1,0 +1,12 @@
+<div class="date-block" (click)="dateClick.emit()">
+  <p [innerText]="date"></p>
+  <app-more-indicator [amount]="amount"></app-more-indicator>
+</div>
+<section>
+  <div *ngFor="let lesson of lessons">
+    <app-base-journal-cell
+      [entries]="mapLesson(lesson)"
+      [color]="lesson.journalCellColor!!"
+    ></app-base-journal-cell>
+  </div>
+</section>

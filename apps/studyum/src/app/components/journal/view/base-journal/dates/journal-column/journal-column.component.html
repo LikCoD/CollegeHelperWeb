@@ -1,7 +1,7 @@
 <div class="date-block">
   <app-base-journal-date-item
     [lesson]="date"
-    (click)="selectedDate = date.startDate"
+    (click)="onDateClick()"
   ></app-base-journal-date-item>
   <app-dialog-frame
     *ngIf="selectedDate === date.startDate"

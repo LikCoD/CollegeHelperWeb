@@ -1,5 +1,15 @@
-<app-journal-column
-  *ngFor="let date of day; let i = index"
-  [date]="date"
-  [lessons]="mapDay(dayLessons, i)"
-></app-journal-column>
+<ng-template #unCollapsed>
+  <app-journal-column
+    *ngFor="let date of day; let i = index"
+    [date]="date"
+    [lessons]="mapDay(i)"
+  ></app-journal-column>
+</ng-template>
+
+<app-journal-collapse-column
+  *ngIf="collapsed else unCollapsed"
+  [lessons]="mapCollapse()"
+  [date]="day[0].startDate | moment : 'DD MM'"
+  [amount]="day.length"
+  (dateClick)="dateClick()"
+></app-journal-collapse-column>

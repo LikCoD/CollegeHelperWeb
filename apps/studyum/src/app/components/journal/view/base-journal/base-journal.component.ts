@@ -1,11 +1,10 @@
-import {Component, ElementRef, EventEmitter, Host, HostListener, Input, Output} from "@angular/core"
+import {Component, EventEmitter, HostListener, Input, Output} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow, MarkAmount} from "../../../../models/journal"
-import {JournalService} from "../../../../services/shared/journal.service"
-import {DataPoint, JournalPointData} from "../../../../models/dto/points"
 import {JournalMode, LessonType} from "../../../../models/general"
 import {defaultLocale} from "../../../../app.component"
 import {JournalCellService} from "../../../../services/ui/journal.cell.service"
+import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-base-journal",
@@ -17,12 +16,7 @@ export class BaseJournalComponent {
   @Input() mode: JournalMode
   @Input() journal: Journal
 
-  @Output() dateClick = new EventEmitter<DataPoint<Lesson>>()
-  @Output() cellClick = new EventEmitter<DataPoint<JournalPointData[]>>()
-
   @Output() collapseChange = new EventEmitter<null>()
-
-  collapseType: CollapseType = "smart"
 
   @Input()
   showAmount = false
@@ -30,11 +24,7 @@ export class BaseJournalComponent {
   @Input()
   selectedLessonType: LessonType | null = null
 
-  constructor(@Host() private host: ElementRef, public journalService: JournalService, private cellService: JournalCellService) {
-  }
-
-  @Input() set selectedCollapseType(value: CollapseType) {
-    //this.toggleCollapse(value)
+  constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService) {
   }
 
   @HostListener("document:keyup.shift", ["false", "'shift'"])
@@ -44,8 +34,15 @@ export class BaseJournalComponent {
   @HostListener("document:keydown.control", ["true", "'control'"])
   @HostListener("document:keydown.meta", ["true", "'control'"])
   keyEvent(down: boolean, key: string) {
-    if (key == "shift") this.cellService.isShiftPressed = down
-    if (key == "control") this.cellService.isControlPressed = down
+    if (key == "shift") {
+      this.collapseService.isShiftPressed = down
+      this.cellService.isShiftPressed = down
+    }
+
+    if (key == "control") {
+      this.collapseService.isControlPressed = down
+      this.cellService.isControlPressed = down
+    }
   }
 
   @HostListener("document:keydown.arrowUp", ["0", "-1"])
@@ -94,5 +91,3 @@ export class BaseJournalComponent {
     return journal.rows.map(r => r.lessons[i])
   }
 }
-
-export type CollapseType = ("month" | "day" | "smart" | "expanded" | "null")

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core"
-import {CollapseType} from "../base-journal.component"
 import {JournalInfo} from "../../../../../models/journal"
+import {CollapseType} from "../../../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-base-journal-top-action-bar",

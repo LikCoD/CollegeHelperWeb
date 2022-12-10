@@ -1,0 +1,41 @@
+@use 'apps/studyum/src/styles';
+
+:host {
+  user-select: none;
+}
+
+.date-block {
+  position: sticky;
+  top: 0;
+
+  z-index: 3;
+
+  background-color: styles.$backgroundColor;
+
+  min-width: 66px;
+  height: 66px;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  display: flex;
+  flex-flow: column;
+
+  color: styles.$onBackgroundColor;
+}
+
+app-more-indicator {
+  right: 0;
+  top: 0;
+}
+
+section {
+  display: flex;
+  flex-flow: column;
+
+  align-items: center;
+
+  gap: 16px;
+  margin-top: 8px;
+}

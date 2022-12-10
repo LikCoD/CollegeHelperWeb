@@ -4,6 +4,7 @@ import {JournalCellService, Point} from "../../../../../../services/ui/journal.c
 import {JournalService} from "../../../../../../services/shared/journal.service"
 import {LessonType, StudyPlace} from "../../../../../../models/general"
 import * as moment from "moment"
+import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-journal-column",
@@ -14,7 +15,7 @@ export class JournalColumnComponent {
   @Input() date: Lesson
   @Input() lessons: Lesson[]
 
-  constructor(private cellService: JournalCellService, private journalService: JournalService) {
+  constructor(private journalService: JournalService, private cellService: JournalCellService, private collapseService: JournalCollapseService) {
   }
 
   get selectedDate(): moment.Moment | null {
@@ -44,6 +45,11 @@ export class JournalColumnComponent {
 
   get standaloneMarks(): string[] {
     return this.lessonType?.standaloneMarks?.map(m => m.mark) ?? []
+  }
+
+  onDateClick(): void {
+    this.selectedDate = this.date.startDate
+    this.collapseService.click(this.date)
   }
 
   onCellClick(lesson: Lesson): void {

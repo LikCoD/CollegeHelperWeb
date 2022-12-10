@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
+import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-journal-day",
@@ -10,7 +11,22 @@ export class JournalDayComponent {
   @Input() day: Lesson[]
   @Input() dayLessons: Lesson[][]
 
-  mapDay(day: Lesson[][], i: number): Lesson[] {
-    return day.map(d => d[i])
+  constructor(private service: JournalCollapseService) {
+  }
+
+  get collapsed(): boolean {
+    return this.service.getLessonCollapseType(this.day[0]) === "day"
+  }
+
+  mapDay(i: number): Lesson[] {
+    return this.dayLessons.map(d => d[i])
+  }
+
+  mapCollapse(): Lesson[] {
+    return this.dayLessons.map(d => d[0])
+  }
+
+  dateClick(): void {
+    return this.service.click(this.day[0])
   }
 }

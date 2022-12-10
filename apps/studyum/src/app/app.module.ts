@@ -76,6 +76,9 @@ import {JournalDayComponent} from "./components/journal/view/base-journal/dates/
 import {
   JournalColumnComponent
 } from "./components/journal/view/base-journal/dates/journal-column/journal-column.component"
+import {
+  JournalCollapseColumnComponent
+} from "./components/journal/view/base-journal/dates/journal-collapse-column/journal-collapse-column.component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -212,6 +215,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     JournalMonthComponent,
     JournalDayComponent,
     JournalColumnComponent,
+    JournalCollapseColumnComponent,
   ],
   imports: [
     BrowserModule,
