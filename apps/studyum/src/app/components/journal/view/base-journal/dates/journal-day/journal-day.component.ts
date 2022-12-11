@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
+import {JournalDisplayModeService} from "../../../../../../services/ui/journal-display-mode.service"
 
 @Component({
   selector: "app-journal-day",
@@ -11,11 +12,15 @@ export class JournalDayComponent {
   @Input() day: Lesson[]
   @Input() dayLessons: Lesson[][]
 
-  constructor(private service: JournalCollapseService) {
+  constructor(private service: JournalCollapseService, private modeService: JournalDisplayModeService) {
   }
 
   get collapsed(): boolean {
     return this.service.getLessonCollapseType(this.day[0]) === "day"
+  }
+
+  get collapseAmount(): number {
+    return this.service.getCollapseAmount(this.day)
   }
 
   mapDay(i: number): Lesson[] {
@@ -27,4 +32,6 @@ export class JournalDayComponent {
   dateClick(): void {
     return this.service.click(this.day[0])
   }
+
+  showColumn = (date: Lesson) => this.modeService.showColumn(date)
 }

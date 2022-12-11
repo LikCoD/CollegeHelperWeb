@@ -2,7 +2,7 @@
   [buttons]="getLessonTypes()"
   [selectedText]="'journal.view.back' | translate"
   [selectedButton]="selectedType"
-  (action)="selectType.emit($event)"
+  (action)="select($event)"
 ></app-action-buttons>
 <button
   [appActionSelectBtn]="isAbsencesSelected"

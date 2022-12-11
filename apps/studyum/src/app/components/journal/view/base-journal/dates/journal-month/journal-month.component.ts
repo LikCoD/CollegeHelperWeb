@@ -19,7 +19,7 @@ export class JournalMonthComponent {
   }
 
   get collapseAmount(): number {
-    return this.month.reduce((s, m) => s + m.length, 0)
+    return this.service.getCollapseAmount(this.month)
   }
 
   mapMonth(monthLesson: Lesson[][][], i: number): Lesson[][] {

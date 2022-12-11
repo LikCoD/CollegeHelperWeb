@@ -1,10 +1,11 @@
 import {Component, EventEmitter, HostListener, Input, Output} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow, MarkAmount} from "../../../../models/journal"
-import {JournalMode, LessonType} from "../../../../models/general"
 import {defaultLocale} from "../../../../app.component"
 import {JournalCellService} from "../../../../services/ui/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
+import {LessonType} from "../../../../models/general"
+import {JournalDisplayModeService, JournalMode} from "../../../../services/ui/journal-display-mode.service"
 
 @Component({
   selector: "app-base-journal",
@@ -13,7 +14,6 @@ import {JournalCollapseService} from "../../../../services/ui/journal-collapse.s
 })
 export class BaseJournalComponent {
 
-  @Input() mode: JournalMode
   @Input() journal: Journal
 
   @Output() collapseChange = new EventEmitter<null>()
@@ -24,7 +24,11 @@ export class BaseJournalComponent {
   @Input()
   selectedLessonType: LessonType | null = null
 
-  constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService) {
+  constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService, private modeService: JournalDisplayModeService) {
+  }
+
+  get mode(): JournalMode {
+    return this.modeService.mode
   }
 
   @HostListener("document:keyup.shift", ["false", "'shift'"])
@@ -51,21 +55,6 @@ export class BaseJournalComponent {
   @HostListener("document:keydown.arrowLeft", ["-1", "0"])
   arrowEvent(x: number, y: number) {
     this.cellService.moveBy(x, y)
-  }
-
-  cellEntities(lesson: Lesson): string[] {
-    let type = this.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)
-
-    let marks = lesson.marks
-      ?.filter(v => this.mode == "general" || (this.mode == "standalone" && type?.standaloneMarks?.find(t => t.mark == v.mark)))
-      ?.map(value => value.mark) ?? []
-
-    if (this.mode == "standalone") return marks
-
-    let absences = lesson.absences?.filter(v => this.mode == "absences" || !v.time)
-      ?.map(value => value.time?.toString() ?? this.journal.info.studyPlace.absenceMark) ?? []
-
-    return marks.concat(absences)
   }
 
   getAverage(row: JournalRow): string {

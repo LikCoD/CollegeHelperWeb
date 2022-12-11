@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core"
 import {LessonType} from "../../../../models/general"
 import {Journal} from "../../../../models/journal"
+import {JournalDisplayModeService} from "../../../../services/ui/journal-display-mode.service"
+import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-journal-bottom-action-bar",
@@ -10,7 +12,6 @@ import {Journal} from "../../../../models/journal"
 export class JournalBottomActionBarComponent {
 
   @Input() journal: Journal
-  @Input() selectedType: LessonType | null
   @Input() isAbsencesSelected: boolean
   @Input() isShowAmount: boolean
 
@@ -18,10 +19,24 @@ export class JournalBottomActionBarComponent {
   @Output() toggleAbsence = new EventEmitter()
   @Output() toggleAmount = new EventEmitter()
 
+  get selectedType(): LessonType | null {
+    return this.modeService.selectedStandaloneType
+  }
+
+  constructor(private modeService: JournalDisplayModeService, private collapseService: JournalCollapseService) {
+  }
+
   getLessonTypes() {
     return this.journal.info.studyPlace.lessonTypes.map(type => {
       type.toString = () => type.type
       return type
     })
+  }
+
+  select(type: LessonType | null) {
+    this.modeService.mode = type === this.selectedType ? "general" : "standalone"
+    this.modeService.selectedStandaloneType = type === this.selectedType ? null : type
+
+    this.collapseService.loadType()
   }
 }

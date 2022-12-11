@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
 import {JournalService} from "../../../services/shared/journal.service"
 import {Journal} from "../../../models/journal"
-import {JournalMode, LessonType} from "../../../models/general"
+import {LessonType} from "../../../models/general"
 import {Observable} from "rxjs"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
 import {CollapseType, JournalCollapseService} from "../../../services/ui/journal-collapse.service"
@@ -26,7 +26,7 @@ export class JournalViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private journalService: JournalService,
-    private collapseService: JournalCollapseService
+    private collapseService: JournalCollapseService,
   ) {
   }
 
@@ -36,16 +36,6 @@ export class JournalViewComponent implements OnInit {
 
       this.journal$ = this.journalService.getJournal(params["group"], params["subject"], params["teacher"])
     })
-  }
-
-  selectLessonType(journal: Journal, type: LessonType | null) {
-    //TODO via service
-  }
-
-  mode(): JournalMode {
-    if (this.isAbsencesSelected) return "absences"
-    if (this.selectedLessonType != null) return "standalone"
-    return "general"
   }
 
   collapse(type: CollapseType): void {

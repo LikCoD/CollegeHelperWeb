@@ -5,6 +5,7 @@ import {JournalService} from "../../../../../../services/shared/journal.service"
 import {LessonType, StudyPlace} from "../../../../../../models/general"
 import * as moment from "moment"
 import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
+import {JournalDisplayModeService} from "../../../../../../services/ui/journal-display-mode.service"
 
 @Component({
   selector: "app-journal-column",
@@ -15,7 +16,12 @@ export class JournalColumnComponent {
   @Input() date: Lesson
   @Input() lessons: Lesson[]
 
-  constructor(private journalService: JournalService, private cellService: JournalCellService, private collapseService: JournalCollapseService) {
+  constructor(
+    private journalService: JournalService,
+    private cellService: JournalCellService,
+    private collapseService: JournalCollapseService,
+    private modeService: JournalDisplayModeService
+  ) {
   }
 
   get selectedDate(): moment.Moment | null {
@@ -61,9 +67,7 @@ export class JournalColumnComponent {
     return !!this.cellService.selectedPoints.find(p => p.x === point.x && p.y === point.y)
   }
 
-  mapLesson(lessons: Lesson): string[] {
-    return lessons.marks?.map(v => v.mark) ?? []
-  }
+  entries = (lesson: Lesson): string[] => this.modeService.getEntries(lesson)
 
   clearSelectedPoints() {
     this.cellService.clear()

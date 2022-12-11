@@ -72,7 +72,6 @@ export class JournalCellService {
     }
 
     points.push(lastPoint)
-    console.log(points)
     return points
   }
 }
