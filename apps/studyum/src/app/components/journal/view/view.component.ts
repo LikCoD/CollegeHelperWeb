@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
 import {JournalService} from "../../../services/shared/journal.service"
 import {Journal} from "../../../models/journal"
-import {LessonType} from "../../../models/general"
 import {Observable} from "rxjs"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
 
@@ -14,8 +13,6 @@ import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-m
 export class JournalViewComponent implements OnInit {
 
   isAmountSelected = false
-  selectedLessonType: LessonType | null
-
   journal$: Observable<Journal[]>
 
   @ViewChild("selectMarkComponent") selectMarkEl?: SelectMarkComponent

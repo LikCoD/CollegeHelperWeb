@@ -1,10 +1,9 @@
-import {Component, EventEmitter, HostListener, Input, Output} from "@angular/core"
+import {Component, HostListener, Input} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow, MarkAmount} from "../../../../models/journal"
 import {defaultLocale} from "../../../../app.component"
 import {JournalCellService} from "../../../../services/ui/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
-import {LessonType} from "../../../../models/general"
 import {JournalDisplayModeService, JournalMode} from "../../../../services/ui/journal-display-mode.service"
 
 @Component({
@@ -15,14 +14,7 @@ import {JournalDisplayModeService, JournalMode} from "../../../../services/ui/jo
 export class BaseJournalComponent {
 
   @Input() journal: Journal
-
-  @Output() collapseChange = new EventEmitter<null>()
-
-  @Input()
-  showAmount = false
-
-  @Input()
-  selectedLessonType: LessonType | null = null
+  @Input() showAmount = false
 
   constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService, private modeService: JournalDisplayModeService) {
   }
@@ -66,7 +58,7 @@ export class BaseJournalComponent {
 
   marksAmount(row: JournalRow): MarkAmount[] {
     let type = this.journal.info.studyPlace.lessonTypes
-      .find(t => t.type == this.selectedLessonType?.type)
+      .find(t => t.type == this.modeService.selectedStandaloneType?.type)
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
 
