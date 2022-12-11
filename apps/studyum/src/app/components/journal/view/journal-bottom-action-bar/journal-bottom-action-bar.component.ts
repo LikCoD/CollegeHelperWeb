@@ -12,12 +12,14 @@ import {JournalCollapseService} from "../../../../services/ui/journal-collapse.s
 export class JournalBottomActionBarComponent {
 
   @Input() journal: Journal
-  @Input() isAbsencesSelected: boolean
   @Input() isShowAmount: boolean
 
   @Output() selectType = new EventEmitter<LessonType | null>()
-  @Output() toggleAbsence = new EventEmitter()
   @Output() toggleAmount = new EventEmitter()
+
+  get isAbsencesSelected(): boolean {
+    return this.modeService.mode === "absences"
+  }
 
   get selectedType(): LessonType | null {
     return this.modeService.selectedStandaloneType
@@ -38,5 +40,10 @@ export class JournalBottomActionBarComponent {
     this.modeService.selectedStandaloneType = type === this.selectedType ? null : type
 
     this.collapseService.loadType()
+  }
+
+  toggleAbsence(): void {
+    this.modeService.mode = this.modeService.mode === "absences" ? "general" : "absences"
+    this.modeService.selectedStandaloneType = null
   }
 }

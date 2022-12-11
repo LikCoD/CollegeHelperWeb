@@ -143,11 +143,9 @@ export class JournalCollapseService {
     })
 
     let marks = selectedLessons.flatMap(l => l.marks ?? [])
-    let standaloneMarks = this.modeService.selectedStandaloneType?.standaloneMarks
-    if (this.modeService.mode === "standalone" && standaloneMarks !== null)
-      marks = marks.filter(m => !!standaloneMarks?.find(s => s.mark === m.mark))
+    let absences = selectedLessons.flatMap(l => l.absences ?? [])
 
-    return <Lesson>{...selectedLessons[0], marks: marks, journalCellColor: color}
+    return <Lesson>{...selectedLessons[0], marks: marks, absences: absences, journalCellColor: color}
   }
 
   buildLessons = (lessons: Lesson[][]): Lesson[] => lessons.map(this.buildLesson.bind(this))

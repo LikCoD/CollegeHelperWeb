@@ -14,6 +14,11 @@ export class JournalDisplayModeService {
   constructor(private service: JournalService) { }
 
   getEntries(lesson: Lesson): string[] {
+    if (this.mode === "absences") {
+      let absenceMark = this.service.journal.info.studyPlace.absenceMark
+      return lesson.absences?.map(value => value.time?.toString() ?? absenceMark) ?? []
+    }
+
     let type = this.service.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)
 
     let marks = lesson.marks

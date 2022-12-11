@@ -6,7 +6,7 @@
 ></app-action-buttons>
 <button
   [appActionSelectBtn]="isAbsencesSelected"
-  (click)="toggleAbsence.emit()"
+  (click)="toggleAbsence()"
 >{{ 'journal.view.' + (isAbsencesSelected ? 'back' : 'absences') | translate }}</button>
 <button
   [appActionSelectBtn]="isShowAmount"

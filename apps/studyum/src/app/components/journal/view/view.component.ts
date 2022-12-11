@@ -13,7 +13,6 @@ import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-m
 })
 export class JournalViewComponent implements OnInit {
 
-  isAbsencesSelected = false
   isAmountSelected = false
   selectedLessonType: LessonType | null
 
