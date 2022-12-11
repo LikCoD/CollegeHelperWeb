@@ -1,7 +1,7 @@
 <select #selectElement
         class="form-select form-select-sm"
         (change)="selectCollapse(selectElement.value)"
-        [value]="selectedCollapseType">
+        [(ngModel)]="selectedCollapseType">
   <option hidden disabled value="null">{{"journal.view.collapse.custom" | translate}}</option>
   <option selected value="smart">{{"journal.view.collapse.smartCollapse" | translate}}</option>
   <option value="month">{{"journal.view.collapse.monthCollapse" | translate}}</option>

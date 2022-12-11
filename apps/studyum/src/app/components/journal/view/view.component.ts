@@ -5,7 +5,6 @@ import {Journal} from "../../../models/journal"
 import {LessonType} from "../../../models/general"
 import {Observable} from "rxjs"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
-import {CollapseType, JournalCollapseService} from "../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-login",
@@ -26,7 +25,6 @@ export class JournalViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private journalService: JournalService,
-    private collapseService: JournalCollapseService,
   ) {
   }
 
@@ -36,10 +34,6 @@ export class JournalViewComponent implements OnInit {
 
       this.journal$ = this.journalService.getJournal(params["group"], params["subject"], params["teacher"])
     })
-  }
-
-  collapse(type: CollapseType): void {
-    this.collapseService.type = type
   }
 }
 

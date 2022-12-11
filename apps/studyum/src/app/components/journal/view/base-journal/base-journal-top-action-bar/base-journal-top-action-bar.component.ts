@@ -1,19 +1,28 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core"
+import {Component} from "@angular/core"
 import {JournalInfo} from "../../../../../models/journal"
-import {CollapseType} from "../../../../../services/ui/journal-collapse.service"
+import {CollapseType, JournalCollapseService} from "../../../../../services/ui/journal-collapse.service"
+import {JournalService} from "../../../../../services/shared/journal.service"
 
 @Component({
   selector: "app-base-journal-top-action-bar",
   templateUrl: "./base-journal-top-action-bar.component.html",
-  styleUrls: ["./base-journal-top-action-bar.component.scss"],
+  styleUrls: ["./base-journal-top-action-bar.component.scss"]
 })
 export class BaseJournalTopActionBarComponent {
-  @Input() selectedCollapseType: CollapseType
-  @Input() journalInfo: JournalInfo
-  @Output() collapse = new EventEmitter<CollapseType>()
+  selectedCollapseType = this.collapseService.getStandardType()
+
+  constructor(private service: JournalService, private collapseService: JournalCollapseService) {
+    this.collapseService.change$.subscribe({
+      next: _ => this.selectedCollapseType = "null"
+    })
+  }
+
+  get journalInfo(): JournalInfo {
+    return this.service.journal.info
+  }
 
   selectCollapse(value: string) {
-    this.collapse.emit(value as CollapseType)
+    this.collapseService.type = value as CollapseType
   }
 }
 

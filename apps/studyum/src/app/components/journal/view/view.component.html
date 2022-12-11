@@ -1,8 +1,5 @@
 <ng-container *ngIf="journal$ | async as journals">
-  <app-base-journal-top-action-bar
-    [journalInfo]="journals[0].info"
-    (collapse)="collapse($event)"
-  ></app-base-journal-top-action-bar>
+  <app-base-journal-top-action-bar></app-base-journal-top-action-bar>
   <div class="wrapper">
     <app-base-journal
       *ngFor="let journal of journals"

@@ -3,6 +3,7 @@ import {Lesson} from "../../models/schedule"
 import * as moment from "moment"
 import {JournalService} from "../shared/journal.service"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
+import {Subject} from "rxjs"
 
 @Injectable({
   providedIn: "root"
@@ -15,19 +16,10 @@ export class JournalCollapseService {
   collapsed: string[] = []
   isShiftPressed = false
   isControlPressed = false
+  change$ = new Subject<moment.Moment | null>()
 
   constructor(private service: JournalService, private modeService: JournalDisplayModeService) {
-    this.service.journal$.subscribe({
-      next: _ => this.loadType()
-    })
-  }
-
-  loadType() {
-    let type = localStorage.getItem("collapseType")
-    if (type == null || !["month", "day", "smart", "expanded", "null"].find(v => v === type))
-      type = "smart"
-
-    this.type = (type as CollapseType) ?? "smart"
+    this.loadType()
   }
 
   set type(type: CollapseType) {
@@ -52,6 +44,16 @@ export class JournalCollapseService {
         break
     }
   }
+
+  getStandardType(): CollapseType {
+    let type = localStorage.getItem("collapseType")
+    if (type == null || !["month", "day", "smart", "expanded", "null"].find(v => v === type))
+      type = "smart"
+
+    return (type as CollapseType) ?? "smart"
+  }
+
+  loadType = () => this.type = this.getStandardType()
 
   getLessonCollapseType(lesson: Lesson): CollapseType {
     let year = lesson.startDate.format(JournalCollapseService.YearFormat)
@@ -106,15 +108,20 @@ export class JournalCollapseService {
   click(lesson: Lesson): void {
     let date = lesson.startDate
 
-    if (this.removeAll(date)) return
+    if (this.removeAll(date)) {
+      this.change$.next(null)
+      return
+    }
 
     if (this.isShiftPressed) {
       this.addMonth(lesson)
+      this.change$.next(lesson.startDate)
       return
     }
 
     if (this.isControlPressed) {
       this.addDay(lesson)
+      this.change$.next(lesson.startDate)
       return
     }
   }
