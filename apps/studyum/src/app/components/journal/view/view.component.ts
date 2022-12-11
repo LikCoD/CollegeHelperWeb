@@ -25,7 +25,7 @@ export class JournalViewComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    public journalService: JournalService,
+    private journalService: JournalService,
     private collapseService: JournalCollapseService
   ) {
   }
@@ -39,19 +39,7 @@ export class JournalViewComponent implements OnInit {
   }
 
   selectLessonType(journal: Journal, type: LessonType | null) {
-    if (type == null || this.selectedLessonType == type) {
-      this.selectedLessonType = null
-      this.isAmountSelected = false
-      //this.journalService.getGeneralJournal()
-      return
-    }
-
-    this.isAbsencesSelected = false
-    this.selectedLessonType = type
-
-    this.isAmountSelected = !!journal.info.studyPlace.lessonTypes.find(v => v.type == type.type)?.standaloneMarks
-
-    this.journalService.selectStandaloneType(type.type)
+    //TODO via service
   }
 
   mode(): JournalMode {

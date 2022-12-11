@@ -26,9 +26,7 @@ export class JournalMonthComponent {
     return monthLesson.map(l => l[i])
   }
 
-  mapCollapse(): Lesson[] {
-    return this.monthLessons.map(d => d[0][0])
-  }
+  mapCollapse = (): Lesson[] => this.service.buildLessons(this.monthLessons.map(v => v.flat()))
 
   dateClick(): void {
     return this.service.click(this.month[0][0])

@@ -59,9 +59,13 @@ export class JournalCollapseService {
   }
 
   getLessonCollapseType(lesson: Lesson): CollapseType {
-    if (this.collapsed.find(c => c === lesson.startDate.format(JournalCollapseService.YearFormat))) return "year"
-    if (this.collapsed.find(c => c === lesson.startDate.format(JournalCollapseService.MonthFormat))) return "month"
-    if (this.collapsed.find(c => c === lesson.startDate.format(JournalCollapseService.DayFormat))) return "day"
+    let year = lesson.startDate.format(JournalCollapseService.YearFormat)
+    let month = lesson.startDate.format(JournalCollapseService.MonthFormat)
+    let day = lesson.startDate.format(JournalCollapseService.DayFormat)
+
+    if (this.collapsed.find(c => c === year)) return "year"
+    if (this.collapsed.find(c => c === month)) return "month"
+    if (this.collapsed.find(c => c === day)) return "day"
 
     return "null"
   }
@@ -98,6 +102,24 @@ export class JournalCollapseService {
       return
     }
   }
+
+  buildLesson(lessons: Lesson[]): Lesson {
+    let colors = this.service.journal.info.studyPlace.journalColors
+
+    let color = colors.general
+    lessons.find(l => {
+      if (l.journalCellColor === colors.warning) color = colors.warning
+      if (l.journalCellColor === colors.danger) color = colors.danger
+
+      return l.journalCellColor === colors.danger
+    })
+
+    let marks = lessons.flatMap(l => l.marks ?? [])
+
+    return <Lesson>{...lessons[0], marks: marks, journalCellColor: color}
+  }
+
+  buildLessons = (lessons: Lesson[][]): Lesson[] => lessons.map(this.buildLesson.bind(this))
 }
 
 export type CollapseType = ("year" | "month" | "day" | "smart" | "expanded" | "null")

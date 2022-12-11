@@ -26,9 +26,6 @@ export interface Lesson {
   homework?: string;
   description?: string;
   isGeneral?: boolean;
-  collapsed?: boolean;
-  visible?: boolean;
-  collapsedType?: moment.unitOfTime.StartOf;
   point?: Point
 }
 

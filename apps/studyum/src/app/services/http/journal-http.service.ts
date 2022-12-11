@@ -22,9 +22,6 @@ export class JournalHttpService {
       dates.forEach(l => {
         l.startDate = moment.utc(l.startDate)
         l.endDate = moment.utc(l.endDate)
-
-        l.collapsed = false
-        l.visible = true
       })
 
       let dateDays = new Array(...groupBy(dates, el => el.startDate.dayOfYear()).values())
@@ -35,9 +32,6 @@ export class JournalHttpService {
         lessons.forEach(l => {
           l.startDate = moment.utc(l.startDate)
           l.endDate = moment.utc(l.endDate)
-
-          l.collapsed = false
-          l.visible = true
         })
 
         for (let i = 0; i < lessons.length; i++) {

@@ -22,9 +22,7 @@ export class JournalDayComponent {
     return this.dayLessons.map(d => d[i])
   }
 
-  mapCollapse(): Lesson[] {
-    return this.dayLessons.map(d => d[0])
-  }
+  mapCollapse = (): Lesson[] => this.service.buildLessons(this.dayLessons)
 
   dateClick(): void {
     return this.service.click(this.day[0])
