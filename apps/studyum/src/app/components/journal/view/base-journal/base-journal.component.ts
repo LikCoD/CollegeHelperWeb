@@ -1,6 +1,6 @@
 import {Component, HostListener, Input} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
-import {Journal, JournalRow, MarkAmount} from "../../../../models/journal"
+import {Journal, JournalRow} from "../../../../models/journal"
 import {defaultLocale} from "../../../../app.component"
 import {JournalCellService} from "../../../../services/ui/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
@@ -56,16 +56,28 @@ export class BaseJournalComponent {
     return (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2})
   }
 
-  marksAmount(row: JournalRow): MarkAmount[] {
+  marksAmountText(): string[] {
     let type = this.journal.info.studyPlace.lessonTypes
       .find(t => t.type == this.modeService.selectedStandaloneType?.type)
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
 
-    return row.marksAmount.filter(v =>
-      this.mode == "general" ||
-      !!marks.find(m => m.mark == v.mark)
-    )
+    return this.journal.rows[0].marksAmount.filter(v =>
+      this.mode == "general" || !!marks.find(m => m.mark == v.mark)
+    ).map(v =>v.mark)
+  }
+
+  marksAmount(row: JournalRow): string[] {
+    let type = this.journal.info.studyPlace.lessonTypes
+      .find(t => t.type == this.modeService.selectedStandaloneType?.type)
+
+    let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
+    let amount = this.collapseService.getCollapseAmount(row.lessons.flat())
+
+    return row.marksAmount
+      .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
+      .map(v => v.amount.toString())
+      .map(v =>  this.mode === "standalone" ? `${v}/${amount}`: v)
   }
 
   monthLessons(journal: Journal, i: number): Lesson[][][] {
