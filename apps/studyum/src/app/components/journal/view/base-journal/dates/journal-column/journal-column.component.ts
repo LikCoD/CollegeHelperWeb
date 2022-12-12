@@ -24,6 +24,14 @@ export class JournalColumnComponent {
   ) {
   }
 
+  get shiftPressed() {
+    return this.collapseService.isShiftPressed
+  }
+
+  get controlPressed() {
+    return this.collapseService.isControlPressed
+  }
+
   get selectedDate(): moment.Moment | null {
     return this.cellService.selectedDate
   }
@@ -51,6 +59,11 @@ export class JournalColumnComponent {
 
   get standaloneMarks(): string[] {
     return this.lessonType?.standaloneMarks?.map(m => m.mark) ?? []
+  }
+
+  isLastSelected(point: Point): boolean {
+    let last = this.lastSelectedPoint
+    return last != null && point.x === last.x && point.y == last.y
   }
 
   onDateClick(): void {

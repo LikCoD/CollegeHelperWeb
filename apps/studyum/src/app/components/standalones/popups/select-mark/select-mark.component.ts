@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, ViewChild} from "@angular/core"
+import {AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Absence, Mark} from "../../../../models/journal"
 import {AbsenceControlComponent} from "./enteries/absence-control.component"
@@ -41,9 +41,8 @@ export class SelectMarkComponent implements AfterViewInit {
     this.focusInput()
   }
 
-  confirmInput(key: string): void {
-    if (key != "Enter") return
-
+  @HostListener("document:keydown.enter", [])
+  confirmInput(): void {
     this.confirm()
     this.markInput.nativeElement.value = ""
   }
@@ -82,7 +81,10 @@ export class SelectMarkComponent implements AfterViewInit {
 
   confirm(): void {
     let mark = this.markInput?.nativeElement?.value
-    if (this.marks.includes(mark)) this.addMark(mark)
+    if (this.marks.includes(mark)) {
+      this.addMark(mark)
+      return
+    }
 
     this.absence.confirm()
   }

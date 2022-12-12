@@ -1,8 +1,7 @@
 <input
   *ngIf="showStandaloneMarks || showAllMarks"
   #markInput type="text" class="form-control mark-input"
-  placeholder="{{'journal.view.mark' | translate}}"
-  (keydown)="confirmInput($event.code)">
+  placeholder="{{'journal.view.mark' | translate}}">
 
 <app-select-buttons
   *ngIf="showStandaloneMarks || showAllMarks"

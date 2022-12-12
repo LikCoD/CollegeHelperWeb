@@ -22,7 +22,7 @@
       (click)="onCellClick(lesson)"
     ></app-base-journal-cell>
     <app-dialog-frame
-      *ngIf="lastSelectedPoint != null && lesson.point!!.x === lastSelectedPoint.x && lesson.point!!.y == lastSelectedPoint.y"
+      *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed"
       (close)="clearSelectedPoints()">
       <app-select-mark
         [lesson]="lesson"

@@ -56,6 +56,7 @@ export class AbsenceControlComponent {
   }
 
   confirm() {
+    console.log("asdsakdsndfdbhs")
     let minutes = this.minutesInput.nativeElement.value
 
     if (!this.lesson.absences?.length) {
