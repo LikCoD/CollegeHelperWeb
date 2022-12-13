@@ -8,6 +8,7 @@ import {Component, HostBinding, Input} from "@angular/core"
 export class JournalCellComponent {
   @Input() entries: string[]
   @Input() color: string
+  @Input() showPopup: boolean = true
 
   @HostBinding("style.background") get bgColor() {
     return this.entries.length ? this.color : ""

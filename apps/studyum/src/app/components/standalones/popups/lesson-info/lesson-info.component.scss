@@ -1,0 +1,43 @@
+.block {
+  display: block;
+  width: 300px;
+
+  user-select: text;
+
+  &--lesson-type {
+    display: flex;
+    flex-flow: row;
+
+    align-items: flex-end;
+
+    gap: 10px;
+
+    margin-top: 5px;
+
+    &-indicator {
+        flex-grow: 1;
+
+        height: 8px;
+        border-radius: 4px;
+        margin: 4px 0;
+    }
+  }
+
+  &--divider{
+    margin: 5px 0;
+  }
+
+  &--lesson-title {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  &--lesson-description {
+    overflow-wrap: anywhere;
+  }
+
+  &--lesson-homework {
+    margin-bottom: 20px;
+  }
+}

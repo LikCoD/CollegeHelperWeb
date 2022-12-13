@@ -62,9 +62,9 @@ export class BaseJournalComponent {
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
 
-    return this.journal.rows[0].marksAmount.filter(v =>
-      this.mode == "general" || !!marks.find(m => m.mark == v.mark)
-    ).map(v =>v.mark)
+    return this.journal.rows[0].marksAmount
+      .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
+      .map(v => v.mark)
   }
 
   marksAmount(row: JournalRow): string[] {
@@ -77,7 +77,7 @@ export class BaseJournalComponent {
     return row.marksAmount
       .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
       .map(v => v.amount.toString())
-      .map(v =>  this.mode === "standalone" ? `${v}/${amount}`: v)
+      .map(v => this.mode === "standalone" ? `${v}/${amount}` : v)
   }
 
   monthLessons(journal: Journal, i: number): Lesson[][][] {

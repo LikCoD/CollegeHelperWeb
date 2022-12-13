@@ -30,6 +30,8 @@ export class JournalHttpService {
       journal.rows.forEach((row, rowIndex) => {
         let lessons: Lesson[] = row.lessons as unknown as Lesson[]
         lessons.forEach(l => {
+          if (!l) return
+
           l.startDate = moment.utc(l.startDate)
           l.endDate = moment.utc(l.endDate)
         })

@@ -61,6 +61,10 @@ export class JournalColumnComponent {
     return this.lessonType?.standaloneMarks?.map(m => m.mark) ?? []
   }
 
+  get editable(): boolean {
+    return this.journalService.journal.info.editable
+  }
+
   isLastSelected(point: Point): boolean {
     let last = this.lastSelectedPoint
     return last != null && point.x === last.x && point.y == last.y

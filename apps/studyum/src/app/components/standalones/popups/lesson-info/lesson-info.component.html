@@ -1,0 +1,15 @@
+<app-dialog-frame (close)="close.emit()">
+  <div class="block">
+    <p>{{lesson.subject}}/{{lesson.room}}&Tab;
+      {{lesson.startDate | moment: "LT"}}-{{lesson.endDate | moment: "LT"}}</p>
+    <div class="block--lesson-type">
+      <p [innerText]="lesson.type"></p>
+      <div class="block--lesson-type-indicator" [style.background-color]="lesson.secondaryColor"></div>
+    </div>
+    <h5 [innerText]="lesson.title" class="block--lesson-title"></h5>
+    <p [innerText]="lesson.description" class="block--lesson-description"></p>
+    <hr class="block--divider">
+    <p [innerText]="lesson.homework" class="block--lesson-homework"></p>
+    <app-cell-expand [entries]="entries"></app-cell-expand>
+  </div>
+</app-dialog-frame>

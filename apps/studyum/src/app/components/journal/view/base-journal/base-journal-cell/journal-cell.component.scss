@@ -15,7 +15,7 @@
 
   &:hover {
     app-cell-expand {
-      display: inline-flex;
+      display: grid;
     }
 
     app-more-indicator {
@@ -57,7 +57,7 @@ app-cell-expand {
   position: absolute;
   z-index: 1;
 
-  bottom: -40px;
+  top: 100%;
   left: 0;
 }
 

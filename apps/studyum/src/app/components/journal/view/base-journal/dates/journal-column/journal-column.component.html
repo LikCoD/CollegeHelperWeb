@@ -4,7 +4,7 @@
     (click)="onDateClick()"
   ></app-base-journal-date-item>
   <app-dialog-frame
-    *ngIf="selectedDate === date.startDate"
+    *ngIf="selectedDate === date.startDate && editable"
     class="date-popup"
     (close)="selectedDate = null">
     <app-lesson-addition-data
@@ -19,10 +19,16 @@
       [ngClass]="{focused: isSelected(lesson.point!!)}"
       [entries]="entries(lesson)"
       [color]="lesson.journalCellColor ?? 'white'"
+      [showPopup]="!isLastSelected(lesson.point!!)"
       (click)="onCellClick(lesson)"
     ></app-base-journal-cell>
+    <app-lesson-info
+      *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id"
+      (close)="clearSelectedPoints()"
+      [lesson]="lesson"
+    ></app-lesson-info>
     <app-dialog-frame
-      *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed"
+      *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && editable"
       (close)="clearSelectedPoints()">
       <app-select-mark
         [lesson]="lesson"
