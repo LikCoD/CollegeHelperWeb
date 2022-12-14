@@ -1,4 +1,5 @@
 {
+  "name": "studyum",
   "projectType": "application",
   "generators": {
     "@schematics/angular:application": {
@@ -17,18 +18,10 @@
         "main": "apps/studyum/src/main.ts",
         "polyfills": "apps/studyum/src/polyfills.ts",
         "tsConfig": "apps/studyum/tsconfig.app.json",
-        "assets": [
-          "apps/studyum/src/favicon.ico",
-          "apps/studyum/src/assets"
-        ],
-        "styles": [
-          "apps/studyum/src/styles.scss"
-        ],
+        "assets": ["apps/studyum/src/favicon.ico", "apps/studyum/src/assets"],
+        "styles": ["apps/studyum/src/styles.scss"],
         "scripts": [],
-        "allowedCommonJsDependencies": [
-          "moment",
-          "typescript-collections"
-        ]
+        "allowedCommonJsDependencies": ["moment", "typescript-collections"]
       },
       "configurations": {
         "production": {
@@ -89,13 +82,8 @@
         "polyfills": "apps/studyum/src/polyfills.ts",
         "tsConfig": "apps/studyum/tsconfig.spec.json",
         "karmaConfig": "apps/studyum/karma.conf.js",
-        "assets": [
-          "apps/studyum/src/favicon.ico",
-          "apps/studyum/src/assets"
-        ],
-        "styles": [
-          "apps/studyum/src/styles.scss"
-        ],
+        "assets": ["apps/studyum/src/favicon.ico", "apps/studyum/src/assets"],
+        "styles": ["apps/studyum/src/styles.scss"],
         "scripts": []
       }
     }
