@@ -9,9 +9,10 @@ import {JournalService} from "../../../../../services/shared/journal.service"
   styleUrls: ["./base-journal-top-action-bar.component.scss"]
 })
 export class BaseJournalTopActionBarComponent {
-  selectedCollapseType = this.collapseService.getStandardType()
+  selectedCollapseType: CollapseType
 
   constructor(private service: JournalService, private collapseService: JournalCollapseService) {
+    this.selectedCollapseType= this.collapseService.getStandardType()
     this.collapseService.change$.subscribe({
       next: _ => this.selectedCollapseType = "null"
     })

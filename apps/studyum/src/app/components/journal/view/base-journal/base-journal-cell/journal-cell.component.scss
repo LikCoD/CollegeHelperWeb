@@ -5,13 +5,9 @@
   height: 50px;
   width: 50px;
 
-  position: relative;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  //background-color: styles.$secondaryBackgroundColor;
 
   &:hover {
     app-cell-expand {

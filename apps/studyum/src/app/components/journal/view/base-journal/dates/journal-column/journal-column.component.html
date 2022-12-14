@@ -1,44 +1,54 @@
 <div class="date-block">
   <app-base-journal-date-item
+    [appPopup]="popper"
+    [show]="selectedDate === date.startDate && editable"
     [lesson]="date"
     (click)="onDateClick()"
   ></app-base-journal-date-item>
-  <app-dialog-frame
-    *ngIf="selectedDate === date.startDate && editable"
-    class="date-popup"
-    (close)="selectedDate = null">
-    <app-lesson-addition-data
-      [lesson]="date"
-      [types]="studyPlace.lessonTypes"
-    ></app-lesson-addition-data>
-  </app-dialog-frame>
+
+  <popper-content #popper>
+    <app-dialog-frame
+      class="date-popup"
+      (close)="selectedDate = null">
+      <app-lesson-addition-data
+        [lesson]="date"
+        [types]="studyPlace.lessonTypes"
+      ></app-lesson-addition-data>
+    </app-dialog-frame>
+  </popper-content>
 </div>
+
 <section>
   <div *ngFor="let lesson of lessons">
     <app-base-journal-cell
+      [appPopup]="popper"
+      [show]="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed"
       [ngClass]="{focused: isSelected(lesson.point!!)}"
       [entries]="entries(lesson)"
       [color]="lessonColor(lesson)"
       [showPopup]="!isLastSelected(lesson.point!!)"
       (click)="onCellClick(lesson)"
     ></app-base-journal-cell>
-    <app-lesson-info
-      *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id"
-      (close)="clearSelectedPoints()"
-      [lesson]="lesson"
-    ></app-lesson-info>
-    <app-dialog-frame
-      *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && editable"
-      (close)="clearSelectedPoints()">
-      <app-select-mark
+
+    <popper-content #popper>
+      <app-lesson-info
+        *ngIf="!editable && !!lesson.id"
+        (close)="clearSelectedPoints()"
         [lesson]="lesson"
-        [marks]="marks"
-        [absenceMark]="studyPlace.absenceMark"
-        [standaloneMarks]="standaloneMarks"
-        [showAllMarks]="true"
-        [showStandaloneMarks]="true"
-        [showAbsence]="true"
-      ></app-select-mark>
-    </app-dialog-frame>
+      ></app-lesson-info>
+      <app-dialog-frame
+        *ngIf="editable"
+        (close)="clearSelectedPoints()">
+        <app-select-mark
+          [lesson]="lesson"
+          [marks]="marks"
+          [absenceMark]="studyPlace.absenceMark"
+          [standaloneMarks]="standaloneMarks"
+          [showAllMarks]="true"
+          [showStandaloneMarks]="true"
+          [showAbsence]="true"
+        ></app-select-mark>
+      </app-dialog-frame>
+    </popper-content>
   </div>
 </section>
