@@ -18,7 +18,7 @@
     <app-base-journal-cell
       [ngClass]="{focused: isSelected(lesson.point!!)}"
       [entries]="entries(lesson)"
-      [color]="lesson.journalCellColor ?? 'white'"
+      [color]="lessonColor(lesson)"
       [showPopup]="!isLastSelected(lesson.point!!)"
       (click)="onCellClick(lesson)"
     ></app-base-journal-cell>

@@ -145,6 +145,7 @@ export class JournalCollapseService {
     let marks = selectedLessons.flatMap(l => l.marks ?? [])
     let absences = selectedLessons.flatMap(l => l.absences ?? [])
 
+    if (marks.length === 0 && absences.length === 0) color = "#4a4a4a"
     return <Lesson>{...selectedLessons[0], marks: marks, absences: absences, journalCellColor: color}
   }
 
