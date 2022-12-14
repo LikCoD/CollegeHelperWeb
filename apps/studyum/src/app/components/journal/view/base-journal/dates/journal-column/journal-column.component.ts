@@ -85,12 +85,6 @@ export class JournalColumnComponent {
   }
 
   entries = (lesson: Lesson): string[] => this.modeService.getEntries(lesson)
-
-  clearSelectedPoints() {
-    this.cellService.clear()
-  }
-
-  lessonColor(lesson: Lesson): string {
-    return !lesson.id ? "#323232" : !!lesson.marks?.length ? lesson.journalCellColor!! : "#4a4a4a"
-  }
+  clearSelectedPoints = () => this.cellService.clear()
+  lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
 }

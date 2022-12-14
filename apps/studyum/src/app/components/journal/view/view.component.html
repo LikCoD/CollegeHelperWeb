@@ -2,7 +2,8 @@
   <app-base-journal-top-action-bar></app-base-journal-top-action-bar>
   <div class="wrapper">
     <app-base-journal
-      *ngFor="let journal of journals"
+      *ngFor="let journal of journals; let i = index"
+      [style.z-index]="journals.length - i"
       [journal]="journal"
       [showAmount]="isAmountSelected"
     ></app-base-journal>

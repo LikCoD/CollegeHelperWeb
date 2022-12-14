@@ -4,14 +4,27 @@ import {JournalService} from "../shared/journal.service"
 import {LessonType} from "../../models/general"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class JournalDisplayModeService {
 
   mode: JournalMode = "general"
-  selectedStandaloneType: LessonType | null = null
 
-  constructor(private service: JournalService) { }
+  constructor(private service: JournalService) {
+  }
+
+  private _selectedStandaloneType: LessonType | null = null
+
+  get selectedStandaloneType(): LessonType | null {
+    return this._selectedStandaloneType
+  }
+
+  set selectedStandaloneType(type: LessonType | null) {
+    if (type != null && this.service.journal.dates.flat(2).find(d => d.type === ""))
+      this.service.split(type.type)
+
+    this._selectedStandaloneType = type
+  }
 
   getEntries(lesson: Lesson): string[] {
     if (this.mode === "absences") {
@@ -34,7 +47,11 @@ export class JournalDisplayModeService {
   }
 
   showColumn = (date: Lesson): boolean =>
-    this.mode !== "standalone" || this.selectedStandaloneType?.type=== date.type
+    this.mode !== "standalone" || this.selectedStandaloneType?.type === date.type
+
+  lessonColor(lesson: Lesson): string {
+    return !lesson.id ? "#323232" : !!lesson.marks?.length ? lesson.journalCellColor!! : "#4a4a4a"
+  }
 }
 
 export type JournalMode = ("general" | "standalone" | "absences");

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input} from "@angular/core"
+import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../models/schedule"
 
 @Component({
@@ -8,7 +8,4 @@ import {Lesson} from "../../../../../models/schedule"
 })
 export class BaseJournalDateItemComponent {
   @Input() lesson: Lesson
-
-  constructor(public elRef: ElementRef) {
-  }
 }
