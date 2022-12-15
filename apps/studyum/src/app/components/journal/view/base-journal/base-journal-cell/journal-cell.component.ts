@@ -6,7 +6,12 @@ import {Component, HostBinding, Input} from "@angular/core"
   styleUrls: ["./journal-cell.component.scss"]
 })
 export class JournalCellComponent {
-  @Input() entries: string[]
+  @Input() entries: Entry[]
   @HostBinding("style.background") @Input() color: string
   @Input() showPopup: boolean = true
+}
+
+export interface Entry {
+  text: string
+  color: string
 }

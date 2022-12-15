@@ -5,8 +5,8 @@
 <section>
   <div *ngFor="let lesson of lessons">
     <app-base-journal-cell
-      [entries]="mapLesson(lesson)"
-      [color]="lesson.journalCellColor!!"
+      [entries]="entries(lesson)"
+      [color]="lessonColor(lesson)"
     ></app-base-journal-cell>
   </div>
 </section>

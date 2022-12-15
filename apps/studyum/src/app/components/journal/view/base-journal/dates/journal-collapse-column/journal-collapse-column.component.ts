@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalDisplayModeService} from "../../../../../../services/ui/journal-display-mode.service"
+import {Entry} from "../../base-journal-cell/journal-cell.component"
 
 @Component({
   selector: "app-journal-collapse-column",
@@ -17,5 +18,6 @@ export class JournalCollapseColumnComponent {
   constructor(private modeService: JournalDisplayModeService) {
   }
 
-  mapLesson = (lessons: Lesson): string[] => this.modeService.getEntries(lessons)
+  entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
+  lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
 }

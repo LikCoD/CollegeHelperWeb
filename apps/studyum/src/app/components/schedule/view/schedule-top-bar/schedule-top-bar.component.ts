@@ -27,7 +27,7 @@ export class ScheduleTopBarComponent implements OnInit {
   scaleMode = 0
 
   studyPlaces$: Observable<StudyPlace[]>
-  findItems$: Observable<ScheduleTypes> = this.scheduleService.getTypes("")
+  findItems$: Observable<ScheduleTypes>
 
   findForm = new FormGroup({
     studyPlaceID: new FormControl(""),
@@ -36,6 +36,7 @@ export class ScheduleTopBarComponent implements OnInit {
   })
 
   constructor(private router: Router, private userService: UserService, private generalService: GeneralService, private scheduleService: ScheduleService) {
+    this.findItems$ = this.scheduleService.getTypes("")
   }
 
   ngOnInit(): void {

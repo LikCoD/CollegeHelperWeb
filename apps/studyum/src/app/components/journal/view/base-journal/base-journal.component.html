@@ -23,7 +23,7 @@
       <p>{{'journal.view.absencesAmount' | translate}}</p>
       <app-base-journal-cell
         *ngFor="let row of journal.rows"
-        [entries]="[row.absencesAmount.toString()]"
+        [entries]="[{text: row.absencesAmount.toString(), color: journalColors.general}]"
         [color]="row.color">
       </app-base-journal-cell>
     </div>
@@ -31,7 +31,7 @@
       <p>{{'journal.view.absencesTime' | translate}}</p>
       <app-base-journal-cell
         *ngFor="let row of journal.rows"
-        [entries]="[row.absencesTime.toString()]"
+        [entries]="[{text: row.absencesTime.toString(), color: journalColors.general}]"
         [color]="row.color">
       </app-base-journal-cell>
     </div>

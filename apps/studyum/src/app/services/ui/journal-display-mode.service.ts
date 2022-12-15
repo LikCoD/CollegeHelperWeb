@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core"
 import {Lesson} from "../../models/schedule"
 import {JournalService} from "../shared/journal.service"
 import {LessonType} from "../../models/general"
+import {Entry} from "../../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
 
 @Injectable({
   providedIn: "root"
@@ -9,6 +10,7 @@ import {LessonType} from "../../models/general"
 export class JournalDisplayModeService {
 
   mode: JournalMode = "general"
+  split = false
 
   constructor(private service: JournalService) {
   }
@@ -20,28 +22,42 @@ export class JournalDisplayModeService {
   }
 
   set selectedStandaloneType(type: LessonType | null) {
-    if (type != null && this.service.journal.dates.flat(2).find(d => d.type === ""))
+    if (this.split) {
+      this.service.unite()
+      this.split = false
+    }
+
+    if (type != null && this.service.journal.dates.flat(2).find(d => d.type === "")) {
       this.service.split(type.type)
+      this.split = true
+    }
 
     this._selectedStandaloneType = type
   }
 
-  getEntries(lesson: Lesson): string[] {
+  getEntries(lesson: Lesson): Entry[] {
+    let colors = this.service.journal.info.studyPlace.journalColors
     if (this.mode === "absences") {
       let absenceMark = this.service.journal.info.studyPlace.absenceMark
-      return lesson.absences?.map(value => value.time?.toString() ?? absenceMark) ?? []
+      return lesson.absences?.map(value => <Entry>{
+        text: value.time?.toString() ?? absenceMark,
+        color: colors.general
+      }) ?? []
     }
 
     let type = this.service.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)
 
     let marks = lesson.marks
       ?.filter(v => this.mode == "general" || type?.standaloneMarks == null || (this.mode == "standalone" && type?.standaloneMarks?.find(t => t.mark == v.mark)))
-      ?.map(value => value.mark) ?? []
+      ?.map(value => <Entry>{text: value.mark, color: colors.general}) ?? []
 
     if (this.mode == "standalone") return marks
 
     let absences = lesson.absences?.filter(v => this.mode == "absences" || !v.time)
-      ?.map(value => value.time?.toString() ?? this.service.journal.info.studyPlace.absenceMark) ?? []
+      ?.map(value => <Entry>{
+        text: value.time?.toString() ?? this.service.journal.info.studyPlace.absenceMark,
+        color: colors.general
+      }) ?? []
 
     return marks.concat(absences)
   }
@@ -50,7 +66,7 @@ export class JournalDisplayModeService {
     this.mode !== "standalone" || this.selectedStandaloneType?.type === date.type
 
   lessonColor(lesson: Lesson): string {
-    return !lesson.id ? "#323232" : !!lesson.marks?.length ? lesson.journalCellColor!! : "#4a4a4a"
+    return !lesson.id ? "#323232" : (!!this.getEntries(lesson)?.length) ? lesson.journalCellColor!! : "#4a4a4a"
   }
 }
 

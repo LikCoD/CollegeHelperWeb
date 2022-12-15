@@ -5,6 +5,8 @@ import {defaultLocale} from "../../../../app.component"
 import {JournalCellService} from "../../../../services/ui/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
 import {JournalDisplayModeService, JournalMode} from "../../../../services/ui/journal-display-mode.service"
+import {Entry} from "./base-journal-cell/journal-cell.component"
+import {JournalColors} from "../../../../models/general"
 
 @Component({
   selector: "app-base-journal",
@@ -21,6 +23,10 @@ export class BaseJournalComponent {
 
   get mode(): JournalMode {
     return this.modeService.mode
+  }
+
+  get journalColors(): JournalColors {
+    return this.journal.info.studyPlace.journalColors
   }
 
   @HostListener("document:keyup.shift", ["false", "'shift'"])
@@ -49,11 +55,14 @@ export class BaseJournalComponent {
     this.cellService.moveBy(x, y)
   }
 
-  getAverage(row: JournalRow): string {
-    if (row.numericMarksAmount == 0) return "-"
+  getAverage(row: JournalRow): Entry {
+    if (row.numericMarksAmount == 0) return {text: "-", color: this.journalColors.general}
 
     let locale = localStorage.getItem("locale") ?? defaultLocale
-    return (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2})
+    return {
+      text: (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2}),
+      color: this.journalColors.general
+    }
   }
 
   marksAmountText(): string[] {
@@ -67,7 +76,7 @@ export class BaseJournalComponent {
       .map(v => v.mark)
   }
 
-  marksAmount(row: JournalRow): string[] {
+  marksAmount(row: JournalRow): Entry[] {
     let type = this.journal.info.studyPlace.lessonTypes
       .find(t => t.type == this.modeService.selectedStandaloneType?.type)
 
@@ -76,8 +85,10 @@ export class BaseJournalComponent {
 
     return row.marksAmount
       .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
-      .map(v => v.amount.toString())
-      .map(v => this.mode === "standalone" ? `${v}/${amount}` : v)
+      .map(v => <Entry>{
+        text: this.mode === "standalone" ? `${v.amount.toString()}/${amount}` : v.amount.toString(),
+        color: this.journalColors.general
+      })
   }
 
   monthLessons(journal: Journal, i: number): Lesson[][][] {

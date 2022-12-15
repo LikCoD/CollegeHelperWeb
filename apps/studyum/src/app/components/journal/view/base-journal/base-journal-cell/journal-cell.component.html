@@ -1,12 +1,12 @@
 <ng-container *ngIf="entries.length > 0">
   <ng-container *ngIf="entries.length == 1">
-    <p>{{entries[0]}}</p>
+    <p>{{entries[0].text}}</p>
   </ng-container>
   <ng-container *ngIf="entries.length > 1">
     <div class="mark2">
-      <p>{{entries[0]}}</p>
+      <p>{{entries[0].text}}</p>
       <hr>
-      <p>{{entries[1]}}</p>
+      <p>{{entries[1].text}}</p>
     </div>
   </ng-container>
 

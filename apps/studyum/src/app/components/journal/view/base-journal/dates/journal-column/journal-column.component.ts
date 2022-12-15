@@ -6,6 +6,7 @@ import {LessonType, StudyPlace} from "../../../../../../models/general"
 import * as moment from "moment"
 import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../../../services/ui/journal-display-mode.service"
+import {Entry} from "../../base-journal-cell/journal-cell.component"
 
 @Component({
   selector: "app-journal-column",
@@ -84,7 +85,7 @@ export class JournalColumnComponent {
     return !!this.cellService.selectedPoints.find(p => p.x === point.x && p.y === point.y)
   }
 
-  entries = (lesson: Lesson): string[] => this.modeService.getEntries(lesson)
-  clearSelectedPoints = () => this.cellService.clear()
+  entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
   lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
+  clearSelectedPoints = () => this.cellService.clear()
 }

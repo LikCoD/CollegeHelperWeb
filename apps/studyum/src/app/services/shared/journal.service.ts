@@ -61,4 +61,8 @@ export class JournalService {
 
     this.journal$.next(journals)
   }
+
+  unite() {
+    this.journal$.next([this.journal])
+  }
 }

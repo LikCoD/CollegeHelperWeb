@@ -91,14 +91,14 @@ export class JournalCollapseService {
 
   checkAdd = (lesson: Lesson[] | Lesson[][]): boolean => this.getCollapseAmount(lesson) > 1
 
-  addDay(lesson: Lesson) {
+  addDay(lesson: Lesson): void {
     let dayIndexes = this.service.findDay(lesson.startDate)
     if (!this.checkAdd(this.service.journal.dates[dayIndexes[0]][dayIndexes[1]])) return
 
     this.collapsed.push(lesson.startDate.format(JournalCollapseService.DayFormat))
   }
 
-  addMonth(lesson: Lesson) {
+  addMonth(lesson: Lesson): void {
     let monthIndex = this.service.findMonth(lesson.startDate)
     if (!this.checkAdd(this.service.journal.dates[monthIndex])) return
 

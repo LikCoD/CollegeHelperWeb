@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core"
+import {Entry} from "../../../journal/view/base-journal/base-journal-cell/journal-cell.component"
 
 @Component({
   selector: "app-cell-expand",
@@ -6,5 +7,5 @@ import {Component, Input} from "@angular/core"
   styleUrls: ["./cell-expand.component.scss"],
 })
 export class CellExpandComponent {
-  @Input() entries: string[]
+  @Input() entries: Entry[]
 }
