@@ -7,14 +7,11 @@
   ></app-base-journal-date-item>
 
   <popper-content #popper>
-    <app-dialog-frame
-      class="date-popup"
-      (close)="selectedDate = null">
-      <app-lesson-addition-data
-        [lesson]="date"
-        [types]="studyPlace.lessonTypes"
-      ></app-lesson-addition-data>
-    </app-dialog-frame>
+    <app-lesson-addition-data
+      (close)="selectedDate = null"
+      [lesson]="date"
+      [types]="studyPlace.lessonTypes"
+    ></app-lesson-addition-data>
   </popper-content>
 </div>
 
@@ -36,19 +33,17 @@
         (close)="clearSelectedPoints()"
         [lesson]="lesson"
       ></app-lesson-info>
-      <app-dialog-frame
+      <app-select-mark
         *ngIf="editable"
-        (close)="clearSelectedPoints()">
-        <app-select-mark
-          [lesson]="lesson"
-          [marks]="marks"
-          [absenceMark]="studyPlace.absenceMark"
-          [standaloneMarks]="standaloneMarks"
-          [showAllMarks]="true"
-          [showStandaloneMarks]="true"
-          [showAbsence]="true"
-        ></app-select-mark>
-      </app-dialog-frame>
+        (close)="clearSelectedPoints()"
+        [lesson]="lesson"
+        [marks]="marks"
+        [absenceMark]="studyPlace.absenceMark"
+        [standaloneMarks]="standaloneMarks"
+        [showAllMarks]="true"
+        [showStandaloneMarks]="true"
+        [showAbsence]="true"
+      ></app-select-mark>
     </popper-content>
   </div>
 </section>

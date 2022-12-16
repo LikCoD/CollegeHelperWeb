@@ -12,6 +12,7 @@ import {JournalLessonService} from "../../../../services/ui/journal-lesson.servi
 export class LessonAdditionDataComponent {
   @Input() types: LessonType[]
   @Output() confirm = new EventEmitter<Lesson>()
+  @Output() close = new EventEmitter<null>()
 
   form = new FormGroup({
     type: new FormControl("", Validators.required),

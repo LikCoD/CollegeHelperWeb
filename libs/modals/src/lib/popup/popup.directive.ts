@@ -17,7 +17,7 @@ export class PopupDirective {
     let config: NgxPopperjsOptions = {
       placement: NgxPopperjsPlacements.BOTTOMSTART,
       disableDefaultStyling: true,
-      hideOnClickOutside: false
+      hideOnClickOutside: false,
     }
     this.popper = new NgxPopperjsDirective(this.cdr, this.elRef, this.vcr, config)
   }

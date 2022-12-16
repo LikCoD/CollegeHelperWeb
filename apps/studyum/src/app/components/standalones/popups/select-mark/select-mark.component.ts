@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild} from "@angular/core"
+import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Absence, Mark} from "../../../../models/journal"
 import {AbsenceControlComponent} from "./enteries/absence-control.component"
@@ -21,6 +21,8 @@ export class SelectMarkComponent implements AfterViewInit {
   @Input() showAllMarks: boolean
   @Input() showStandaloneMarks: boolean
   @Input() showAbsence: boolean
+
+  @Output() close = new EventEmitter<null>()
 
   addMarkEl = <Mark>{mark: "+"}
   removeMarkEl = <Mark>{mark: "🗑"}

@@ -1,33 +1,37 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <p>{{_lesson.subject}}/{{_lesson.room}}&Tab;{{_lesson.startDate | moment: "LT"}}
-    -{{_lesson.endDate | moment: "LT"}}</p>
+<app-dialog-frame (close)="close.emit()">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <p>{{_lesson.subject}}/{{_lesson.room}}&Tab;{{_lesson.startDate | moment: "LT"}}
+      -{{_lesson.endDate | moment: "LT"}}</p>
 
-  <div class="form-floating">
-    <select id="type" class="form-control" formControlName="type">
-      <option *ngFor="let type of types" [value]="type.type" [label]="type.type"></option>
-    </select>
-    <label for="type">{{'popups.lessonAdditionData.type' | translate}}</label>
+    <div class="form-floating">
+      <select id="type" class="form-control" formControlName="type">
+        <option *ngFor="let type of types" [value]="type.type" [label]="type.type"></option>
+      </select>
+      <label for="type">{{'popups.lessonAdditionData.type' | translate}}</label>
 
-    <app-error-info [property]="form.get('type')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <input id="title" class="form-control" formControlName="title" placeholder="Title">
-    <label for="title">{{'popups.lessonAdditionData.title' | translate}}</label>
+      <app-error-info [property]="form.get('type')!!"></app-error-info>
+    </div>
+    <div class="form-floating">
+      <input id="title" class="form-control" formControlName="title" placeholder="Title">
+      <label for="title">{{'popups.lessonAdditionData.title' | translate}}</label>
 
-    <app-error-info [property]="form.get('title')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <textarea id="description" class="form-control" formControlName="description" placeholder="Description"></textarea>
-    <label for="description">{{'popups.lessonAdditionData.description' | translate}}</label>
+      <app-error-info [property]="form.get('title')!!"></app-error-info>
+    </div>
+    <div class="form-floating">
+      <textarea id="description" class="form-control" formControlName="description"
+                placeholder="Description"></textarea>
+      <label for="description">{{'popups.lessonAdditionData.description' | translate}}</label>
 
-    <app-error-info [property]="form.get('description')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <input id="homework" class="form-control" formControlName="homework" placeholder="Homework">
-    <label for="homework">{{'popups.lessonAdditionData.homework' | translate}}</label>
+      <app-error-info [property]="form.get('description')!!"></app-error-info>
+    </div>
+    <div class="form-floating">
+      <input id="homework" class="form-control" formControlName="homework" placeholder="Homework">
+      <label for="homework">{{'popups.lessonAdditionData.homework' | translate}}</label>
 
-    <app-error-info [property]="form.get('homework')!!"></app-error-info>
-  </div>
+      <app-error-info [property]="form.get('homework')!!"></app-error-info>
+    </div>
 
-  <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
-</form>
+    <button type="submit" class="btn btn-success"
+            [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
+  </form>
+</app-dialog-frame>

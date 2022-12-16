@@ -19,5 +19,5 @@ export class JournalCollapseColumnComponent {
   }
 
   entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
-  lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
+  lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson, true)
 }

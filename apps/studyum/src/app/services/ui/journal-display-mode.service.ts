@@ -65,8 +65,8 @@ export class JournalDisplayModeService {
   showColumn = (date: Lesson): boolean =>
     this.mode !== "standalone" || this.selectedStandaloneType?.type === date.type
 
-  lessonColor(lesson: Lesson): string {
-    return !lesson.id ? "#323232" : (!!this.getEntries(lesson)?.length) ? lesson.journalCellColor!! : "#4a4a4a"
+  lessonColor(lesson: Lesson, collapsed: boolean = false): string {
+    return (!lesson.id && !collapsed) ? "#323232" : (!!this.getEntries(lesson)?.length) ? lesson.journalCellColor!! : "#4a4a4a"
   }
 }
 

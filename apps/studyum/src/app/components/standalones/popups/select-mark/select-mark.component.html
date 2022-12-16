@@ -1,38 +1,40 @@
-<input
-  *ngIf="showStandaloneMarks || showAllMarks"
-  #markInput type="text" class="form-control mark-input"
-  placeholder="{{'journal.view.mark' | translate}}">
+<app-dialog-frame (close)="close.emit()">
+  <input
+    *ngIf="showStandaloneMarks || showAllMarks"
+    #markInput type="text" class="form-control mark-input"
+    placeholder="{{'journal.view.mark' | translate}}">
 
-<app-select-buttons
-  *ngIf="showStandaloneMarks || showAllMarks"
-  (action)="actionSelect($event)"
-  [buttons]="actionButtons()" [selectedButton]="selectedMark">
-</app-select-buttons>
+  <app-select-buttons
+    *ngIf="showStandaloneMarks || showAllMarks"
+    (action)="actionSelect($event)"
+    [buttons]="actionButtons()" [selectedButton]="selectedMark">
+  </app-select-buttons>
 
-<app-select-buttons
-  *ngIf="showAllMarks"
-  (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
-  [buttons]="marks" [selectedButton]="selectedMark.mark" [selectedText]="'🗑'"
-></app-select-buttons>
+  <app-select-buttons
+    *ngIf="showAllMarks"
+    (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+    [buttons]="marks" [selectedButton]="selectedMark.mark" [selectedText]="'🗑'"
+  ></app-select-buttons>
 
-<app-select-buttons
-  *ngIf="showStandaloneMarks && standaloneMarks != undefined && standaloneMarks.length > 0"
-  (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
-  [buttons]="standaloneMarks" [selectedButton]="selectedMark.mark"
-  [selectedText]="'🗑'"
-></app-select-buttons>
+  <app-select-buttons
+    *ngIf="showStandaloneMarks && standaloneMarks != undefined && standaloneMarks.length > 0"
+    (action)="$event == selectedMark.mark ? removeMark() : addMark($event)"
+    [buttons]="standaloneMarks" [selectedButton]="selectedMark.mark"
+    [selectedText]="'🗑'"
+  ></app-select-buttons>
 
-<app-absence-control
-  #absence
-  *ngIf="showAbsence"
-  [absenceMark]="absenceMark"
-  [lesson]="lesson"
-  (add)="addAbsence($event)"
-  (edit)="editAbsence($event)"
-  (delete)="deleteAbsence($event)"
-></app-absence-control>
+  <app-absence-control
+    #absence
+    *ngIf="showAbsence"
+    [absenceMark]="absenceMark"
+    [lesson]="lesson"
+    (add)="addAbsence($event)"
+    (edit)="editAbsence($event)"
+    (delete)="deleteAbsence($event)"
+  ></app-absence-control>
 
-<button
-  class="mark-confirm" appSecondaryBtnDirective
-  (click)="confirm()"
->{{'journal.view.confirm' | translate}}</button>
+  <button
+    class="mark-confirm" appSecondaryBtnDirective
+    (click)="confirm()"
+  >{{'journal.view.confirm' | translate}}</button>
+</app-dialog-frame>

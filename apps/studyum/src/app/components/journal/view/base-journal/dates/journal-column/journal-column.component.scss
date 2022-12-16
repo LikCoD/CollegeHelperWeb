@@ -28,13 +28,16 @@ section {
   border-radius: 15px;
 }
 
-app-dialog-frame {
-  position: absolute;
-  z-index: 10;
-}
+::ng-deep div[data-popper-placement] {
+  app-lesson-info, app-select-mark, app-lesson-addition-data {
+    margin-right: 70px;
+  }
 
-.date-popup {
-  margin-top: 7px;
+  &[data-popper-placement="bottom-end"] {
+    app-lesson-info, app-select-mark, app-lesson-addition-data {
+      transform: translateX(70px);
+    }
+  }
 }
 
 popper-content {
