@@ -45,6 +45,8 @@ export class SelectMarkComponent implements AfterViewInit {
 
   @HostListener("document:keydown.enter", [])
   confirmInput(): void {
+    console.log("asdsakdsndfdbhs")
+
     this.confirm()
     this.markInput.nativeElement.value = ""
   }

@@ -29,12 +29,12 @@
 
     <popper-content #popper>
       <app-lesson-info
-        *ngIf="!editable && !!lesson.id"
+        *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id"
         (close)="clearSelectedPoints()"
         [lesson]="lesson"
       ></app-lesson-info>
       <app-select-mark
-        *ngIf="editable"
+        *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && editable"
         (close)="clearSelectedPoints()"
         [lesson]="lesson"
         [marks]="marks"
