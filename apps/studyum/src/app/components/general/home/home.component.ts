@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { UserService } from '../../../services/shared/user.service';
-import { User } from '../../../models/user';
+import {Component} from "@angular/core"
+import {UserService} from "../../../services/shared/user.service"
+import {User} from "../../../models/user"
 
 @Component({
   selector: 'app-home',
@@ -14,12 +14,6 @@ export class HomeComponent {
       title: 'header.schedule',
       url: 'assets/schedule-gray.svg',
       route: 'schedule',
-      permissions: []
-    },
-    {
-      title: 'header.findSchedule',
-      url: 'assets/search-schedule-gray.svg',
-      route: 'schedule/login',
       permissions: undefined
     },
     {

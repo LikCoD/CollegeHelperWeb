@@ -1,4 +1,4 @@
-<ng-container class="main-container" *ngIf="userService.user$ | async as user else elseBlock">
+<ng-container class="main-container" *ngIf="user$ | async as user else elseBlock">
   <div class="profile-container">
     <div class="profile-card">
       <div>
@@ -18,13 +18,13 @@
     <app-profile-option title="user.info.info" [opened]="true">
       <app-user-info></app-user-info>
     </app-profile-option>
-    <app-profile-option title="user.accept.acceptUsers">
+    <app-profile-option title="user.accept.acceptUsers" *ngIf="hasPermission(user, 'manageUsers')">
       <app-accept-users></app-accept-users>
     </app-profile-option>
     <app-profile-option title="user.edit.edit">
       <app-edit-user></app-edit-user>
     </app-profile-option>
-    <app-profile-option title="user.create.createUsers">
+    <app-profile-option title="user.create.createUsers" *ngIf="hasPermission(user, 'manageUsers')">
       <app-create-code-user></app-create-code-user>
     </app-profile-option>
   </section>

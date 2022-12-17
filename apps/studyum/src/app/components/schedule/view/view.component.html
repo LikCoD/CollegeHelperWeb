@@ -1,13 +1,12 @@
-<div *ngIf="schedule$ | async as schedule" class="wrapper">
+<div class="wrapper">
   <app-schedule-top-bar
-    [user]="userService.user$ | async"
     [minScale]="scheduleService.minYScale"
     [maxScale]="scheduleService.maxYScale"
     [preferredMaxScale]="scheduleService.preferredMaxYSScale"
     (editMode)="isEditMode = $event"
     (scale)="scheduleService.scaleY = $event"
   ></app-schedule-top-bar>
-  <main>
+  <main *ngIf="schedule$ | async as schedule">
     <app-edit-schedule *ngIf="isEditMode" [schedule]="schedule" (makeGeneral)="makeGeneral()"></app-edit-schedule>
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">

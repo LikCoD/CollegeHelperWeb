@@ -10,11 +10,9 @@
   <ng-container *ngIf="$user | async as user else notLoggedIn">
     <div class="action">
       <a routerLink="schedule">{{'header.schedule' | translate}}</a>
-      <a routerLink="schedule/login">{{'header.findSchedule' | translate}}</a>
       <a routerLink="journal">{{'header.journal' | translate}}</a>
 
       <img src="assets/schedule.svg" alt="schedule" routerLink="schedule">
-      <img src="assets/search-schedule.svg" alt="find schdule" routerLink="schedule/login">
       <img src="assets/journal.svg" alt="journal" routerLink="journal">
     </div>
 
@@ -25,9 +23,9 @@
   </ng-container>
   <ng-template #notLoggedIn>
     <div class="action">
-      <a routerLink="schedule/login">{{'header.schedule' | translate}}</a>
+      <a routerLink="schedule">{{'header.schedule' | translate}}</a>
 
-      <img src="assets/search-schedule.svg" alt="find schdule" routerLink="schedule/login">
+      <img src="assets/schedule.svg" alt="schedule" routerLink="schedule/login">
     </div>
 
     <div>

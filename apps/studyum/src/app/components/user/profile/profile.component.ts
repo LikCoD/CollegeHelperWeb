@@ -1,14 +1,22 @@
-import {Component} from '@angular/core';
-import {UserService} from "../../../services/shared/user.service";
+import {Component, OnInit} from "@angular/core"
+import {UserService} from "../../../services/shared/user.service"
+import {User} from "../../../models/user"
+import {Observable} from "rxjs"
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styleUrls: ["./profile.component.scss"]
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  constructor(public userService: UserService) {
+  user$: Observable<User | undefined>
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    this.user$ = this.userService.getUser()
   }
 
   revoke() {
@@ -18,4 +26,6 @@ export class ProfileComponent {
   signOut() {
     this.userService.signOut()
   }
+
+  hasPermission = (user: User, permission: string) => !!user?.permissions?.find(p => p === permission)
 }

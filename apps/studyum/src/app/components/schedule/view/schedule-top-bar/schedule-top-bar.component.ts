@@ -15,7 +15,6 @@ import {Router} from "@angular/router"
   styleUrls: ["./schedule-top-bar.component.scss"]
 })
 export class ScheduleTopBarComponent implements OnInit {
-  @Input() user: User | undefined | null
   @Input() minScale: number
   @Input() maxScale: number
   @Input() preferredMaxScale: number
@@ -25,6 +24,8 @@ export class ScheduleTopBarComponent implements OnInit {
 
   isEditMode = false
   scaleMode = 0
+
+  user: User | undefined
 
   studyPlaces$: Observable<StudyPlace[]>
   findItems$: Observable<ScheduleTypes>
@@ -44,8 +45,9 @@ export class ScheduleTopBarComponent implements OnInit {
 
     this.userService.user$.subscribe({
       next: user => {
+        this.user = user
         this.findForm.get("studyPlaceID")?.setValue(user?.studyPlaceId ?? "")
-      }
+      },
     })
   }
 

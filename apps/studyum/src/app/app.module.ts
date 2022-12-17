@@ -5,7 +5,6 @@ import {RouterModule, Routes, TitleStrategy} from "@angular/router"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {AppComponent} from "./app.component"
 import {CellComponent} from "./components/schedule/view/cell/cell.component"
-import {LoginScheduleComponent} from "./components/schedule/login/login.component"
 import {ViewComponent} from "./components/schedule/view/view.component"
 import {JournalViewComponent} from "./components/journal/view/view.component"
 import {JournalCellComponent} from "./components/journal/view/base-journal/base-journal-cell/journal-cell.component"
@@ -137,12 +136,6 @@ const appRoutes: Routes = [
     component: ViewComponent,
     canActivate: [],
   },
-  {
-    title: "header.sliders.schedule",
-    path: "schedule/login",
-    component: LoginScheduleComponent,
-    canActivate: [],
-  },
 
   {
     title: "Studyum",
@@ -183,7 +176,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ScheduleCellDirective,
     EditScheduleComponent,
     ScheduleTopBarComponent,
-    LoginScheduleComponent,
 
     CellComponent,
     CellExpandComponent,
