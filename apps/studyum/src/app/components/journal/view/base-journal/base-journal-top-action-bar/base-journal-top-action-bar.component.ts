@@ -1,7 +1,7 @@
 import {Component} from "@angular/core"
 import {JournalInfo} from "../../../../../models/journal"
-import {CollapseType, JournalCollapseService} from "../../../../../services/ui/journal-collapse.service"
-import {JournalService} from "../../../../../services/shared/journal.service"
+import {CollapseType, JournalCollapseService} from "../../../../../services/shared/journal/journal-collapse.service"
+import {JournalService} from "../../../../../services/shared/journal/journal.service"
 import {SettingsService} from "../../../../../services/ui/settings.service"
 
 @Component({

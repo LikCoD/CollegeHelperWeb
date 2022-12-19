@@ -1,11 +1,11 @@
 import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
-import {JournalCellService, Point} from "../../../../../../services/ui/journal.cell.service"
-import {JournalService} from "../../../../../../services/shared/journal.service"
+import {JournalCellService, Point} from "../../../../../../services/shared/journal/journal.cell.service"
+import {JournalService} from "../../../../../../services/shared/journal/journal.service"
 import {LessonType, StudyPlace} from "../../../../../../models/general"
 import * as moment from "moment"
-import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
-import {JournalDisplayModeService} from "../../../../../../services/ui/journal-display-mode.service"
+import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
+import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "../../base-journal-cell/journal-cell.component"
 
 @Component({

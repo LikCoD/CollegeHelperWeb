@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core"
-import {Lesson} from "../../models/schedule"
+import {Lesson} from "../../../models/schedule"
 import * as moment from "moment"
-import {JournalService} from "../shared/journal.service"
+import {JournalService} from "./journal.service"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
 import {Subject} from "rxjs"
-import {SettingsService} from "./settings.service"
+import {SettingsService} from "../../ui/settings.service"
 
 @Injectable({
   providedIn: "root"

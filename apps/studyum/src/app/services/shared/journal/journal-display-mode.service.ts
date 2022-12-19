@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core"
-import {Lesson} from "../../models/schedule"
-import {JournalService} from "../shared/journal.service"
-import {LessonType} from "../../models/general"
-import {Entry} from "../../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
+import {Lesson} from "../../../models/schedule"
+import {JournalService} from "./journal.service"
+import {LessonType} from "../../../models/general"
+import {Entry} from "../../../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
 
 @Injectable({
   providedIn: "root"

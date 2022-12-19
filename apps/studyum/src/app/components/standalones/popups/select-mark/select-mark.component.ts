@@ -2,8 +2,8 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input,
 import {Lesson} from "../../../../models/schedule"
 import {Absence, Mark} from "../../../../models/journal"
 import {AbsenceControlComponent} from "./enteries/absence-control.component"
-import {JournalMarksService} from "../../../../services/ui/journal-marks.service"
-import {Point} from "../../../../services/ui/journal.cell.service"
+import {JournalMarksService} from "../../../../services/shared/journal/journal-marks.service"
+import {Point} from "../../../../services/shared/journal/journal.cell.service"
 
 @Component({
   selector: "app-select-mark",

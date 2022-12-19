@@ -1,6 +1,6 @@
 import {Component} from "@angular/core"
 import {Locale, SettingsService} from "../../../../services/ui/settings.service"
-import {CollapseType} from "../../../../services/ui/journal-collapse.service"
+import {CollapseType} from "../../../../services/shared/journal/journal-collapse.service"
 
 @Component({
   selector: "app-user-info",

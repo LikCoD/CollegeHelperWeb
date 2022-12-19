@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core"
-import {JournalHttpService} from "../http/journal-http.service"
-import {Absence, Journal, JournalRow, Mark, MarkAmount} from "../../models/journal"
-import {JournalService} from "../shared/journal.service"
+import {JournalHttpService} from "../../http/journal-http.service"
+import {Absence, Journal, JournalRow, Mark, MarkAmount} from "../../../models/journal"
+import {JournalService} from "./journal.service"
 import {JournalCellService, Point} from "./journal.cell.service"
 import * as moment from "moment/moment"
-import {Lesson} from "../../models/schedule"
+import {Lesson} from "../../../models/schedule"
 
 @Injectable({
   providedIn: "root"

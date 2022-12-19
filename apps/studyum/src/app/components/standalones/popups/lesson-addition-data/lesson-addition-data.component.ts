@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {LessonType} from "../../../../models/general"
-import {JournalLessonService} from "../../../../services/ui/journal-lesson.service"
+import {JournalLessonService} from "../../../../services/shared/journal/journal-lesson.service"
 
 @Component({
   selector: "app-lesson-addition-data",

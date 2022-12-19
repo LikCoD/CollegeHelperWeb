@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {JournalService} from "../../services/shared/journal.service";
-import {Router} from "@angular/router";
-import {JournalOption} from "../../models/journal";
+import {Component, OnInit} from "@angular/core"
+import {JournalService} from "../../services/shared/journal/journal.service"
+import {Router} from "@angular/router"
+import {JournalOption} from "../../models/journal"
 
 @Component({
   selector: 'app-journal',

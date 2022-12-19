@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core"
 import {LessonType} from "../../../../models/general"
 import {Journal} from "../../../../models/journal"
-import {JournalDisplayModeService} from "../../../../services/ui/journal-display-mode.service"
-import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
+import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
+import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 
 @Component({
   selector: "app-journal-bottom-action-bar",

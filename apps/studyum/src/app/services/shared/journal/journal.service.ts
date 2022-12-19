@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core"
-import {JournalHttpService} from "../http/journal-http.service"
+import {JournalHttpService} from "../../http/journal-http.service"
 import {Observable, Subject, tap} from "rxjs"
-import {Journal, JournalOption} from "../../models/journal"
+import {Journal, JournalOption} from "../../../models/journal"
 import * as moment from "moment"
 
 @Injectable({providedIn: "root"})

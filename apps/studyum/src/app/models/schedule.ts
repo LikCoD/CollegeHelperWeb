@@ -1,7 +1,7 @@
 import * as moment from "moment"
 import {Absence, Mark} from "./journal"
 import {StudyPlace} from "./general"
-import {Point} from "../services/ui/journal.cell.service"
+import {Point} from "../services/shared/journal/journal.cell.service"
 
 export interface ScheduleTypes {
   [Key: string]: string[];

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
-import {JournalService} from "../../../services/shared/journal.service"
+import {JournalService} from "../../../services/shared/journal/journal.service"
 import {Journal} from "../../../models/journal"
 import {Observable} from "rxjs"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"

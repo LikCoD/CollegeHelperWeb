@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
-import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
-import {JournalDisplayModeService} from "../../../../../../services/ui/journal-display-mode.service"
+import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
+import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 
 @Component({
   selector: "app-journal-day",

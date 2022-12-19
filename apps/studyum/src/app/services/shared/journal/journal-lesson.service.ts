@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core"
-import {ScheduleHttpService} from "../http/schedule-http.service"
-import {Lesson} from "../../models/schedule"
-import {JournalService} from "../shared/journal.service"
+import {ScheduleHttpService} from "../../http/schedule-http.service"
+import {Lesson} from "../../../models/schedule"
+import {JournalService} from "./journal.service"
 
 @Injectable({
   providedIn: "root"

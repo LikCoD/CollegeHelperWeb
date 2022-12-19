@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
-import {JournalCollapseService} from "../../../../../../services/ui/journal-collapse.service"
+import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
 
 @Component({
   selector: "app-journal-month",

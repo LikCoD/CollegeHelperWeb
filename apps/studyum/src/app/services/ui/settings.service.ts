@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core"
 import * as moment from "moment/moment"
 import {TranslateService} from "@ngx-translate/core"
-import {CollapseType} from "./journal-collapse.service"
+import {CollapseType} from "../shared/journal/journal-collapse.service"
 
 @Injectable({
   providedIn: "root"
