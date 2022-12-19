@@ -52,6 +52,11 @@
         "day": "Day",
         "month": "Month",
         "expanded": "Expanded"
+      },
+      "theme": "Theme",
+      "themes": {
+        "light": "Light",
+        "dark": "Dark"
       }
     },
     "accept": {

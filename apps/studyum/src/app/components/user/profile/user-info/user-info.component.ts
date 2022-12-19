@@ -1,44 +1,52 @@
-import {Component, OnInit} from "@angular/core"
-import {TranslateService} from "@ngx-translate/core"
-import * as moment from "moment"
+import {Component} from "@angular/core"
+import {Locale, SettingsService} from "../../../../services/ui/settings.service"
+import {CollapseType} from "../../../../services/ui/journal-collapse.service"
 
 @Component({
   selector: "app-user-info",
   templateUrl: "./user-info.component.html",
   styleUrls: ["./user-info.component.scss"]
 })
-export class UserInfoComponent implements OnInit {
+export class UserInfoComponent {
 
-  locales: Locale[] = [{code: "en", name: "English (US)"}, {code: "ru", name: "Русский"}]
-  currentLocaleCode = "ru"
-
-  types: string[] = ["smart", "month", "day", "expanded"]
-  collapseType = "smart"
-
-  constructor(private translate: TranslateService) {
+  constructor(private settingsService: SettingsService) {
   }
 
-  ngOnInit(): void {
-    this.currentLocaleCode = localStorage.getItem("locale") ?? "ru"
-    this.currentLocaleCode = localStorage.getItem("collapseType") ?? "smart"
+  get locales(): Locale[] {
+    return SettingsService.locales
   }
 
-  selectLocale(code: string) {
-    this.currentLocaleCode = code
-    this.translate.use(code)
-
-    localStorage.setItem("locale", code)
-    moment.locale(code)
+  get currentLocaleCode(): string {
+    return this.settingsService.localeCode
   }
 
-  selectCollapseType(type: string) {
-    this.collapseType = type
-    localStorage.setItem("collapseType", type)
+  set currentLocaleCode(locale: string) {
+    this.settingsService.localeCode = locale
+  }
+
+  get collapseTypes(): string[] {
+    return SettingsService.collapseTypes
+  }
+
+  get collapseType(): string {
+    return this.settingsService.collapseType
+  }
+
+  set collapseType(type: string) {
+    this.settingsService.collapseType = type as CollapseType
+  }
+
+  get themes(): string[] {
+    return SettingsService.themes
+  }
+
+  get theme(): string {
+    return this.settingsService.theme
+  }
+
+  set theme(theme: string) {
+    this.settingsService.theme = theme
   }
 }
 
-interface Locale {
-  code: string,
-  name: string
-}
 

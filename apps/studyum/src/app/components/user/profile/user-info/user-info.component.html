@@ -1,16 +1,23 @@
 <div>
   <label>
     {{'user.info.language' | translate}}
-    <select #languageSelect class="form-select form-select-sm" (change)="selectLocale(languageSelect.value)">
+    <select #languageSelect class="form-select form-select-sm" (change)="currentLocaleCode = languageSelect.value">
       <option *ngFor="let locale of locales" [value]="locale.code" [label]="locale.name"
               [selected]="locale.code == currentLocaleCode"></option>
     </select>
   </label>
   <label>
     {{'user.info.collapseType' | translate}}
-    <select #typeSelect class="form-select form-select-sm" (change)="selectCollapseType(typeSelect.value)">
-      <option *ngFor="let type of types" [value]="type" [label]="'user.info.collapseTypes.' + type | translate"
+    <select #typeSelect class="form-select form-select-sm" (change)="collapseType = typeSelect.value">
+      <option *ngFor="let type of collapseTypes" [value]="type" [label]="'user.info.collapseTypes.' + type | translate"
               [selected]="type == collapseType"></option>
+    </select>
+  </label>
+  <label>
+    {{'user.info.theme' | translate}}
+    <select #themeSelect class="form-select form-select-sm" (change)="theme = themeSelect.value">
+      <option *ngFor="let th of themes" [value]="th" [label]="'user.info.themes.' + th | translate"
+              [selected]="th == theme"></option>
     </select>
   </label>
 </div>

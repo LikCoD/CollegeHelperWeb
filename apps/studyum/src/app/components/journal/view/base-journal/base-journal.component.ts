@@ -1,12 +1,12 @@
 import {Component, HostListener, Input} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow} from "../../../../models/journal"
-import {defaultLocale} from "../../../../app.component"
 import {JournalCellService} from "../../../../services/ui/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/ui/journal-collapse.service"
 import {JournalDisplayModeService, JournalMode} from "../../../../services/ui/journal-display-mode.service"
 import {Entry} from "./base-journal-cell/journal-cell.component"
 import {JournalColors} from "../../../../models/general"
+import {SettingsService} from "../../../../services/ui/settings.service"
 
 @Component({
   selector: "app-base-journal",
@@ -18,7 +18,7 @@ export class BaseJournalComponent {
   @Input() journal: Journal
   @Input() showAmount = false
 
-  constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService, private modeService: JournalDisplayModeService) {
+  constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService, private modeService: JournalDisplayModeService, private settingService: SettingsService) {
   }
 
   get mode(): JournalMode {
@@ -58,7 +58,7 @@ export class BaseJournalComponent {
   getAverage(row: JournalRow): Entry {
     if (row.numericMarksAmount == 0) return {text: "-", color: this.journalColors.general}
 
-    let locale = localStorage.getItem("locale") ?? defaultLocale
+    let locale = this.settingService.localeCode
     return {
       text: (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2}),
       color: this.journalColors.general

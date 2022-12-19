@@ -4,6 +4,7 @@ import * as moment from "moment"
 import {JournalService} from "../shared/journal.service"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
 import {Subject} from "rxjs"
+import {SettingsService} from "./settings.service"
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +19,7 @@ export class JournalCollapseService {
   isControlPressed = false
   change$ = new Subject<moment.Moment | null>()
 
-  constructor(private service: JournalService, private modeService: JournalDisplayModeService) {
+  constructor(private service: JournalService, private modeService: JournalDisplayModeService, private settingsService: SettingsService) {
     this.loadType()
   }
 
@@ -45,15 +46,7 @@ export class JournalCollapseService {
     }
   }
 
-  getStandardType(): CollapseType {
-    let type = localStorage.getItem("collapseType")
-    if (type == null || !["month", "day", "smart", "expanded", "null"].find(v => v === type))
-      type = "smart"
-
-    return (type as CollapseType) ?? "smart"
-  }
-
-  loadType = () => this.type = this.getStandardType()
+  loadType = () => this.type = this.settingsService.collapseType
 
   getLessonCollapseType(lesson: Lesson): CollapseType {
     let year = lesson.startDate.format(JournalCollapseService.YearFormat)
