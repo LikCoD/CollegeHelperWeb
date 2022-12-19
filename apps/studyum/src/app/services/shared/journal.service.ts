@@ -16,7 +16,7 @@ export class JournalService {
 
   getJournal(group: string, subject: string, teacher: string): Observable<Journal[]> {
     this.httpService.getJournal(group, subject, teacher).pipe(
-      tap(j => this.journal = j)).subscribe({
+      tap(j => this.journal = j), tap(j => console.log(j))).subscribe({
       next: value => this.journal$.next([{...value, dates: [...value.dates]}])
     })
     return this.journal$

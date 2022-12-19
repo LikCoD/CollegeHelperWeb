@@ -45,7 +45,14 @@
     },
     "info": {
       "info": "Информация",
-      "language": "Язык | Lang."
+      "language": "Язык | Lang.",
+      "collapseType": "Тип группировки",
+      "collapseTypes": {
+        "smart": "Умная",
+        "day": "День",
+        "month": "Месяц",
+        "expanded": "Развернуто"
+      }
     },
     "accept": {
       "acceptUsers": "Принять пользователей"

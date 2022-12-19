@@ -45,7 +45,14 @@
     },
     "info": {
       "info": "Info",
-      "language": "Language"
+      "language": "Language",
+      "collapseType": "Collapse type",
+      "collapseTypes": {
+        "smart": "Smart",
+        "day": "Day",
+        "month": "Month",
+        "expanded": "Expanded"
+      }
     },
     "accept": {
       "acceptUsers": "Accept users"

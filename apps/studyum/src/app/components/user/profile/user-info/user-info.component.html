@@ -6,4 +6,11 @@
               [selected]="locale.code == currentLocaleCode"></option>
     </select>
   </label>
+  <label>
+    {{'user.info.collapseType' | translate}}
+    <select #typeSelect class="form-select form-select-sm" (change)="selectCollapseType(typeSelect.value)">
+      <option *ngFor="let type of types" [value]="type" [label]="'user.info.collapseTypes.' + type | translate"
+              [selected]="type == collapseType"></option>
+    </select>
+  </label>
 </div>

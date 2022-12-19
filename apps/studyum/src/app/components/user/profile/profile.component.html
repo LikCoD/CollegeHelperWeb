@@ -1,4 +1,4 @@
-<ng-container class="main-container" *ngIf="user$ | async as user else elseBlock">
+<ng-container class="main-container" *ngIf="user$ | async as user">
   <div class="profile-container">
     <div class="profile-card">
       <div>
@@ -30,5 +30,3 @@
   </section>
   <div></div>
 </ng-container>
-
-<ng-template #elseBlock>No user</ng-template>
