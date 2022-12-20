@@ -41,3 +41,23 @@ $successHoverColor: #209301;
     border-color: $dangerHoverColor;
   }
 }
+
+.btn-outline-light {
+  color: white;
+  border-color: white;
+
+  &:hover {
+    color: #4A4A4A;
+    background-color: white;
+  }
+}
+
+.light .btn-outline-light {
+  color: #4A4A4A;
+  border-color: #4A4A4A;
+
+  &:hover {
+    color: white;
+    background-color: #4A4A4A;
+  }
+}
