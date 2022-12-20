@@ -77,7 +77,7 @@ app-schedule-top-bar {
     margin: 0;
     width: 100%;
 
-    border-top: 1px dashed styles.$textColor;
+    border-top: 1px dashed styles.$onBackgroundColor;
     opacity: 0.6;
   }
 }
@@ -120,14 +120,14 @@ app-schedule-top-bar {
   grid-row: 1;
   grid-column: 1;
 
-  color: styles.$textColor;
+  color: styles.$onBackgroundColor;
   text-align: center;
 
   right: 10px;
 }
 
 .weekday {
-  color: styles.$textColor;
+  color: styles.$onBackgroundColor;
   text-align: center;
   margin: 0 10px;
 

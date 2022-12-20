@@ -1,55 +1,42 @@
-@use '@angular/material' as mat;
+@use "assets/scss/buttons";
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 
-@include mat.core();
-
-$my-theme: mat.define-light-theme((
-  color: (
-    primary: mat.define-palette(mat.$purple-palette, 500),
-    accent: mat.define-palette(mat.$pink-palette, A200, A100, A400),
-  )
-));
-
-@include mat.core-theme($my-theme);
-
-$primaryColor: var(--primaryColor); //#0a3e26
-$secondaryColor: var(--secondaryColor); //#cc88ff
-$backgroundColor: var(--backgroundColor); //#232323
-$secondaryBackgroundColor: var(--secondaryBackgroundColor); //#4a4a4a
-$thirdColor:  var(--thirdColor); //#e2d0bf
-$textColor:  var(--textColor); //#e2d0bf
-
+$primaryColor: var(--primaryColor);
+$secondaryColor: var(--secondaryColor);
+$thirdColor:  var(--thirdColor);
+$backgroundColor: var(--backgroundColor);
+$secondaryBackgroundColor: var(--secondaryBackgroundColor);
 $onBackgroundColor: var(--onBackgroundColor);
-
+$onSecondaryBackgroundColor: var(--onSecondaryBackgroundColor);
+$onPrimaryColor: var(--onPrimaryColor);
+$onSecondaryColor: var(--onSecondaryColor);
 
 $dangerColor: #FF5517;
-$dangerHoverColor: #eb4117;
-
-$warningColor: #FFB802;
-$warningHoverColor: #eba400;
-
-$successColor: #259806;
-$successHoverColor: #209301;
 
 .dark {
-  --primaryColor: #0a3e26;
-  --secondaryColor: #cc88ff;
+  --primaryColor: #0A3E26;
+  --secondaryColor: #F1F1F1;
+  --onPrimaryColor: #EFEFEF;
+  --onSecondaryColor: #3A3A3A;
+  --thirdColor: #CC88FF;
   --backgroundColor: #232323;
-  --secondaryBackgroundColor: #4a4a4a;
-  --thirdColor: #e2d0bf;
-  --textColor: #e2d0bf;
-  --onBackgroundColor: #e2d0bf;
+  --secondaryBackgroundColor: #4A4A4A;
+  --onBackgroundColor: #EFEFEF;
+  --onSecondaryBackgroundColor: #EFEFEF;
 }
 
 .light {
-  --primaryColor: #0a3e26;
-  --secondaryColor: #cc88ff;
-  --backgroundColor: #eeeeee;
-  --secondaryBackgroundColor: #4a4a4a;
-  --thirdColor: #111111;
-  --textColor: #111111;
-  --onBackgroundColor: #555555;
+  --primaryColor: #0A3E26;
+  --secondaryColor: #F1F1F1;
+  --onPrimaryColor: #EFEFEF;
+  --onSecondaryColor: #3A3A3A;
+  --thirdColor: #CC88FF;
+  --backgroundColor: #232323;
+  --secondaryBackgroundColor: #4A4A4A;
+  --onBackgroundColor: #EFEFEF;
+  --onSecondaryBackgroundColor: #EFEFEF;
 }
 
 html, body {
@@ -62,7 +49,7 @@ body {
 }
 
 p, li {
-  color: $textColor;
+  color: $onBackgroundColor;
 }
 
 app-root {
@@ -111,37 +98,4 @@ a:hover, a:focus {
 
 ::-webkit-scrollbar-corner {
   background: transparent;
-}
-
-.btn-success {
-  color: $onBackgroundColor;
-  background-color: $successColor;
-  border-color: $successColor;
-
-  &:hover {
-    background-color: $successHoverColor;
-    border-color: $successHoverColor;
-  }
-}
-
-.btn-warning {
-  color: $onBackgroundColor;
-  background-color: $warningColor;
-  border-color: $warningColor;
-
-  &:hover {
-    background-color: $warningHoverColor;
-    border-color: $warningHoverColor;
-  }
-}
-
-.btn-danger {
-  color: $onBackgroundColor;
-  background-color: $dangerColor;
-  border-color: $dangerColor;
-
-  &:hover {
-    background-color: $dangerHoverColor;
-    border-color: $dangerHoverColor;
-  }
 }

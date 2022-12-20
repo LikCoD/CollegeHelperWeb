@@ -3,10 +3,14 @@
 .child {
   margin: 15px;
   padding: 10px;
-  background: styles.$onBackgroundColor;
+  background: styles.$secondaryColor;
   border-radius: 15px;
 
   min-width: 280px;
+
+  p{
+    color: styles.$onSecondaryColor;
+  }
 }
 
 .expand-line {

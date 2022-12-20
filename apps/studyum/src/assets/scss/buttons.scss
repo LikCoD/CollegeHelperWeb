@@ -1,0 +1,43 @@
+$onBackgroundColor: #efefef;
+
+$dangerColor: #FF5517;
+$dangerHoverColor: #eb4117;
+
+$warningColor: #FFB802;
+$warningHoverColor: #eba400;
+
+$successColor: #259806;
+$successHoverColor: #209301;
+
+.btn-success {
+  color: $onBackgroundColor;
+  background-color: $successColor;
+  border-color: $successColor;
+
+  &:hover {
+    background-color: $successHoverColor;
+    border-color: $successHoverColor;
+  }
+}
+
+.btn-warning {
+  color: $onBackgroundColor;
+  background-color: $warningColor;
+  border-color: $warningColor;
+
+  &:hover {
+    background-color: $warningHoverColor;
+    border-color: $warningHoverColor;
+  }
+}
+
+.btn-danger {
+  color: $onBackgroundColor;
+  background-color: $dangerColor;
+  border-color: $dangerColor;
+
+  &:hover {
+    background-color: $dangerHoverColor;
+    border-color: $dangerHoverColor;
+  }
+}

@@ -12,11 +12,15 @@ div {
   width: 250px;
   height: 150px;
 
-  background: styles.$onBackgroundColor;
+  background: styles.$secondaryColor;
   border-radius: 25px;
 
   gap: 15px;
   padding: 5px 10px;
+
+  p, h5 {
+    color: styles.$onSecondaryColor
+  }
 }
 
 h5 {
