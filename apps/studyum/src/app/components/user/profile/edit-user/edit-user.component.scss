@@ -17,3 +17,35 @@ form {
 input[type="file"] {
   display: none;
 }
+
+.image-block {
+  $radius: 5px;
+
+  display: flex;
+  flex-flow: row;
+
+  align-items: center;
+
+  img {
+    width: 62px;
+    aspect-ratio: 1;
+
+    border-radius: $radius 0 0 $radius;
+  }
+
+  &--selection {
+    display: flex;
+    flex-flow: column;
+
+    align-items: center;
+
+    .form-control {
+      border-radius: 0 $radius 0 0;
+    }
+
+    .btn-success {
+      width: 100%;
+      border-radius: 0 0 $radius 0;
+    }
+  }
+}

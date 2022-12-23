@@ -1,4 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="image-block">
+    <img [src]="image" alt="profile image" (click)="imageFile.click()">
+    <div class="image-block--selection">
+      <input id="picture" class="form-control form-control-sm" formControlName="picture" placeholder="Picture url" >
+      <button class="btn btn-success btn-sm" (click)="imageFile.click()">Attach</button>
+      <input #imageFile id="profile-upload" type="file" accept="image/*" (input)="changeImage(imageFile.files!![0])">
+    </div>
+    <app-error-info [property]="form.get('picture')!!"></app-error-info>
+  </div>
+
   <div class="form-floating">
     <input id="login" class="form-control" formControlName="login" placeholder="Login">
     <label for="login">{{'user.edit.login' | translate}}</label>
@@ -11,17 +21,6 @@
     <label for="email">{{'user.edit.email' | translate}}</label>
 
     <app-error-info [property]="form.get('email')!!"></app-error-info>
-  </div>
-
-  <div class="input-group">
-    <input #imageInput id="picture" class="form-control" formControlName="picture" placeholder="Picture url">
-    <div class="input-group-append">
-      <span class="input-group-text">
-        <label for="profile-upload">📎</label>
-        <input #image id="profile-upload" type="file" accept="image/*" (input)="changeImage(image.files!![0], imageInput)">
-      </span>
-    </div>
-    <app-error-info [property]="form.get('picture')!!"></app-error-info>
   </div>
 
   <div class="form-floating">

@@ -18,6 +18,10 @@ export class EditUserComponent implements OnInit {
     login: new FormControl("", Validators.required)
   })
 
+  get image(): string {
+    return this.form.get("picture")?.value ?? ""
+  }
+
   constructor(public userService: UserService) {
   }
 
@@ -35,8 +39,7 @@ export class EditUserComponent implements OnInit {
     this.userService.update(this.form.value)
   }
 
-  changeImage(file: File, input: HTMLInputElement) {
-    input.value = file.name
+  changeImage(file: File) {
     this.userService.uploadImage(file).subscribe({
       next: url => this.form.get("picture")?.setValue(url)
     })
