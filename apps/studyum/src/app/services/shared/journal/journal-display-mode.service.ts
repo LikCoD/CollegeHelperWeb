@@ -68,6 +68,10 @@ export class JournalDisplayModeService {
   lessonColor(lesson: Lesson, collapsed: boolean = false): string {
     return (!lesson.id && !collapsed) ? "#323232" : (!!this.getEntries(lesson)?.length) ? lesson.journalCellColor!! : "#4a4a4a"
   }
+
+  showColumnByPoint(x: number, y: number): boolean {
+    return this.showColumn(this.service.journal.rows[y].lessons.flat(2)[x])
+  }
 }
 
 export type JournalMode = ("general" | "standalone" | "absences");

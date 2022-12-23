@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core"
 import * as moment from "moment"
+import {JournalDisplayModeService} from "./journal-display-mode.service"
 
 @Injectable({
   providedIn: "root"
@@ -10,6 +11,10 @@ export class JournalCellService {
 
   isShiftPressed = false
   isControlPressed = false
+
+  constructor(private modeService: JournalDisplayModeService) {
+  }
+
 
   get lastSelectedPoint(): Point {
     return this.selectedPoints[this.selectedPoints.length - 1]
@@ -61,11 +66,9 @@ export class JournalCellService {
     let points = new Array<Point>()
     for (let x = from.x; x <= to.x; x++) {
       for (let y = from.y; y <= to.y; y++) {
-        if (
-          !!points.find(p => p.x == x && p.y == y) ||
-          !!this.selectedPoints.find(p => p.x == x && p.y == y) ||
-          (x == lastPoint.x && y == lastPoint.y)
-        ) continue
+        const isPointSelected = !!this.selectedPoints.find(p => p.x == x && p.y == y)
+        const isColumnShown = this.modeService.showColumnByPoint(x, y)
+        if (isPointSelected || (x == lastPoint.x && y == lastPoint.y) || !isColumnShown) continue
 
         points.push({x: x, y: y})
       }
