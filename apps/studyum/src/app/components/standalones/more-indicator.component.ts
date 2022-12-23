@@ -4,9 +4,7 @@ import {Component, Input} from "@angular/core"
   selector: "app-more-indicator",
   template: `<p *ngIf="amount" [innerText]="amount"></p>`,
   styles: [`
-      @use '../../../styles';
-
-      :host {
+     :host {
           position: absolute;
 
           aspect-ratio: 1 / 1;
@@ -15,7 +13,7 @@ import {Component, Input} from "@angular/core"
 
           height: fit-content;
           width: fit-content;
-          background-color: styles.$secondaryColor;
+          background-color: var(--thirdColor);
           border-radius: 50%;
       }
 
