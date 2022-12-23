@@ -124,4 +124,11 @@ export class UserService {
   signOutSilently(): void {
     this.user$.next(undefined)
   }
+
+  uploadImage(file: File): Observable<string> {
+    const formData = new FormData()
+    formData.append("file", file, file.name)
+
+    return this.httpService.uploadImage(formData).pipe(map(u => u.url))
+  }
 }

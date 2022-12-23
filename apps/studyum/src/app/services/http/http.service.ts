@@ -11,6 +11,7 @@ import {StudyPlace} from "../../models/general"
 export class HttpService {
 
   API_PATH = '/api';
+  STORAGE_PATH = '/storage';
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -76,5 +77,9 @@ export class HttpService {
 
   blockUser(id: string) {
     return this.http.post<string>(`${this.API_PATH}/user/block`, `"${id}"`);
+  }
+
+  uploadImage(formData: FormData): Observable<{url: string}> {
+    return this.http.post<{url: string}>(`${this.STORAGE_PATH}`, formData)
   }
 }

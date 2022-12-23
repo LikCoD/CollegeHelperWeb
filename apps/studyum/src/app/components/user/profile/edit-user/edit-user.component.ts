@@ -4,9 +4,9 @@ import {sameAs} from "../../../../utils"
 import {UserService} from "../../../../services/shared/user.service"
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss']
+  selector: "app-edit-user",
+  templateUrl: "./edit-user.component.html",
+  styleUrls: ["./edit-user.component.scss"]
 })
 export class EditUserComponent implements OnInit {
 
@@ -15,10 +15,11 @@ export class EditUserComponent implements OnInit {
     password: new FormControl("", [Validators.minLength(8)]),
     picture: new FormControl("", Validators.required),
     passwordConfirm: new FormControl("", sameAs("password")),
-    login: new FormControl("", Validators.required),
+    login: new FormControl("", Validators.required)
   })
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.userService.user$.subscribe({
@@ -34,4 +35,10 @@ export class EditUserComponent implements OnInit {
     this.userService.update(this.form.value)
   }
 
+  changeImage(file: File, input: HTMLInputElement) {
+    input.value = file.name
+    this.userService.uploadImage(file).subscribe({
+      next: url => this.form.get("picture")?.setValue(url)
+    })
+  }
 }

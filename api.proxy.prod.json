@@ -4,6 +4,12 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/storage/*": {
+    "target": "http://likdn.co/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
 

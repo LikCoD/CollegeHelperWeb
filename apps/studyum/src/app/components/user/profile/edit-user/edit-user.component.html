@@ -13,10 +13,14 @@
     <app-error-info [property]="form.get('email')!!"></app-error-info>
   </div>
 
-  <div class="form-floating">
-    <input id="picture" class="form-control" formControlName="picture" placeholder="Picture url">
-    <label for="picture">{{'user.edit.pictureUrl' | translate}}</label>
-
+  <div class="input-group">
+    <input #imageInput id="picture" class="form-control" formControlName="picture" placeholder="Picture url">
+    <div class="input-group-append">
+      <span class="input-group-text">
+        <label for="profile-upload">📎</label>
+        <input #image id="profile-upload" type="file" accept="image/*" (input)="changeImage(image.files!![0], imageInput)">
+      </span>
+    </div>
     <app-error-info [property]="form.get('picture')!!"></app-error-info>
   </div>
 
