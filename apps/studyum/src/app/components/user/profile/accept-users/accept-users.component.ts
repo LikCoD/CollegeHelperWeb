@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AcceptUser} from "../../../../models/user";
-import {Observable} from "rxjs";
-import {UserService} from "../../../../services/shared/user.service";
+import {Component, OnInit} from "@angular/core"
+import {AcceptUser} from "../../../../models/user"
+import {Observable} from "rxjs"
+import {UserService} from "../../../../services/shared/user.service"
 
 @Component({
   selector: 'app-accept-users',

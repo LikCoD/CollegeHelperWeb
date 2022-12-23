@@ -1,6 +1,6 @@
-import {Directive, ElementRef, Input} from '@angular/core';
-import {Cell} from "../../../../../models/schedule";
-import {ScheduleService} from "../../../../../services/shared/schedule.service";
+import {Directive, ElementRef, Input} from "@angular/core"
+import {Cell} from "../../../../../models/schedule"
+import {ScheduleService} from "../../../../../services/shared/schedule.service"
 
 @Directive({
   selector: '[appScheduleCell]'

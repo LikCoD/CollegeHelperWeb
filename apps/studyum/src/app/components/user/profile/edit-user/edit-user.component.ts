@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {sameAs} from "../../../../utils";
-import {UserService} from "../../../../services/shared/user.service";
+import {Component, OnInit} from "@angular/core"
+import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {sameAs} from "../../../../utils"
+import {UserService} from "../../../../services/shared/user.service"
 
 @Component({
   selector: 'app-edit-user',

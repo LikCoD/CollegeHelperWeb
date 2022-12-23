@@ -9,6 +9,12 @@
 
   border: solid #505050 5px;
   border-radius: 15px;
+
+  ::ng-deep {
+    p {
+      color: styles.$onSecondaryColor;
+    }
+  }
 }
 
 button {

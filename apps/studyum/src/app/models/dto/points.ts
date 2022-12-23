@@ -1,4 +1,4 @@
-import { Lesson } from '../schedule';
+import {Lesson} from "../schedule"
 
 export interface DataPoint<D> {
   x: number;

@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../../../services/shared/user.service";
+import {Component} from "@angular/core"
+import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {UserService} from "../../../../services/shared/user.service"
 
 @Component({
   selector: 'app-create-code-user',

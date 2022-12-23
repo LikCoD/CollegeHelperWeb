@@ -1,12 +1,16 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnInit} from "@angular/core"
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormControl, FormGroup, NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors,
-  Validator, Validators
-} from "@angular/forms";
-import {Lesson} from "../../../../models/schedule";
+  FormControl,
+  FormGroup,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+  Validators
+} from "@angular/forms"
+import {Lesson} from "../../../../models/schedule"
 
 @Component({
   selector: 'app-schedule-subject',

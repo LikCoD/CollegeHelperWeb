@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {AddSubjectDialogComponent} from "../../edit/add-subject-dialog/add-subject-dialog.component";
-import {Cell, Lesson} from "../../../../../models/schedule";
+import {Component, Inject} from "@angular/core"
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog"
+import {AddSubjectDialogComponent} from "../../edit/add-subject-dialog/add-subject-dialog.component"
+import {Cell, Lesson} from "../../../../../models/schedule"
 
 @Component({
   selector: 'app-select-subject-dialog',

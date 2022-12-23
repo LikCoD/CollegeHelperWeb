@@ -1,10 +1,10 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component";
-import {MatDialog} from "@angular/material/dialog";
-import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component";
-import {ScheduleService} from "../../../../services/shared/schedule.service";
-import {AddSubjectDialogComponent} from "../edit/add-subject-dialog/add-subject-dialog.component";
-import {Cell, Lesson} from "../../../../models/schedule";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core"
+import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component"
+import {MatDialog} from "@angular/material/dialog"
+import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component"
+import {ScheduleService} from "../../../../services/shared/schedule.service"
+import {AddSubjectDialogComponent} from "../edit/add-subject-dialog/add-subject-dialog.component"
+import {Cell, Lesson} from "../../../../models/schedule"
 
 @Component({
   selector: 'app-schedule-cell',

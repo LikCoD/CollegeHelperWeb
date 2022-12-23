@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from '@angular/core';
-import * as moment from "moment";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Lesson} from "../../../../../models/schedule";
+import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from "@angular/core"
+import * as moment from "moment"
+import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog"
+import {Lesson} from "../../../../../models/schedule"
 
 @Component({
   selector: 'app-add-subject-dialog',

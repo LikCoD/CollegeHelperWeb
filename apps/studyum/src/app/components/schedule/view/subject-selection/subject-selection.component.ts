@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Lesson} from "../../../../models/schedule";
+import {Component, EventEmitter, Input, Output} from "@angular/core"
+import {Lesson} from "../../../../models/schedule"
 
 @Component({
   selector: 'app-subject-selection',

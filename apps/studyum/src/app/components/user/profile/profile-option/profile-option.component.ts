@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Component, Input, OnInit} from "@angular/core"
+import {animate, state, style, transition, trigger} from "@angular/animations"
 
 @Component({
   selector: 'app-profile-option',
