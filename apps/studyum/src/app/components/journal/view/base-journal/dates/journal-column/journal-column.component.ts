@@ -7,6 +7,8 @@ import * as moment from "moment"
 import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "../../base-journal-cell/journal-cell.component"
+import {DialogService} from "../../../../../../services/ui/dialog.service"
+import {SelectMarkComponent} from "../../../../../standalones/popups/select-mark/select-mark.component"
 
 @Component({
   selector: "app-journal-column",
@@ -21,7 +23,8 @@ export class JournalColumnComponent {
     private journalService: JournalService,
     private cellService: JournalCellService,
     private collapseService: JournalCollapseService,
-    private modeService: JournalDisplayModeService
+    private modeService: JournalDisplayModeService,
+    private modalService: DialogService
   ) {
   }
 
@@ -88,4 +91,8 @@ export class JournalColumnComponent {
   entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
   lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
   clearSelectedPoints = () => this.cellService.clear()
+
+  openMarkPopup(): boolean {
+    return this.modalService.open(SelectMarkComponent, a => null)
+  }
 }

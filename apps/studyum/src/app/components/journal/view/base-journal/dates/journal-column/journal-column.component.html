@@ -29,7 +29,7 @@
 
     <popper-content #popper>
       <app-lesson-info
-        *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id"
+        *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id && openMarkPopup()"
         (close)="clearSelectedPoints()"
         [lesson]="lesson"
       ></app-lesson-info>
