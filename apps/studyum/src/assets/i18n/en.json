@@ -69,7 +69,8 @@
       "pictureUrl": "Picture URL",
       "password": "Password",
       "confirmPassword": "Confirm password",
-      "continue": "Continue"
+      "continue": "Continue",
+      "attach": "Attach"
     },
     "create": {
       "createUsers": "Create users",

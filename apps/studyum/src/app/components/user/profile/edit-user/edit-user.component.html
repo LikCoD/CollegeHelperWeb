@@ -3,7 +3,7 @@
     <img [src]="image" alt="profile image" (click)="imageFile.click()">
     <div class="image-block--selection">
       <input id="picture" class="form-control form-control-sm" formControlName="picture" placeholder="Picture url" >
-      <button class="btn btn-success btn-sm" (click)="imageFile.click()">Attach</button>
+      <button class="btn btn-success btn-sm" (click)="imageFile.click()">{{'user.edit.attach' | translate}}</button>
       <input #imageFile id="profile-upload" type="file" accept="image/*" (input)="changeImage(imageFile.files!![0])">
     </div>
     <app-error-info [property]="form.get('picture')!!"></app-error-info>

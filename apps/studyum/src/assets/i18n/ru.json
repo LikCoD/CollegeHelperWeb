@@ -69,7 +69,8 @@
       "pictureUrl": "Картинка",
       "password": "Пароль",
       "confirmPassword": "Подтвердить пароль",
-      "continue": "Продолжить"
+      "continue": "Продолжить",
+      "attach": "Прикрепить"
     },
     "create": {
       "createUsers": "Создать пользователей",
