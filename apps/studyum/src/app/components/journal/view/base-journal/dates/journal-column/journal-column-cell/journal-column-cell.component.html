@@ -1,0 +1,40 @@
+<app-base-journal-cell
+  [appPopup]="popper"
+  [show]="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed"
+  [ngClass]="{focused: isSelected(lesson.point!!)}"
+  [entries]="entries(lesson)"
+  [color]="lessonColor(lesson)"
+  [showPopup]="!isLastSelected(lesson.point!!)"
+  (click)="onCellClick(lesson)"
+></app-base-journal-cell>
+
+<popper-content #popper>
+  <ng-container
+    *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id && !isPopupOpen() && openLessonInfoPopup()"
+    [ngTemplateOutlet]="lessonInfoTemplate"
+  ></ng-container>
+  <ng-container
+    *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && editable && !isPopupOpen() && openMarkPopup()"
+    [ngTemplateOutlet]="selectMarkTemplate"
+  ></ng-container>
+</popper-content>
+
+<ng-template #lessonInfoTemplate>
+  <app-lesson-info
+    (close)="clearSelectedPoints()"
+    [lesson]="lesson"
+  ></app-lesson-info>
+</ng-template>
+
+<ng-template #selectMarkTemplate>
+  <app-select-mark
+    (close)="clearSelectedPoints()"
+    [lesson]="lesson"
+    [marks]="marks"
+    [absenceMark]="studyPlace.absenceMark"
+    [standaloneMarks]="standaloneMarks"
+    [showAllMarks]="true"
+    [showStandaloneMarks]="true"
+    [showAbsence]="true"
+  ></app-select-mark>
+</ng-template>

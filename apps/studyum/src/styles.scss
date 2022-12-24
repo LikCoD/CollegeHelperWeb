@@ -99,3 +99,16 @@ a:hover, a:focus {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+.modal {
+  display: flex !important;
+  justify-content: center;
+
+  &-dialog {
+    width: fit-content;
+  }
+
+  &-content {
+    background-color: unset;
+  }
+}

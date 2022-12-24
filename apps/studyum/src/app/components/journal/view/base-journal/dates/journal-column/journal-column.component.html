@@ -16,34 +16,5 @@
 </div>
 
 <section>
-  <div *ngFor="let lesson of lessons">
-    <app-base-journal-cell
-      [appPopup]="popper"
-      [show]="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed"
-      [ngClass]="{focused: isSelected(lesson.point!!)}"
-      [entries]="entries(lesson)"
-      [color]="lessonColor(lesson)"
-      [showPopup]="!isLastSelected(lesson.point!!)"
-      (click)="onCellClick(lesson)"
-    ></app-base-journal-cell>
-
-    <popper-content #popper>
-      <app-lesson-info
-        *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id && openMarkPopup()"
-        (close)="clearSelectedPoints()"
-        [lesson]="lesson"
-      ></app-lesson-info>
-      <app-select-mark
-        *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && editable"
-        (close)="clearSelectedPoints()"
-        [lesson]="lesson"
-        [marks]="marks"
-        [absenceMark]="studyPlace.absenceMark"
-        [standaloneMarks]="standaloneMarks"
-        [showAllMarks]="true"
-        [showStandaloneMarks]="true"
-        [showAbsence]="true"
-      ></app-select-mark>
-    </popper-content>
-  </div>
+  <app-journal-column-cell *ngFor="let lesson of lessons" [lesson]="lesson"></app-journal-column-cell>
 </section>

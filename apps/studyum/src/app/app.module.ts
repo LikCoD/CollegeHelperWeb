@@ -82,6 +82,9 @@ import {LessonInfoComponent} from "./components/standalones/popups/lesson-info/l
 import {ModalsModule} from "modals"
 import {NgxPopperjsModule} from "ngx-popperjs"
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
+import {
+  JournalColumnCellComponent
+} from "./components/journal/view/base-journal/dates/journal-column/journal-column-cell/journal-column-cell.component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -213,6 +216,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     JournalColumnComponent,
     JournalCollapseColumnComponent,
     LessonInfoComponent,
+    JournalColumnCellComponent,
   ],
   imports: [
     BrowserModule,
@@ -227,12 +231,12 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     ModalsModule,
     NgxPopperjsModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},

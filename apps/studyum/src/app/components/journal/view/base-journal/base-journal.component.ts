@@ -7,6 +7,7 @@ import {JournalDisplayModeService, JournalMode} from "../../../../services/share
 import {Entry} from "./base-journal-cell/journal-cell.component"
 import {JournalColors} from "../../../../models/general"
 import {SettingsService} from "../../../../services/ui/settings.service"
+import {DialogService} from "../../../../services/ui/dialog.service"
 
 @Component({
   selector: "app-base-journal",
@@ -18,7 +19,14 @@ export class BaseJournalComponent {
   @Input() journal: Journal
   @Input() showAmount = false
 
-  constructor(private cellService: JournalCellService, private collapseService: JournalCollapseService, private modeService: JournalDisplayModeService, private settingService: SettingsService) {
+  constructor(
+    private cellService: JournalCellService,
+    private collapseService: JournalCollapseService,
+    private modeService: JournalDisplayModeService,
+    private settingService: SettingsService,
+    private modalService: DialogService
+  ) {
+    this.modalService.width = window.innerWidth
   }
 
   get mode(): JournalMode {
@@ -45,6 +53,11 @@ export class BaseJournalComponent {
       this.collapseService.isControlPressed = down
       this.cellService.isControlPressed = down
     }
+  }
+
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  resizeEvent(width: number) {
+    this.modalService.width = width
   }
 
   @HostListener("document:keydown.arrowUp", ["0", "-1"])

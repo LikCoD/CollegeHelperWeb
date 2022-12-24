@@ -1,25 +1,31 @@
 import {Injectable} from "@angular/core"
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap"
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap"
+import {catchError, from, Observable, of, tap} from "rxjs"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DialogService {
 
-  private isOpen = false
+  showModal = false
 
-  constructor(private modalService: NgbModal) {}
+  openedModalRef: NgbModalRef | null = null
 
-  open(content: any, setup: (component: any) => void, open: boolean = true): boolean {
-    console.log("ojhgyf")
+  constructor(private modalService: NgbModal) {
+  }
 
-    if (!open) return false
+  set width(width: number) {
+    this.showModal = width < 625
+  }
 
-    console.log("ojhgyf")
+  open(component: any, open: boolean = this.showModal): Observable<any> | null {
+    if (this.openedModalRef !== null || !open) return null
 
-    const modalRef = this.modalService.open(content);
-    setup(modalRef.componentInstance)
+    this.openedModalRef = this.modalService.open(component)
+    return from(this.openedModalRef.result).pipe(catchError(e => of(e)), tap(_ => this.openedModalRef = null))
+  }
 
-    return true
+  close(): void {
+    this.openedModalRef?.close()
   }
 }
