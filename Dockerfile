@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 COPY package.json .
 COPY package-lock.json .
-RUN npm install
+RUN npm install -f
 RUN npm run build --omit=dev
 #stage 2
 FROM nginx:latest
