@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core"
+import {Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "../../base-journal-cell/journal-cell.component"
@@ -12,8 +12,6 @@ export class JournalCollapseColumnComponent {
   @Input() date: string
   @Input() lessons: Lesson[]
   @Input() amount: number
-
-  @Output() dateClick = new EventEmitter()
 
   constructor(private modeService: JournalDisplayModeService) {
   }
