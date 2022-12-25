@@ -7,14 +7,21 @@
   ></app-base-journal-date-item>
 
   <popper-content #popper>
-    <app-lesson-addition-data
-      (close)="selectedDate = null"
-      [lesson]="date"
-      [types]="studyPlace.lessonTypes"
-    ></app-lesson-addition-data>
+    <ng-container
+      *ngIf="selectedDate === date.startDate && editable && !isPopupOpen() && openLessonDataPopup()"
+      [ngTemplateOutlet]="lessonDataTemplate"
+    ></ng-container>
   </popper-content>
 </div>
 
 <section>
   <app-journal-column-cell *ngFor="let lesson of lessons" [lesson]="lesson"></app-journal-column-cell>
 </section>
+
+<ng-template #lessonDataTemplate>
+  <app-lesson-addition-data
+    (close)="selectedDate = null"
+    [lesson]="date"
+    [types]="studyPlace.lessonTypes"
+  ></app-lesson-addition-data>
+</ng-template>
