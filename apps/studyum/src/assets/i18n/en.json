@@ -106,6 +106,22 @@
     }
   },
   "journal": {
+    "generate": {
+      "generateMarksTitle": "Generate marks report",
+      "generateAbsencesTitle": "Generate absences report",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "lessonType": "Lesson type",
+      "mark": "Mark",
+      "notExists": "Where not exists",
+      "submit": "Submit"
+    },
+    "select": {
+      "generate": "Generate report",
+      "generateMarks": "Marks",
+      "generateAbsences": "Absences",
+      "select": "Select journal"
+    },
     "view": {
       "collapse": {
         "custom": "Collapse | Custom",

@@ -2,13 +2,29 @@
 
 :host {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  flex-flow: column;
 
-  flex-grow: inherit !important;
+  gap: 65px;
+
+  margin: 0 25px;
 }
 
-div {
+.generate-container {
+  display: flex;
+  flex-flow: row;
+  gap: 15px;
+}
+
+.select-parent {
+  display: grid;
+  grid-gap: 15px;
+
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+  margin-top: 30px;
+}
+
+.select-container {
   width: 250px;
   height: 150px;
 
@@ -26,4 +42,8 @@ div {
 h5 {
   text-align: center;
   font-weight: bold;
+}
+
+h4 {
+  color: styles.$onBackgroundColor
 }

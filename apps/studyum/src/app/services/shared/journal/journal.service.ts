@@ -3,6 +3,8 @@ import {JournalHttpService} from "../../http/journal-http.service"
 import {Observable, Subject, tap} from "rxjs"
 import {Journal, JournalOption} from "../../../models/journal"
 import * as moment from "moment"
+import {saveAs} from "file-saver"
+
 
 @Injectable({providedIn: "root"})
 export class JournalService {
@@ -16,7 +18,7 @@ export class JournalService {
 
   getJournal(group: string, subject: string, teacher: string): Observable<Journal[]> {
     this.httpService.getJournal(group, subject, teacher).pipe(
-      tap(j => this.journal = j), tap(j => console.log(j))).subscribe({
+      tap(j => this.journal = j)).subscribe({
       next: value => this.journal$.next([{...value, dates: [...value.dates]}])
     })
     return this.journal$
@@ -64,5 +66,23 @@ export class JournalService {
 
   unite() {
     this.journal$.next([this.journal])
+  }
+
+  generateMarks(options: any): void {
+    this.httpService.generateMarks(options).subscribe({
+        next: f => {
+          saveAs(f, "report.xlsx")
+        }
+      }
+    )
+  }
+
+  generateAbsences(options: any): void {
+    this.httpService.generateAbsences(options).subscribe({
+        next: f => {
+          saveAs(f, "report.xlsx")
+        }
+      }
+    )
   }
 }

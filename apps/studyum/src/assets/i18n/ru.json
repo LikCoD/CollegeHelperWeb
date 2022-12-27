@@ -106,6 +106,22 @@
     }
   },
   "journal": {
+    "generate": {
+      "generateMarksTitle": "Создать отчет об оценках",
+      "generateAbsencesTitle": "Создать отчет об отсутствиях",
+      "startDate": "Дата начала",
+      "endDate": "Дата конца",
+      "lessonType": "Тип урока",
+      "mark": "Оценка",
+      "notExists": "Оценка отсутствует",
+      "submit": "Подтвердить"
+    },
+    "select": {
+      "generate": "Создать отчет",
+      "generateMarks": "Оценки",
+      "generateAbsences": "Отсутствия",
+      "select": "Выбор журнала"
+    },
     "view": {
       "collapse": {
         "custom": "Групп. | Своя",

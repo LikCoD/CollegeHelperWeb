@@ -1,8 +1,30 @@
 <ng-container *ngIf="journalService.options$ | async as options">
-  <div *ngFor="let option of options" (click)="selectOption(option)">
-    <h5>{{option.subject}}</h5>
-    <p>{{option.group}}</p>
-    <p>{{option.teacher}}</p>
-    <ng-container *ngIf="!option.editable">(View only)</ng-container>
+  <div class="generate-container">
+    <h4 [innerText]="'journal.select.generate' | translate"></h4>
+    <button class="btn btn-outline-light" (click)="generateMarks()"
+            [innerText]="'journal.select.generateMarks' | translate"></button>
+    <button class="btn btn-outline-light" (click)="generateAbsences()"
+            [innerText]="'journal.select.generateAbsences' | translate"></button>
+  </div>
+
+  <div>
+    <h4 [innerText]="'journal.select.select' | translate"></h4>
+    <div class="select-parent">
+      <div *ngFor="let option of options" (click)="selectOption(option)" class="select-container">
+        <h5>{{option.subject}}</h5>
+        <p>{{option.group}}</p>
+        <p>{{option.teacher}}</p>
+        <ng-container *ngIf="!option.editable">(View only)</ng-container>
+      </div>
+    </div>
   </div>
 </ng-container>
+
+
+<ng-template #generateMarksTemplate>
+  <app-generate-marks-report></app-generate-marks-report>
+</ng-template>
+
+<ng-template #generateAbsencesTemplate>
+  <app-generate-absences-report></app-generate-absences-report>
+</ng-template>

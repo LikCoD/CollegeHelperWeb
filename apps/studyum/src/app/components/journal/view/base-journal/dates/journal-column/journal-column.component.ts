@@ -65,7 +65,7 @@ export class JournalColumnComponent {
   isPopupOpen = () => this.modalService.openedModalRef !== null
 
   openLessonDataPopup(): boolean {
-    let openResult = this.modalService.open(this.lessonDataRef)
+    let openResult = this.modalService.openOnMinWidth(this.lessonDataRef)
     if (openResult === null) return true
 
     openResult.subscribe({

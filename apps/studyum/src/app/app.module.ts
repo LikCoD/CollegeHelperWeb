@@ -85,6 +85,12 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
 import {
   JournalColumnCellComponent
 } from "./components/journal/view/base-journal/dates/journal-column/journal-column-cell/journal-column-cell.component"
+import {
+  GenerateMarksReportComponent
+} from "./components/journal/generate/generate-marks-report/generate-marks-report.component"
+import {
+  GenerateAbsencesReportComponent
+} from "./components/journal/generate/generate-absences-report/generate-absences-report.component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -217,6 +223,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     JournalCollapseColumnComponent,
     LessonInfoComponent,
     JournalColumnCellComponent,
+    GenerateMarksReportComponent,
+    GenerateAbsencesReportComponent,
   ],
   imports: [
     BrowserModule,

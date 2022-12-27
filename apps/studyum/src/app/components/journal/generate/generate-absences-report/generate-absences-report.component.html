@@ -1,0 +1,22 @@
+<app-dialog-frame>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <h4 [innerText]="'journal.generate.generateAbsencesTitle' | translate"></h4>
+
+    <div class="form-floating">
+      <input id="startDate" type="date" class="form-control" formControlName="startDate" placeholder=" ">
+      <label for="startDate">{{'journal.generate.startDate' | translate}}</label>
+
+      <app-error-info [property]="form.get('startDate')!!"></app-error-info>
+    </div>
+
+    <div class="form-floating">
+      <input id="endDate" type="date" class="form-control" formControlName="endDate" placeholder=" ">
+      <label for="endDate">{{'journal.generate.endDate' | translate}}</label>
+
+      <app-error-info [property]="form.get('endDate')!!"></app-error-info>
+    </div>
+
+    <button [disabled]="!form.valid" type="submit"
+            class="btn btn-outline-dark">{{'journal.generate.submit' | translate}}</button>
+  </form>
+</app-dialog-frame>

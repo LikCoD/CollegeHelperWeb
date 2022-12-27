@@ -18,11 +18,15 @@ export class DialogService {
     this.showModal = width < 625
   }
 
-  open(component: any, open: boolean = this.showModal): Observable<any> | null {
+  openOnMinWidth(component: any, open: boolean = this.showModal): Observable<any> | null {
     if (this.openedModalRef !== null || !open) return null
+    return this.open(component)
+  }
 
+  open(component: any) {
     this.openedModalRef = this.modalService.open(component)
     return from(this.openedModalRef.result).pipe(catchError(e => of(e)), tap(_ => this.openedModalRef = null))
+
   }
 
   close(): void {

@@ -1,0 +1,15 @@
+form {
+  display: flex;
+  flex-flow: column;
+
+  gap: 15px;
+}
+
+.form-check {
+  margin-right: 8px;
+}
+
+.form-check-inline {
+  display: flex;
+  flex-flow: row;
+}

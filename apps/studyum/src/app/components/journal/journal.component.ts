@@ -1,7 +1,8 @@
-import {Component, OnInit} from "@angular/core"
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core"
 import {JournalService} from "../../services/shared/journal/journal.service"
 import {Router} from "@angular/router"
 import {JournalOption} from "../../models/journal"
+import {DialogService} from "../../services/ui/dialog.service"
 
 @Component({
   selector: 'app-journal',
@@ -9,7 +10,11 @@ import {JournalOption} from "../../models/journal"
   styleUrls: ['./journal.component.scss']
 })
 export class JournalComponent implements OnInit {
-  constructor(private router: Router, public journalService: JournalService) {
+
+  @ViewChild('generateMarksTemplate', { static: true }) generateMarksRef: ElementRef
+  @ViewChild('generateAbsencesTemplate', { static: true }) generateAbsencesRef: ElementRef
+
+  constructor(private router: Router, public journalService: JournalService, public dialogService: DialogService) {
   }
 
   ngOnInit(): void {
@@ -23,5 +28,13 @@ export class JournalComponent implements OnInit {
 
   selectOption(option: JournalOption) {
     this.router.navigateByUrl(`journal/view?group=${option.group}&subject=${option.subject}&teacher=${option.teacher}`)
+  }
+
+  generateMarks() {
+    this.dialogService.open(this.generateMarksRef)
+  }
+
+  generateAbsences() {
+    this.dialogService.open(this.generateAbsencesRef)
   }
 }

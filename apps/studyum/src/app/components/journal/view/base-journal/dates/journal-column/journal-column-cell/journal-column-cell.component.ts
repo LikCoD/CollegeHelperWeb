@@ -81,7 +81,7 @@ export class JournalColumnCellComponent {
   isPopupOpen = () => this.modalService.openedModalRef !== null
 
   openLessonInfoPopup(): boolean {
-    let openResult = this.modalService.open(this.lessonInfoRef)
+    let openResult = this.modalService.openOnMinWidth(this.lessonInfoRef)
     if (openResult === null) return true
 
     openResult.subscribe({
@@ -91,7 +91,7 @@ export class JournalColumnCellComponent {
   }
 
   openMarkPopup(): boolean {
-    let openResult = this.modalService.open(this.selectMarkRef)
+    let openResult = this.modalService.openOnMinWidth(this.selectMarkRef)
     if (openResult === null) return true
 
     openResult.subscribe({
