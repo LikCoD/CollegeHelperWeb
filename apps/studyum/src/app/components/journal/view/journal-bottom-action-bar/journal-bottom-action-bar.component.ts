@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core"
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from "@angular/core"
 import {LessonType} from "../../../../models/general"
 import {Journal} from "../../../../models/journal"
 import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
@@ -7,7 +7,8 @@ import {JournalCollapseService} from "../../../../services/shared/journal/journa
 @Component({
   selector: "app-journal-bottom-action-bar",
   templateUrl: "./journal-bottom-action-bar.component.html",
-  styleUrls: ["./journal-bottom-action-bar.component.scss"]
+  styleUrls: ["./journal-bottom-action-bar.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalBottomActionBarComponent {
 

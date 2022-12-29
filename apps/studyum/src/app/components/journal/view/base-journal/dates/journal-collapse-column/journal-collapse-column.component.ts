@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "../../base-journal-cell/journal-cell.component"
@@ -6,7 +6,8 @@ import {Entry} from "../../base-journal-cell/journal-cell.component"
 @Component({
   selector: "app-journal-collapse-column",
   templateUrl: "./journal-collapse-column.component.html",
-  styleUrls: ["./journal-collapse-column.component.scss"]
+  styleUrls: ["./journal-collapse-column.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalCollapseColumnComponent {
   @Input() date: string

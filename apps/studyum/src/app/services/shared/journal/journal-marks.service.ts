@@ -19,7 +19,7 @@ export class JournalMarksService {
   }
 
   addMark(point: Point, mark: Mark): void {
-    this.cellService.selectedPoints.forEach(p => {
+    this.cellService.points$.value.forEach(p => {
       let row = this.journal.rows[p.y]
       let lesson = row.lessons.flat(2)[p.x]
       mark.studentID = row.id
@@ -66,7 +66,7 @@ export class JournalMarksService {
   }
 
   truncate(point: Point, marks: Mark[]): void {
-    this.cellService.selectedPoints.forEach(p => {
+    this.cellService.points$.value.forEach(p => {
       let row = this.journal.rows[p.y]
       let lesson = row.lessons.flat(2)[p.x]
 
@@ -75,7 +75,7 @@ export class JournalMarksService {
   }
 
   addAbsence(point: Point, absence: Absence): void {
-    this.cellService.selectedPoints.forEach(p => {
+    this.cellService.points$.value.forEach(p => {
       let row = this.journal.rows[p.y]
       let lesson = row.lessons.flat(2)[p.x]
       absence.studentID = row.id

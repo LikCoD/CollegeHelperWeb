@@ -1,7 +1,15 @@
-import {Component, ElementRef, Input, ViewChild} from "@angular/core"
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild
+} from "@angular/core"
 import {Lesson} from "../../../../../../../models/schedule"
 import {JournalService} from "../../../../../../../services/shared/journal/journal.service"
-import {JournalCellService, Point} from "../../../../../../../services/shared/journal/journal.cell.service"
+import {JournalCellService, Key} from "../../../../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../../../../services/shared/journal/journal-display-mode.service"
 import {DialogService} from "../../../../../../../services/ui/dialog.service"
@@ -12,32 +20,28 @@ import {Entry} from "../../../base-journal-cell/journal-cell.component"
   selector: "app-journal-column-cell",
   templateUrl: "./journal-column-cell.component.html",
   styleUrls: ["./journal-column-cell.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JournalColumnCellComponent {
+export class JournalColumnCellComponent implements OnInit {
   @Input() lesson: Lesson
 
-  @ViewChild('lessonInfoTemplate', { static: true }) lessonInfoRef: ElementRef;
-  @ViewChild('selectMarkTemplate', { static: true }) selectMarkRef: ElementRef;
+  @ViewChild("lessonInfoTemplate", {static: true}) lessonInfoRef: ElementRef
+  @ViewChild("selectMarkTemplate", {static: true}) selectMarkRef: ElementRef
+
+  key: Key
+
+  isSelected = false
+  isLastSelected = false
+
 
   constructor(
     private journalService: JournalService,
     private cellService: JournalCellService,
     private collapseService: JournalCollapseService,
     private modeService: JournalDisplayModeService,
-    private modalService: DialogService
+    private modalService: DialogService,
+    private cdr: ChangeDetectorRef
   ) {
-  }
-
-  get shiftPressed() {
-    return this.collapseService.isShiftPressed
-  }
-
-  get controlPressed() {
-    return this.collapseService.isControlPressed
-  }
-
-  get lastSelectedPoint(): Point {
-    return this.cellService.lastSelectedPoint
   }
 
   get studyPlace(): StudyPlace {
@@ -60,23 +64,14 @@ export class JournalColumnCellComponent {
     return this.journalService.journal.info.editable
   }
 
-  isLastSelected(point: Point): boolean {
-    let last = this.lastSelectedPoint
-    return last != null && point.x === last.x && point.y == last.y
-  }
-
   onCellClick(lesson: Lesson): void {
-    this.cellService.selectedDate = null
+    this.cellService.selectDate(null)
     this.cellService.addPoint(lesson.point!!)
-  }
-
-  isSelected(point: Point): boolean {
-    return !!this.cellService.selectedPoints.find(p => p.x === point.x && p.y === point.y)
   }
 
   entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
   lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
-  clearSelectedPoints = () => this.cellService.clear()
+  clearSelectedPoints = () => this.cellService.clearPoints()
 
   isPopupOpen = () => this.modalService.openedModalRef !== null
 
@@ -85,7 +80,7 @@ export class JournalColumnCellComponent {
     if (openResult === null) return true
 
     openResult.subscribe({
-      next: _ => this.cellService.clear()
+      next: _ => this.clearSelectedPoints()
     })
     return true
   }
@@ -95,8 +90,37 @@ export class JournalColumnCellComponent {
     if (openResult === null) return true
 
     openResult.subscribe({
-      next: _ => this.cellService.clear()
+      next: _ => this.clearSelectedPoints()
     })
     return true
+  }
+
+  ngOnInit(): void {
+    this.cellService.key$.subscribe({
+      next: key => {
+        this.key = key
+
+        if (!this.isLastSelected) return
+        this.cdr.detectChanges()
+      }
+    })
+
+    this.cellService.points$.subscribe({
+      next: points => {
+        let i = points.findIndex(p => p.y === this.lesson.point?.y && p.x === this.lesson.point?.x)
+        if (i === -1 && !this.isSelected) return
+
+        if (!(
+          (i === -1 && this.isSelected) ||
+          (i !== points.length - 1 && this.isLastSelected) ||
+          (i === points.length - 1 && this.isSelected) ||
+          (i !== -1 && !this.isSelected)
+        )) return
+
+        this.isSelected = i !== -1
+        this.isLastSelected = this.isSelected && i === points.length - 1
+        this.cdr.detectChanges()
+      }
+    })
   }
 }

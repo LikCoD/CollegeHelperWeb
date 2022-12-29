@@ -1,23 +1,39 @@
 import {Injectable} from "@angular/core"
 import * as moment from "moment"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
+import {BehaviorSubject} from "rxjs"
 
 @Injectable({
   providedIn: "root"
 })
 export class JournalCellService {
-  selectedPoints: Point[] = []
-  selectedDate: moment.Moment | null = null
-
-  isShiftPressed = false
-  isControlPressed = false
+  key$ = new BehaviorSubject<Key>("null")
+  points$ = new BehaviorSubject<Point[]>([])
+  selectedDate$ = new BehaviorSubject<moment.Moment | null>(null)
 
   constructor(private modeService: JournalDisplayModeService) {
   }
 
+  set key(key: Key) {
+    this.key$.next(key)
+  }
 
   get lastSelectedPoint(): Point {
-    return this.selectedPoints[this.selectedPoints.length - 1]
+    return this.points$.value[this.points$.value.length - 1]
+  }
+
+  selectDate(date: moment.Moment | null): void {
+    if (this.selectedDate$.value === date) {
+      this.selectedDate$.next(null)
+      return
+    }
+
+    this.clearPoints()
+    this.selectedDate$.next(date)
+  }
+
+  pointIndex(point: Point) {
+    return this.points$.value.findIndex(p => p.x === point.x && p.y === point.y)
   }
 
   moveBy(x: number, y: number): void {
@@ -29,23 +45,29 @@ export class JournalCellService {
   }
 
   addPoint(point: Point): void {
-    if (!this.isShiftPressed && !this.isControlPressed) {
-      this.selectedPoints = [{...point}]
+    console.log("aosji")
+    if (this.key$.value === "null") {
+      this.points$.next([{...point}])
       return
     }
 
-    if (this.isShiftPressed) {
-      this.selectedPoints.push(...this.calcSquareSelector(this.lastSelectedPoint, {...point}))
+    if (this.key$.value === "shift") {
+      let squarePoints = this.calcSquareSelector(this.lastSelectedPoint, {...point})
+      this.points$.next([...this.points$.value, ...squarePoints])
       return
     }
 
-    let i = this.selectedPoints.findIndex(p => p.x === point.x && p.y === point.y)
-    if (i == -1) this.selectedPoints.push({...point})
-    else this.selectedPoints.splice(i, 1)
+    let points = this.points$.value
+    let i = this.pointIndex(point)
+    if (i == -1) this.points$.next([...points, {...point}])
+    else {
+      points.splice(i, 1)
+      this.points$.next(points)
+    }
   }
 
-  clear(): void {
-    this.selectedPoints = []
+  clearPoints(): void {
+    this.points$.next([])
   }
 
   private calcSquareSelector(from: Point, to: Point): Point[] {
@@ -66,7 +88,7 @@ export class JournalCellService {
     let points = new Array<Point>()
     for (let x = from.x; x <= to.x; x++) {
       for (let y = from.y; y <= to.y; y++) {
-        const isPointSelected = !!this.selectedPoints.find(p => p.x == x && p.y == y)
+        const isPointSelected = !!this.points$.value.find(p => p.x == x && p.y == y)
         const isColumnShown = this.modeService.showColumnByPoint(x, y)
         if (isPointSelected || (x == lastPoint.x && y == lastPoint.y) || !isColumnShown) continue
 
@@ -83,3 +105,5 @@ export interface Point {
   x: number
   y: number
 }
+
+export type Key = ("shift" | "control" | "null")

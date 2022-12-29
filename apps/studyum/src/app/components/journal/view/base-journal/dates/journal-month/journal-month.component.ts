@@ -1,17 +1,18 @@
-import {Component, Input} from "@angular/core"
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
 
 @Component({
   selector: "app-journal-month",
   templateUrl: "./journal-month.component.html",
-  styleUrls: ["./journal-month.component.scss"]
+  styleUrls: ["./journal-month.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JournalMonthComponent {
+export class JournalMonthComponent implements OnInit {
   @Input() month: Lesson[][]
   @Input() monthLessons: Lesson[][][]
 
-  constructor(private service: JournalCollapseService) {
+  constructor(private service: JournalCollapseService, private cdr: ChangeDetectorRef) {
   }
 
   get collapsed(): boolean {
@@ -30,5 +31,9 @@ export class JournalMonthComponent {
 
   dateClick(): void {
     return this.service.click(this.month[0][0])
+  }
+
+  ngOnInit(): void {
+    this.service.selectType$.subscribe({next: _ => this.cdr.detectChanges()})
   }
 }

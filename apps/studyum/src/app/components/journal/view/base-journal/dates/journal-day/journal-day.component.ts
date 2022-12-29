@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
@@ -6,7 +6,8 @@ import {JournalDisplayModeService} from "../../../../../../services/shared/journ
 @Component({
   selector: "app-journal-day",
   templateUrl: "./journal-day.component.html",
-  styleUrls: ["./journal-day.component.scss"]
+  styleUrls: ["./journal-day.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalDayComponent {
   @Input() day: Lesson[]

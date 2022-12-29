@@ -1,14 +1,14 @@
 <div class="date-block">
   <app-base-journal-date-item
     [appPopup]="popper"
-    [show]="selectedDate === date.startDate && editable"
+    [show]="dateSelected && editable"
     [lesson]="date"
     (click)="onDateClick()"
   ></app-base-journal-date-item>
 
   <popper-content #popper>
     <ng-container
-      *ngIf="selectedDate === date.startDate && editable && !isPopupOpen() && openLessonDataPopup()"
+      *ngIf="dateSelected && editable && !isPopupOpen() && openLessonDataPopup()"
       [ngTemplateOutlet]="lessonDataTemplate"
     ></ng-container>
   </popper-content>
@@ -20,7 +20,7 @@
 
 <ng-template #lessonDataTemplate>
   <app-lesson-addition-data
-    (close)="selectedDate = null"
+    (close)="closeDatePopup()"
     [lesson]="date"
     [types]="studyPlace.lessonTypes"
   ></app-lesson-addition-data>

@@ -3,19 +3,32 @@ import {Lesson} from "../../../models/schedule"
 import {JournalService} from "./journal.service"
 import {LessonType} from "../../../models/general"
 import {Entry} from "../../../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
+import {Subject} from "rxjs"
 
 @Injectable({
   providedIn: "root"
 })
 export class JournalDisplayModeService {
 
-  mode: JournalMode = "general"
+  private _mode: JournalMode = "general"
   split = false
+
+  standaloneType$ = new Subject<LessonType | null>()
+  mode$ = new Subject<JournalMode>()
 
   constructor(private service: JournalService) {
   }
 
   private _selectedStandaloneType: LessonType | null = null
+
+  get mode(): JournalMode {
+    return this._mode
+  }
+
+  set mode(mode: JournalMode) {
+    this._mode = mode
+    this.mode$.next(mode)
+  }
 
   get selectedStandaloneType(): LessonType | null {
     return this._selectedStandaloneType
@@ -33,6 +46,7 @@ export class JournalDisplayModeService {
     }
 
     this._selectedStandaloneType = type
+    this.standaloneType$.next(type)
   }
 
   getEntries(lesson: Lesson): Entry[] {

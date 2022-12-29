@@ -1,9 +1,10 @@
-import {Component, HostBinding, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, HostBinding, Input} from "@angular/core"
 
 @Component({
   selector: "app-base-journal-cell",
   templateUrl: "./journal-cell.component.html",
-  styleUrls: ["./journal-cell.component.scss"]
+  styleUrls: ["./journal-cell.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalCellComponent {
   @Input() entries: Entry[]

@@ -1,14 +1,16 @@
-import {Component, OnInit, ViewChild} from "@angular/core"
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
 import {JournalService} from "../../../services/shared/journal/journal.service"
 import {Journal} from "../../../models/journal"
 import {Observable} from "rxjs"
 import {SelectMarkComponent} from "../../standalones/popups/select-mark/select-mark.component"
+import {JournalDisplayModeService} from "../../../services/shared/journal/journal-display-mode.service"
 
 @Component({
-  selector: "app-login",
+  selector: "app-journal-login",
   templateUrl: "./view.component.html",
-  styleUrls: ["./view.component.scss"]
+  styleUrls: ["./view.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalViewComponent implements OnInit {
 
@@ -21,6 +23,8 @@ export class JournalViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private journalService: JournalService,
+    private modeService: JournalDisplayModeService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -30,6 +34,10 @@ export class JournalViewComponent implements OnInit {
 
       this.journal$ = this.journalService.getJournal(params["group"], params["subject"], params["teacher"])
     })
+
+    //TODO detectChanges
+    this.modeService.standaloneType$.subscribe({next: _ => this.cdr.reattach()})
+    this.modeService.mode$.subscribe({next: _ => this.cdr.reattach()})
   }
 }
 

@@ -17,7 +17,9 @@ export class JournalCollapseService {
   collapsed: string[] = []
   isShiftPressed = false
   isControlPressed = false
+
   change$ = new Subject<moment.Moment | null>()
+  selectType$ = new Subject<CollapseType>()
 
   constructor(private service: JournalService, private modeService: JournalDisplayModeService, private settingsService: SettingsService) {
     this.loadType()
@@ -44,6 +46,8 @@ export class JournalCollapseService {
         })
         break
     }
+
+    this.selectType$.next(type)
   }
 
   loadType = () => this.type = this.settingsService.collapseType

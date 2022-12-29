@@ -1,7 +1,7 @@
-import {Component, HostListener, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, HostListener, Input} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow} from "../../../../models/journal"
-import {JournalCellService} from "../../../../services/shared/journal/journal.cell.service"
+import {JournalCellService, Key} from "../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService, JournalMode} from "../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "./base-journal-cell/journal-cell.component"
@@ -12,7 +12,8 @@ import {DialogService} from "../../../../services/ui/dialog.service"
 @Component({
   selector: "app-base-journal",
   templateUrl: "./base-journal.component.html",
-  styleUrls: ["./base-journal.component.scss"]
+  styleUrls: ["./base-journal.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BaseJournalComponent {
 
@@ -43,16 +44,12 @@ export class BaseJournalComponent {
   @HostListener("document:keydown.shift", ["true", "'shift'"])
   @HostListener("document:keydown.control", ["true", "'control'"])
   @HostListener("document:keydown.meta", ["true", "'control'"])
-  keyEvent(down: boolean, key: string) {
-    if (key == "shift") {
-      this.collapseService.isShiftPressed = down
-      this.cellService.isShiftPressed = down
-    }
+  keyEvent(down: boolean, key: Key) {
+    if (key == "shift") this.collapseService.isShiftPressed = down
+    if (key == "control") this.collapseService.isControlPressed = down
 
-    if (key == "control") {
-      this.collapseService.isControlPressed = down
-      this.cellService.isControlPressed = down
-    }
+    if (down) this.cellService.key = key
+    else this.cellService.key = "null"
   }
 
   @HostListener('window:resize', ['$event.target.innerWidth'])

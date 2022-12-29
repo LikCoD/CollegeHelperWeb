@@ -1,20 +1,20 @@
 <app-base-journal-cell
   [appPopup]="popper"
-  [show]="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed"
-  [ngClass]="{focused: isSelected(lesson.point!!)}"
+  [show]="isLastSelected && key === 'null'"
+  [ngClass]="{focused: isSelected}"
   [entries]="entries(lesson)"
   [color]="lessonColor(lesson)"
-  [showPopup]="!isLastSelected(lesson.point!!)"
+  [showPopup]="!isLastSelected"
   (click)="onCellClick(lesson)"
 ></app-base-journal-cell>
 
 <popper-content #popper>
   <ng-container
-    *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && !editable && !!lesson.id && !isPopupOpen() && openLessonInfoPopup()"
+    *ngIf="isLastSelected && key === 'null' && !editable && !!lesson.id && !isPopupOpen() && openLessonInfoPopup()"
     [ngTemplateOutlet]="lessonInfoTemplate"
   ></ng-container>
   <ng-container
-    *ngIf="isLastSelected(lesson.point!!) && !shiftPressed && !controlPressed && editable && !isPopupOpen() && openMarkPopup()"
+    *ngIf="isLastSelected && key === 'null' && editable && !isPopupOpen() && openMarkPopup()"
     [ngTemplateOutlet]="selectMarkTemplate"
   ></ng-container>
 </popper-content>
