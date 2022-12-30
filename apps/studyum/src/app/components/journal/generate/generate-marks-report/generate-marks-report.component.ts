@@ -4,6 +4,7 @@ import {GeneralService} from "../../../../services/shared/general.service"
 import {map, Observable, tap} from "rxjs"
 import {StudyPlace} from "../../../../models/general"
 import {JournalService} from "../../../../services/shared/journal/journal.service"
+import * as moment from "moment/moment"
 
 @Component({
   selector: "app-generate-marks-report",
@@ -33,7 +34,11 @@ export class GenerateMarksReportComponent {
   }
 
   submit(): void {
-    this.service.generateMarks(this.form.value)
+    let v = this.form.value
+    v.startDate = moment.utc(v.startDate).toISOString()
+    v.endDate = moment.utc(v.endDate).toISOString()
+
+    this.service.generateMarks(v)
   }
 
   marks(studyPlace: StudyPlace): string[] {

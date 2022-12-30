@@ -95,7 +95,7 @@ export class JournalHttpService {
   }
 
   generateMarks(options: any): Observable<any> {
-    return this.http.post(`api/journal/generate/`, options, {responseType: 'blob'})
+    return this.http.post(`api/journal/generate/marks`, options, {responseType: 'blob'})
   }
 
   generateAbsences(options: any): Observable<any> {

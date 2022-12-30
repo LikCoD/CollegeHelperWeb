@@ -19,6 +19,10 @@ export class GenerateAbsencesReportComponent {
   }
 
   submit(): void {
-    this.service.generateAbsences(this.form.value)
+    let v = this.form.value
+    v.startDate = moment.utc(v.startDate).toISOString()
+    v.endDate = moment.utc(v.endDate).toISOString()
+
+    this.service.generateAbsences(v)
   }
 }
