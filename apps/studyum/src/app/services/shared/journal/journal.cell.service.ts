@@ -45,7 +45,6 @@ export class JournalCellService {
   }
 
   addPoint(point: Point): void {
-    console.log("aosji")
     if (this.key$.value === "null") {
       this.points$.next([{...point}])
       return

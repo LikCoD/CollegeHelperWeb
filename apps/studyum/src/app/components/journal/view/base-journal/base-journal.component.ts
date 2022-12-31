@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostListener, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow} from "../../../../models/journal"
 import {JournalCellService, Key} from "../../../../services/shared/journal/journal.cell.service"
@@ -15,7 +15,7 @@ import {DialogService} from "../../../../services/ui/dialog.service"
   styleUrls: ["./base-journal.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BaseJournalComponent {
+export class BaseJournalComponent implements OnDestroy {
 
   @Input() journal: Journal
   @Input() showAmount = false
@@ -38,6 +38,16 @@ export class BaseJournalComponent {
     return this.journal.info.studyPlace.journalColors
   }
 
+  ngOnDestroy(): void {
+    this.cellService.clearPoints()
+    this.cellService.selectDate(null)
+
+    this.cellService.key = "null"
+
+    this.collapseService.type = "null"
+    this.collapseService.collapsed = []
+  }
+
   @HostListener("document:keyup.shift", ["false", "'shift'"])
   @HostListener("document:keyup.control", ["false", "'control'"])
   @HostListener("document:keyup.meta", ["false", "'control'"])
@@ -52,7 +62,7 @@ export class BaseJournalComponent {
     else this.cellService.key = "null"
   }
 
-  @HostListener('window:resize', ['$event.target.innerWidth'])
+  @HostListener("window:resize", ["$event.target.innerWidth"])
   resizeEvent(width: number) {
     this.modalService.width = width
   }

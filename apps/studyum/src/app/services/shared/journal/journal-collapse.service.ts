@@ -29,13 +29,13 @@ export class JournalCollapseService {
     this.collapsed = []
     switch (type) {
       case "month":
-        this.service.journal.dates.forEach(m => this.addMonth(m[0][0]))
+        this.service.journal?.dates?.forEach(m => this.addMonth(m[0][0]))
         break
       case "day":
-        this.service.journal.dates.forEach(m => m.forEach(d => this.addDay(d[0])))
+        this.service.journal?.dates?.forEach(m => m.forEach(d => this.addDay(d[0])))
         break
       case "smart":
-        this.service.journal.dates.forEach((m, i, arr) => {
+        this.service.journal?.dates?.forEach((m, i, arr) => {
           if (i === arr.length - 1) m.forEach(d => {
               if (d[0].startDate.format("L") === moment.utc().format("L")) return
 

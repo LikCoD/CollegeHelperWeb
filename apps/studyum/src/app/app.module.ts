@@ -91,6 +91,7 @@ import {
 import {
   GenerateAbsencesReportComponent
 } from "./components/journal/generate/generate-absences-report/generate-absences-report.component"
+import {MomentJsInterceptor} from "./interseptors/moment-js.interceptor"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -249,6 +250,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: MomentJsInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
 })
