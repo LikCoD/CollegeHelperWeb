@@ -33,7 +33,6 @@ export class JournalColumnCellComponent implements OnInit {
   isSelected = false
   isLastSelected = false
 
-
   constructor(
     private journalService: JournalService,
     private cellService: JournalCellService,
@@ -122,5 +121,7 @@ export class JournalColumnCellComponent implements OnInit {
         this.cdr.detectChanges()
       }
     })
+
+    this.modeService.mode$.subscribe({next: _ => this.cdr.detectChanges()})
   }
 }

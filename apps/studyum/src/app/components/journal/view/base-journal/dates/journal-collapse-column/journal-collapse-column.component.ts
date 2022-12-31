@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "../../base-journal-cell/journal-cell.component"
@@ -9,14 +9,18 @@ import {Entry} from "../../base-journal-cell/journal-cell.component"
   styleUrls: ["./journal-collapse-column.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JournalCollapseColumnComponent {
+export class JournalCollapseColumnComponent implements OnInit{
   @Input() date: string
   @Input() lessons: Lesson[]
   @Input() amount: number
 
-  constructor(private modeService: JournalDisplayModeService) {
+  constructor(private modeService: JournalDisplayModeService, private cdr: ChangeDetectorRef) {
   }
 
   entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
   lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson, true)
+
+  ngOnInit(): void {
+    this.modeService.mode$.subscribe({next: _ => this.cdr.detectChanges()})
+  }
 }
