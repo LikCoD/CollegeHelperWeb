@@ -63,7 +63,7 @@ export class JournalColumnCellComponent implements OnInit {
     return this.journalService.journal.info.editable
   }
 
-  onCellClick(lesson: Lesson): void {
+  onCellClick(e: any, lesson: Lesson): void {
     this.cellService.selectDate(null)
     this.cellService.addPoint(lesson.point!!)
   }

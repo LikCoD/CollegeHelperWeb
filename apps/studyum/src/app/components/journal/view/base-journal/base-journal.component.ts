@@ -16,7 +16,6 @@ import {DialogService} from "../../../../services/ui/dialog.service"
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BaseJournalComponent implements OnDestroy {
-
   @Input() journal: Journal
   @Input() showAmount = false
 
@@ -48,18 +47,21 @@ export class BaseJournalComponent implements OnDestroy {
     this.collapseService.collapsed = []
   }
 
-  @HostListener("document:keyup.shift", ["false", "'shift'"])
-  @HostListener("document:keyup.control", ["false", "'control'"])
-  @HostListener("document:keyup.meta", ["false", "'control'"])
-  @HostListener("document:keydown.shift", ["true", "'shift'"])
-  @HostListener("document:keydown.control", ["true", "'control'"])
-  @HostListener("document:keydown.meta", ["true", "'control'"])
-  keyEvent(down: boolean, key: Key) {
-    if (key == "shift") this.collapseService.isShiftPressed = down
-    if (key == "control") this.collapseService.isControlPressed = down
+  @HostListener("window:focus")
+  onFocus() {
+    this.cellService.key = "null"
+    this.collapseService.key = "null"
+  }
 
-    if (down) this.cellService.key = key
-    else this.cellService.key = "null"
+  @HostListener("document:keyup.shift", ["'null'"])
+  @HostListener("document:keyup.control", ["'null'"])
+  @HostListener("document:keyup.meta", ["'null'"])
+  @HostListener("document:keydown.shift", ["'shift'"])
+  @HostListener("document:keydown.control", ["'control'"])
+  @HostListener("document:keydown.meta", ["'control'"])
+  keyEvent(key: Key) {
+    this.cellService.key = key
+    this.collapseService.key = key
   }
 
   @HostListener("window:resize", ["$event.target.innerWidth"])

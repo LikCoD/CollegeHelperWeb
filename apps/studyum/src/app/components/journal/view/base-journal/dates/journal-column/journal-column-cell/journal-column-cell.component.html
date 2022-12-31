@@ -5,7 +5,7 @@
   [entries]="entries(lesson)"
   [color]="lessonColor(lesson)"
   [showPopup]="!isLastSelected"
-  (click)="onCellClick(lesson)"
+  (click)="onCellClick($event, lesson)"
 ></app-base-journal-cell>
 
 <popper-content #popper>

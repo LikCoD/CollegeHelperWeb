@@ -5,6 +5,7 @@ import {JournalService} from "./journal.service"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
 import {Subject} from "rxjs"
 import {SettingsService} from "../../ui/settings.service"
+import {Key} from "./journal.cell.service"
 
 @Injectable({
   providedIn: "root"
@@ -15,8 +16,7 @@ export class JournalCollapseService {
   static readonly YearFormat = "YYYY"
 
   collapsed: string[] = []
-  isShiftPressed = false
-  isControlPressed = false
+  key: Key
 
   change$ = new Subject<moment.Moment | null>()
   selectType$ = new Subject<CollapseType>()
@@ -110,13 +110,13 @@ export class JournalCollapseService {
       return
     }
 
-    if (this.isShiftPressed) {
+    if (this.key === "shift") {
       this.addMonth(lesson)
       this.change$.next(lesson.startDate)
       return
     }
 
-    if (this.isControlPressed) {
+    if (this.key === "control") {
       this.addDay(lesson)
       this.change$.next(lesson.startDate)
       return
