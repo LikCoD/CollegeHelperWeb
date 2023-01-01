@@ -36,7 +36,6 @@ export class JournalViewComponent implements OnInit {
 
     //TODO detectChanges
     this.modeService.standaloneType$.subscribe({next: type => {
-        console.log(this.modeService.selectedStandaloneType)
         this.isAmountSelected = type !== null && !!type?.standaloneMarks
         this.cdr.reattach()
       }})

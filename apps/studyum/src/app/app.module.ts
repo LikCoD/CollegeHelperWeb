@@ -92,6 +92,8 @@ import {
   GenerateAbsencesReportComponent
 } from "./components/journal/generate/generate-absences-report/generate-absences-report.component"
 import {MomentJsInterceptor} from "./interseptors/moment-js.interceptor"
+import {HttpErrorInterceptor} from "./interseptors/http-error.interceptor"
+import {ToastComponent} from "./components/general/toast/toast.component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -226,6 +228,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     JournalColumnCellComponent,
     GenerateMarksReportComponent,
     GenerateAbsencesReportComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -249,6 +252,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: MomentJsInterceptor, multi: true},
   ],

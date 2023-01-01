@@ -6,3 +6,9 @@ app-header {
   z-index: 999;
 }
 
+app-toast {
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  z-index: 1000;
+}
