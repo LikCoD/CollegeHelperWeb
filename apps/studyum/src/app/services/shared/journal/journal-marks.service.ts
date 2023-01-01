@@ -5,11 +5,14 @@ import {JournalService} from "./journal.service"
 import {JournalCellService, Point} from "./journal.cell.service"
 import * as moment from "moment/moment"
 import {Lesson} from "../../../models/schedule"
+import {Subject} from "rxjs"
 
 @Injectable({
   providedIn: "root"
 })
 export class JournalMarksService {
+
+  refresh$ = new Subject<Lesson>()
 
   constructor(private http: JournalHttpService, private journalService: JournalService, private cellService: JournalCellService) {
   }
@@ -115,7 +118,7 @@ export class JournalMarksService {
     })
   }
 
-  private refresh(row: JournalRow, lesson: Lesson): void {
+  refresh(row: JournalRow, lesson: Lesson): void {
     lesson.journalCellColor = this.getLessonColor(lesson)
     row.color = this.getRowColor(row)
 
@@ -123,6 +126,8 @@ export class JournalMarksService {
     row.numericMarksSum = marks.reduce((s, m) => s + m, 0)
     row.numericMarksAmount = marks.length
     row.marksAmount = this.getMarksAmount(row)
+
+    this.refresh$.next(lesson)
   }
 
   private getLessonColor(lesson: Lesson): string {

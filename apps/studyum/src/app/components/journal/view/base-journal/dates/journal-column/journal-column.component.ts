@@ -60,18 +60,18 @@ export class JournalColumnComponent implements OnInit {
     this.cellService.selectedDate$.subscribe({
       next: date => {
         if (
-          (date === this.date.startDate && this.dateSelected) ||
-          (date !== this.date.startDate && !this.dateSelected)
+          (date?.startDate === this.date.startDate && this.dateSelected) ||
+          (date?.startDate !== this.date.startDate && !this.dateSelected)
         ) return
 
-        this.dateSelected = date === this.date.startDate
+        this.dateSelected = date?.startDate === this.date.startDate
         this.cdr.detectChanges()
       }
     })
   }
 
   onDateClick(): void {
-    this.cellService.selectDate(this.date.startDate)
+    this.cellService.selectDate(this.date)
     this.collapseService.click(this.date)
   }
 

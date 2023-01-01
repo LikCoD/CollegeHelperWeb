@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core"
-import * as moment from "moment"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
 import {BehaviorSubject} from "rxjs"
+import {Lesson} from "../../../models/schedule"
 
 @Injectable({
   providedIn: "root"
@@ -9,7 +9,7 @@ import {BehaviorSubject} from "rxjs"
 export class JournalCellService {
   key$ = new BehaviorSubject<Key>("null")
   points$ = new BehaviorSubject<Point[]>([])
-  selectedDate$ = new BehaviorSubject<moment.Moment | null>(null)
+  selectedDate$ = new BehaviorSubject<Lesson | null>(null)
 
   constructor(private modeService: JournalDisplayModeService) {
   }
@@ -22,7 +22,7 @@ export class JournalCellService {
     return this.points$.value[this.points$.value.length - 1]
   }
 
-  selectDate(date: moment.Moment | null): void {
+  selectDate(date: Lesson | null): void {
     if (this.selectedDate$.value === date) {
       this.selectedDate$.next(null)
       return

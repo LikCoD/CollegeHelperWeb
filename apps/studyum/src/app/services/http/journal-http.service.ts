@@ -16,6 +16,7 @@ export class JournalHttpService {
 
     return this.http.get<Journal>(url).pipe(map(journal => {
       let dates: Lesson[] = journal.dates as unknown as Lesson[]
+      dates.forEach((d, i) => d.point = {x: i, y: -1})
 
       let dateDays = new Array(...groupBy(dates, el => el.startDate.dayOfYear()).values())
       journal.dates = new Array(...groupBy(dateDays, el => el[0].startDate.month()).values())
@@ -82,10 +83,10 @@ export class JournalHttpService {
   }
 
   generateMarks(options: any): Observable<any> {
-    return this.http.post(`api/journal/generate/marks`, options, {responseType: 'blob'})
+    return this.http.post(`api/journal/generate/marks`, options, {responseType: "blob"})
   }
 
   generateAbsences(options: any): Observable<any> {
-    return this.http.post(`api/journal/generate/absences`, options, {responseType: 'blob'})
+    return this.http.post(`api/journal/generate/absences`, options, {responseType: "blob"})
   }
 }

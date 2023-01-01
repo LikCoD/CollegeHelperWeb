@@ -16,6 +16,7 @@ import {Entry} from "./base-journal-cell/journal-cell.component"
 import {JournalColors} from "../../../../models/general"
 import {SettingsService} from "../../../../services/ui/settings.service"
 import {DialogService} from "../../../../services/ui/dialog.service"
+import {JournalLessonService} from "../../../../services/shared/journal/journal-lesson.service"
 
 @Component({
   selector: "app-base-journal",
@@ -34,6 +35,7 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
     private modeService: JournalDisplayModeService,
     private settingService: SettingsService,
     private modalService: DialogService,
+    private lessonService: JournalLessonService,
     private cdr: ChangeDetectorRef
   ) {
     this.modalService.width = window.innerWidth
@@ -77,6 +79,15 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
   arrowEvent(x: number, y: number) {
     this.cellService.moveBy(x, y)
   }
+
+  @HostListener("document:paste", ["$event"])
+  paste(e: ClipboardEvent) {
+    let tagName = (e.target as HTMLElement).tagName
+    if (this.cellService.selectedDate$.value === null || tagName === "INPUT") return
+
+    this.lessonService.parseTextColumn(e.clipboardData?.getData("text") ?? "")
+  }
+
 
   getAverage(row: JournalRow): Entry {
     if (row.numericMarksAmount == 0) return {text: "-", color: this.journalColors.general}

@@ -15,6 +15,7 @@ import {JournalDisplayModeService} from "../../../../../../../services/shared/jo
 import {DialogService} from "../../../../../../../services/ui/dialog.service"
 import {LessonType, StudyPlace} from "../../../../../../../models/general"
 import {Entry} from "../../../base-journal-cell/journal-cell.component"
+import {JournalMarksService} from "../../../../../../../services/shared/journal/journal-marks.service"
 
 @Component({
   selector: "app-journal-column-cell",
@@ -39,6 +40,7 @@ export class JournalColumnCellComponent implements OnInit {
     private collapseService: JournalCollapseService,
     private modeService: JournalDisplayModeService,
     private modalService: DialogService,
+    private marksService: JournalMarksService,
     private cdr: ChangeDetectorRef
   ) {
   }
@@ -95,6 +97,13 @@ export class JournalColumnCellComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.marksService.refresh$.subscribe({
+      next: l => {
+        if (this.lesson.point?.x === l.point?.x && this.lesson.point?.y === l.point?.y)
+          this.cdr.detectChanges()
+      }
+    })
+
     this.cellService.key$.subscribe({
       next: key => {
         this.key = key
