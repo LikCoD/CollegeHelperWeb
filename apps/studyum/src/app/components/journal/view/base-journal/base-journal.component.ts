@@ -1,9 +1,17 @@
-import {ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy} from "@angular/core"
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit
+} from "@angular/core"
 import {Lesson} from "../../../../models/schedule"
 import {Journal, JournalRow} from "../../../../models/journal"
 import {JournalCellService, Key} from "../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
-import {JournalDisplayModeService, JournalMode} from "../../../../services/shared/journal/journal-display-mode.service"
+import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "./base-journal-cell/journal-cell.component"
 import {JournalColors} from "../../../../models/general"
 import {SettingsService} from "../../../../services/ui/settings.service"
@@ -15,22 +23,20 @@ import {DialogService} from "../../../../services/ui/dialog.service"
   styleUrls: ["./base-journal.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BaseJournalComponent implements OnDestroy {
+export class BaseJournalComponent implements OnDestroy, OnInit {
   @Input() journal: Journal
   @Input() showAmount = false
+  mode: string
 
   constructor(
     private cellService: JournalCellService,
     private collapseService: JournalCollapseService,
     private modeService: JournalDisplayModeService,
     private settingService: SettingsService,
-    private modalService: DialogService
+    private modalService: DialogService,
+    private cdr: ChangeDetectorRef
   ) {
     this.modalService.width = window.innerWidth
-  }
-
-  get mode(): JournalMode {
-    return this.modeService.mode
   }
 
   get journalColors(): JournalColors {
@@ -47,12 +53,7 @@ export class BaseJournalComponent implements OnDestroy {
     this.collapseService.collapsed = []
   }
 
-  @HostListener("window:focus")
-  onFocus() {
-    this.cellService.key = "null"
-    this.collapseService.key = "null"
-  }
-
+  @HostListener("window:focus", ["'null'"])
   @HostListener("document:keyup.shift", ["'null'"])
   @HostListener("document:keyup.control", ["'null'"])
   @HostListener("document:keyup.meta", ["'null'"])
@@ -115,5 +116,14 @@ export class BaseJournalComponent implements OnDestroy {
 
   monthLessons(journal: Journal, i: number): Lesson[][][] {
     return journal.rows.map(r => r.lessons[i])
+  }
+
+  ngOnInit(): void {
+    this.modeService.mode$.subscribe({
+      next: mode => {
+        this.mode = mode
+        this.cdr.detectChanges()
+      }
+    })
   }
 }

@@ -3,35 +3,31 @@ import {Lesson} from "../../../models/schedule"
 import {JournalService} from "./journal.service"
 import {LessonType} from "../../../models/general"
 import {Entry} from "../../../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
-import {Subject} from "rxjs"
+import {BehaviorSubject} from "rxjs"
+import * as moment from "moment"
 
 @Injectable({
   providedIn: "root"
 })
 export class JournalDisplayModeService {
 
-  private _mode: JournalMode = "general"
   split = false
-
-  standaloneType$ = new Subject<LessonType | null>()
-  mode$ = new Subject<JournalMode>()
+  standaloneType$ = new BehaviorSubject<LessonType | null>(null)
+  mode$ = new BehaviorSubject<JournalMode>("general")
 
   constructor(private service: JournalService) {
   }
 
-  private _selectedStandaloneType: LessonType | null = null
-
   get mode(): JournalMode {
-    return this._mode
+    return this.mode$.value
   }
 
   set mode(mode: JournalMode) {
-    this._mode = mode
     this.mode$.next(mode)
   }
 
   get selectedStandaloneType(): LessonType | null {
-    return this._selectedStandaloneType
+    return this.standaloneType$.value
   }
 
   set selectedStandaloneType(type: LessonType | null) {
@@ -45,7 +41,6 @@ export class JournalDisplayModeService {
       this.split = true
     }
 
-    this._selectedStandaloneType = type
     this.standaloneType$.next(type)
   }
 
@@ -79,8 +74,33 @@ export class JournalDisplayModeService {
   showColumn = (date: Lesson): boolean =>
     this.mode !== "standalone" || this.selectedStandaloneType?.type === date.type
 
+  cellColor(lesson: Lesson): string {
+    let colors = this.service.journal.info.studyPlace.journalColors
+
+    if (this.mode === "standalone") {
+      let type = this.selectedStandaloneType!!
+      let marks = lesson.marks?.filter(m => !!type.standaloneMarks?.find(sm => sm.mark === m.mark)) ?? []
+
+      let color = colors.general
+      for (let mark of marks) {
+        let markType = type.marks.find(m => m.mark === mark.mark)
+        if (markType === undefined || markType.workOutTime === undefined || markType.workOutTime === 0) break
+
+        let date = lesson.startDate.clone().add(markType.workOutTime, "second")
+        color = date.isAfter(moment.utc()) ? colors.warning : colors.danger
+      }
+
+      return color
+    }
+    if (this.mode === "absences") {
+      return !!(lesson.absences ?? []) ? colors.general : "#4a4a4a"
+    }
+
+    return lesson.journalCellColor ?? ""
+  }
+
   lessonColor(lesson: Lesson, collapsed: boolean = false): string {
-    return (!lesson.id && !collapsed) ? "#323232" : (!!this.getEntries(lesson)?.length) ? lesson.journalCellColor!! : "#4a4a4a"
+    return (!lesson.id && !collapsed) ? "#323232" : (!!this.getEntries(lesson)?.length) ? this.cellColor(lesson) : "#4a4a4a"
   }
 
   showColumnByPoint(x: number, y: number): boolean {

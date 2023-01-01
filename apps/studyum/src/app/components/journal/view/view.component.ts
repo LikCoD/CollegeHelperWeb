@@ -13,7 +13,6 @@ import {JournalDisplayModeService} from "../../../services/shared/journal/journa
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalViewComponent implements OnInit {
-
   isAmountSelected = false
   journal$: Observable<Journal[]>
 
@@ -36,8 +35,17 @@ export class JournalViewComponent implements OnInit {
     })
 
     //TODO detectChanges
-    this.modeService.standaloneType$.subscribe({next: _ => this.cdr.reattach()})
+    this.modeService.standaloneType$.subscribe({next: type => {
+        console.log(this.modeService.selectedStandaloneType)
+        this.isAmountSelected = type !== null && !!type?.standaloneMarks
+        this.cdr.reattach()
+      }})
     this.modeService.mode$.subscribe({next: _ => this.cdr.reattach()})
+  }
+
+  toggleAmount() {
+    this.isAmountSelected = !this.isAmountSelected
+    this.cdr.reattach()
   }
 }
 
