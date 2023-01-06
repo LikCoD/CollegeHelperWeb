@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "auto-color": "libs/auto-color",
     "modals": "libs/modals",
     "studyum": "apps/studyum"
   }

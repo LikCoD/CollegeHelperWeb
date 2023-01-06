@@ -6,6 +6,7 @@ import {JournalMarksService} from "./journal-marks.service"
 import {Mark} from "../../../models/journal"
 import {JournalCellService} from "./journal.cell.service"
 import {JournalHttpService} from "../../http/journal-http.service"
+import {Observable} from "rxjs"
 
 @Injectable({
   providedIn: "root"
@@ -23,6 +24,10 @@ export class JournalLessonService {
 
   get journal() {
     return this.service.journal
+  }
+
+  getLesson(id: string): Observable<Lesson> {
+    return this.scheduleHttp.getLessonByID(id)
   }
 
   editLesson(lesson: Lesson): void {

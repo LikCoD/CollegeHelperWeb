@@ -1,15 +1,17 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
+import {TextDirective} from "../../../../../../../../../libs/auto-color/src/lib/text.directive"
 
 @Component({
   selector: "app-base-journal-cell",
   templateUrl: "./journal-cell.component.html",
   styleUrls: ["./journal-cell.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  hostDirectives: [{directive: TextDirective, inputs: ["background: color"]}]
 })
 export class JournalCellComponent {
   @Input() entries: Entry[]
-  @HostBinding("style.background") @Input() color: string
   @Input() showPopup: boolean = true
+  @Input() color: string
 }
 
 export interface Entry {

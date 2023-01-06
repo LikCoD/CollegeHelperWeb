@@ -12,7 +12,7 @@
   align-items: center;
 
   p {
-    color: black;
+    color: currentColor;
   }
 
   &:hover {
@@ -46,7 +46,7 @@
   hr {
     transform: rotate(-45deg);
     height: 1px;
-    background-color: #000000;
+    background-color: currentColor;
     border: none;
     margin: 0;
     opacity: 1;
@@ -61,6 +61,8 @@ app-cell-expand {
 
   top: 100%;
   left: 0;
+
+  color: black;
 }
 
 app-more-indicator {

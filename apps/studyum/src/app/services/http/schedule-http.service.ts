@@ -37,4 +37,8 @@ export class ScheduleHttpService {
   getTypes(studyPlaceID: string): Observable<ScheduleTypes> {
     return this.http.get<ScheduleTypes>(`${this.API_PATH}/schedule/getTypes?id=${studyPlaceID}`)
   }
+
+  getLessonByID(id: string): Observable<Lesson> {
+    return this.http.get<Lesson>(`${this.API_PATH}/schedule/lessons/${id}`)
+  }
 }

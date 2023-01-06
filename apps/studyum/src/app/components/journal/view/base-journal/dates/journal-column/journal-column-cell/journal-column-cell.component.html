@@ -20,10 +20,12 @@
 </popper-content>
 
 <ng-template #lessonInfoTemplate>
-  <app-lesson-info
-    (close)="clearSelectedPoints()"
-    [lesson]="lesson"
-  ></app-lesson-info>
+  <ng-container>
+    <app-lesson-info
+      (close)="clearSelectedPoints()"
+      [lessonID]="lesson.id ?? ''"
+    ></app-lesson-info>
+  </ng-container>
 </ng-template>
 
 <ng-template #selectMarkTemplate>

@@ -74,6 +74,7 @@ export class JournalMarksService {
       let lesson = row.lessons.flat(2)[p.x]
 
       lesson.marks?.forEach(m => this.deleteMark(p, m.id!!))
+      this.refresh(row, lesson)
     })
   }
 
@@ -88,6 +89,8 @@ export class JournalMarksService {
         next: absence => {
           if (!lesson.absences) lesson.absences = [absence]
           else lesson.absences.push(absence)
+
+          this.refresh(row, lesson)
         }
       })
     })
@@ -104,6 +107,7 @@ export class JournalMarksService {
         if (!i) return
 
         lesson.absences!![i] = absences
+        this.refresh(row, lesson)
       }
     })
   }
@@ -114,6 +118,7 @@ export class JournalMarksService {
         let row = this.journal.rows[point.y]
         let lesson = row.lessons.flat(2)[point.x]
         lesson.absences = lesson.absences?.filter(a => a.id !== id)
+        this.refresh(row, lesson)
       }
     })
   }
