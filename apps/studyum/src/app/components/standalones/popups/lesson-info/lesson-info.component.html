@@ -1,15 +1,36 @@
 <app-dialog-frame (close)="close.emit()">
-  <div class="block" *ngIf="lesson$ | async as lesson">
-    <p>{{lesson.subject}}/{{lesson.room}}&Tab;
-      {{lesson.startDate | moment: "LT"}}-{{lesson.endDate | moment: "LT"}}</p>
-    <div class="block--lesson-type">
-      <p [innerText]="lesson.type"></p>
-      <div class="block--lesson-type-indicator" [style.background-color]="lesson.secondaryColor"></div>
+  <ng-container *ngIf="lessons$ | async as lessons else loading">
+    <div class="block" *ngIf="lessons[0] as lesson">
+      <p>{{lesson.subject}}/{{lesson.teacher}}/{{lesson.room}}
+      <p>
+      <section *ngIf="lessons.length != 0">
+        <button
+          *ngFor="let lesson of lessons"
+          class="btn"
+          [ngClass]="{'btn--selected': selectedLesson == lesson}"
+          [autoColorText]="lesson.secondaryColor ?? 'white'"
+          [style.border-color]="buttonBorderColor(lesson)"
+          (click)="selectedLesson = lesson">
+          {{lesson.startDate | moment: "hh:mm"}} -
+          {{lesson.endDate | moment: "hh:mm"}}
+        </button>
+      </section>
+
+      <ng-container *ngIf="selectedLesson">
+        <h5 [innerText]="selectedLesson.title" class="block--lesson-title"></h5>
+        <div class="block--lesson-type">
+          <p [innerText]="selectedLesson.type"></p>
+          <div class="block--lesson-type-indicator" [style.background-color]="selectedLesson.secondaryColor"></div>
+        </div>
+        <p [innerText]="selectedLesson.description" class="block--lesson-description"></p>
+        <hr class="block--divider">
+        <p [innerText]="selectedLesson.homework" class="block--lesson-homework"></p>
+        <app-cell-expand [entries]="getEntries(selectedLesson)"></app-cell-expand>
+      </ng-container>
     </div>
-    <h5 [innerText]="lesson.title" class="block--lesson-title"></h5>
-    <p [innerText]="lesson.description" class="block--lesson-description"></p>
-    <hr class="block--divider">
-    <p [innerText]="lesson.homework" class="block--lesson-homework"></p>
-    <app-cell-expand [entries]="getEntries(lesson)"></app-cell-expand>
-  </div>
+  </ng-container>
 </app-dialog-frame>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

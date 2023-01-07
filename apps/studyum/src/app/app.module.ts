@@ -94,6 +94,7 @@ import {
 import {MomentJsInterceptor} from "./interseptors/moment-js.interceptor"
 import {HttpErrorInterceptor} from "./interseptors/http-error.interceptor"
 import {ToastComponent} from "./components/general/toast/toast.component"
+import {TextDirective} from "../../../../libs/auto-color/src/lib/text.directive"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -243,12 +244,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
+        deps: [HttpClient]
+      }
     }),
     ModalsModule,
     NgxPopperjsModule,
     NgbModule,
+    TextDirective
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},

@@ -26,8 +26,8 @@ export class JournalLessonService {
     return this.service.journal
   }
 
-  getLesson(id: string): Observable<Lesson> {
-    return this.scheduleHttp.getLessonByID(id)
+  getLessons(id: string): Observable<Lesson[]> {
+    return this.scheduleHttp.getDateLessonByID(id)
   }
 
   editLesson(lesson: Lesson): void {

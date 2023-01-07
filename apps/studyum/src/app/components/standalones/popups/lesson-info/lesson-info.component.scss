@@ -4,7 +4,7 @@
 
 .block {
   display: block;
-  width: 300px;
+  width: 330px;
 
   user-select: text;
 
@@ -43,5 +43,21 @@
 
   &--lesson-homework {
     margin-bottom: 20px;
+  }
+}
+
+section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.btn {
+  padding: 4px 6px;
+  border: 1px solid;
+  border-radius: 4px;
+
+  &--selected {
+    box-shadow: 0 0 11px rgb(172, 172, 172) inset
   }
 }
