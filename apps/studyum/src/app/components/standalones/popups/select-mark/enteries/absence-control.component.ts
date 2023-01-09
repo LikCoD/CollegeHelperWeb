@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
-import {Lesson} from "../../../../../models/schedule"
+import {JournalCell} from "../../../../../models/journal"
 
 @Component({
   selector: "app-absence-control",
@@ -20,7 +20,7 @@ import {Lesson} from "../../../../../models/schedule"
 })
 export class AbsenceControlComponent {
   @Input() absenceMark: string
-  @Input() lesson: Lesson
+  @Input() lesson: JournalCell
 
   @Output() add = new EventEmitter<number | null>()
   @Output() edit = new EventEmitter<number | null>()

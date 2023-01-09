@@ -7,8 +7,7 @@ import {
   OnDestroy,
   OnInit
 } from "@angular/core"
-import {Lesson} from "../../../../models/schedule"
-import {Journal, JournalRow} from "../../../../models/journal"
+import {Journal, JournalCell, JournalRow} from "../../../../models/journal"
 import {JournalCellService, Key} from "../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
@@ -115,7 +114,7 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
       .find(t => t.type == this.modeService.selectedStandaloneType?.type)
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
-    let amount = this.collapseService.getCollapseAmount(row.lessons.flat())
+    let amount = this.collapseService.getCollapseAmount(row.cells.flat())
 
     return row.marksAmount
       .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
@@ -125,8 +124,8 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
       })
   }
 
-  monthLessons(journal: Journal, i: number): Lesson[][][] {
-    return journal.rows.map(r => r.lessons[i])
+  monthLessons(journal: Journal, i: number): JournalCell[][][] {
+    return journal.rows.map(r => r.cells[i])
   }
 
   ngOnInit(): void {

@@ -1,6 +1,7 @@
 import {Lesson} from "./schedule"
 import {StudyPlace} from "./general"
 import * as moment from "moment"
+import {Point} from "../services/shared/journal/journal.cell.service"
 
 export interface JournalInfo {
   editable: boolean;
@@ -14,13 +15,23 @@ export interface JournalInfo {
 export interface JournalRow {
   id: string;
   title: string;
-  lessons: Lesson[][][];
+  cells: JournalCell[][][];
   color: string;
   numericMarksSum: number
   numericMarksAmount: number
   absencesAmount: number
   absencesTime: number
   marksAmount: MarkAmount[]
+}
+
+export interface JournalCell {
+  id?: string;
+  type?: string;
+  marks?: Mark[];
+  absences?: Absence[];
+  journalCellColor?: string;
+
+  point: Point
 }
 
 export interface MarkAmount {

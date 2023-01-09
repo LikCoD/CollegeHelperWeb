@@ -7,7 +7,6 @@ import {
   OnInit,
   ViewChild
 } from "@angular/core"
-import {Lesson} from "../../../../../../../models/schedule"
 import {JournalService} from "../../../../../../../services/shared/journal/journal.service"
 import {JournalCellService, Key} from "../../../../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../../../../services/shared/journal/journal-collapse.service"
@@ -16,6 +15,7 @@ import {DialogService} from "../../../../../../../services/ui/dialog.service"
 import {LessonType, StudyPlace} from "../../../../../../../models/general"
 import {Entry} from "../../../base-journal-cell/journal-cell.component"
 import {JournalMarksService} from "../../../../../../../services/shared/journal/journal-marks.service"
+import {JournalCell} from "../../../../../../../models/journal"
 
 @Component({
   selector: "app-journal-column-cell",
@@ -24,7 +24,7 @@ import {JournalMarksService} from "../../../../../../../services/shared/journal/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JournalColumnCellComponent implements OnInit {
-  @Input() lesson: Lesson
+  @Input() lesson: JournalCell
 
   @ViewChild("lessonInfoTemplate", {static: true}) lessonInfoRef: ElementRef
   @ViewChild("selectMarkTemplate", {static: true}) selectMarkRef: ElementRef
@@ -65,13 +65,13 @@ export class JournalColumnCellComponent implements OnInit {
     return this.journalService.journal.info.editable
   }
 
-  onCellClick(e: any, lesson: Lesson): void {
+  onCellClick(e: any, lesson: JournalCell): void {
     this.cellService.selectDate(null)
     this.cellService.addPoint(lesson.point!!)
   }
 
-  entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
-  lessonColor = (lesson: Lesson): string => this.modeService.lessonColor(lesson)
+  entries = (lesson: JournalCell): Entry[] => this.modeService.getEntries(lesson)
+  lessonColor = (lesson: JournalCell): string => this.modeService.lessonColor(lesson)
   clearSelectedPoints = () => this.cellService.clearPoints()
 
   isPopupOpen = () => this.modalService.openedModalRef !== null

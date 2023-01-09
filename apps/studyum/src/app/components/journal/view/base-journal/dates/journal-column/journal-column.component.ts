@@ -15,6 +15,7 @@ import {JournalCollapseService} from "../../../../../../services/shared/journal/
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "../../base-journal-cell/journal-cell.component"
 import {DialogService} from "../../../../../../services/ui/dialog.service"
+import {JournalCell} from "../../../../../../models/journal"
 
 @Component({
   selector: "app-journal-column",
@@ -24,7 +25,7 @@ import {DialogService} from "../../../../../../services/ui/dialog.service"
 })
 export class JournalColumnComponent implements OnInit {
   @Input() date: Lesson
-  @Input() lessons: Lesson[]
+  @Input() lessons: JournalCell[]
 
   @ViewChild("lessonDataTemplate", {static: true}) lessonDataRef: ElementRef
 
@@ -75,7 +76,7 @@ export class JournalColumnComponent implements OnInit {
     this.collapseService.click(this.date)
   }
 
-  entries = (lesson: Lesson): Entry[] => this.modeService.getEntries(lesson)
+  entries = (lesson: JournalCell): Entry[] => this.modeService.getEntries(lesson)
   clearSelectedPoints = () => this.cellService.clearPoints()
 
   isPopupOpen = () => this.modalService.openedModalRef !== null

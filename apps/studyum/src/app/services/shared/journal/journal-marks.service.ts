@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core"
 import {JournalHttpService} from "../../http/journal-http.service"
-import {Absence, Journal, JournalRow, Mark, MarkAmount} from "../../../models/journal"
+import {Absence, Journal, JournalCell, JournalRow, Mark, MarkAmount} from "../../../models/journal"
 import {JournalService} from "./journal.service"
 import {JournalCellService, Point} from "./journal.cell.service"
 import * as moment from "moment/moment"
@@ -12,7 +12,7 @@ import {Subject} from "rxjs"
 })
 export class JournalMarksService {
 
-  refresh$ = new Subject<Lesson>()
+  refresh$ = new Subject<JournalCell>()
 
   constructor(private http: JournalHttpService, private journalService: JournalService, private cellService: JournalCellService) {
   }
@@ -24,7 +24,7 @@ export class JournalMarksService {
   addMark(point: Point, mark: Mark): void {
     this.cellService.points$.value.forEach(p => {
       let row = this.journal.rows[p.y]
-      let lesson = row.lessons.flat(2)[p.x]
+      let lesson = row.cells.flat(2)[p.x]
       mark.studentID = row.id
       mark.lessonID = lesson.id
 
@@ -45,7 +45,7 @@ export class JournalMarksService {
 
     this.http.editMark(mark).subscribe({
       next: mark => {
-        let lesson = row.lessons.flat(2)[point.x]
+        let lesson = row.cells.flat(2)[point.x]
         let i = lesson.marks?.findIndex(m => m.id === mark.id)
         if (!i) return
 
@@ -60,7 +60,7 @@ export class JournalMarksService {
     this.http.deleteMark(id).subscribe({
       next: id => {
         let row = this.journal.rows[point.y]
-        let lesson = row.lessons.flat(2)[point.x]
+        let lesson = row.cells.flat(2)[point.x]
         lesson.marks = lesson.marks?.filter(m => m.id !== id)
 
         this.refresh(row, lesson)
@@ -71,7 +71,7 @@ export class JournalMarksService {
   truncate(point: Point, marks: Mark[]): void {
     this.cellService.points$.value.forEach(p => {
       let row = this.journal.rows[p.y]
-      let lesson = row.lessons.flat(2)[p.x]
+      let lesson = row.cells.flat(2)[p.x]
 
       lesson.marks?.forEach(m => this.deleteMark(p, m.id!!))
       this.refresh(row, lesson)
@@ -81,7 +81,7 @@ export class JournalMarksService {
   addAbsence(point: Point, absence: Absence): void {
     this.cellService.points$.value.forEach(p => {
       let row = this.journal.rows[p.y]
-      let lesson = row.lessons.flat(2)[p.x]
+      let lesson = row.cells.flat(2)[p.x]
       absence.studentID = row.id
       absence.lessonID = lesson.id!!
 
@@ -102,7 +102,7 @@ export class JournalMarksService {
 
     this.http.updateAbsence(absence, this.journal.info.studyPlace.absenceMark).subscribe({
       next: absences => {
-        let lesson = row.lessons.flat(2)[point.x]
+        let lesson = row.cells.flat(2)[point.x]
         let i = lesson.absences?.findIndex(a => a.id === absences.id)
         if (!i) return
 
@@ -116,14 +116,14 @@ export class JournalMarksService {
     this.http.removeAbsence(id).subscribe({
       next: id => {
         let row = this.journal.rows[point.y]
-        let lesson = row.lessons.flat(2)[point.x]
+        let lesson = row.cells.flat(2)[point.x]
         lesson.absences = lesson.absences?.filter(a => a.id !== id)
         this.refresh(row, lesson)
       }
     })
   }
 
-  refresh(row: JournalRow, lesson: Lesson): void {
+  refresh(row: JournalRow, lesson: Lesson | JournalCell): void {
     lesson.journalCellColor = this.getLessonColor(lesson)
     row.color = this.getRowColor(row)
 
@@ -132,10 +132,10 @@ export class JournalMarksService {
     row.numericMarksAmount = marks.length
     row.marksAmount = this.getMarksAmount(row)
 
-    this.refresh$.next(lesson)
+    this.refresh$.next(lesson as JournalCell)
   }
 
-  private getLessonColor(lesson: Lesson): string {
+  private getLessonColor(lesson: Lesson | JournalCell): string {
     let now = moment.utc()
     let colors = this.journal.info.studyPlace.journalColors
     let lessonType = this.journal.info.studyPlace.lessonTypes.find(t => t.type === lesson.type)
@@ -146,7 +146,8 @@ export class JournalMarksService {
       let markType = lessonType.marks.find(m => m.mark === mark.mark)
       if (markType === undefined || markType.workOutTime === 0) return colors.general
 
-      color = lesson.startDate.clone().add(markType.workOutTime, "second") > now ? colors.warning : colors.danger
+      let date = this.journal.dates.flat(2)[lesson.point!.x].startDate.clone()
+      color = date.add(markType.workOutTime, "second") > now ? colors.warning : colors.danger
     }
 
     return color
@@ -156,7 +157,7 @@ export class JournalMarksService {
     let colors = this.journal.info.studyPlace.journalColors
     let color = colors.general
 
-    row.lessons.find(m => m.find(d => d.find(l => {
+    row.cells.find(m => m.find(d => d.find(l => {
       if (l.journalCellColor == colors.warning) color = colors.warning
       if (l.journalCellColor == colors.danger) {
         color = colors.danger
@@ -170,7 +171,7 @@ export class JournalMarksService {
   }
 
   private getRowMarks = (row: JournalRow): Mark[] =>
-    row.lessons.flat(2).flatMap(l => l.marks ?? [])
+    row.cells.flat(2).flatMap(l => l.marks ?? [])
 
   private getRowNumericMarks = (row: JournalRow): number[] =>
     this.getRowMarks(row).map(m => Number(m.mark)).filter(m => !!m)

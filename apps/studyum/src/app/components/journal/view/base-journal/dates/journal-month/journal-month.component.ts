@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
+import {JournalCell} from "../../../../../../models/journal"
 
 @Component({
   selector: "app-journal-month",
@@ -10,7 +11,7 @@ import {JournalCollapseService} from "../../../../../../services/shared/journal/
 })
 export class JournalMonthComponent implements OnInit {
   @Input() month: Lesson[][]
-  @Input() monthLessons: Lesson[][][]
+  @Input() monthLessons: JournalCell[][][]
 
   constructor(private service: JournalCollapseService, private cdr: ChangeDetectorRef) {
   }
@@ -23,11 +24,11 @@ export class JournalMonthComponent implements OnInit {
     return this.service.getCollapseAmount(this.month)
   }
 
-  mapMonth(monthLesson: Lesson[][][], i: number): Lesson[][] {
+  mapMonth(monthLesson: JournalCell[][][], i: number): JournalCell[][] {
     return monthLesson.map(l => l[i])
   }
 
-  mapCollapse = (): Lesson[] => this.service.buildLessons(this.monthLessons.map(v => v.flat()))
+  mapCollapse = (): JournalCell[] => this.service.buildLessons(this.monthLessons.map(v => v.flat()))
 
   dateClick(): void {
     return this.service.click(this.month[0][0])

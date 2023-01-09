@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
 import {map, Observable} from "rxjs"
-import {Absence, Journal, JournalOption, Mark} from "../../models/journal"
+import {Absence, Journal, JournalCell, JournalOption, Mark} from "../../models/journal"
 import {Lesson} from "../../models/schedule"
 import {groupBy} from "../../utils"
 
@@ -22,7 +22,7 @@ export class JournalHttpService {
       journal.dates = new Array(...groupBy(dateDays, el => el[0].startDate.month()).values())
 
       journal.rows.forEach((row, rowIndex) => {
-        let lessons: Lesson[] = row.lessons as unknown as Lesson[]
+        let lessons: JournalCell[] = row.cells as unknown as JournalCell[]
 
         for (let i = 0; i < lessons.length; i++) {
           if (lessons[i] != null) {
@@ -30,20 +30,23 @@ export class JournalHttpService {
             continue
           }
 
-          lessons[i] = <Lesson>{
-            startDate: dates[i].startDate.clone(),
-            endDate: dates[i].startDate.clone(),
-            group: "",
-            primaryColor: "",
-            room: "",
-            subject: "",
-            teacher: "",
-            point: {x: i, y: rowIndex}
-          }
+          lessons[i] = <JournalCell>{point: {x: i, y: rowIndex}}
         }
 
-        let rowDays = new Array(...groupBy(lessons, el => el.startDate.dayOfYear()).values())
-        row.lessons = new Array(...groupBy(rowDays, el => el[0].startDate.month()).values())
+        let cells = new Array<JournalCell[][]>()
+        let i = 0
+        journal.dates.forEach((m, mIndex) => {
+          cells.push([])
+          m.forEach((d, dIndex) => {
+            cells[mIndex].push([])
+            d.forEach(() => {
+              cells[mIndex][dIndex].push(lessons[i])
+              i++
+            })
+          })
+        })
+
+        row.cells = cells
       })
 
       return journal

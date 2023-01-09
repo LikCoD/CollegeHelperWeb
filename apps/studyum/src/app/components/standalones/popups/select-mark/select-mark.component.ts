@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from "@angular/core"
-import {Lesson} from "../../../../models/schedule"
-import {Absence, Mark} from "../../../../models/journal"
+import {Absence, JournalCell, Mark} from "../../../../models/journal"
 import {AbsenceControlComponent} from "./enteries/absence-control.component"
 import {JournalMarksService} from "../../../../services/shared/journal/journal-marks.service"
 import {Point} from "../../../../services/shared/journal/journal.cell.service"
@@ -11,7 +10,7 @@ import {Point} from "../../../../services/shared/journal/journal.cell.service"
   styleUrls: ["./select-mark.component.scss"]
 })
 export class SelectMarkComponent implements AfterViewInit {
-  @Input() lesson: Lesson
+  @Input() lesson: JournalCell
   @Input() userId: string
 
   @Input() marks: string[]
@@ -58,8 +57,7 @@ export class SelectMarkComponent implements AfterViewInit {
     let mark: Mark = {
       mark: mark_,
       studentID: this.userId,
-      lessonID: this.lesson!!.id,
-      studyPlaceID: this.lesson!!.studyPlaceId
+      lessonID: this.lesson!!.id
     }
     this.service.addMark(this.point, mark)
   }

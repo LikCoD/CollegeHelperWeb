@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core"
-import {Lesson} from "../../../models/schedule"
 import {JournalService} from "./journal.service"
 import {LessonType} from "../../../models/general"
 import {Entry} from "../../../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
 import {BehaviorSubject} from "rxjs"
 import * as moment from "moment"
+import {JournalCell} from "../../../models/journal"
 
 @Injectable({
   providedIn: "root"
@@ -44,7 +44,7 @@ export class JournalDisplayModeService {
     this.standaloneType$.next(type)
   }
 
-  getEntries(lesson: Lesson): Entry[] {
+  getEntries(lesson: JournalCell): Entry[] {
     let colors = this.service.journal.info.studyPlace.journalColors
     if (this.mode === "absences") {
       let absenceMark = this.service.journal.info.studyPlace.absenceMark
@@ -71,10 +71,10 @@ export class JournalDisplayModeService {
     return marks.concat(absences)
   }
 
-  showColumn = (date: Lesson): boolean =>
+  showColumn = (date: JournalCell): boolean =>
     this.mode !== "standalone" || this.selectedStandaloneType?.type === date.type
 
-  cellColor(lesson: Lesson): string {
+  cellColor(lesson: JournalCell): string {
     let colors = this.service.journal.info.studyPlace.journalColors
 
     if (this.mode === "standalone") {
@@ -86,7 +86,8 @@ export class JournalDisplayModeService {
         let markType = type.marks.find(m => m.mark === mark.mark)
         if (markType === undefined || markType.workOutTime === undefined || markType.workOutTime === 0) break
 
-        let date = lesson.startDate.clone().add(markType.workOutTime, "second")
+        let date = this.service.journal.dates.flat(2)[lesson.point.x].startDate.clone()
+        date = date.clone().add(markType.workOutTime, "second")
         color = date.isAfter(moment.utc()) ? colors.warning : colors.danger
       }
 
@@ -99,12 +100,12 @@ export class JournalDisplayModeService {
     return lesson.journalCellColor ?? ""
   }
 
-  lessonColor(lesson: Lesson, collapsed: boolean = false): string {
+  lessonColor(lesson: JournalCell, collapsed: boolean = false): string {
     return (!lesson.id && !collapsed) ? "#323232" : (!!this.getEntries(lesson)?.length) ? this.cellColor(lesson) : "#4a4a4a"
   }
 
   showColumnByPoint(x: number, y: number): boolean {
-    return this.showColumn(this.service.journal.rows[y].lessons.flat(2)[x])
+    return this.showColumn(this.service.journal.rows[y].cells.flat(2)[x])
   }
 }
 

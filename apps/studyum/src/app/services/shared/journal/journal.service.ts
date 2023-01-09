@@ -58,8 +58,8 @@ export class JournalService {
 
   split(type: string): void {
     let journals = this.journal.rows
-      .filter(r => r.lessons.flat(2).find(l => l.type === type))
-      .map(r => <Journal>{dates: r.lessons, rows: [r], info: this.journal.info})
+      .filter(r => r.cells.flat(2).find(l => l.type === type))
+      .map(r => <Journal>{dates: r.cells, rows: [r], info: this.journal.info})
 
     this.journal$.next(journals)
   }

@@ -6,6 +6,7 @@ import {JournalDisplayModeService} from "./journal-display-mode.service"
 import {Subject} from "rxjs"
 import {SettingsService} from "../../ui/settings.service"
 import {Key} from "./journal.cell.service"
+import {JournalCell} from "../../../models/journal"
 
 @Injectable({
   providedIn: "root"
@@ -81,7 +82,7 @@ export class JournalCollapseService {
       this.remove(date, JournalCollapseService.MonthFormat)
   }
 
-  getCollapseAmount(lesson: Lesson[] | Lesson[][]): number {
+  getCollapseAmount(lesson: JournalCell[] | JournalCell[][] | Lesson[] | Lesson[][]): number {
     if (this.modeService.mode !== "standalone") return lesson.flat().length
     return lesson.flat().filter(v => this.modeService.selectedStandaloneType?.type === v.type).length
   }
@@ -123,7 +124,7 @@ export class JournalCollapseService {
     }
   }
 
-  buildLesson(lessons: Lesson[]): Lesson {
+  buildLesson(lessons: JournalCell[]): JournalCell {
     let selectedLessons = lessons.filter(l =>
       this.modeService.mode !== "standalone" ||
       this.modeService.selectedStandaloneType?.type === l.type
@@ -143,10 +144,10 @@ export class JournalCollapseService {
     let absences = selectedLessons.flatMap(l => l.absences ?? [])
 
     if (marks.length === 0 && absences.length === 0) color = "#4a4a4a"
-    return <Lesson>{...selectedLessons[0], marks: marks, absences: absences, journalCellColor: color}
+    return <JournalCell>{...selectedLessons[0], marks: marks, absences: absences, journalCellColor: color}
   }
 
-  buildLessons = (lessons: Lesson[][]): Lesson[] => lessons.map(this.buildLesson.bind(this))
+  buildLessons = (lessons: JournalCell[][]): JournalCell[] => lessons.map(this.buildLesson.bind(this))
 }
 
 export type CollapseType = ("year" | "month" | "day" | "smart" | "expanded" | "null")

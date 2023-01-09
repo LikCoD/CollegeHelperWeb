@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
+import {JournalCell} from "../../../../../../models/journal"
 
 @Component({
   selector: "app-journal-day",
@@ -11,7 +12,7 @@ import {JournalDisplayModeService} from "../../../../../../services/shared/journ
 })
 export class JournalDayComponent {
   @Input() day: Lesson[]
-  @Input() dayLessons: Lesson[][]
+  @Input() dayLessons: JournalCell[][]
 
   constructor(private service: JournalCollapseService, private modeService: JournalDisplayModeService) {
   }
@@ -24,15 +25,15 @@ export class JournalDayComponent {
     return this.service.getCollapseAmount(this.day)
   }
 
-  mapDay(i: number): Lesson[] {
+  mapDay(i: number): JournalCell[] {
     return this.dayLessons.map(d => d[i])
   }
 
-  mapCollapse = (): Lesson[] => this.service.buildLessons(this.dayLessons)
+  mapCollapse = (): JournalCell[] => this.service.buildLessons(this.dayLessons)
 
   dateClick(): void {
     return this.service.click(this.day[0])
   }
 
-  showColumn = (date: Lesson) => this.modeService.showColumn(date)
+  showColumn = (date: Lesson) => this.modeService.showColumn(date as JournalCell)
 }

@@ -64,7 +64,7 @@ export class JournalLessonService {
     if (!lesson) return
 
     s.split("\n").flatMap((l, i) => l.split(" ").map(m => [
-      this.journal.rows[i].lessons.flat(2)[lesson!!.point!!.x],
+      this.journal.rows[i].cells.flat(2)[lesson!!.point!!.x],
       <Mark>{
         mark: m,
         studentID: rows[i].id,

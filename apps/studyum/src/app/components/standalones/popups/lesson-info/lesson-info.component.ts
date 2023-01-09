@@ -4,6 +4,7 @@ import {Entry} from "../../../journal/view/base-journal/base-journal-cell/journa
 import {JournalLessonService} from "../../../../services/shared/journal/journal-lesson.service"
 import {Observable, tap} from "rxjs"
 import {Lesson} from "../../../../models/schedule"
+import {JournalCell} from "../../../../models/journal"
 
 @Component({
   selector: "app-lesson-info",
@@ -28,7 +29,7 @@ export class LessonInfoComponent implements OnInit {
   }
 
   getEntries(lesson: Lesson): Entry[] {
-    return this.modeService.getEntries(lesson)
+    return this.modeService.getEntries(lesson as JournalCell)
   }
 
   buttonBorderColor(lesson: Lesson) {
