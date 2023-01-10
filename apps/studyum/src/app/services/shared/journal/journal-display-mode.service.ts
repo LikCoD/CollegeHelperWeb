@@ -78,8 +78,10 @@ export class JournalDisplayModeService {
     let colors = this.service.journal.info.studyPlace.journalColors
 
     if (this.mode === "standalone") {
-      let type = this.selectedStandaloneType!!
-      let marks = lesson.marks?.filter(m => !!type.standaloneMarks?.find(sm => sm.mark === m.mark)) ?? []
+      let type = this.selectedStandaloneType
+      if (!type) return colors.general
+
+      let marks = lesson.marks?.filter(m => !!type!!.standaloneMarks?.find(sm => sm.mark === m.mark)) ?? []
 
       let color = colors.general
       for (let mark of marks) {

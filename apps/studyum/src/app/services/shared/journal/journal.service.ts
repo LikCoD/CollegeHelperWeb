@@ -4,6 +4,7 @@ import {Observable, Subject, tap} from "rxjs"
 import {Journal, JournalOption} from "../../../models/journal"
 import * as moment from "moment"
 import {saveAs} from "file-saver"
+import {Lesson} from "../../../models/schedule"
 
 
 @Injectable({providedIn: "root"})
@@ -57,9 +58,29 @@ export class JournalService {
   }
 
   split(type: string): void {
+    function copyDates(date: Lesson[][][]): Lesson[][][] {
+      let newDates: Lesson[][][] = []
+      date.forEach((m, mI) => {
+        newDates.push([])
+        m.forEach((d, dI) => {
+          newDates[mI].push([])
+          d.forEach(l => {
+            newDates[mI][dI].push({...l})
+          })
+        })
+      })
+      return newDates
+    }
+
     let journals = this.journal.rows
-      .filter(r => r.cells.flat(2).find(l => l.type === type))
-      .map(r => <Journal>{dates: r.cells, rows: [r], info: this.journal.info})
+      .filter(j => !!j.cells.flat(2).find(l => l.type === type))
+      .map(r => {
+        let j = <Journal>{dates: copyDates(this.journal.dates), rows: [r], info: this.journal.info}
+        j.dates.forEach((m, mI) => m.forEach((d, dI) => d.forEach((l, lI) => {
+          l.type = r.cells[mI][dI][lI].type ?? ""
+        })))
+        return j
+      })
 
     this.journal$.next(journals)
   }

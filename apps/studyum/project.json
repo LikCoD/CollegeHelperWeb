@@ -21,7 +21,7 @@
         "assets": ["apps/studyum/src/favicon.ico", "apps/studyum/src/assets"],
         "styles": ["apps/studyum/src/styles.scss"],
         "scripts": [],
-        "allowedCommonJsDependencies": ["moment", "typescript-collections"]
+        "allowedCommonJsDependencies": ["moment", "typescript-collections", "file-saver"]
       },
       "configurations": {
         "production": {
