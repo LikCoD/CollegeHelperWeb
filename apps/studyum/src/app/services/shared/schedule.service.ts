@@ -5,18 +5,21 @@ import {Observable, Subject} from "rxjs"
 import {Cell, Lesson, Schedule, ScheduleTypes} from "../../models/schedule"
 import {ScheduleHttpService} from "../http/schedule-http.service"
 
-@Injectable({providedIn: 'root'})
+@Injectable({providedIn: "root"})
 export class ScheduleService {
   schedule$ = new Subject<Schedule>()
   scale$ = new Subject<number>()
 
   schedule: Schedule
+  readonly lessonHeight = 90
+  minLessonMinutes = 0
+  minYScale = 1
+  maxYScale = 10
+  preferredMaxYSScale = 1
+  private scaleY_ = 1
 
   constructor(private httpService: ScheduleHttpService) {
   }
-
-  readonly lessonHeight = 90
-  minLessonMinutes = 0
 
   set scaleY(value: number) {
     if (value < this.minYScale) value = this.minYScale
@@ -27,13 +30,8 @@ export class ScheduleService {
     this.scale$.next(value)
   }
 
-  private scaleY_ = 1
-  minYScale = 1
-  maxYScale = 10
-  preferredMaxYSScale = 1
-
   getCellHeight(cell: Cell): number {
-    return cell.endDate.diff(cell.startDate, 'minutes') * this.scaleY_
+    return cell.endDate.diff(cell.startDate, "minutes") * this.scaleY_
   }
 
   getCellWidth(_: Cell): number {
@@ -41,7 +39,7 @@ export class ScheduleService {
   }
 
   getCellX(cell: Cell): number {
-    return cell.startDate.diff(this.schedule.info.startWeekDate, 'days') * 200
+    return cell.startDate.diff(this.schedule.info.startWeekDate, "days") * 200
   }
 
   getCellY(cell: Cell): number {
@@ -55,8 +53,8 @@ export class ScheduleService {
   initSchedule(schedule: Schedule) {
     let cells = new Map<string, Cell>()
 
-    let minTime = moment('24:00', ['H:m'])
-    let maxTime = moment('00:00', ['H:m'])
+    let minTime = moment("24:00", ["H:m"])
+    let maxTime = moment("00:00", ["H:m"])
 
     let times = new Collections.Set<moment.Moment>()
     let daysNumber = 0
@@ -67,20 +65,20 @@ export class ScheduleService {
       if (cell == null) cells.set(key, {
         endDate: lesson.endDate!!,
         lessons: [lesson],
-        startDate: lesson.startDate!!,
+        startDate: lesson.startDate!!
       })
       else cell.lessons.push(lesson)
 
-      times.add(moment(lesson.startDate!!.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
-      times.add(moment(lesson.endDate!!.format("HH:mm"), [moment.ISO_8601, 'HH:mm']))
+      times.add(moment(lesson.startDate!!.format("HH:mm"), [moment.ISO_8601, "HH:mm"]))
+      times.add(moment(lesson.endDate!!.format("HH:mm"), [moment.ISO_8601, "HH:mm"]))
 
-      let days = lesson.startDate!!.diff(schedule.info.startWeekDate, 'days')
+      let days = lesson.startDate!!.diff(schedule.info.startWeekDate, "days")
       if (daysNumber < days) daysNumber = days
 
-      let st = moment(lesson.startDate!!.format("H:m"), ['H:m'])
+      let st = moment(lesson.startDate!!.format("H:m"), ["H:m"])
       if (minTime > st) minTime = st
 
-      let et = moment(lesson.endDate!!.format("H:m"), ['H:m'])
+      let et = moment(lesson.endDate!!.format("H:m"), ["H:m"])
       if (maxTime < et) maxTime = et
     }
 
@@ -90,7 +88,7 @@ export class ScheduleService {
     let maxCellLessons = 0
 
     for (let cell of cells.values()) {
-      let height = cell.endDate.diff(cell.startDate, 'minutes')
+      let height = cell.endDate.diff(cell.startDate, "minutes")
       if (this.minLessonMinutes > height) this.minLessonMinutes = height
 
       if (cell.lessons.length * height > maxCellLessons * maxCellLessonsMinutes) {
@@ -108,10 +106,10 @@ export class ScheduleService {
 
     schedule.info.daysNumber = daysNumber + 1
 
-    schedule.info.maxTime = moment(maxTime, [moment.ISO_8601, 'H'])
+    schedule.info.maxTime = moment(maxTime, [moment.ISO_8601, "H"])
     times.add(schedule.info.maxTime)
 
-    schedule.info.minTime = moment(minTime, [moment.ISO_8601, 'H'])
+    schedule.info.minTime = moment(minTime, [moment.ISO_8601, "H"])
     times.add(schedule.info.minTime)
 
     schedule.info.times = times.toArray()
@@ -124,6 +122,14 @@ export class ScheduleService {
 
   getSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
     this.httpService.getSchedule(type, name, studyPlaceID).subscribe({
+      next: value => this.initSchedule(value)
+    })
+
+    return this.schedule$
+  }
+
+  getGeneralSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
+    this.httpService.getGeneralSchedule(type, name, studyPlaceID).subscribe({
       next: value => this.initSchedule(value)
     })
 
@@ -161,5 +167,14 @@ export class ScheduleService {
 
   getTypes(studyPlaceID: string): Observable<ScheduleTypes> {
     return this.httpService.getTypes(studyPlaceID)
+  }
+
+  changeMode(isGeneral: boolean) {
+    const type = this.schedule.info.type
+    const typeName = this.schedule.info.typeName
+    const studyPlaceID = this.schedule.info.studyPlace.id
+
+    if (isGeneral) this.getGeneralSchedule(type, typeName, studyPlaceID)
+    else this.getSchedule(type, typeName, studyPlaceID)
   }
 }

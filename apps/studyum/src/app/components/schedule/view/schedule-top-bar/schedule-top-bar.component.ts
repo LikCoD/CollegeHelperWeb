@@ -21,8 +21,10 @@ export class ScheduleTopBarComponent implements OnInit {
 
   @Output() editMode = new EventEmitter<boolean>()
   @Output() scale = new EventEmitter<number>()
+  @Output() generalViewMode = new EventEmitter<boolean>()
 
   isEditMode = false
+  isEditGeneral = false
   scaleMode = 0
 
   user: User | undefined
@@ -90,5 +92,10 @@ export class ScheduleTopBarComponent implements OnInit {
 
   submitFind(): void {
     this.router.navigate(["schedule"], {queryParams: this.findForm.value})
+  }
+
+  changeViewMode() {
+    this.isEditGeneral = !this.isEditGeneral
+    this.generalViewMode.emit(this.isEditGeneral)
   }
 }

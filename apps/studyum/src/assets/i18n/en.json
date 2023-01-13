@@ -96,6 +96,8 @@
     "view": {
       "edit": "Edit",
       "scale": "Scale",
+      "general": "General",
+      "actual": "Actual",
       "selectSubject": "Select",
       "selectAll": "Select all",
       "addLesson": "Add lesson",

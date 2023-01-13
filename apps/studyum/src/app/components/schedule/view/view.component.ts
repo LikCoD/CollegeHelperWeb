@@ -54,4 +54,8 @@ export class ViewComponent {
   makeGeneral() {
     this.scheduleService.makeGeneral()
   }
+
+  changeViewMode(isGeneral: boolean) {
+    this.scheduleService.changeMode(isGeneral)
+  }
 }

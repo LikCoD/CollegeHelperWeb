@@ -7,6 +7,17 @@
   <button
     class="btn btn-outline-light btn-sm" (click)="changeScaleMode()"
   >{{'schedule.view.scale' | translate}}</button>
+
+  <button
+    *ngIf="isEditGeneral else actualMode"
+    class="btn btn-light btn-sm" (click)="changeViewMode()"
+  >{{'schedule.view.actual' | translate}}</button>
+
+  <ng-template #actualMode>
+    <button
+      class="btn btn-outline-light btn-sm" (click)="changeViewMode()"
+    >{{'schedule.view.general' | translate}}</button>
+  </ng-template>
 </div>
 
 <form [formGroup]="findForm" class="search" *ngIf="studyPlaces$ | async as studyPlaces" (submit)="submitFind()">

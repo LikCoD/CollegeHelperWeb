@@ -96,6 +96,8 @@
     "view": {
       "edit": "Редактировать",
       "scale": "Масштаб",
+      "general": "Основное",
+      "actual": "Текущее",
       "selectSubject": "Выбрать",
       "selectAll": "Выбрать все",
       "addLesson": "Добавить урок",

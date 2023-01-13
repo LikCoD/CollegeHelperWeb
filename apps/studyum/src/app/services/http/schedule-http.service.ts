@@ -18,6 +18,13 @@ export class ScheduleHttpService {
     return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`)
   }
 
+  getGeneralSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
+    let url = `${type}/${name}?studyPlaceID=${studyPlaceID}`
+    if (type == undefined || name == undefined) url = ""
+
+    return this.http.get<Schedule>(`${this.API_PATH}/schedule/general/${url}`)
+  }
+
   addLesson(lesson: Lesson): Observable<Lesson> {
     return this.http.post<Lesson>(`${this.API_PATH}/schedule`, lesson)
   }
