@@ -14,6 +14,6 @@ export class DialogFrameComponent {
 
   closeDialog(): void {
     this.close.emit()
-    this.modalService.close()
+    this.modalService.dismiss()
   }
 }

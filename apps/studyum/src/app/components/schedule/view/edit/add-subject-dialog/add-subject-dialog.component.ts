@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from "@angular/core"
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from "@angular/core"
 import * as moment from "moment"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog"
 import {Lesson} from "../../../../../models/schedule"
+import {DialogService} from "../../../../../services/ui/dialog.service"
 
 @Component({
   selector: 'app-add-subject-dialog',
@@ -16,8 +16,9 @@ export class AddSubjectDialogComponent implements AfterViewInit {
   @ViewChild('primaryColorInput') primaryColorInput: ElementRef;
   @ViewChild('secondaryColorInput') secondaryColorInput: ElementRef;
 
-  set templateSubject(value: Lesson | undefined) {
-    if (value == undefined) value = {
+  @Input()
+  set templateSubject(value: Lesson | undefined | null) {
+    if (!value) value = {
       group: "GROUP",
       room: "ROOM",
       teacher: "TEACHER",
@@ -43,12 +44,11 @@ export class AddSubjectDialogComponent implements AfterViewInit {
 
   currentDate: string = moment().format('YYYY-MM-DD');
 
-  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.templateSubject = data.lesson
+  constructor(public dialog: DialogService) {
   }
 
   close() {
-    this.dialogRef.close()
+    this.dialog.dismiss()
   }
 
   submit() {
@@ -60,7 +60,7 @@ export class AddSubjectDialogComponent implements AfterViewInit {
       endDate: moment.utc(value.endDate)
     }
 
-    this.dialogRef.close(lesson)
+    this.dialog.close(lesson)
   }
 
   onPrimaryColorChange(color: string) {

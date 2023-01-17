@@ -20,7 +20,7 @@ export class ViewComponent {
 
   maxDate: string = ""
 
-  isEditMode = false
+  isEditMode = true
 
   maxTime: moment.Moment
 

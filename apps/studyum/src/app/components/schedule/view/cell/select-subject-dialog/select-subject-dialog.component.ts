@@ -1,30 +1,29 @@
-import {Component, Inject} from "@angular/core"
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog"
-import {AddSubjectDialogComponent} from "../../edit/add-subject-dialog/add-subject-dialog.component"
-import {Cell, Lesson} from "../../../../../models/schedule"
+import {Component, Input} from "@angular/core"
+import {Lesson} from "../../../../../models/schedule"
+import {DialogService} from "../../../../../services/ui/dialog.service"
 
 @Component({
-  selector: 'app-select-subject-dialog',
-  templateUrl: './select-subject-dialog.component.html',
-  styleUrls: ['./select-subject-dialog.component.scss']
+  selector: "app-select-subject-dialog",
+  templateUrl: "./select-subject-dialog.component.html",
+  styleUrls: ["./select-subject-dialog.component.scss"]
 })
 export class SelectSubjectDialogComponent {
 
-  lessons: Lesson[]
+  @Input() lessons: Lesson[]
+  @Input() multiSelect = true
 
-  constructor(public dialogRef: MatDialogRef<AddSubjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Cell) {
-    this.lessons = data.lessons
+  constructor(private dialog: DialogService) {
   }
 
   select(lesson: Lesson) {
-    this.dialogRef.close([lesson])
+    this.dialog.close([lesson])
   }
 
   selectAll() {
-    this.dialogRef.close(this.lessons)
+    this.dialog.close(this.lessons)
   }
 
   close() {
-    this.dialogRef.close()
+    this.dialog.dismiss()
   }
 }

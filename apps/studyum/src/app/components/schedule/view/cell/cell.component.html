@@ -4,14 +4,24 @@
     <button class="edit-control-button transparent-btn remove-btn" (click)="removeLessonDialog()"></button>
   </div>
   <section>
-      <app-schedule-subject
-        *ngFor="let lesson of lessons[selectedSubjectIndex]"
-        #subject [lesson]="lesson"
-      ></app-schedule-subject>
+    <app-schedule-subject
+      *ngFor="let lesson of lessons[selectedSubjectIndex]"
+      #subject [lesson]="lesson"
+    ></app-schedule-subject>
   </section>
   <div class="btn-cell">
     <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
     <button (click)="nextSubject()" class="transparent-btn switchers-btn"></button>
   </div>
-  <div *ngIf="lessons.length > 1" class="more-circle"></div>
+  <app-more-indicator *ngIf="lessons.length > 1"></app-more-indicator>
 </div>
+
+<ng-template #selectSubjectTemplate>
+  <app-select-subject-dialog [lessons]="cell.lessons" [multiSelect]="multiSelect"></app-select-subject-dialog>
+</ng-template>
+
+<ng-template #manageSubjectTemplate>
+  <app-add-subject-dialog
+    *ngIf="!!selectedLessons && selectedLessons.length != 0"
+    [templateSubject]="selectedLessons[0]"></app-add-subject-dialog>
+</ng-template>

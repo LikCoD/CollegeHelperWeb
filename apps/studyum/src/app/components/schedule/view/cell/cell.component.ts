@@ -1,15 +1,13 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core"
 import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.component"
-import {MatDialog} from "@angular/material/dialog"
-import {SelectSubjectDialogComponent} from "./select-subject-dialog/select-subject-dialog.component"
 import {ScheduleService} from "../../../../services/shared/schedule.service"
-import {AddSubjectDialogComponent} from "../edit/add-subject-dialog/add-subject-dialog.component"
 import {Cell, Lesson} from "../../../../models/schedule"
+import {DialogService} from "../../../../services/ui/dialog.service"
 
 @Component({
-  selector: 'app-schedule-cell',
-  templateUrl: './cell.component.html',
-  styleUrls: ['./cell.component.scss']
+  selector: "app-schedule-cell",
+  templateUrl: "./cell.component.html",
+  styleUrls: ["./cell.component.scss"]
 })
 export class CellComponent implements OnInit {
   @Input() cell: Cell
@@ -21,10 +19,16 @@ export class CellComponent implements OnInit {
 
   lessons: Lesson[][] = []
 
-  @ViewChild('subject') subjectElement: ScheduleSubjectComponent | undefined
-  @ViewChild('root') root: ElementRef
+  selectedLessons: Lesson[] | null
+  multiSelect: boolean = false
 
-  constructor(public dialog: MatDialog, private scheduleService: ScheduleService, private elRef: ElementRef) {
+  @ViewChild("selectSubjectTemplate", {static: true}) selectSubjectRef: ElementRef
+  @ViewChild("manageSubjectTemplate", {static: true}) manageSubjectRef: ElementRef
+
+  @ViewChild("subject") subjectElement: ScheduleSubjectComponent | undefined
+  @ViewChild("root") root: ElementRef
+
+  constructor(private dialog: DialogService, private scheduleService: ScheduleService, private elRef: ElementRef) {
   }
 
   ngOnInit(): void {
@@ -43,7 +47,7 @@ export class CellComponent implements OnInit {
     let lessons: Lesson[][] = []
 
     for (let i = 0; i < this.cell.lessons.length; i += fitAmount) {
-      const chunk = this.cell.lessons.slice(i, i + fitAmount);
+      const chunk = this.cell.lessons.slice(i, i + fitAmount)
       lessons.push(chunk)
     }
 
@@ -70,17 +74,18 @@ export class CellComponent implements OnInit {
       return
     }
 
-    const dialogRef = this.dialog.open(SelectSubjectDialogComponent, {data: this.cell})
-    dialogRef.afterClosed().subscribe((lessons: Lesson[] | undefined) => {
-      if (lessons != undefined) callback(lessons)
+    this.dialog.open<Lesson[]>(this.selectSubjectRef).subscribe({
+      next: value => callback(value)
     })
   }
 
   removeLessonDialog(): void {
+    this.multiSelect = true
     this.showSelectLessonDialog(this.removeSubject.bind(this))
   }
 
   editLessonDialog(): void {
+    this.multiSelect = false
     this.showSelectLessonDialog(this.editLesson.bind(this))
   }
 
@@ -89,13 +94,9 @@ export class CellComponent implements OnInit {
   }
 
   editLesson(lessons: Lesson[]): void {
-    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
-      data: {
-        lesson: lessons[0]
-      }
-    })
-    dialogRef.afterClosed().subscribe((lesson: Lesson | undefined) => {
-      if (lesson != undefined) this.scheduleService.editLesson(lesson)
+    this.selectedLessons = lessons
+    this.dialog.open<Lesson>(this.manageSubjectRef).subscribe({
+      next: lesson => this.scheduleService.editLesson(lesson)
     })
   }
 }

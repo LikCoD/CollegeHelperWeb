@@ -1,7 +1,10 @@
-<main>
-  <button (click)="close()" class="btn-close"></button>
+<app-dialog-frame>
   <h4>{{'schedule.view.selectSubject' | translate}}</h4>
   <app-subject-selection [lessons]="lessons" (select)="select($event)"></app-subject-selection>
-  <button class="btn btn-outline-light select-all-btn"
-          (click)="selectAll()">{{'schedule.view.selectAll' | translate}}</button>
-</main>
+  <button
+    *ngIf="multiSelect"
+    class="btn btn-outline-light select-all-btn"
+    (click)="selectAll()">{{'schedule.view.selectAll' | translate}}
+  </button>
+</app-dialog-frame>
+

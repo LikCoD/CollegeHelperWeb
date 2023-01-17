@@ -1,39 +1,39 @@
-<button (click)="close()" class="btn-close"></button>
+<app-dialog-frame>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <h3>{{'schedule.view.addLesson' | translate}}</h3>
 
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <h3>{{'schedule.view.addLesson' | translate}}</h3>
-
-  <div class="date-container">
-    <p>{{'schedule.view.startDate' | translate}}</p>
-    <app-form-property [property]="form.get('startDate')!!">
-      <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="startDate">
-    </app-form-property>
-  </div>
-  <div class="date-container">
-    <p>{{'schedule.view.endDate' | translate}}</p>
-    <app-form-property [property]="form.get('endDate')!!">
-      <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="endDate">
-    </app-form-property>
-  </div>
-
-  <div class="lesson-row">
-    <div class="colors">
-      <input #primaryColorInput type="color" class="form-control"
-             (input)="onPrimaryColorChange(primaryColorInput.value)">
-      <div class="btn-group mr-2">
-        <input #secondaryColorInput type="color" class="form-control"
-               (input)="onSecondaryColorChange(secondaryColorInput.value)">
-        <button type="button" class="btn" (click)="onSecondaryColorChange('transparent')"
-                [style.--secondaryColor]="secondaryColorInput.value">
-          X
-        </button>
-      </div>
+    <div class="date-container">
+      <p>{{'schedule.view.startDate' | translate}}</p>
+      <app-form-property [property]="form.get('startDate')!!">
+        <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="startDate">
+      </app-form-property>
     </div>
-    <app-form-property [property]="form.get('lesson')!!">
-      <app-schedule-subject [editable]="true" formControlName="lesson"></app-schedule-subject>
-    </app-form-property>
-  </div>
+    <div class="date-container">
+      <p>{{'schedule.view.endDate' | translate}}</p>
+      <app-form-property [property]="form.get('endDate')!!">
+        <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="endDate">
+      </app-form-property>
+    </div>
 
-  <button [disabled]="!form.valid" type="submit"
-          class="btn btn-outline-dark">{{'schedule.view.add' | translate}}</button>
-</form>
+    <div class="lesson-row">
+      <div class="colors">
+        <input #primaryColorInput type="color" class="form-control"
+               (input)="onPrimaryColorChange(primaryColorInput.value)">
+        <div class="btn-group mr-2">
+          <input #secondaryColorInput type="color" class="form-control"
+                 (input)="onSecondaryColorChange(secondaryColorInput.value)">
+          <button type="button" class="btn" (click)="onSecondaryColorChange('transparent')"
+                  [style.--secondaryColor]="secondaryColorInput.value">
+            X
+          </button>
+        </div>
+      </div>
+      <app-form-property [property]="form.get('lesson')!!">
+        <app-schedule-subject [editable]="true" formControlName="lesson"></app-schedule-subject>
+      </app-form-property>
+    </div>
+
+    <button [disabled]="!form.valid" type="submit"
+            class="btn btn-outline-dark">{{'schedule.view.add' | translate}}</button>
+  </form>
+</app-dialog-frame>

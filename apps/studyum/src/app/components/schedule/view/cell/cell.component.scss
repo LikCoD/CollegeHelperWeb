@@ -39,15 +39,11 @@
   height: 100%;
 }
 
-.more-circle {
+app-more-indicator {
   position: absolute;
-  width: 7px;
-  height: 7px;
-  background-color: styles.$secondaryColor;
-  border-radius: 50%;
 
-  right: -2px;
-  top: -2px;
+  right: -5px;
+  top: -5px;
 }
 
 .time {
@@ -94,7 +90,7 @@ section {
 
   transition: all 0.3s;
 
-  background: linear-gradient(90deg, styles.$secondaryColor 50%, styles.$dangerColor 50%);
+  background: linear-gradient(90deg, styles.$thirdColor 50%, styles.$dangerColor 50%);
 
   border-radius: 25px 25px 0 0;
   border: none;
@@ -105,13 +101,9 @@ section {
   line-height: 10px;
   flex-grow: 1;
 
-  font-weight: bold;
-  color: styles.$onBackgroundColor;
-
   background-repeat: no-repeat;
   background-position: center;
   background-size: 18px;
-  fill: white;
 }
 
 .remove-btn {

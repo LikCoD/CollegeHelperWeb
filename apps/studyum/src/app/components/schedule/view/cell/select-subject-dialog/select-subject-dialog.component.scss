@@ -1,6 +1,6 @@
 @use "../../../../../../styles";
 
-main {
+:host {
   position: relative;
 
   width: 230px;
@@ -10,6 +10,14 @@ main {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
 
   padding: 10px;
+}
+
+app-dialog-frame {
+  position: unset;
+  background-color: unset;
+  padding: unset;
+  border: unset;
+  border-radius: unset;
 }
 
 h4 {

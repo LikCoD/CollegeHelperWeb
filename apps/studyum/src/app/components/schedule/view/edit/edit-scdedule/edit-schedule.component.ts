@@ -1,15 +1,23 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core"
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
 import {ScheduleService} from "../../../../../services/shared/schedule.service"
-import {AddSubjectDialogComponent} from "../add-subject-dialog/add-subject-dialog.component"
-import {MatDialog} from "@angular/material/dialog"
 import {Lesson, Schedule} from "../../../../../models/schedule"
+import {DialogService} from "../../../../../services/ui/dialog.service"
 
 @Component({
-  selector: 'app-edit-schedule',
-  templateUrl: './edit-schedule.component.html',
-  styleUrls: ['./edit-schedule.component.scss']
+  selector: "app-edit-schedule",
+  templateUrl: "./edit-schedule.component.html",
+  styleUrls: ["./edit-schedule.component.scss"]
 })
 export class EditScheduleComponent {
+
+  @ViewChild("manageSubjectTemplate", {static: true}) manageSubjectRef: ElementRef
+  @Output() makeGeneral = new EventEmitter<null>()
+  templateLessons: Lesson[] = []
+  templatesFilter: string = ""
+  selectedLesson: Lesson | null
+
+  constructor(public dialog: DialogService, private scheduleService: ScheduleService) {
+  }
 
   @Input() set schedule(schedule: Schedule) {
     let lessons: Lesson[] = []
@@ -22,7 +30,7 @@ export class EditScheduleComponent {
           && templateSubject.group == lesson.group
           && templateSubject.room == lesson.room
           && templateSubject.teacher == lesson.teacher)
-          add = false;
+          add = false
       })
       if (!add) return
 
@@ -30,14 +38,6 @@ export class EditScheduleComponent {
     })
 
     this.templateLessons = lessons
-  }
-
-  @Output() makeGeneral = new EventEmitter<null>()
-
-  templateLessons: Lesson[] = []
-  templatesFilter: string = ""
-
-  constructor(public dialog: MatDialog, private scheduleService: ScheduleService) {
   }
 
   filterLessons(input: string): Lesson[] {
@@ -54,7 +54,9 @@ export class EditScheduleComponent {
   }
 
   add(lesson: Lesson | undefined = undefined) {
-    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {data: {lesson: lesson}})
-    dialogRef.afterClosed().subscribe(this.scheduleService.addLesson.bind(this.scheduleService))
+    this.selectedLesson = lesson ?? null
+    this.dialog.open<Lesson>(this.manageSubjectRef).subscribe({
+      next: lesson => this.scheduleService.addLesson(lesson)
+    })
   }
 }

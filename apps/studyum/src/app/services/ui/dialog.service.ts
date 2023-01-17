@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core"
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap"
-import {catchError, from, Observable, of, tap} from "rxjs"
+import {from, Observable, tap} from "rxjs"
 
 @Injectable({
   providedIn: "root"
@@ -23,13 +23,16 @@ export class DialogService {
     return this.open(component)
   }
 
-  open(component: any) {
+  open<T>(component: any): Observable<T> {
     this.openedModalRef = this.modalService.open(component)
-    return from(this.openedModalRef.result).pipe(catchError(e => of(e)), tap(_ => this.openedModalRef = null))
-
+    return from(this.openedModalRef.result).pipe(tap(_ => this.openedModalRef = null))
   }
 
-  close(): void {
-    this.openedModalRef?.close()
+  close(result: any = null): void {
+    this.openedModalRef?.close(result)
+  }
+
+  dismiss(result: any = null) {
+    this.openedModalRef?.dismiss(result)
   }
 }
