@@ -9,6 +9,7 @@ import {ScheduleHttpService} from "../http/schedule-http.service"
 export class ScheduleService {
   schedule$ = new Subject<Schedule>()
   scale$ = new Subject<number>()
+  timeViewMode$ = new Subject<boolean>()
 
   schedule: Schedule
   readonly lessonHeight = 90
@@ -16,9 +17,14 @@ export class ScheduleService {
   minYScale = 1
   maxYScale = 10
   preferredMaxYSScale = 1
+  isTimeMode = true
   private scaleY_ = 1
 
   constructor(private httpService: ScheduleHttpService) {
+  }
+
+  get scaleY(): number {
+    return this.scaleY_
   }
 
   set scaleY(value: number) {
@@ -31,7 +37,7 @@ export class ScheduleService {
   }
 
   getCellHeight(cell: Cell): number {
-    return cell.endDate.diff(cell.startDate, "minutes") * this.scaleY_
+    return (this.isTimeMode ? cell.endDate.diff(cell.startDate, "minutes") : 45) * this.scaleY_
   }
 
   getCellWidth(_: Cell): number {
@@ -43,7 +49,11 @@ export class ScheduleService {
   }
 
   getCellY(cell: Cell): number {
-    return this.getTimeY(cell.startDate)
+    return this.isTimeMode ? this.getTimeY(cell.startDate) : this.getLessonIndexY(cell.lessonIndex)
+  }
+
+  getLessonIndexY(index: number): number {
+    return (index - this.schedule.info.minLessonIndex) * 55 * this.scaleY_
   }
 
   getTimeY(time: moment.Moment): number {
@@ -53,18 +63,23 @@ export class ScheduleService {
   initSchedule(schedule: Schedule) {
     let cells = new Map<string, Cell>()
 
+    let indexes: number[] = []
+    let minLessonIndex = Number.MAX_VALUE
+    let maxLessonIndex = Number.MIN_VALUE
+
+    let times = new Collections.Set<moment.Moment>()
     let minTime = moment("24:00", ["H:m"])
     let maxTime = moment("00:00", ["H:m"])
 
-    let times = new Collections.Set<moment.Moment>()
     let daysNumber = 0
 
     for (let lesson of schedule.lessons) {
       let key = lesson.endDate!!.format() + lesson.startDate!!.format()
       let cell = cells.get(key)
       if (cell == null) cells.set(key, {
-        endDate: lesson.endDate!!,
         lessons: [lesson],
+        lessonIndex: lesson.lessonIndex,
+        endDate: lesson.endDate!!,
         startDate: lesson.startDate!!
       })
       else cell.lessons.push(lesson)
@@ -74,6 +89,9 @@ export class ScheduleService {
 
       let days = lesson.startDate!!.diff(schedule.info.startWeekDate, "days")
       if (daysNumber < days) daysNumber = days
+
+      if (lesson.lessonIndex < minLessonIndex) minLessonIndex = lesson.lessonIndex
+      if (lesson.lessonIndex > maxLessonIndex) maxLessonIndex = lesson.lessonIndex
 
       let st = moment(lesson.startDate!!.format("H:m"), ["H:m"])
       if (minTime > st) minTime = st
@@ -106,11 +124,16 @@ export class ScheduleService {
 
     schedule.info.daysNumber = daysNumber + 1
 
-    schedule.info.maxTime = moment(maxTime, [moment.ISO_8601, "H"])
-    times.add(schedule.info.maxTime)
+    schedule.info.minLessonIndex = minLessonIndex
+    schedule.info.maxLessonIndex = maxLessonIndex
+
+    schedule.info.indexes = Array(maxLessonIndex - minLessonIndex + 1).fill(0).map((_, i) => maxLessonIndex - i)
 
     schedule.info.minTime = moment(minTime, [moment.ISO_8601, "H"])
     times.add(schedule.info.minTime)
+
+    schedule.info.maxTime = moment(maxTime, [moment.ISO_8601, "H"])
+    times.add(schedule.info.maxTime)
 
     schedule.info.times = times.toArray()
 
@@ -169,12 +192,17 @@ export class ScheduleService {
     return this.httpService.getTypes(studyPlaceID)
   }
 
-  changeMode(isGeneral: boolean) {
+  changeViewMode(isGeneral: boolean) {
     const type = this.schedule.info.type
     const typeName = this.schedule.info.typeName
     const studyPlaceID = this.schedule.info.studyPlace.id
 
     if (isGeneral) this.getGeneralSchedule(type, typeName, studyPlaceID)
     else this.getSchedule(type, typeName, studyPlaceID)
+  }
+
+  changeTimeMode(isTimeMode: boolean) {
+    this.isTimeMode = isTimeMode
+    this.timeViewMode$.next(isTimeMode)
   }
 }

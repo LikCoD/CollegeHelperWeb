@@ -4,6 +4,7 @@
     [maxScale]="scheduleService.maxYScale"
     [preferredMaxScale]="scheduleService.preferredMaxYSScale"
     (editMode)="isEditMode = $event"
+    (timeViewMode)="changeTimeMode($event)"
     (scale)="scheduleService.scaleY = $event"
     (generalViewMode)="changeViewMode($event)"
   ></app-schedule-top-bar>
@@ -12,13 +13,26 @@
     <div class="schedule-wrapper">
       <div class="schedule-container" [style.height.px]="maxHeight">
         <div class="empty-corner"></div>
-        <div class="markup">
+        <div class="markup" *ngIf="scheduleService.isTimeMode else lessonIndexesMarkup">
           <hr *ngFor="let time of schedule.info.times" [style.margin-top.px]="scheduleService.getTimeY(time)">
         </div>
-        <div class="time-container">
+        <ng-template #lessonIndexesMarkup>
+          <div class="markup">
+            <hr *ngFor="let index of schedule.info.indexes" [style.margin-top.px]="scheduleService.getLessonIndexY(index) - 5 * scheduleService.scaleY">
+          </div>
+        </ng-template>
+
+        <div class="time-container" *ngIf="scheduleService.isTimeMode else lessonIndexes">
           <p *ngFor="let time of schedule.info.times" class="time"
              [style.margin-top.px]="scheduleService.getTimeY(time) - 20">{{time | moment : ('datetime.time' | translate)}}</p>
         </div>
+        <ng-template #lessonIndexes>
+          <div class="time-container">
+            <p *ngFor="let index of schedule.info.indexes" class="time"
+               [style.margin-top.px]="scheduleService.getLessonIndexY(index) + 17.5 * scheduleService.scaleY">{{index}}</p>
+          </div>
+        </ng-template>
+
         <div class="weekdays-container">
           <p *ngFor="let i of days" class="weekday">{{weekdays[i % 7]}}</p>
         </div>

@@ -20,7 +20,7 @@ export class ViewComponent {
 
   maxDate: string = ""
 
-  isEditMode = true
+  isEditMode = false
 
   maxTime: moment.Moment
 
@@ -56,6 +56,10 @@ export class ViewComponent {
   }
 
   changeViewMode(isGeneral: boolean) {
-    this.scheduleService.changeMode(isGeneral)
+    this.scheduleService.changeViewMode(isGeneral)
+  }
+
+  changeTimeMode(isTimeMode: boolean) {
+    this.scheduleService.changeTimeMode(isTimeMode)
   }
 }

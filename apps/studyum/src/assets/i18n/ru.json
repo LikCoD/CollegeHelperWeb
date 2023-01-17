@@ -98,6 +98,8 @@
       "scale": "Масштаб",
       "general": "Основное",
       "actual": "Текущее",
+      "time": "Время",
+      "lessonIndex": "Таблица",
       "selectSubject": "Выбрать",
       "selectAll": "Выбрать все",
       "addLesson": "Добавить урок",

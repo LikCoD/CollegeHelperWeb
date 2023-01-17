@@ -98,6 +98,8 @@
       "scale": "Scale",
       "general": "General",
       "actual": "Actual",
+      "time": "Time",
+      "lessonIndex": "Table",
       "selectSubject": "Select",
       "selectAll": "Select all",
       "addLesson": "Add lesson",

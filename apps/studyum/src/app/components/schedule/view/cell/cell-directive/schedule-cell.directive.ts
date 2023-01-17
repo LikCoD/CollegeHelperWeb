@@ -16,6 +16,10 @@ export class ScheduleCellDirective{
     this.scheduleService.scale$.subscribe({
       next: _ => this.update(cell)
     })
+
+    this.scheduleService.timeViewMode$.subscribe({
+      next: _ => this.update(cell)
+    })
   }
 
   update(cell: Cell) {

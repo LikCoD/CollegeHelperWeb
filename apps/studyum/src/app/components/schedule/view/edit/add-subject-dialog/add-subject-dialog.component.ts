@@ -25,6 +25,7 @@ export class AddSubjectDialogComponent implements AfterViewInit {
       subject: "SUBJECT",
       primaryColor: "#F1F1F1",
       secondaryColor: "transparent",
+      lessonIndex: 0,
       startDate: moment().add(1, "days"),
       endDate: moment().add(1, "days")
     }

@@ -15,6 +15,7 @@ export interface Lesson {
   secondaryColor?: string;
   endDate: moment.Moment;
   startDate: moment.Moment;
+  lessonIndex: number;
   subject: string;
   group: string;
   teacher: string;
@@ -36,9 +37,15 @@ export interface ScheduleInfo {
   startWeekDate: moment.Moment;
   date: moment.Moment;
 
+
+  indexes: number[];
+  minLessonIndex: number;
+  maxLessonIndex: number;
+
   times: moment.Moment[];
-  maxTime: moment.Moment;
   minTime: moment.Moment;
+  maxTime: moment.Moment;
+
   daysNumber: number;
 }
 
@@ -51,5 +58,6 @@ export interface Schedule {
 export interface Cell {
   startDate: moment.Moment;
   endDate: moment.Moment;
+  lessonIndex: number;
   lessons: Lesson[];
 }
