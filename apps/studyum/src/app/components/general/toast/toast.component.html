@@ -1,7 +1,6 @@
 <ngb-toast
-  *ngIf="toast"
+  *ngIf="toast$ | async as toast"
   [autohide]="true"
   [delay]="2500"
-  (hidden)="close()">
-  {{ toast | titlecase }}
-</ngb-toast>
+  (hidden)="close()"
+[innerText]="toast"/>

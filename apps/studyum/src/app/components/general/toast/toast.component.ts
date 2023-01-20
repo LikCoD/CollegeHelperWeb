@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from "@angular/core"
 import {ToastService} from "../../../services/ui/toast.service"
+import {Observable} from "rxjs"
 
 @Component({
   selector: "app-toast",
@@ -9,7 +10,7 @@ import {ToastService} from "../../../services/ui/toast.service"
 })
 export class ToastComponent implements OnInit {
 
-  toast: string | null = null
+  toast$: Observable<string | null>
 
   constructor(private toastService: ToastService, private cdr: ChangeDetectorRef) {
   }
@@ -19,11 +20,6 @@ export class ToastComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.toastService.toast$.subscribe({
-      next: toast => {
-        this.toast = toast
-        this.cdr.detectChanges()
-      }
-    })
+    this.toast$ = this.toastService.toast$
   }
 }
