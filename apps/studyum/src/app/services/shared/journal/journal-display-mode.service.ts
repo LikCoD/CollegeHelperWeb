@@ -54,7 +54,7 @@ export class JournalDisplayModeService {
       }) ?? []
     }
 
-    let type = this.service.journal.info.studyPlace.lessonTypes.find(v => v.type == lesson.type)
+    let type = this.service.journal.info.studyPlace.lessonTypes.find(v => v.type === this.selectedStandaloneType?.type)
 
     let marks = lesson.marks
       ?.filter(v => this.mode == "general" || type?.standaloneMarks == null || (this.mode == "standalone" && type?.standaloneMarks?.find(t => t.mark == v.mark)))
@@ -72,7 +72,7 @@ export class JournalDisplayModeService {
   }
 
   showColumn = (date: JournalCell): boolean =>
-    this.mode !== "standalone" || this.selectedStandaloneType?.type === date.type
+    this.mode !== "standalone" || !!date.type?.includes(this.selectedStandaloneType?.type ?? "")
 
   cellColor(lesson: JournalCell): string {
     let colors = this.service.journal.info.studyPlace.journalColors

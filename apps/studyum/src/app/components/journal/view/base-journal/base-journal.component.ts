@@ -114,7 +114,7 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
       .find(t => t.type == this.modeService.selectedStandaloneType?.type)
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
-    let amount = this.collapseService.getCollapseAmount(row.cells.flat())
+    let amount = this.collapseService.getTypesAmount(row.cells)
 
     return row.marksAmount
       .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))

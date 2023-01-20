@@ -50,7 +50,7 @@ export class JournalColumnCellComponent implements OnInit {
   }
 
   get lessonType(): LessonType | undefined {
-    return this.studyPlace.lessonTypes.find(v => v.type === this.lesson.type)
+    return this.studyPlace.lessonTypes.find(v => !!this.lesson.type?.includes(v.type))
   }
 
   get marks(): string[] {

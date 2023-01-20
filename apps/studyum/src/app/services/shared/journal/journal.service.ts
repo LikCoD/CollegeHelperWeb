@@ -73,11 +73,11 @@ export class JournalService {
     }
 
     let journals = this.journal.rows
-      .filter(j => !!j.cells.flat(2).find(l => l.type === type))
+      .filter(j => !!j.cells.flat(2).find(l => l.type?.includes(type)))
       .map(r => {
         let j = <Journal>{dates: copyDates(this.journal.dates), rows: [r], info: this.journal.info}
         j.dates.forEach((m, mI) => m.forEach((d, dI) => d.forEach((l, lI) => {
-          l.type = r.cells[mI][dI][lI].type ?? ""
+          l.type = r.cells[mI][dI][lI].type?.find(v => v === type) ?? r.cells[mI][dI][lI].type?.at(0) ?? ""
         })))
         return j
       })

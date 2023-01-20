@@ -26,7 +26,7 @@ export interface JournalRow {
 
 export interface JournalCell {
   id?: string;
-  type?: string;
+  type?: string[];
   marks?: Mark[];
   absences?: Absence[];
   journalCellColor?: string;

@@ -84,7 +84,13 @@ export class JournalCollapseService {
 
   getCollapseAmount(lesson: JournalCell[] | JournalCell[][] | Lesson[] | Lesson[][]): number {
     if (this.modeService.mode !== "standalone") return lesson.flat().length
-    return lesson.flat().filter(v => this.modeService.selectedStandaloneType?.type === v.type).length
+    return lesson.flat().filter(v => v.type?.includes(this.modeService.selectedStandaloneType?.type ?? "")).length
+  }
+
+  getTypesAmount(lesson: JournalCell[] | JournalCell[][] | JournalCell[][][]): number {
+    if (this.modeService.mode !== "standalone") return lesson.flat().length
+    let sType = this.modeService.selectedStandaloneType?.type ?? ""
+    return lesson.flat(2).flatMap(l => l.type).reduce((r, v) => v === sType ? r + 1 : r, 0)
   }
 
   checkAdd = (lesson: Lesson[] | Lesson[][]): boolean => this.getCollapseAmount(lesson) > 1
@@ -127,7 +133,7 @@ export class JournalCollapseService {
   buildLesson(lessons: JournalCell[]): JournalCell {
     let selectedLessons = lessons.filter(l =>
       this.modeService.mode !== "standalone" ||
-      this.modeService.selectedStandaloneType?.type === l.type
+      !!l.type?.includes(this.modeService.selectedStandaloneType?.type ?? "")
     )
 
     let colors = this.service.journal.info.studyPlace.journalColors
