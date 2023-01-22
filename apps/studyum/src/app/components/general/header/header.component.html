@@ -17,8 +17,8 @@
     </div>
 
     <div>
-      <a routerLink="user" class="username">{{user.login}}</a>
-      <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="user">
+      <a routerLink="profile" class="username">{{user.login}}</a>
+      <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
     </div>
   </ng-container>
   <ng-template #notLoggedIn>
@@ -29,8 +29,8 @@
     </div>
 
     <div>
-      <button type="button" class="btn btn-outline-light" routerLink="login">{{'header.login' | translate}}</button>
-      <button type="button" class="btn btn-outline-light" routerLink="signup">{{'header.signUp' | translate}}</button>
+      <button type="button" class="btn btn-outline-light" routerLink="auth/login">{{'header.login' | translate}}</button>
+      <button type="button" class="btn btn-outline-light" routerLink="auth/signup">{{'header.signUp' | translate}}</button>
     </div>
   </ng-template>
 </nav>

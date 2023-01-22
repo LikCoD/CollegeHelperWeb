@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <a routerLink="withToken" class="use-code">{{'user.login.useCode' | translate}}</a>
+  <a routerLink="code" class="use-code">{{'user.login.useCode' | translate}}</a>
   <div class="form-floating">
     <input id="login" class="form-control" formControlName="login" placeholder="Login">
     <label for="login">{{'user.login.userLogin' | translate}}</label>
@@ -44,7 +44,7 @@
   </div>
 
   <div class="login">
-    <a routerLink="/login">{{'user.login.login' | translate}}</a>
+    <a routerLink="/auth/login">{{'user.login.login' | translate}}</a>
   </div>
 
 </form>
