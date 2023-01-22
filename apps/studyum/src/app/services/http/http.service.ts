@@ -1,20 +1,17 @@
 import {Injectable} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
-import {Router} from "@angular/router"
-import {map, Observable} from "rxjs"
+import {Observable} from "rxjs"
 import {AcceptUser, User} from "../../models/user"
 import {StudyPlace} from "../../models/general"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class HttpService {
+  API_PATH = "/api"
+  STORAGE_PATH = "/storage"
 
-  API_PATH = '/api';
-  STORAGE_PATH = '/storage';
-
-  constructor(private http: HttpClient, private router: Router) {
-  }
+  constructor(private http: HttpClient) {}
 
   signUp(data: any): Observable<User> {
     return this.http.post<User>(`${this.API_PATH}/user/signup`, data)
@@ -23,7 +20,6 @@ export class HttpService {
   signUpStage1(data: any): Observable<User> {
     return this.http.put<User>(`${this.API_PATH}/user/signup/stage1`, data)
   }
-
 
   signUpWithCode(data: any): Observable<User> {
     return this.http.post<User>(`${this.API_PATH}/user/signup/withToken`, data)
@@ -42,17 +38,11 @@ export class HttpService {
   }
 
   signOut(): Observable<undefined> {
-    return this.http.delete(`${this.API_PATH}/user/signout`).pipe(map(_ => {
-      this.router.navigate(["/login"])
-      return undefined
-    }))
+    return this.http.delete<undefined>(`${this.API_PATH}/user/signout`)
   }
 
   revokeToken(): Observable<undefined> {
-    return this.http.delete(`${this.API_PATH}/user/revoke`).pipe(map(_ => {
-      this.router.navigate(["/login"])
-      return undefined
-    }))
+    return this.http.delete<undefined>(`${this.API_PATH}/user/revoke`)
   }
 
   putToken(token: string): Observable<User> {
@@ -60,7 +50,9 @@ export class HttpService {
   }
 
   getStudyPlaces(restricted = true): Observable<StudyPlace[]> {
-    return this.http.get<StudyPlace[]>(`${this.API_PATH}/studyPlaces?restricted=${restricted}`)
+    return this.http.get<StudyPlace[]>(
+      `${this.API_PATH}/studyPlaces?restricted=${restricted}`
+    )
   }
 
   createCode(data: any): Observable<any> {
@@ -68,15 +60,15 @@ export class HttpService {
   }
 
   getAcceptUsers(): Observable<AcceptUser[]> {
-    return this.http.get<AcceptUser[]>(`${this.API_PATH}/user/accept`);
+    return this.http.get<AcceptUser[]>(`${this.API_PATH}/user/accept`)
   }
 
   acceptUser(id: string) {
-    return this.http.post<string>(`${this.API_PATH}/user/accept`, `"${id}"`);
+    return this.http.post<string>(`${this.API_PATH}/user/accept`, `"${id}"`)
   }
 
   blockUser(id: string) {
-    return this.http.post<string>(`${this.API_PATH}/user/block`, `"${id}"`);
+    return this.http.post<string>(`${this.API_PATH}/user/block`, `"${id}"`)
   }
 
   uploadImage(formData: FormData): Observable<{url: string}> {

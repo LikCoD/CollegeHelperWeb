@@ -4,21 +4,22 @@ import {map, Observable, ReplaySubject} from "rxjs"
 import {Router} from "@angular/router"
 import {AcceptUser, User} from "../../models/user"
 
-@Injectable({providedIn: 'root'})
+@Injectable({providedIn: "root"})
 export class UserService {
-
-  user$: ReplaySubject<User | undefined> = new ReplaySubject<User | undefined>(1)
+  user$: ReplaySubject<User | undefined> = new ReplaySubject<User | undefined>(
+    1
+  )
 
   constructor(private httpService: HttpService, private router: Router) {
     httpService.getUser().subscribe({
-      next: value => {
-        if (value.type == "") this.router.navigate(["signup/stage1"])
+      next: (value) => {
+        if (value.type == "") this.router.navigate(["auth/signup/stage1"])
 
         this.user$.next(value)
       },
-      error: _ => {
+      error: (_) => {
         this.user$.next(undefined)
-      }
+      },
     })
   }
 
@@ -27,81 +28,99 @@ export class UserService {
   }
 
   signUp(data: any) {
-    this.httpService.signUp(data).pipe(map(value => {
-      this.router.navigate(["signup/stage1"])
+    this.httpService
+      .signUp(data)
+      .pipe(
+        map((value) => {
+          this.router.navigate(["auth/signup/stage1"])
 
-      return value
-    })).subscribe({
-      next: value => {
-        this.user$.next(value)
-      }
-    })
+          return value
+        })
+      )
+      .subscribe({
+        next: (value) => {
+          this.user$.next(value)
+        },
+      })
   }
 
   signUpStage1(data: any) {
-    this.httpService.signUpStage1(data).pipe(map(value => {
-      this.router.navigate([""])
+    this.httpService
+      .signUpStage1(data)
+      .pipe(
+        map((value) => {
+          this.router.navigate([""])
 
-      return value
-    })).subscribe({
-      next: value => {
-        this.user$.next(value)
-      }
-    })
+          return value
+        })
+      )
+      .subscribe({
+        next: (value) => {
+          this.user$.next(value)
+        },
+      })
   }
 
   signUpWithCode(data: any) {
     this.httpService.signUpWithCode(data).subscribe({
-      next: value => {
+      next: (value) => {
         this.router.navigate([""])
 
         this.user$.next(value)
-      }
+      },
     })
   }
 
   login(credentials: any) {
-    this.httpService.login(credentials).pipe(map((value) => {
-      if (value.type == "") this.router.navigate(["signup/stage1"])
-      else this.router.navigate([""])
+    this.httpService
+      .login(credentials)
+      .pipe(
+        map((value) => {
+          if (value.type == "") this.router.navigate(["auth/signup/stage1"])
+          else this.router.navigate([""])
 
-      return value
-    })).subscribe({
-      next: value => {
-        this.user$.next(value)
-      }
-    })
+          return value
+        })
+      )
+      .subscribe({
+        next: (value) => {
+          this.user$.next(value)
+        },
+      })
   }
 
   update(data: any) {
     this.httpService.updateUser(data).subscribe({
-      next: value => {
+      next: (value) => {
         this.user$.next(value)
-      }
+      },
     })
   }
+
   signOut() {
     this.httpService.signOut().subscribe({
-      next: value => {
-        this.user$.next(value)
-      }
+      next: (_) => {
+        this.user$.next(undefined)
+        this.router.navigate([""])
+      },
     })
   }
 
   revokeToken() {
     this.httpService.revokeToken().subscribe({
-      next: value => {
-        this.user$.next(value)
-      }
+      next: (_) => {
+        this.user$.next(undefined)
+        this.router.navigate(["/"])
+      },
     })
   }
 
   putToken(token: string) {
     this.httpService.putToken(token).subscribe({
-      next: value => {
+      next: (value) => {
         this.user$.next(value)
         this.router.navigate(["/"])
-      }
+      },
     })
   }
 
@@ -129,6 +148,6 @@ export class UserService {
     const formData = new FormData()
     formData.append("file", file, file.name)
 
-    return this.httpService.uploadImage(formData).pipe(map(u => u.url))
+    return this.httpService.uploadImage(formData).pipe(map((u) => u.url))
   }
 }

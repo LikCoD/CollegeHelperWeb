@@ -1,10 +1,10 @@
-<section>
-  <ng-container *ngFor='let card of cards'>
-  <app-home-card
-    *ngIf='checkPermissions(card.permissions)'
-    [title]='card.title'
-    [imageUrl]='card.url'
-    [routerLink]='card.route'
-  ></app-home-card>
+<section *ngrxLet="user$ as user">
+  <ng-container *ngFor="let card of cards">
+    <app-home-card
+      *ngIf="checkPermissions(user, card.permissions)"
+      [title]="card.title"
+      [imageUrl]="card.url"
+      [routerLink]="card.route"
+    ></app-home-card>
   </ng-container>
 </section>

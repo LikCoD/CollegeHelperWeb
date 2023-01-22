@@ -19,6 +19,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
 import {MomentJsInterceptor} from "./interseptors/moment-js.interceptor"
 import {HttpErrorInterceptor} from "./interseptors/http-error.interceptor"
 import {ToastComponent} from "./components/general/toast/toast.component"
+import {LetModule} from "@ngrx/component"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     NgbModule,
+    LetModule,
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},
