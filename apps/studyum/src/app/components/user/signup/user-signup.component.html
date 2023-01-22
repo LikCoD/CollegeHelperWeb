@@ -1,50 +1,59 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <a routerLink="code" class="use-code">{{'user.login.useCode' | translate}}</a>
-  <div class="form-floating">
-    <input id="login" class="form-control" formControlName="login" placeholder="Login">
-    <label for="login">{{'user.login.userLogin' | translate}}</label>
-
-    <app-error-info [property]="form.get('login')!!"></app-error-info>
+<main>
+  <div class="top-block">
+    <h2 [innerText]="'user.login.signUp' | translate"></h2>
+    <div class="use-code-block" routerLink="code">
+      <p class="use-code">{{'user.login.useCode' | translate}}</p>
+      <div class="code-block">000000</div>
+    </div>
   </div>
+  <app-glassmorphism-frame
+    [color]="'rgba(255,255,255,0.2)'"
+    [topColor]="'rgb(232,125,138)'"
+    [bottomColor]="'rgb(165,217,255)'">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-floating top-group">
+        <input id="login" class="form-control" formControlName="login" placeholder="Login">
+        <label for="login">{{'user.login.userLogin' | translate}}</label>
 
-  <div class="form-floating">
-    <input id="name" class="form-control" formControlName="name" placeholder="Login">
-    <label for="name">{{'user.login.name' | translate}}</label>
+        <app-error-info [property]="form.get('login')!!"></app-error-info>
+      </div>
 
-    <app-error-info [property]="form.get('name')!!"></app-error-info>
-  </div>
+      <div class="form-floating">
+        <input id="name" class="form-control" formControlName="name" placeholder="Login">
+        <label for="name">{{'user.login.name' | translate}}</label>
 
-  <div class="form-floating">
-    <input id="email" class="form-control" formControlName="email" placeholder="Email">
-    <label for="email">{{'user.login.email' | translate}}</label>
+        <app-error-info [property]="form.get('name')!!"></app-error-info>
+      </div>
 
-    <app-error-info [property]="form.get('email')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
-    <label for="password">{{'user.login.password' | translate}}</label>
+      <div class="form-floating">
+        <input id="email" class="form-control" formControlName="email" placeholder="Email">
+        <label for="email">{{'user.login.email' | translate}}</label>
 
-    <app-error-info [property]="form.get('password')!!"></app-error-info>
-  </div>
+        <app-error-info [property]="form.get('email')!!"></app-error-info>
+      </div>
+      <div class="form-floating">
+        <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
+        <label for="password">{{'user.login.password' | translate}}</label>
 
-  <div class="form-floating">
-    <input id="passwordConfirm" class="form-control" type="password" formControlName="passwordConfirm"
-           placeholder="Confirm password">
-    <label for="passwordConfirm">{{'user.login.confirmPassword' | translate}}</label>
+        <app-error-info [property]="form.get('password')!!"></app-error-info>
+      </div>
 
-    <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
-  </div>
+      <div class="form-floating">
+        <input id="passwordConfirm" class="form-control" type="password" formControlName="passwordConfirm"
+               placeholder="Confirm password">
+        <label for="passwordConfirm">{{'user.login.confirmPassword' | translate}}</label>
+
+        <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
+      </div>
 
 
-  <div class="input-group">
-    <button type="submit" class="btn btn-outline-light" [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
-    <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
-      <img src="assets/google-logo.svg" alt="google">
-    </button>
-  </div>
-
-  <div class="login">
-    <a routerLink="/auth/login">{{'user.login.login' | translate}}</a>
-  </div>
-
-</form>
+      <div class="input-group bottom-group">
+        <button type="submit" class="btn btn-outline-light"
+                [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
+        <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
+          <img src="assets/google-logo.svg" alt="google">
+        </button>
+      </div>
+    </form>
+  </app-glassmorphism-frame>
+</main>

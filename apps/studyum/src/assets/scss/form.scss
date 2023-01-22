@@ -1,0 +1,48 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-flow: column;
+}
+
+h2 {
+  font-family: 'Comfortaa', serif;
+  font-weight: 400;
+
+  color: #EFEFEF;
+  
+  margin-bottom: 6px;
+}
+
+form {
+  width: 300px;
+
+  > * {
+    width: 100%;
+
+    margin: 10px 0;
+  }
+
+  button[type="submit"] {
+    width: 260px;
+  }
+
+  .google {
+    padding: 0;
+
+    img {
+      width: 38px;
+      height: 38px;
+    }
+  }
+}
+
+.top-group {
+  margin-top: 0 !important;
+}
+
+.bottom-group {
+  margin-top: 30px !important;
+  margin-bottom: 0 !important;
+}

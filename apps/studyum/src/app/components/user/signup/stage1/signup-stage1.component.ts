@@ -6,12 +6,14 @@ import {User} from "../../../../models/user"
 import {GeneralService} from "../../../../services/shared/general.service"
 
 @Component({
-  selector: 'app-stage1',
-  templateUrl: './signup-stage1.component.html',
-  styleUrls: ['./signup-stage1.component.scss']
+  selector: "app-stage1",
+  templateUrl: "./signup-stage1.component.html",
+  styleUrls: [
+    "./signup-stage1.component.scss",
+    "../../../../../assets/scss/form.scss",
+  ],
 })
 export class SignupStage1Component {
-
   form = new FormGroup({
     studyPlaceId: new FormControl("", Validators.required),
     type: new FormControl("group", Validators.required),
@@ -21,13 +23,15 @@ export class SignupStage1Component {
   selectedStudyPlace = ""
   showTypeName = true
 
-  constructor(public userService: UserService, public generalService: GeneralService) {
-  }
+  constructor(
+    public userService: UserService,
+    public generalService: GeneralService
+  ) {}
 
   studyPlaceChange(event: Event, studyPlaces: StudyPlace[]) {
     let input = event.target as HTMLInputElement
 
-    let studyPlace = studyPlaces.find(value => value.name == input.value)
+    let studyPlace = studyPlaces.find((value) => value.name == input.value)
     if (studyPlace == undefined) {
       input.value = this.selectedStudyPlace
       return
@@ -50,5 +54,4 @@ export class SignupStage1Component {
   submit() {
     this.userService.signUpStage1(this.form.value)
   }
-
 }

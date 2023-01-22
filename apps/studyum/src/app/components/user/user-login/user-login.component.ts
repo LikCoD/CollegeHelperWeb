@@ -4,9 +4,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {continueViaGoogle} from "../../../utils"
 
 @Component({
-  selector: 'app-user-login',
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.scss']
+  selector: "app-user-login",
+  templateUrl: "./user-login.component.html",
+  styleUrls: [
+    "./user-login.component.scss",
+    "../../../../assets/scss/form.scss",
+  ],
 })
 export class UserLoginComponent {
   form = new FormGroup({
@@ -14,8 +17,7 @@ export class UserLoginComponent {
     password: new FormControl("", Validators.required),
   })
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   submit() {
     this.userService.login(this.form.value)
