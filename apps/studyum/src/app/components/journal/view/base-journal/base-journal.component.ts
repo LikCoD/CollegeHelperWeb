@@ -5,10 +5,13 @@ import {
   HostListener,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
 } from "@angular/core"
 import {Journal, JournalCell, JournalRow} from "../../../../models/journal"
-import {JournalCellService, Key} from "../../../../services/shared/journal/journal.cell.service"
+import {
+  JournalCellService,
+  Key,
+} from "../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "./base-journal-cell/journal-cell.component"
@@ -21,7 +24,7 @@ import {JournalLessonService} from "../../../../services/shared/journal/journal-
   selector: "app-base-journal",
   templateUrl: "./base-journal.component.html",
   styleUrls: ["./base-journal.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseJournalComponent implements OnDestroy, OnInit {
   @Input() journal: Journal
@@ -82,58 +85,68 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
   @HostListener("document:paste", ["$event"])
   paste(e: ClipboardEvent) {
     let tagName = (e.target as HTMLElement).tagName
-    if (this.cellService.selectedDate$.value === null || tagName === "INPUT") return
+    if (this.cellService.selectedDate$.value === null || tagName === "INPUT")
+      return
 
     this.lessonService.parseTextColumn(e.clipboardData?.getData("text") ?? "")
   }
 
-
   getAverage(row: JournalRow): Entry {
-    if (row.numericMarksAmount == 0) return {text: "-", color: this.journalColors.general}
-
     let locale = this.settingService.localeCode
     return {
-      text: (row.numericMarksSum / row.numericMarksAmount).toLocaleString(locale, {minimumFractionDigits: 2}),
-      color: this.journalColors.general
+      text: row.averageMark.toLocaleString(locale, {minimumFractionDigits: 2}),
+      color: this.journalColors.general,
     }
   }
 
   marksAmountText(): string[] {
-    let type = this.journal.info.studyPlace.lessonTypes
-      .find(t => t.type == this.modeService.selectedStandaloneType?.type)
+    let type = this.journal.info.studyPlace.lessonTypes.find(
+      (t) => t.type == this.modeService.selectedStandaloneType?.type
+    )
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
 
     return this.journal.rows[0].marksAmount
-      .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
-      .map(v => v.mark)
+      .filter(
+        (v) => this.mode == "general" || !!marks.find((m) => m.mark == v.mark)
+      )
+      .map((v) => v.mark)
   }
 
   marksAmount(row: JournalRow): Entry[] {
-    let type = this.journal.info.studyPlace.lessonTypes
-      .find(t => t.type == this.modeService.selectedStandaloneType?.type)
+    let type = this.journal.info.studyPlace.lessonTypes.find(
+      (t) => t.type == this.modeService.selectedStandaloneType?.type
+    )
 
     let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
     let amount = this.collapseService.getTypesAmount(row.cells)
 
     return row.marksAmount
-      .filter(v => this.mode == "general" || !!marks.find(m => m.mark == v.mark))
-      .map(v => <Entry>{
-        text: this.mode === "standalone" ? `${v.amount.toString()}/${amount}` : v.amount.toString(),
-        color: this.journalColors.general
-      })
+      .filter(
+        (v) => this.mode == "general" || !!marks.find((m) => m.mark == v.mark)
+      )
+      .map(
+        (v) =>
+          <Entry>{
+            text:
+              this.mode === "standalone"
+                ? `${v.amount.toString()}/${amount}`
+                : v.amount.toString(),
+            color: this.journalColors.general,
+          }
+      )
   }
 
   monthLessons(journal: Journal, i: number): JournalCell[][][] {
-    return journal.rows.map(r => r.cells[i])
+    return journal.rows.map((r) => r.cells[i])
   }
 
   ngOnInit(): void {
     this.modeService.mode$.subscribe({
-      next: mode => {
+      next: (mode) => {
         this.mode = mode
         this.cdr.detectChanges()
-      }
+      },
     })
   }
 }
