@@ -21,6 +21,20 @@ input:read-only:focus-visible {
 
 .subject-name {
   font-weight: bold;
+  grid-area: a;
+}
+
+.teacher-name {
+  grid-area: b;
+}
+
+.room-name {
+  grid-area: c;
+}
+
+.group-name {
+  grid-area: d;
+  text-align: right;
 }
 
 main {
@@ -31,13 +45,18 @@ main {
 }
 
 form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+          "a a"
+          "b b"
+          "c d";
+
 
   flex-grow: 1;
   flex-basis: 0;
 
   height: 100%;
+  width: 100%;
   min-width: 0;
 
   padding: 10px 0;
