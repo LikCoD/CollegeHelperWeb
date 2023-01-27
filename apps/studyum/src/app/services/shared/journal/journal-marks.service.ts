@@ -35,7 +35,7 @@ export class JournalMarksService {
       mark.lessonID = lesson.id
 
       this.http.addMark(mark).subscribe({
-        next: (response) => this.refresh(point, response),
+        next: (response) => this.refresh(p, response),
       })
     })
   }
@@ -70,7 +70,7 @@ export class JournalMarksService {
       absence.lessonID = lesson.id!!
 
       this.http.setAbsence(absence).subscribe({
-        next: (response) => this.refresh(point, response),
+        next: (response) => this.refresh(p, response),
       })
     })
   }
