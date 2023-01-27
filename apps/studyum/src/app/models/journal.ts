@@ -12,17 +12,19 @@ export interface JournalInfo {
   time: moment.Moment
 }
 
+export interface Map {
+  [id: string]: number
+}
+
 export interface JournalRow {
   id: string
   title: string
   cells: JournalCell[][][]
   color: string
   averageMark: number
-  numericMarksSum: number
-  numericMarksAmount: number
   absencesAmount: number
   absencesTime: number
-  marksAmount: MarkAmount[]
+  marksAmount: Map
 }
 
 export interface JournalCell {
@@ -33,6 +35,13 @@ export interface JournalCell {
   journalCellColor?: string
 
   point: Point
+  indexes?: JournalCellIndexes
+}
+
+export interface JournalCellIndexes {
+  monthIndex: number
+  dayIndex: number
+  lessonIndex: number
 }
 
 export interface MarkAmount {
@@ -67,4 +76,11 @@ export interface Absence {
   lessonID: string
   studyPlaceID?: string
   id?: string
+}
+
+export interface CellResponse {
+  cell: JournalCell
+  average: number
+  markAmount: Map
+  rowColor: string
 }

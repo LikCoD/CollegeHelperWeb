@@ -36,14 +36,14 @@
       </app-base-journal-cell>
     </div>
     <ng-container *ngIf="mode != 'absences' && showAmount">
-    <div *ngFor="let markText of marksAmountText(); let i = index">
-      <p>{{markText}}</p>
-      <app-base-journal-cell
-        *ngFor="let row of journal.rows"
-        [entries]="[marksAmount(row)[i]]"
-        [color]="row.color">
-      </app-base-journal-cell>
-    </div>
+      <div *ngFor="let markText of availableMarks();">
+        <p>{{markText}}</p>
+        <app-base-journal-cell
+          *ngFor="let row of journal.rows"
+          [entries]="[marksAmount(row, markText)]"
+          [color]="row.color">
+        </app-base-journal-cell>
+      </div>
     </ng-container>
   </section>
 </ng-container>

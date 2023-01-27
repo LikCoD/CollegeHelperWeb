@@ -2,15 +2,15 @@
   [appPopup]="popper"
   [show]="isLastSelected && key === 'null'"
   [ngClass]="{focused: isSelected}"
-  [entries]="entries(lesson)"
-  [color]="lessonColor(lesson)"
+  [entries]="entries"
+  [color]="color"
   [showPopup]="!isLastSelected"
-  (click)="onCellClick($event, lesson)"
+  (click)="onCellClick($event)"
 ></app-base-journal-cell>
 
 <popper-content #popper>
   <ng-container
-    *ngIf="isLastSelected && key === 'null' && !editable && !!lesson.id && !isPopupOpen() && openLessonInfoPopup()"
+    *ngIf="isLastSelected && key === 'null' && !editable && !!cell.id && !isPopupOpen() && openLessonInfoPopup()"
     [ngTemplateOutlet]="lessonInfoTemplate"
   ></ng-container>
   <ng-container
@@ -23,7 +23,7 @@
   <ng-container>
     <app-lesson-info
       (close)="clearSelectedPoints()"
-      [lessonID]="lesson.id ?? ''"
+      [lessonID]="cell.id ?? ''"
     ></app-lesson-info>
   </ng-container>
 </ng-template>
@@ -31,7 +31,7 @@
 <ng-template #selectMarkTemplate>
   <app-select-mark
     (close)="clearSelectedPoints()"
-    [lesson]="lesson"
+    [lesson]="cell"
     [marks]="marks"
     [absenceMark]="studyPlace.absenceMark"
     [standaloneMarks]="standaloneMarks"

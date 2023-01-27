@@ -15,10 +15,11 @@ import {
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "./base-journal-cell/journal-cell.component"
-import {JournalColors} from "../../../../models/general"
+import {JournalColors, MarkType} from "../../../../models/general"
 import {SettingsService} from "../../../../services/ui/settings.service"
 import {DialogService} from "../../../../services/ui/dialog.service"
 import {JournalLessonService} from "../../../../services/shared/journal/journal-lesson.service"
+import {JournalMarksService} from "../../../../services/shared/journal/journal-marks.service"
 
 @Component({
   selector: "app-base-journal",
@@ -38,6 +39,7 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
     private settingService: SettingsService,
     private modalService: DialogService,
     private lessonService: JournalLessonService,
+    private marksService: JournalMarksService,
     private cdr: ChangeDetectorRef
   ) {
     this.modalService.width = window.innerWidth
@@ -99,42 +101,25 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
     }
   }
 
-  marksAmountText(): string[] {
-    let type = this.journal.info.studyPlace.lessonTypes.find(
-      (t) => t.type == this.modeService.selectedStandaloneType?.type
-    )
+  availableMarks(): string[] {
+    if (this.modeService.mode === "absences") return []
 
-    let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
+    const types = this.journal.info.studyPlace.lessonTypes
+    let marks: MarkType[] =
+      this.modeService.mode === "general"
+        ? types.flatMap((lt) =>
+            (lt.marks ?? []).concat(lt.standaloneMarks ?? [])
+          )
+        : types.flatMap((lt) => lt.standaloneMarks ?? [])
 
-    return this.journal.rows[0].marksAmount
-      .filter(
-        (v) => this.mode == "general" || !!marks.find((m) => m.mark == v.mark)
-      )
-      .map((v) => v.mark)
+    return marks.map((m) => m.mark).filter((m, i, a) => a.indexOf(m) === i) //distinct
   }
 
-  marksAmount(row: JournalRow): Entry[] {
-    let type = this.journal.info.studyPlace.lessonTypes.find(
-      (t) => t.type == this.modeService.selectedStandaloneType?.type
-    )
-
-    let marks = type?.standaloneMarks ? type.standaloneMarks : type?.marks ?? []
-    let amount = this.collapseService.getTypesAmount(row.cells)
-
-    return row.marksAmount
-      .filter(
-        (v) => this.mode == "general" || !!marks.find((m) => m.mark == v.mark)
-      )
-      .map(
-        (v) =>
-          <Entry>{
-            text:
-              this.mode === "standalone"
-                ? `${v.amount.toString()}/${amount}`
-                : v.amount.toString(),
-            color: this.journalColors.general,
-          }
-      )
+  marksAmount(row: JournalRow, mark: string): Entry {
+    return {
+      text: row.marksAmount[mark]?.toString() ?? "0",
+      color: this.journal.info.studyPlace.journalColors.general,
+    }
   }
 
   monthLessons(journal: Journal, i: number): JournalCell[][][] {

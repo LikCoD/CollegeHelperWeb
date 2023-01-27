@@ -14,7 +14,6 @@ import {CellExpandComponent} from "../components/standalones/popups/cell-expand/
 import {JournalCellComponent} from "../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
 import {BaseJournalComponent} from "../components/journal/view/base-journal/base-journal.component"
 import {TranslateModule} from "@ngx-translate/core"
-import {HttpClient} from "@angular/common/http"
 import {SharedModule} from "./shared.module"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {CommonModule} from "@angular/common"
@@ -28,7 +27,6 @@ import {BaseJournalDateItemComponent} from "../components/journal/view/base-jour
 import {BaseJournalTopActionBarComponent} from "../components/journal/view/base-journal/base-journal-top-action-bar/base-journal-top-action-bar.component"
 import {LessonInfoComponent} from "../components/standalones/popups/lesson-info/lesson-info.component"
 import {TextDirective} from "../../../../../libs/auto-color/src/lib/text.directive"
-import {TranslateHttpLoader} from "@ngx-translate/http-loader"
 import {JournalService} from "../services/shared/journal/journal.service"
 import {JournalCollapseService} from "../services/shared/journal/journal-collapse.service"
 import {JournalCellService} from "../services/shared/journal/journal.cell.service"
@@ -50,10 +48,6 @@ const routes: Routes = [
     canActivate: [NotLoginGuard],
   },
 ]
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http)
-}
 
 @NgModule({
   declarations: [
@@ -87,6 +81,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalsModule,
     NgxPopperjsModule,
     TextDirective,
+    ModalsModule,
   ],
   providers: [
     JournalService,

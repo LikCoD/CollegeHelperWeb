@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from "@angular/core"
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild,
+} from "@angular/core"
 import {Absence, JournalCell, Mark} from "../../../../models/journal"
 import {AbsenceControlComponent} from "./enteries/absence-control.component"
 import {JournalMarksService} from "../../../../services/shared/journal/journal-marks.service"
@@ -7,7 +16,7 @@ import {Point} from "../../../../services/shared/journal/journal.cell.service"
 @Component({
   selector: "app-select-mark",
   templateUrl: "./select-mark.component.html",
-  styleUrls: ["./select-mark.component.scss"]
+  styleUrls: ["./select-mark.component.scss"],
 })
 export class SelectMarkComponent implements AfterViewInit {
   @Input() lesson: JournalCell
@@ -31,8 +40,7 @@ export class SelectMarkComponent implements AfterViewInit {
   @ViewChild("markInput") markInput: ElementRef<HTMLInputElement>
   @ViewChild("absence") absence: AbsenceControlComponent
 
-  constructor(private service: JournalMarksService) {
-  }
+  constructor(private service: JournalMarksService) {}
 
   get point(): Point {
     return this.lesson.point!!
@@ -57,7 +65,7 @@ export class SelectMarkComponent implements AfterViewInit {
     let mark: Mark = {
       mark: mark_,
       studentID: this.userId,
-      lessonID: this.lesson!!.id
+      lessonID: this.lesson!!.id,
     }
     this.service.addMark(this.point, mark)
   }
@@ -94,14 +102,17 @@ export class SelectMarkComponent implements AfterViewInit {
   }
 
   actionButtons() {
-    return (this.lesson.marks ?? []).concat(this.addMarkEl, this.removeMarkEl).map(v => {
-      v.toString = () => v.mark
-      return v
-    })
+    return (this.lesson.marks ?? [])
+      .concat(this.addMarkEl, this.removeMarkEl)
+      .map((v) => {
+        v.toString = () => v.mark
+        return v
+      })
   }
 
   actionSelect(mark: Mark) {
-    if (mark == this.removeMarkEl) this.service.truncate(this.point, this.lesson.marks ?? [])
+    if (mark == this.removeMarkEl)
+      this.service.truncate(this.point, this.lesson.marks ?? [])
 
     this.selectedMark = mark
   }
@@ -113,7 +124,12 @@ export class SelectMarkComponent implements AfterViewInit {
 
   editAbsence(time: number | null): void {
     let id = this.lesson.absences!![0].id
-    let absence = <Absence>{id: id, time: time, lessonID: this.lesson.id, studentID: ""}
+    let absence = <Absence>{
+      id: id,
+      time: time,
+      lessonID: this.lesson.id,
+      studentID: "",
+    }
     this.service.editAbsence(this.point, absence)
   }
 
