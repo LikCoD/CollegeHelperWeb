@@ -2,21 +2,19 @@ import {Injectable} from "@angular/core"
 import {JournalDisplayModeService} from "./journal-display-mode.service"
 import {BehaviorSubject} from "rxjs"
 import {Lesson} from "../../../models/schedule"
+import {KeyboardService} from "../keyboard.service"
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class JournalCellService {
-  key$ = new BehaviorSubject<Key>("null")
   points$ = new BehaviorSubject<Point[]>([])
   selectedDate$ = new BehaviorSubject<Lesson | null>(null)
 
-  constructor(private modeService: JournalDisplayModeService) {
-  }
-
-  set key(key: Key) {
-    this.key$.next(key)
-  }
+  constructor(
+    private modeService: JournalDisplayModeService,
+    private keyboardService: KeyboardService
+  ) {}
 
   get lastSelectedPoint(): Point {
     return this.points$.value[this.points$.value.length - 1]
@@ -33,7 +31,9 @@ export class JournalCellService {
   }
 
   pointIndex(point: Point) {
-    return this.points$.value.findIndex(p => p.x === point.x && p.y === point.y)
+    return this.points$.value.findIndex(
+      (p) => p.x === point.x && p.y === point.y
+    )
   }
 
   moveBy(x: number, y: number): void {
@@ -45,13 +45,15 @@ export class JournalCellService {
   }
 
   addPoint(point: Point): void {
-    if (this.key$.value === "null") {
+    if (this.keyboardService.key === "null") {
       this.points$.next([{...point}])
       return
     }
 
-    if (this.key$.value === "shift") {
-      let squarePoints = this.calcSquareSelector(this.lastSelectedPoint, {...point})
+    if (this.keyboardService.key === "shift") {
+      let squarePoints = this.calcSquareSelector(this.lastSelectedPoint, {
+        ...point,
+      })
       this.points$.next([...this.points$.value, ...squarePoints])
       return
     }
@@ -87,9 +89,16 @@ export class JournalCellService {
     let points = new Array<Point>()
     for (let x = from.x; x <= to.x; x++) {
       for (let y = from.y; y <= to.y; y++) {
-        const isPointSelected = !!this.points$.value.find(p => p.x == x && p.y == y)
+        const isPointSelected = !!this.points$.value.find(
+          (p) => p.x == x && p.y == y
+        )
         const isColumnShown = this.modeService.showColumnByPoint(x, y)
-        if (isPointSelected || (x == lastPoint.x && y == lastPoint.y) || !isColumnShown) continue
+        if (
+          isPointSelected ||
+          (x == lastPoint.x && y == lastPoint.y) ||
+          !isColumnShown
+        )
+          continue
 
         points.push({x: x, y: y})
       }
@@ -105,4 +114,4 @@ export interface Point {
   y: number
 }
 
-export type Key = ("shift" | "control" | "null")
+export type Key = "shift" | "control" | "null"

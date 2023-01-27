@@ -3,11 +3,14 @@ import {ScheduleSubjectComponent} from "../schedule-subject/schedule-subject.com
 import {ScheduleService} from "../../../../services/shared/schedule.service"
 import {Cell, Lesson} from "../../../../models/schedule"
 import {DialogService} from "../../../../services/ui/dialog.service"
+import {KeyboardService} from "../../../../services/shared/keyboard.service"
+import {Observable} from "rxjs"
+import {Key} from "../../../../services/shared/journal/journal.cell.service"
 
 @Component({
   selector: "app-schedule-cell",
   templateUrl: "./cell.component.html",
-  styleUrls: ["./cell.component.scss"]
+  styleUrls: ["./cell.component.scss"],
 })
 export class CellComponent implements OnInit {
   @Input() cell: Cell
@@ -22,20 +25,30 @@ export class CellComponent implements OnInit {
   selectedLessons: Lesson[] | null
   multiSelect: boolean = false
 
-  @ViewChild("selectSubjectTemplate", {static: true}) selectSubjectRef: ElementRef
-  @ViewChild("manageSubjectTemplate", {static: true}) manageSubjectRef: ElementRef
+  key$: Observable<Key>
+
+  @ViewChild("selectSubjectTemplate", {static: true})
+  selectSubjectRef: ElementRef
+  @ViewChild("manageSubjectTemplate", {static: true})
+  manageSubjectRef: ElementRef
 
   @ViewChild("subject") subjectElement: ScheduleSubjectComponent | undefined
   @ViewChild("root") root: ElementRef
 
-  constructor(private dialog: DialogService, private scheduleService: ScheduleService, private elRef: ElementRef) {
-  }
+  constructor(
+    private dialog: DialogService,
+    private scheduleService: ScheduleService,
+    private elRef: ElementRef,
+    private keyboardService: KeyboardService
+  ) {}
 
   ngOnInit(): void {
     this.update()
 
+    this.key$ = this.keyboardService.key$
+
     this.scheduleService.scale$.subscribe({
-      next: _ => this.update()
+      next: (_) => this.update(),
     })
   }
 
@@ -75,7 +88,7 @@ export class CellComponent implements OnInit {
     }
 
     this.dialog.open<Lesson[]>(this.selectSubjectRef).subscribe({
-      next: value => callback(value)
+      next: (value) => callback(value),
     })
   }
 
@@ -96,7 +109,7 @@ export class CellComponent implements OnInit {
   editLesson(lessons: Lesson[]): void {
     this.selectedLessons = lessons
     this.dialog.open<Lesson>(this.manageSubjectRef).subscribe({
-      next: lesson => this.scheduleService.editLesson(lesson)
+      next: (lesson) => this.scheduleService.editLesson(lesson),
     })
   }
 }

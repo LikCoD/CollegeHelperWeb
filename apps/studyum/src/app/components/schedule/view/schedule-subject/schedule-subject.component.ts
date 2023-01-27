@@ -8,44 +8,57 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
-  Validators
+  Validators,
 } from "@angular/forms"
 import {Lesson} from "../../../../models/schedule"
 
 @Component({
-  selector: 'app-schedule-subject',
-  templateUrl: './schedule-subject.component.html',
-  styleUrls: ['./schedule-subject.component.scss'],
+  selector: "app-schedule-subject",
+  templateUrl: "./schedule-subject.component.html",
+  styleUrls: ["./schedule-subject.component.scss"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ScheduleSubjectComponent),
-      multi: true
-    }, {
+      multi: true,
+    },
+    {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ScheduleSubjectComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class ScheduleSubjectComponent implements OnInit, Validator, ControlValueAccessor {
+export class ScheduleSubjectComponent
+  implements OnInit, Validator, ControlValueAccessor
+{
+  private studyPlaceID: string
+
   isUpdated: boolean
 
   @Input()
   set lesson(value: Lesson | undefined) {
     if (value == undefined) return
 
-    this.isUpdated = value.isGeneral ?? false;
+    this.isUpdated = value.isGeneral ?? false
+    this.studyPlaceID = value.studyPlaceId ?? ""
 
-    this.form.get("subject")!!.setValue(value.subject);
-    this.form.get("teacher")!!.setValue(value.teacher);
-    this.form.get("room")!!.setValue(value.room);
-    this.form.get("group")!!.setValue(value.group);
-    this.form.get("primaryColor")!!.setValue(value.primaryColor);
-    this.form.get("secondaryColor")!!.setValue(value.secondaryColor == "" || !value.secondaryColor ? "transparent" : value.secondaryColor);
+    this.form.get("subject")!!.setValue(value.subject)
+    this.form.get("teacher")!!.setValue(value.teacher)
+    this.form.get("room")!!.setValue(value.room)
+    this.form.get("group")!!.setValue(value.group)
+    this.form.get("primaryColor")!!.setValue(value.primaryColor)
+    this.form
+      .get("secondaryColor")!!
+      .setValue(
+        value.secondaryColor == "" || !value.secondaryColor
+          ? "transparent"
+          : value.secondaryColor
+      )
   }
 
-  @Input() editable: boolean = false;
+  @Input() editable: boolean = false
+  @Input() showForeground: boolean = true
 
   onChange: any
 
@@ -55,7 +68,7 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
     room: new FormControl("ROOM", Validators.required),
     group: new FormControl("GROUP", Validators.required),
     primaryColor: new FormControl("#F1F1F1"),
-    secondaryColor: new FormControl("transparent")
+    secondaryColor: new FormControl("transparent"),
   })
 
   ngOnInit(): void {
@@ -67,10 +80,14 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.form.get("subject")?.errors != null) return this.form.get("subject")!!.errors
-    if (this.form.get("teacher")?.errors != null) return this.form.get("teacher")!!.errors
-    if (this.form.get("room")?.errors != null) return this.form.get("room")!!.errors
-    if (this.form.get("group")?.errors != null) return this.form.get("group")!!.errors
+    if (this.form.get("subject")?.errors != null)
+      return this.form.get("subject")!!.errors
+    if (this.form.get("teacher")?.errors != null)
+      return this.form.get("teacher")!!.errors
+    if (this.form.get("room")?.errors != null)
+      return this.form.get("room")!!.errors
+    if (this.form.get("group")?.errors != null)
+      return this.form.get("group")!!.errors
 
     return null
   }
@@ -87,5 +104,13 @@ export class ScheduleSubjectComponent implements OnInit, Validator, ControlValue
     if (obj == undefined) return
 
     this.lesson = obj
+  }
+
+  buildQueryParams(type: string): any {
+    return {
+      type: type,
+      name: this.form.get(type)?.value,
+      studyPlaceID: this.studyPlaceID,
+    }
   }
 }

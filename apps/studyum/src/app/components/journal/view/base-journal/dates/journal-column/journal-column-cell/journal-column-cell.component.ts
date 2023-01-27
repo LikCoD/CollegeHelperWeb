@@ -19,6 +19,7 @@ import {LessonType, StudyPlace} from "../../../../../../../models/general"
 import {Entry} from "../../../base-journal-cell/journal-cell.component"
 import {JournalMarksService} from "../../../../../../../services/shared/journal/journal-marks.service"
 import {JournalCell} from "../../../../../../../models/journal"
+import {KeyboardService} from "../../../../../../../services/shared/keyboard.service"
 
 @Component({
   selector: "app-journal-column-cell",
@@ -47,6 +48,7 @@ export class JournalColumnCellComponent implements OnInit {
     private modeService: JournalDisplayModeService,
     private modalService: DialogService,
     private marksService: JournalMarksService,
+    private keyboardService: KeyboardService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -120,7 +122,7 @@ export class JournalColumnCellComponent implements OnInit {
       },
     })
 
-    this.cellService.key$.subscribe({
+    this.keyboardService.key$.subscribe({
       next: (key) => {
         this.key = key
 

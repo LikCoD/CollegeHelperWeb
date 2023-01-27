@@ -3,16 +3,18 @@
     <button class="edit-control-button transparent-btn edit-btn" (click)="editLessonDialog()"></button>
     <button class="edit-control-button transparent-btn remove-btn" (click)="removeLessonDialog()"></button>
   </div>
-  <section>
-    <app-schedule-subject
-      *ngFor="let lesson of lessons[selectedSubjectIndex]"
-      #subject [lesson]="lesson"
-    ></app-schedule-subject>
-  </section>
-  <div class="btn-cell">
-    <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
-    <button (click)="nextSubject()" class="transparent-btn switchers-btn"></button>
-  </div>
+  <ng-container *ngIf="key$ | async as key">
+    <section>
+      <app-schedule-subject
+        *ngFor="let lesson of lessons[selectedSubjectIndex]"
+        #subject [lesson]="lesson" [showForeground]="key === 'null'"
+      ></app-schedule-subject>
+    </section>
+    <div class="btn-cell" *ngIf="key === 'null'">
+      <button (click)="previousSubject()" class="transparent-btn switchers-btn"></button>
+      <button (click)="nextSubject()" class="transparent-btn switchers-btn"></button>
+    </div>
+  </ng-container>
   <app-more-indicator *ngIf="lessons.length > 1"></app-more-indicator>
 </div>
 

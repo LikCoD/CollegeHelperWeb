@@ -8,10 +8,7 @@ import {
   OnInit,
 } from "@angular/core"
 import {Journal, JournalCell, JournalRow} from "../../../../models/journal"
-import {
-  JournalCellService,
-  Key,
-} from "../../../../services/shared/journal/journal.cell.service"
+import {JournalCellService} from "../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../services/shared/journal/journal-display-mode.service"
 import {Entry} from "./base-journal-cell/journal-cell.component"
@@ -20,6 +17,7 @@ import {SettingsService} from "../../../../services/ui/settings.service"
 import {DialogService} from "../../../../services/ui/dialog.service"
 import {JournalLessonService} from "../../../../services/shared/journal/journal-lesson.service"
 import {JournalMarksService} from "../../../../services/shared/journal/journal-marks.service"
+import {KeyboardService} from "../../../../services/shared/keyboard.service"
 
 @Component({
   selector: "app-base-journal",
@@ -40,6 +38,7 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
     private modalService: DialogService,
     private lessonService: JournalLessonService,
     private marksService: JournalMarksService,
+    private keyboardService: KeyboardService,
     private cdr: ChangeDetectorRef
   ) {
     this.modalService.width = window.innerWidth
@@ -53,22 +52,9 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
     this.cellService.clearPoints()
     this.cellService.selectDate(null)
 
-    this.cellService.key = "null"
-
+    this.keyboardService.key = "null"
     this.collapseService.type = "null"
     this.collapseService.collapsed = []
-  }
-
-  @HostListener("window:focus", ["'null'"])
-  @HostListener("document:keyup.shift", ["'null'"])
-  @HostListener("document:keyup.control", ["'null'"])
-  @HostListener("document:keyup.meta", ["'null'"])
-  @HostListener("document:keydown.shift", ["'shift'"])
-  @HostListener("document:keydown.control", ["'control'"])
-  @HostListener("document:keydown.meta", ["'control'"])
-  keyEvent(key: Key) {
-    this.cellService.key = key
-    this.collapseService.key = key
   }
 
   @HostListener("window:resize", ["$event.target.innerWidth"])

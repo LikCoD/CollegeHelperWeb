@@ -1,4 +1,4 @@
-<div class="not-updated-foreground" *ngIf="isUpdated"></div>
+<div class="not-updated-foreground" *ngIf="isUpdated && showForeground"></div>
 <main [style.background-color]="form.get('primaryColor')!!.value">
   <div
     class="secondaryColorContainer"
@@ -6,11 +6,15 @@
     [style.margin-right.px]="form.get('secondaryColor')!!.value == 'transparent' ? 0 : 5"
   ></div>
   <form [formGroup]="form">
-    <input class="subject-name" [readOnly]="!editable" formControlName="subject">
-    <input [readOnly]="!editable" formControlName="teacher">
+    <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('subject')"
+           class="subject-name" [readOnly]="!editable" formControlName="subject">
+    <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('teacher')"
+           [readOnly]="!editable" formControlName="teacher">
     <div>
-      <input [readOnly]="!editable" formControlName="room">
-      <input [readOnly]="!editable" formControlName="group">
+      <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('room')"
+             [readOnly]="!editable" formControlName="room">
+      <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('group')"
+             [readOnly]="!editable" formControlName="group">
     </div>
   </form>
 </main>
