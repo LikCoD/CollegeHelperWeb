@@ -22,7 +22,7 @@ export class HttpService {
   }
 
   signUpWithCode(data: any): Observable<User> {
-    return this.http.post<User>(`${this.API_PATH}/user/signup/withToken`, data)
+    return this.http.post<User>(`${this.API_PATH}/user/signup/code`, data)
   }
 
   login(credentials: any): Observable<User> {
@@ -46,7 +46,9 @@ export class HttpService {
   }
 
   putToken(token: string): Observable<User> {
-    return this.http.put<User>(`${this.API_PATH}/user/auth/token`, token)
+    return this.http.post<User>(`${this.API_PATH}/user/oauth2/token`, {
+      token: token,
+    })
   }
 
   getStudyPlaces(restricted = true): Observable<StudyPlace[]> {

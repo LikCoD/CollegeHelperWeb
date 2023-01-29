@@ -10,7 +10,7 @@ import {UserSignupComponent} from "../components/user/signup/user-signup.compone
 import {LoginGuard} from "../guards/login.guard"
 import {SignupStage1Component} from "../components/user/signup/stage1/signup-stage1.component"
 import {SignupStage1Guard} from "../guards/signup-stage1.guard"
-import {SignUpWithTokenComponent} from "../components/user/signup/with-token/sign-up-with-token.component"
+import {SignUpWithCodeComponent} from "../components/user/signup/with-token/sign-up-with-code.component"
 import {UserLoginComponent} from "../components/user/user-login/user-login.component"
 import {ReceiveTokenComponent} from "../components/user/receive-token/receive-token.component"
 
@@ -19,33 +19,32 @@ const routes: Routes = [
     title: "header.sliders.signup",
     path: "signup",
     component: UserSignupComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
     title: "header.sliders.signup",
     path: "signup/stage1",
     component: SignupStage1Component,
-    canActivate: [NotLoginGuard, SignupStage1Guard]
+    canActivate: [NotLoginGuard, SignupStage1Guard],
   },
   {
     title: "header.sliders.signup",
-    path: "signup/code",
-    component: SignUpWithTokenComponent,
-    canActivate: [LoginGuard]
+    path: "signup/stage1/code",
+    component: SignUpWithCodeComponent,
+    canActivate: [NotLoginGuard, SignupStage1Guard],
   },
   {
     title: "header.sliders.login",
     path: "login",
     component: UserLoginComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
 
   {
     title: "Studyum",
-    path: "receiveToken",
+    path: "token",
     component: ReceiveTokenComponent,
-    canActivate: [NotLoginGuard]
-  }
+  },
 ]
 
 @NgModule({
@@ -54,8 +53,8 @@ const routes: Routes = [
 
     UserSignupComponent,
     SignupStage1Component,
-    SignUpWithTokenComponent,
-    UserLoginComponent
+    SignUpWithCodeComponent,
+    UserLoginComponent,
   ],
   imports: [
     CommonModule,
@@ -64,9 +63,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    ModalsModule
+    ModalsModule,
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AuthModule {
-}
+export class AuthModule {}

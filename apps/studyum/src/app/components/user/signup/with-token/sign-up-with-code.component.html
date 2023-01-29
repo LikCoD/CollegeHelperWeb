@@ -1,0 +1,21 @@
+<main>
+  <h2 [innerText]="'user.login.signUp' | translate"></h2>
+  <app-glassmorphism-frame
+    [color]="'rgba(255,255,255,0.2)'"
+    [topColor]="'rgb(232,125,138)'"
+    [bottomColor]="'rgb(165,217,255)'">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-floating top-group">
+        <input id="code" class="form-control" formControlName="code" placeholder="Code">
+        <label for="code">{{'user.login.code' | translate}}</label>
+
+        <app-error-info [property]="form.get('code')!!"></app-error-info>
+      </div>
+      
+      <div class="input-group bottom-group">
+        <button type="submit" class="btn btn-outline-light"
+                [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
+      </div>
+    </form>
+  </app-glassmorphism-frame>
+</main>
