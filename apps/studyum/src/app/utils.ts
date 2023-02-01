@@ -1,23 +1,26 @@
 import {AbstractControl, ValidationErrors} from "@angular/forms"
-import {Subscription} from "rxjs"
-import * as moment from "moment"
 
-export function sameAs(controlName: string) {
-  let subscription: Subscription | undefined
+export const sameAs =
+  (controlName: string) =>
+  (group: AbstractControl): ValidationErrors | null => {
+    const parent = group.parent?.get(controlName)
+    parent?.addValidators((control: AbstractControl): null => {
+      if (group.value != control.value) {
+        group.setErrors({...group.errors, notSame: true})
+        return null
+      }
 
-  return (group: AbstractControl): ValidationErrors | null => {
-    if (subscription == undefined)
-      subscription = group.parent
-        ?.get(controlName)
-        ?.valueChanges.subscribe((value: string) => {
-          if (group.value == value) delete group.errors!!["notSame"]
-          else group.setErrors({...group.errors, notSame: true})
-        })
+      if (!group.errors) return null
+      delete group.errors["notSame"]
 
-    let value = group.parent?.get(controlName)?.value
+      const errorsAmount = Object.keys(group.errors ?? {}).length
+      if (errorsAmount === 0) group.setErrors(null)
+      return null
+    })
+
+    const value: string = group.parent?.get(controlName)?.value
     return group.value === value ? null : {notSame: true}
   }
-}
 
 export function groupBy<T, R>(arr: T[], byFn: (el: T) => R): Map<R, T[]> {
   return arr.reduce((r: Map<R, T[]>, a) => {
@@ -29,12 +32,4 @@ export function groupBy<T, R>(arr: T[], byFn: (el: T) => R): Map<R, T[]> {
 
 export function continueViaGoogle() {
   window.location.href = `/api/user/oauth2/google?redirect=${window.location.origin}/auth/token`
-}
-
-export function compareDates(
-  date1: moment.Moment,
-  date2: moment.Moment,
-  unit: moment.unitOfTime.StartOf
-) {
-  return date1.clone().startOf(unit).isSame(date2.clone().startOf(unit))
 }
