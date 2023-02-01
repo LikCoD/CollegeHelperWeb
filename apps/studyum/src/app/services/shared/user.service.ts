@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core"
 import {HttpService} from "../http/http.service"
-import {map, Observable, ReplaySubject} from "rxjs"
+import {map, Observable, ReplaySubject, tap} from "rxjs"
 import {Router} from "@angular/router"
 import {AcceptUser, User} from "../../models/user"
 
@@ -13,8 +13,6 @@ export class UserService {
   constructor(private httpService: HttpService, private router: Router) {
     httpService.getUser().subscribe({
       next: (value) => {
-        if (value.type == "") this.router.navigate(["auth/signup/stage1"])
-
         this.user$.next(value)
       },
       error: (_) => {
@@ -28,65 +26,25 @@ export class UserService {
   }
 
   signUp(data: any) {
-    this.httpService
-      .signUp(data)
-      .pipe(
-        map((value) => {
-          this.router.navigate(["auth/signup/stage1"])
-
-          return value
-        })
-      )
-      .subscribe({
-        next: (value) => {
-          this.user$.next(value)
-        },
-      })
+    return this.httpService.signUp(data).pipe(tap((u) => this.user$.next(u)))
   }
 
   signUpStage1(data: any) {
-    this.httpService
+    return this.httpService
       .signUpStage1(data)
-      .pipe(
-        map((value) => {
-          this.router.navigate([""])
-
-          return value
-        })
-      )
-      .subscribe({
-        next: (value) => {
-          this.user$.next(value)
-        },
-      })
+      .pipe(tap((u) => this.user$.next(u)))
   }
 
   signUpWithCode(data: any) {
-    this.httpService.signUpWithCode(data).subscribe({
-      next: (value) => {
-        this.router.navigate([""])
-
-        this.user$.next(value)
-      },
-    })
+    return this.httpService
+      .signUpWithCode(data)
+      .pipe(tap((u) => this.user$.next(u)))
   }
 
   login(credentials: any) {
-    this.httpService
+    return this.httpService
       .login(credentials)
-      .pipe(
-        map((value) => {
-          if (value.type == "") this.router.navigate(["auth/signup/stage1"])
-          else this.router.navigate([""])
-
-          return value
-        })
-      )
-      .subscribe({
-        next: (value) => {
-          this.user$.next(value)
-        },
-      })
+      .pipe(tap((value) => this.user$.next(value)))
   }
 
   update(data: any) {
@@ -98,30 +56,19 @@ export class UserService {
   }
 
   signOut() {
-    this.httpService.signOut().subscribe({
-      next: (_) => {
-        this.user$.next(undefined)
-        this.router.navigate([""])
-      },
-    })
+    return this.httpService
+      .signOut()
+      .pipe(tap((_) => this.user$.next(undefined)))
   }
 
-  revokeToken() {
-    this.httpService.revokeToken().subscribe({
-      next: (_) => {
-        this.user$.next(undefined)
-        this.router.navigate(["/"])
-      },
-    })
+  terminateAllSessions() {
+    return this.httpService
+      .terminateAllSessions()
+      .pipe(tap((_) => this.user$.next(undefined)))
   }
 
   putToken(token: string) {
-    this.httpService.putToken(token).subscribe({
-      next: (value) => {
-        this.user$.next(value)
-        this.router.navigate(["/"])
-      },
-    })
+    return this.httpService.putToken(token).pipe(tap((u) => this.user$.next(u)))
   }
 
   createCode(data: any): Observable<any> {
@@ -149,5 +96,22 @@ export class UserService {
     formData.append("file", file, file.name)
 
     return this.httpService.uploadImage(formData).pipe(map((u) => u.url))
+  }
+
+  confirmEmail(value: any): Observable<null> {
+    return this.httpService.confirmEmail(value).pipe(
+      tap((_) =>
+        this.user$.subscribe({
+          next: (u) => {
+            u!.verifiedEmail = true
+            this.user$.next(u)
+          },
+        })
+      )
+    )
+  }
+
+  resendEmailCode(): Observable<null> {
+    return this.httpService.resendEmailCode()
   }
 }

@@ -4,6 +4,7 @@ import {UserService} from "../../../../services/shared/user.service"
 import {StudyPlace} from "../../../../models/general"
 import {User} from "../../../../models/user"
 import {GeneralService} from "../../../../services/shared/general.service"
+import {Router} from "@angular/router"
 
 @Component({
   selector: "app-stage1",
@@ -15,6 +16,7 @@ import {GeneralService} from "../../../../services/shared/general.service"
 })
 export class SignupStage1Component {
   form = new FormGroup({
+    name: new FormControl("", Validators.required),
     studyPlaceId: new FormControl("", Validators.required),
     type: new FormControl("group", Validators.required),
     typeName: new FormControl("", Validators.required),
@@ -25,7 +27,8 @@ export class SignupStage1Component {
 
   constructor(
     public userService: UserService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    public router: Router
   ) {}
 
   studyPlaceChange(event: Event, studyPlaces: StudyPlace[]) {
@@ -52,6 +55,8 @@ export class SignupStage1Component {
   }
 
   submit() {
-    this.userService.signUpStage1(this.form.value)
+    this.userService.signUpStage1(this.form.value).subscribe({
+      next: (_) => this.router.navigate([""]),
+    })
   }
 }

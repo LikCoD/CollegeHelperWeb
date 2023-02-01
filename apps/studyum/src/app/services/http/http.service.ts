@@ -41,8 +41,8 @@ export class HttpService {
     return this.http.delete<undefined>(`${this.API_PATH}/user/signout`)
   }
 
-  revokeToken(): Observable<undefined> {
-    return this.http.delete<undefined>(`${this.API_PATH}/user/revoke`)
+  terminateAllSessions(): Observable<null> {
+    return this.http.delete<null>(`${this.API_PATH}/user/sessions`)
   }
 
   putToken(token: string): Observable<User> {
@@ -75,5 +75,13 @@ export class HttpService {
 
   uploadImage(formData: FormData): Observable<{url: string}> {
     return this.http.post<{url: string}>(`${this.STORAGE_PATH}`, formData)
+  }
+
+  confirmEmail(value: any): Observable<null> {
+    return this.http.post<null>(`${this.API_PATH}/user/email/confirm`, value)
+  }
+
+  resendEmailCode(): Observable<null> {
+    return this.http.post<null>(`${this.API_PATH}/user/email/resendCode`, {})
   }
 }

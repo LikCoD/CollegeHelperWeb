@@ -1,19 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from "@angular/core"
-import {ToastService} from "../../../services/ui/toast.service"
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core"
+import {ToastData, ToastService} from "../../../services/ui/toast.service"
 import {Observable} from "rxjs"
 
 @Component({
   selector: "app-toast",
   templateUrl: "./toast.component.html",
   styleUrls: ["./toast.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastComponent implements OnInit {
+  toast$: Observable<ToastData | null>
 
-  toast$: Observable<string | null>
-
-  constructor(private toastService: ToastService, private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   close(): void {
     this.toastService.close()

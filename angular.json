@@ -3,6 +3,8 @@
   "projects": {
     "auto-color": "libs/auto-color",
     "modals": "libs/modals",
-    "studyum": "apps/studyum"
-  }
+    "studyum": "apps/studyum",
+    "ui-elements": "libs/ui-elements"
+  },
+  "defaultProject": "studyum"
 }

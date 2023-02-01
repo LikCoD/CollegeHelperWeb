@@ -2,6 +2,7 @@ import {Component} from "@angular/core"
 import {UserService} from "../../../services/shared/user.service"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {continueViaGoogle} from "../../../utils"
+import {Router} from "@angular/router"
 
 @Component({
   selector: "app-user-login",
@@ -17,10 +18,12 @@ export class UserLoginComponent {
     password: new FormControl("", Validators.required),
   })
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   submit() {
-    this.userService.login(this.form.value)
+    this.userService.login(this.form.value).subscribe({
+      next: (_) => this.router.navigate([""]).then(),
+    })
   }
 
   continueViaGoogle = () => continueViaGoogle()

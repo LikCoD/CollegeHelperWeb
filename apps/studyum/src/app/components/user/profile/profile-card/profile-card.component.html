@@ -1,0 +1,23 @@
+<div class="profile-card">
+  <div>
+    <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" width="48" height="48">
+    <h3>{{user.login}}</h3>
+  </div>
+  <hr>
+  <p>{{user.name}}</p>
+  <p>{{user.email}}</p>
+  <p>{{user.studyPlace}}</p>
+  <p>{{user.typeName}}</p>
+</div>
+
+<button class="btn btn-warning" (click)="signout.emit($event)">{{'user.profile.signOut' | translate}}</button>
+<button class="btn btn-danger" (click)="revoke.emit($event)">{{'user.profile.revokeToken' | translate}}</button>
+
+
+<div *ngIf="warnings() as warnings">
+  <ul>
+    <li *ngFor="let warn of warnings" [style]="'--list-mark-color: ' + warn.color">
+      <a [routerLink]="warn.routerLink">{{warn.message}}</a>
+    </li>
+  </ul>
+</div>

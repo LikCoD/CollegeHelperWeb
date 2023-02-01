@@ -12,12 +12,7 @@
         <app-error-info [property]="form.get('login')!!"></app-error-info>
       </div>
 
-      <div class="form-floating">
-        <input id="name" class="form-control" formControlName="name" placeholder="Login">
-        <label for="name">{{'user.login.name' | translate}}</label>
-
-        <app-error-info [property]="form.get('name')!!"></app-error-info>
-      </div>
+      <hr>
 
       <div class="form-floating">
         <input id="email" class="form-control" formControlName="email" placeholder="Email">
@@ -38,6 +33,18 @@
         <label for="passwordConfirm">{{'user.login.confirmPassword' | translate}}</label>
 
         <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
+      </div>
+
+      <hr>
+
+      <p>Or use code</p>
+
+      <div class="form-floating">
+        <input id="code" class="form-control" formControlName="code"
+               placeholder="Code">
+        <label for="passwordConfirm">{{'user.login.code' | translate}}</label>
+
+        <app-error-info [property]="form.get('code')!!"></app-error-info>
       </div>
 
 

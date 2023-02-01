@@ -12,14 +12,15 @@ import {TranslateModule} from "@ngx-translate/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "./shared.module"
 import {ModalsModule} from "../../../../../libs/modals/src"
+import {ProfileCardComponent} from "../components/user/profile/profile-card/profile-card.component"
 
 const routes: Routes = [
   {
     title: "header.sliders.profile",
     path: "",
     component: ProfileComponent,
-    canActivate: [NotLoginGuard]
-  }
+    canActivate: [NotLoginGuard],
+  },
 ]
 
 @NgModule({
@@ -29,7 +30,8 @@ const routes: Routes = [
     ProfileOptionComponent,
     EditUserComponent,
     CreateCodeUserComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    ProfileCardComponent,
   ],
   imports: [
     CommonModule,
@@ -38,9 +40,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    ModalsModule
+    ModalsModule,
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProfileModule {
-}
+export class ProfileModule {}

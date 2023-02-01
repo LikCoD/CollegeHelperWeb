@@ -11,7 +11,15 @@
     [topColor]="'rgb(232,125,138)'"
     [bottomColor]="'rgb(165,217,255)'">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-floating top-group" *ngIf="generalService.studyPlaces$ | async as studyPlaces">
+      <div class="form-floating top-group">
+        <input id="name" class="form-control" formControlName="name" placeholder="Login">
+        <label for="name">{{'user.login.name' | translate}}</label>
+
+        <app-error-info [property]="form.get('name')!!"></app-error-info>
+      </div>
+
+
+      <div class="form-floating" *ngIf="generalService.studyPlaces$ | async as studyPlaces">
         <input id="studyPlace" class="form-control" list="studyPlaces" placeholder="Study Place"
                (change)="studyPlaceChange($event, studyPlaces)" (focusout)="markStudyPlaceAsTouched()" />
         <label for="studyPlace">{{'user.login.studyPlace' | translate}}</label>

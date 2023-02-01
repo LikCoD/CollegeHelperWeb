@@ -13,6 +13,8 @@ import {SignupStage1Guard} from "../guards/signup-stage1.guard"
 import {SignUpWithCodeComponent} from "../components/user/signup/with-token/sign-up-with-code.component"
 import {UserLoginComponent} from "../components/user/user-login/user-login.component"
 import {ReceiveTokenComponent} from "../components/user/receive-token/receive-token.component"
+import {EmailVerificationComponent} from "../components/user/signup/email-verification/email-verification.component"
+import {UiElementsModule} from "../../../../../libs/ui-elements/src"
 
 const routes: Routes = [
   {
@@ -20,6 +22,12 @@ const routes: Routes = [
     path: "signup",
     component: UserSignupComponent,
     canActivate: [LoginGuard],
+  },
+  {
+    title: "header.sliders.email",
+    path: "email/verification",
+    component: EmailVerificationComponent,
+    canActivate: [NotLoginGuard],
   },
   {
     title: "header.sliders.signup",
@@ -55,6 +63,8 @@ const routes: Routes = [
     SignupStage1Component,
     SignUpWithCodeComponent,
     UserLoginComponent,
+
+    EmailVerificationComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +74,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
+    UiElementsModule,
   ],
   exports: [RouterModule],
 })

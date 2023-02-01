@@ -10,7 +10,8 @@
       "journal": "Journal",
       "profile": "Profile",
       "signup": "Sign up",
-      "login": "Login"
+      "login": "Login",
+      "email": "Email"
     }
   },
   "datetime": {
@@ -38,6 +39,10 @@
       "studyPlace": "Study place",
       "group": "Group",
       "teacher": "Teacher"
+    },
+    "email": {
+      "confirm": "Confirm email",
+      "confirmText": "We have send the code to your email\nEnter it bellow"
     },
     "profile": {
       "signOut": "SignOut",
