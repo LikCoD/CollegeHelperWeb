@@ -21,9 +21,9 @@ $dangerColor: #FF5517;
   --onPrimaryColor: #EFEFEF;
   --onSecondaryColor: #3A3A3A;
   --thirdColor: #CC88FF;
-  --backgroundColor: #1B2430;
+  --backgroundColor: #264653;
   --secondaryBackgroundColor: #4A4A4A;
-  --onBackgroundColor: #EFEFEF;
+  --onBackgroundColor: #E1E1E1;
   --onSecondaryBackgroundColor: #EFEFEF;
 }
 
@@ -44,7 +44,7 @@ html, body {
 }
 
 body {
-  background: $backgroundColor;
+  background: linear-gradient(90deg, #264653 0%, #1E404E 100%);
   font-family: 'Roboto', sans-serif;
 }
 
@@ -57,10 +57,17 @@ app-root {
   flex-flow: column;
   gap: 10px;
   height: 100%;
+  background: inherit;
+
+  router-outlet {
+    display: none;
+  }
 
   > :last-child {
     flex-grow: 1;
     overflow: auto;
+
+    background: inherit;
   }
 }
 

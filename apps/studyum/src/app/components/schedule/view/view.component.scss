@@ -4,8 +4,6 @@
   display: flex;
   flex-flow: column;
   height: 100%;
-
-  margin: 0 10px;
 }
 
 main {
@@ -14,11 +12,16 @@ main {
 }
 
 app-schedule-top-bar {
-  margin: 10px 0;
+  margin: 0 20px 10px 20px;
 }
 
 .schedule-container {
   display: grid;
+
+  height: fit-content;
+
+  background: styles.$backgroundColor;
+  padding: 10px;
 }
 
 .schedule-wrapper {
@@ -29,9 +32,7 @@ app-schedule-top-bar {
   flex-grow: 1;
 
   justify-content: flex-start;
-
-  margin-bottom: 20px;
-
+  
   white-space: nowrap;
 }
 
@@ -39,7 +40,7 @@ app-schedule-top-bar {
   position: sticky;
   top: 0;
 
-  background: styles.$backgroundColor;
+  background: inherit;
   z-index: 4;
 
   grid-column: 1;
@@ -59,7 +60,7 @@ app-schedule-top-bar {
   margin-top: 20px;
   margin-right: 10px;
 
-  background: styles.$backgroundColor;
+  background: inherit;
   z-index: 3;
 }
 
@@ -93,7 +94,7 @@ app-schedule-top-bar {
   height: 30px;
   top: 0;
 
-  background: styles.$backgroundColor;
+  background: inherit;
 
   z-index: 3;
 }
@@ -140,4 +141,13 @@ app-schedule-subject {
 
 app-schedule-bottom-controller {
   margin-bottom: 10px;
+}
+
+hr {
+  margin: 0 10px;
+  min-height: 1px;
+
+  background-color: #FFFFFF;
+  opacity: 0.2;
+  border-radius: 1px;
 }

@@ -1,5 +1,6 @@
 <ng-container *ngIf="journal$ | async as journals">
   <app-base-journal-top-action-bar></app-base-journal-top-action-bar>
+  <hr>
   <div class="wrapper">
     <app-base-journal
       *ngFor="let journal of journals; let i = index"
@@ -8,6 +9,7 @@
       [showAmount]="isAmountSelected"
     ></app-base-journal>
   </div>
+  <hr>
   <app-journal-bottom-action-bar
     [journal]="journals[0]"
     [isShowAmount]="isAmountSelected"

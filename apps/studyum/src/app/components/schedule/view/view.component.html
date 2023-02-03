@@ -8,17 +8,19 @@
     (scale)="scheduleService.scaleY = $event"
     (generalViewMode)="changeViewMode($event)"
   ></app-schedule-top-bar>
+  <hr>
   <main *ngIf="schedule$ | async as schedule">
     <app-edit-schedule *ngIf="isEditMode" [schedule]="schedule" (makeGeneral)="makeGeneral()"></app-edit-schedule>
     <div class="schedule-wrapper">
-      <div class="schedule-container" [style.height.px]="maxHeight">
+      <div class="schedule-container">
         <div class="empty-corner"></div>
         <div class="markup" *ngIf="scheduleService.isTimeMode else lessonIndexesMarkup">
           <hr *ngFor="let time of schedule.info.times" [style.margin-top.px]="scheduleService.getTimeY(time)">
         </div>
         <ng-template #lessonIndexesMarkup>
           <div class="markup">
-            <hr *ngFor="let index of schedule.info.indexes" [style.margin-top.px]="scheduleService.getLessonIndexY(index) - 5 * scheduleService.scaleY">
+            <hr *ngFor="let index of schedule.info.indexes"
+                [style.margin-top.px]="scheduleService.getLessonIndexY(index) - 5 * scheduleService.scaleY">
           </div>
         </ng-template>
 

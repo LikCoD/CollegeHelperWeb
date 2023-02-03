@@ -2,70 +2,106 @@
 
 :host {
   position: relative;
-  display: flex;
+  display: grid;
+
+  grid-template-areas:
+    "logo . nav"
+    "line line line";
+
+  grid-template-columns: auto 1fr auto;
 
   min-height: 50px;
+  max-height: 50px;
+
+  margin: 0 20px;
 }
 
-main {
+.icon-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  gap: 7px;
 
-  padding: 0 70px;
+  color: #EAEAEA;
 
-  font-size: 24px;
+  padding: 6px 8px 5px 8px;
+  border-radius: 5px;
 
-  transition: width .18s;
-
-  font-family: 'Comfortaa', cursive;
+  font-size: 14px;
+  line-height: 16px;
 
   img {
-    width: 25px;
-    height: 25px;
+    height: 15px;
+    width: auto;
 
-    margin-bottom: 7px;
-  }
-
-  * {
-    white-space: nowrap;
+    margin-top: -1px;
   }
 }
 
-.temp {
-  position: absolute;
-  top: -50px;
+.login-btn {
+  background-color: #2A9D8F;
 }
 
-nav {
-  padding: 0 30px 0 50px;
+.signup-btn {
+  background-color: #E76F51;
+}
+
+.logo-text {
+  grid-area: logo;
+  place-self: center;
+
+  font-family: 'Comfortaa', serif;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 31px;
+
+  color: #E1E1E1;
+
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.right-wrapper {
+  grid-area: nav;
 
   display: flex;
-  flex-grow: 1;
+  flex-flow: row;
 
-  background-color: styles.$primaryColor;
-  border-bottom-left-radius: 40px;
+  align-items: center;
+  gap: 20px;
 
-  justify-content: space-between;
 
-  z-index: 2;
+  .nav-bar {
+    display: flex;
+    gap: 15px;
+  }
 
-  > * {
+  .block-divider {
+    width: 2px;
+    height: 30px;
+
+    margin: 10px 0;
+
+    background-color: #FFFFFF;
+    opacity: 0.2;
+    border-radius: 1px;
+  }
+
+  .user-block {
     display: flex;
     align-items: center;
     gap: 15px;
-
-    white-space: nowrap;
   }
+}
 
-  > :first-child {
-    margin-right: 20px;
-  }
+.bottom-line {
+  grid-area: line;
 
-  a {
-    color: styles.$onPrimaryColor !important;
-  }
+  width: 100%;
+  margin: 0;
+
+  background-color: #FFFFFF;
+  opacity: 0.2;
+  border-radius: 1px;
 }
 
 img {

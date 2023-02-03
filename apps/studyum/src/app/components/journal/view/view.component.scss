@@ -22,14 +22,29 @@ app-dialog-frame {
   display: grid;
   grid-column: 0;
   grid-template-columns: 1fr;
+
+  background: inherit;
+}
+
+app-base-journal {
+  background: inherit;
 }
 
 app-base-journal-top-action-bar {
-  margin: 0 10px 15px;
+  margin: 0 20px 15px;
 }
 
 app-journal-bottom-action-bar {
   overflow-x: scroll;
 
-  margin: 0 10px 10px;
+  margin: 10px 10px 0 10px;
+}
+
+hr {
+  margin: 0 10px;
+  min-height: 1px;
+
+  background-color: #FFFFFF;
+  opacity: 0.2;
+  border-radius: 1px;
 }
