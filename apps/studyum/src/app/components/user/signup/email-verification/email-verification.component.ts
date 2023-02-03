@@ -27,9 +27,8 @@ export class EmailVerificationComponent {
     this.service.confirmEmail(this.form.value).subscribe({
       next: (_) =>
         this.service.user$.subscribe({
-          next: (user) => {
-            if (!user?.type) this.router.navigate(["auth/signup/stage1"])
-          },
+          next: (user) =>
+            this.router.navigate([!user?.type ? "auth/signup/stage1" : "/"]),
         }),
     })
   }
