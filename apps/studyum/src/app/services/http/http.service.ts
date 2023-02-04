@@ -84,4 +84,8 @@ export class HttpService {
   resendEmailCode(): Observable<null> {
     return this.http.post<null>(`${this.API_PATH}/user/email/resendCode`, {})
   }
+
+  getCurrentStudyPlace(id: string): Observable<StudyPlace> {
+    return this.http.get<StudyPlace>(`${this.API_PATH}/studyPlaces/${id}`)
+  }
 }
