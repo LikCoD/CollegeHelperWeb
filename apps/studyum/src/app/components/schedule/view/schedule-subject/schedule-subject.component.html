@@ -6,13 +6,13 @@
     [style.margin-right.px]="form.get('secondaryColor')!!.value == 'transparent' ? 0 : 5"
   ></div>
   <form [formGroup]="form">
-    <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('subject')"
+    <input [routerLink]="routing ? ['/schedule'] : null" [queryParams]="buildQueryParams('subject')"
            class="subject-name" [readOnly]="!editable" formControlName="subject">
-    <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('teacher')"
+    <input [routerLink]="routing ? ['/schedule'] : null" [queryParams]="buildQueryParams('teacher')"
            class="teacher-name" [readOnly]="!editable" formControlName="teacher">
-    <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('room')"
+    <input [routerLink]="routing ? ['/schedule'] : null" [queryParams]="buildQueryParams('room')"
            class="room-name" [readOnly]="!editable" formControlName="room">
-    <input [routerLink]="['/schedule']" [queryParams]="buildQueryParams('group')"
+    <input [routerLink]="routing ? ['/schedule'] : null" [queryParams]="buildQueryParams('group')"
            class="group-name" [readOnly]="!editable" formControlName="group">
   </form>
 </main>

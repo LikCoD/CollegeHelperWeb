@@ -7,7 +7,10 @@
     <section>
       <app-schedule-subject
         *ngFor="let lesson of lessons[selectedSubjectIndex]"
-        #subject [lesson]="lesson" [showForeground]="key === 'null'"
+        #subject
+        [lesson]="lesson"
+        [routing]="true"
+        [showForeground]="key === 'null'"
       ></app-schedule-subject>
     </section>
     <div class="btn-cell" *ngIf="key === 'null'">

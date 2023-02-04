@@ -59,6 +59,7 @@ export class ScheduleSubjectComponent
 
   @Input() editable: boolean = false
   @Input() showForeground: boolean = true
+  @Input() routing: boolean = false
 
   onChange: any
 
