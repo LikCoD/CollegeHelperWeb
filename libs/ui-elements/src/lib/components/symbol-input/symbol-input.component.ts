@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   forwardRef,
   Input,
 } from "@angular/core"
@@ -64,6 +65,12 @@ export class SymbolInputComponent implements Validator, ControlValueAccessor {
     return this.symbols.join("")
   }
 
+  set value(v: string) {
+    this.setValue(v)
+  }
+
+  constructor(private elRef: ElementRef<HTMLElement>) {}
+
   setSymbol(e: Event, i: number): void {
     let event = e as InputEvent
     let input = event.target as HTMLInputElement
@@ -75,22 +82,23 @@ export class SymbolInputComponent implements Validator, ControlValueAccessor {
     this.onChange(this.value)
   }
 
-  paste(e: Event, from: number): void {
-    let event = e as ClipboardEvent
-    let data = event.clipboardData?.getData("text") ?? ""
-    let input = event.target as HTMLInputElement
-    let children = input.parentNode?.children ?? []
-
-    for (let i = from; i < children.length; i++) {
-      let el = children[i] as HTMLInputElement
+  setValue(data: string, from: number = 0) {
+    const parent = this.elRef.nativeElement as HTMLElement
+    for (let i = from; i < parent.children.length; i++) {
+      let el = parent.children[i] as HTMLInputElement
       el.value = data[i - from] ?? el.value
       this.symbols[i] = data[i - from] ?? el.value
     }
 
-    let el = children[data.length - 1] as HTMLInputElement
-    el ??= children[children.length - 1] as HTMLInputElement
+    let el = parent.children[data.length - 1] as HTMLInputElement
+    el ??= parent.children[parent.children.length - 1] as HTMLInputElement
     el.focus()
 
     this.onChange(this.value)
+  }
+
+  paste(e: Event, from: number): void {
+    const event = e as ClipboardEvent
+    this.setValue(event.clipboardData?.getData("text") ?? "", from)
   }
 }

@@ -114,4 +114,12 @@ export class UserService {
   resendEmailCode(): Observable<null> {
     return this.httpService.resendEmailCode()
   }
+
+  resetPassword(value: any): Observable<void> {
+    return this.httpService.resetPassword(value)
+  }
+
+  resendResetPasswordCode(value: any): Observable<void> {
+    return this.httpService.resendResetPasswordCode(value)
+  }
 }

@@ -88,4 +88,12 @@ export class HttpService {
   getCurrentStudyPlace(id: string): Observable<StudyPlace> {
     return this.http.get<StudyPlace>(`${this.API_PATH}/studyPlaces/${id}`)
   }
+
+  resetPassword(value: any): Observable<void> {
+    return this.http.put<void>(`${this.API_PATH}/user/password/reset`, value)
+  }
+
+  resendResetPasswordCode(value: any): Observable<void> {
+    return this.http.post<void>(`${this.API_PATH}/user/password/reset`, value)
+  }
 }

@@ -13,6 +13,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "./shared.module"
 import {ModalsModule} from "../../../../../libs/modals/src"
 import {ProfileCardComponent} from "../components/user/profile/profile-card/profile-card.component"
+import {PasswordResetComponent} from "../components/user/signup/password-reset/password-reset.component"
+import {UiElementsModule} from "../../../../../libs/ui-elements/src"
+import {PasswordResetEmailRequestComponent} from "../components/user/signup/password-reset-email-request/password-reset-email-request.component"
+import {LoginGuard} from "../guards/login.guard"
 
 const routes: Routes = [
   {
@@ -20,6 +24,20 @@ const routes: Routes = [
     path: "",
     component: ProfileComponent,
     canActivate: [NotLoginGuard],
+  },
+
+  {
+    title: "header.sliders.profile",
+    path: "password/reset",
+    component: PasswordResetComponent,
+    canActivate: [LoginGuard],
+  },
+
+  {
+    title: "header.sliders.profile",
+    path: "password/reset/email",
+    component: PasswordResetEmailRequestComponent,
+    canActivate: [LoginGuard],
   },
 ]
 
@@ -32,6 +50,9 @@ const routes: Routes = [
     CreateCodeUserComponent,
     UserInfoComponent,
     ProfileCardComponent,
+
+    PasswordResetEmailRequestComponent,
+    PasswordResetComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +62,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
+    UiElementsModule,
   ],
   exports: [RouterModule],
 })

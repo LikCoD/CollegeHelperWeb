@@ -45,6 +45,7 @@
       "confirmText": "We have send the code to your email\nEnter it bellow"
     },
     "profile": {
+      "passwordReset": "Reset password",
       "signOut": "SignOut",
       "revokeToken": "Revoke token"
     },
