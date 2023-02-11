@@ -4,12 +4,15 @@ import {TranslateService} from "@ngx-translate/core"
 import {CollapseType} from "../shared/journal/journal-collapse.service"
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class SettingsService {
   public static readonly locale = "locale"
   public static readonly defaultLocale = "en"
-  public static readonly locales: Locale[] = [{code: "en", name: "English (US)"}, {code: "ru", name: "Русский"}]
+  public static readonly locales: Locale[] = [
+    {code: "en", name: "English (US)"},
+    {code: "ru", name: "Русский"},
+  ]
 
   public static readonly collapseType = "collapse"
   public static readonly defaultCollapseType = "smart"
@@ -19,11 +22,14 @@ export class SettingsService {
   public static readonly defaultTheme = "dark"
   public static readonly themes = ["dark", "light"]
 
-  constructor(private translateService: TranslateService) {
-  }
+  constructor(private translateService: TranslateService) {}
 
   get localeCode() {
-    return localStorage.getItem(SettingsService.locale) ?? navigator.languages[1] ?? SettingsService.defaultLocale
+    return (
+      localStorage.getItem(SettingsService.locale) ??
+      navigator.languages[1] ??
+      SettingsService.defaultLocale
+    )
   }
 
   set localeCode(code: string) {
@@ -34,8 +40,11 @@ export class SettingsService {
   }
 
   get collapseType() {
-    const type = localStorage.getItem(SettingsService.collapseType) ?? SettingsService.defaultCollapseType
-    if (type == null || !SettingsService.collapseTypes.find(v => v === type)) return SettingsService.defaultCollapseType
+    const type =
+      localStorage.getItem(SettingsService.collapseType) ??
+      SettingsService.defaultCollapseType
+    if (type == null || !SettingsService.collapseTypes.find((v) => v === type))
+      return SettingsService.defaultCollapseType
 
     return (type as CollapseType) ?? "smart"
   }
@@ -45,8 +54,11 @@ export class SettingsService {
   }
 
   get theme() {
-    const theme = localStorage.getItem(SettingsService.theme) ?? SettingsService.defaultTheme
-    if (theme == null || !SettingsService.themes.find(v => v === theme)) return SettingsService.defaultTheme
+    const theme =
+      localStorage.getItem(SettingsService.theme) ??
+      SettingsService.defaultTheme
+    if (theme == null || !SettingsService.themes.find((v) => v === theme))
+      return SettingsService.defaultTheme
 
     return theme
   }
@@ -54,6 +66,22 @@ export class SettingsService {
   set theme(theme: string) {
     localStorage.setItem(SettingsService.theme, theme)
     this.setupTheme()
+  }
+
+  get absencesShow(): boolean {
+    return localStorage.getItem("absencesShow") !== "false"
+  }
+
+  set absencesShow(show: boolean) {
+    localStorage.setItem("absencesShow", String(show))
+  }
+
+  get standaloneShow(): boolean {
+    return localStorage.getItem("standaloneShow") !== "false"
+  }
+
+  set standaloneShow(show: boolean) {
+    localStorage.setItem("standaloneShow", String(show))
   }
 
   setup() {
@@ -72,7 +100,7 @@ export class SettingsService {
         this.translateService.use(SettingsService.defaultLocale)
         moment.locale(SettingsService.defaultLocale)
         localStorage.setItem("locale", SettingsService.defaultLocale)
-      }
+      },
     })
   }
 
@@ -83,6 +111,6 @@ export class SettingsService {
 }
 
 export interface Locale {
-  code: string,
+  code: string
   name: string
 }

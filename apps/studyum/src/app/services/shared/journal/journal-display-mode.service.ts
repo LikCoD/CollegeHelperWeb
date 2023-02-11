@@ -5,6 +5,7 @@ import {Entry} from "../../../components/journal/view/base-journal/base-journal-
 import {BehaviorSubject} from "rxjs"
 import * as moment from "moment"
 import {JournalCell} from "../../../models/journal"
+import {SettingsService} from "../../ui/settings.service"
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,7 @@ export class JournalDisplayModeService {
   standaloneType$ = new BehaviorSubject<LessonType | null>(null)
   mode$ = new BehaviorSubject<JournalMode>("general")
 
-  constructor(private service: JournalService) {}
+  constructor(private service: JournalService, private settings: SettingsService) {}
 
   get mode(): JournalMode {
     return this.mode$.value
@@ -34,10 +35,7 @@ export class JournalDisplayModeService {
       this.split = false
     }
 
-    if (
-      type != null &&
-      this.service.journal.dates.flat(2).find((d) => d.type === "")
-    ) {
+    if (type != null && this.service.journal.dates.flat(2).find((d) => d.type === "")) {
       this.service.split(type.type)
       this.split = true
     }
@@ -46,56 +44,67 @@ export class JournalDisplayModeService {
   }
 
   getEntries(cell: JournalCell): Entry[] {
-    let colors = this.service.journal.info.studyPlace.journalColors
-    if (this.mode === "absences") {
-      let absenceMark = this.service.journal.info.studyPlace.absenceMark
-      return (
-        cell.absences?.map(
-          (value) =>
-            <Entry>{
-              text: value.time?.toString() ?? absenceMark,
-              color: colors.general,
-            }
-        ) ?? []
-      )
+    const getAbsences = () => {
+      const absenceMark = this.service.journal.info.studyPlace.absenceMark
+      const absences = cell.absences?.map((value) => {
+        return <Entry>{
+          text: value.time?.toString() ?? absenceMark,
+          color: colors.general,
+        }
+      })
+
+      return absences ?? []
     }
 
-    let type = this.service.journal.info.studyPlace.lessonTypes.find(
-      (v) => v.type === this.selectedStandaloneType?.type
-    )
+    const getStandaloneMarks = (
+      selectedType: string | null = this.selectedStandaloneType?.type || null
+    ) => {
+      const type = this.service.journal.info.studyPlace.lessonTypes.find(
+        (v) => v.type === selectedType
+      )
 
-    let marks =
-      cell.marks
-        ?.filter(
-          (v) =>
-            this.mode == "general" ||
-            type?.standaloneMarks == null ||
-            (this.mode == "standalone" &&
-              type?.standaloneMarks?.find((t) => t.mark == v.mark))
-        )
-        ?.map((value) => <Entry>{text: value.mark, color: colors.general}) ?? []
+      const standalone = cell.marks
+        ?.filter((v) => type?.standaloneMarks?.find((t) => t?.mark === v.mark))
+        ?.map((value) => <Entry>{text: value.mark, color: colors.general})
 
-    if (this.mode == "standalone") return marks
+      return standalone ?? []
+    }
 
-    let absences =
-      cell.absences
-        ?.filter((v) => this.mode == "absences" || !v.time)
-        ?.map(
-          (value) =>
-            <Entry>{
-              text:
-                value.time?.toString() ??
-                this.service.journal.info.studyPlace.absenceMark,
-              color: colors.general,
-            }
-        ) ?? []
+    const getGeneralMarks = () => {
+      const standaloneMarks = this.service.journal.info.studyPlace.lessonTypes
+        .flatMap((t) => t.standaloneMarks)
+        .filter((v, i, a) => a.indexOf(v) === i)
 
-    return marks.concat(absences)
+      const marks = cell.marks
+        ?.filter((v) => !standaloneMarks?.find((t) => t?.mark === v.mark))
+        ?.map((value) => <Entry>{text: value.mark, color: colors.general})
+
+      return marks ?? []
+    }
+
+    let colors = this.service.journal.info.studyPlace.journalColors
+
+    switch (this.mode) {
+      case "absences":
+        return getAbsences()
+      case "standalone":
+        return getStandaloneMarks()
+      case "general":
+        let marks = getGeneralMarks()
+
+        if (this.settings.absencesShow) marks = marks.concat(getAbsences())
+
+        if (this.settings.standaloneShow)
+          marks = marks.concat(getStandaloneMarks(cell.type!!.at(0)))
+
+        return marks
+    }
+
+    return []
   }
 
   showColumn = (date: JournalCell): boolean =>
-    this.mode !== "standalone" ||
-    !!date.type?.includes(this.selectedStandaloneType?.type ?? "")
+    this.mode !== "standalone" || !!date.type?.includes(this.selectedStandaloneType?.type ?? "")
 
   notCollapsedCellColor(lesson: JournalCell): string {
     let colors = this.service.journal.info.studyPlace.journalColors
@@ -105,9 +114,8 @@ export class JournalDisplayModeService {
       if (!type) return colors.general
 
       let marks =
-        lesson.marks?.filter(
-          (m) => !!type!!.standaloneMarks?.find((sm) => sm.mark === m.mark)
-        ) ?? []
+        lesson.marks?.filter((m) => !!type!!.standaloneMarks?.find((sm) => sm.mark === m.mark)) ??
+        []
 
       let color = colors.general
       for (let mark of marks) {
@@ -119,9 +127,7 @@ export class JournalDisplayModeService {
         )
           break
 
-        let date = this.service.journal.dates
-          .flat(2)
-          [lesson.point.x].startDate.clone()
+        let date = this.service.journal.dates.flat(2)[lesson.point.x].startDate.clone()
         date = date.clone().add(markType.workOutTime, "second")
         color = date.isAfter(moment.utc()) ? colors.warning : colors.danger
       }

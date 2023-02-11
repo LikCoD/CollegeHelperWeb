@@ -50,6 +50,7 @@
       "revokeToken": "Revoke token"
     },
     "info": {
+      "generalConfig": "General config",
       "info": "Info",
       "language": "Language",
       "collapseType": "Collapse type",
@@ -63,7 +64,10 @@
       "themes": {
         "light": "Light",
         "dark": "Dark"
-      }
+      },
+      "journalConfig": "Journal config",
+      "showAbsences": "Show absences",
+      "showStandalone": "Show standalone marks"
     },
     "accept": {
       "acceptUsers": "Accept users"

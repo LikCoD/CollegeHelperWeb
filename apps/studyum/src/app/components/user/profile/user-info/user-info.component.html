@@ -1,4 +1,5 @@
 <div>
+  <h6 [innerText]="'user.info.generalConfig' | translate"></h6>
   <label>
     {{'user.info.language' | translate}}
     <select #languageSelect class="form-select form-select-sm" (change)="currentLocaleCode = languageSelect.value">
@@ -19,5 +20,23 @@
       <option *ngFor="let th of themes" [value]="th" [label]="'user.info.themes.' + th | translate"
               [selected]="th == theme"></option>
     </select>
+  </label>
+  <hr>
+  <h6 [innerText]="'user.info.journalConfig' | translate"></h6>
+  <label>
+    {{'user.info.showAbsences' | translate}}
+    <input
+      #absencesCheckbox
+      type="checkbox"
+      [checked]="absencesShow"
+      (change)="absencesShow = absencesCheckbox.checked">
+  </label>
+  <label>
+    {{'user.info.showStandalone' | translate}}
+    <input
+      #standaloneCheckbox
+      type="checkbox"
+      [checked]="standaloneShow"
+      (change)="standaloneShow = standaloneCheckbox.checked">
   </label>
 </div>

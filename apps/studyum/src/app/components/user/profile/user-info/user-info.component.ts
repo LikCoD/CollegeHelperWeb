@@ -5,12 +5,10 @@ import {CollapseType} from "../../../../services/shared/journal/journal-collapse
 @Component({
   selector: "app-user-info",
   templateUrl: "./user-info.component.html",
-  styleUrls: ["./user-info.component.scss"]
+  styleUrls: ["./user-info.component.scss"],
 })
 export class UserInfoComponent {
-
-  constructor(private settingsService: SettingsService) {
-  }
+  constructor(private settingsService: SettingsService) {}
 
   get locales(): Locale[] {
     return SettingsService.locales
@@ -47,6 +45,20 @@ export class UserInfoComponent {
   set theme(theme: string) {
     this.settingsService.theme = theme
   }
+
+  get absencesShow(): boolean {
+    return this.settingsService.absencesShow
+  }
+
+  set absencesShow(checked: boolean) {
+    this.settingsService.absencesShow = checked
+  }
+
+  get standaloneShow(): boolean {
+    return this.settingsService.standaloneShow
+  }
+
+  set standaloneShow(checked: boolean) {
+    this.settingsService.standaloneShow = checked
+  }
 }
-
-

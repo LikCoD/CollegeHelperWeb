@@ -50,6 +50,7 @@
       "revokeToken": "Отозвать токен"
     },
     "info": {
+      "generalConfig": "Основная конфигурация",
       "info": "Информация",
       "language": "Язык | Lang.",
       "collapseType": "Тип группировки",
@@ -63,7 +64,10 @@
       "themes": {
         "light": "Светлая",
         "dark": "Темная"
-      }
+      },
+      "journalConfig": "Конфигурация журнала",
+      "showAbsences": "Показывать отсутствия",
+      "showStandalone": "Показывать доп. оценки"
     },
     "accept": {
       "acceptUsers": "Принять пользователей"
