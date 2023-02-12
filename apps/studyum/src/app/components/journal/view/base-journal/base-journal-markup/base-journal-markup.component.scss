@@ -1,0 +1,31 @@
+:host {
+  position: relative;
+}
+
+div {
+  position: absolute;
+}
+
+.h {
+  height: 56px;
+  width: 100%;
+
+  border-radius: 17px 0 0 17px;
+  margin-left: 5px;
+}
+
+.v {
+  width: 56px;
+  height: calc(100% - 24px);
+
+  border-radius: 17px;
+  margin-top: 3px;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}

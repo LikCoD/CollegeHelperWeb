@@ -1,10 +1,6 @@
 import {NgModule} from "@angular/core"
 import {BrowserModule} from "@angular/platform-browser"
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpClientModule,
-} from "@angular/common/http"
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http"
 import {RouterModule, Routes, TitleStrategy} from "@angular/router"
 import {AppComponent} from "./app.component"
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
@@ -26,26 +22,22 @@ const appRoutes: Routes = [
 
   {
     path: "auth",
-    loadChildren: () =>
-      import("./modules/auth.module").then((m) => m.AuthModule),
+    loadChildren: () => import("./modules/auth.module").then((m) => m.AuthModule),
   },
 
   {
     path: "profile",
-    loadChildren: () =>
-      import("./modules/profile.module").then((m) => m.ProfileModule),
+    loadChildren: () => import("./modules/profile.module").then((m) => m.ProfileModule),
   },
 
   {
     path: "schedule",
-    loadChildren: () =>
-      import("./modules/schedule.module").then((m) => m.ScheduleModule),
+    loadChildren: () => import("./modules/schedule.module").then((m) => m.ScheduleModule),
   },
 
   {
     path: "journal",
-    loadChildren: () =>
-      import("./modules/journal.module").then((m) => m.JournalModule),
+    loadChildren: () => import("./modules/journal.module").then((m) => m.JournalModule),
   },
 ]
 
@@ -54,15 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-    HomeComponent,
-    HomeCardComponent,
-
-    HeaderComponent,
-    ToastComponent,
-  ],
+  declarations: [AppComponent, HomeComponent, HomeCardComponent, HeaderComponent, ToastComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

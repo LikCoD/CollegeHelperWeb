@@ -10,6 +10,7 @@
       [monthLessons]="monthLessons(journal, i)"
     ></app-journal-month>
   </div>
+  <app-base-journal-markup></app-base-journal-markup>
   <section>
     <div *ngIf="mode == 'general'">
       <p>{{'journal.view.avg' | translate}}</p>

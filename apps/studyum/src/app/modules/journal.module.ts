@@ -33,6 +33,7 @@ import {JournalCellService} from "../services/shared/journal/journal.cell.servic
 import {JournalDisplayModeService} from "../services/shared/journal/journal-display-mode.service"
 import {JournalLessonService} from "../services/shared/journal/journal-lesson.service"
 import {JournalMarksService} from "../services/shared/journal/journal-marks.service"
+import {BaseJournalMarkupComponent} from "../components/journal/view/base-journal/base-journal-markup/base-journal-markup.component"
 
 const routes: Routes = [
   {
@@ -56,6 +57,7 @@ const routes: Routes = [
     JournalCellComponent,
     JournalComponent,
     BaseJournalComponent,
+    BaseJournalMarkupComponent,
     JournalMonthComponent,
     JournalDayComponent,
     JournalColumnComponent,
