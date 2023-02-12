@@ -94,8 +94,7 @@ export class JournalDisplayModeService {
 
         if (this.settings.absencesShow) marks = marks.concat(getAbsences())
 
-        if (this.settings.standaloneShow)
-          marks = marks.concat(getStandaloneMarks(cell.type!!.at(0)))
+        if (this.settings.standaloneShow) marks = marks.concat(getStandaloneMarks(cell.type?.at(0)))
 
         return marks
     }
