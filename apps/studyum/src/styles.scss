@@ -25,6 +25,8 @@ $dangerColor: #FF5517;
   --secondaryBackgroundColor: #4A4A4A;
   --onBackgroundColor: #E1E1E1;
   --onSecondaryBackgroundColor: #EFEFEF;
+
+  --backgroundColorGradient: linear-gradient(90deg, #264653 0%, #1E404E 100%);
 }
 
 .light {
@@ -37,6 +39,8 @@ $dangerColor: #FF5517;
   --secondaryBackgroundColor: #4A4A4A;
   --onBackgroundColor: #4A4A4A;
   --onSecondaryBackgroundColor: #EFEFEF;
+
+  --backgroundColorGradient: linear-gradient(90deg, #CFCFCF 0%, #BEBEBE 100%);
 }
 
 html, body {
@@ -44,7 +48,7 @@ html, body {
 }
 
 body {
-  background: linear-gradient(90deg, #264653 0%, #1E404E 100%);
+  background: var(--backgroundColorGradient);
   font-family: 'Roboto', sans-serif;
 }
 
