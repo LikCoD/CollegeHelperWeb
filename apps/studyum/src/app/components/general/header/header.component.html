@@ -1,63 +1,27 @@
-<!--<main-->
-<!--  [@enterAnimation]="triggerTitleAnimation"-->
-<!--  [style.width.px]="tempTitleContainer.clientWidth"-->
-<!--  *ngIf="$title | async as title"-->
-<!--&gt;-->
-<!--  <img *ngIf="title !== 'Studyum'" src="assets/home.svg" alt="home" routerLink="">-->
-<!--  <a routerLink="">{{title | translate}}</a>-->
-<!--</main>-->
-<!--<nav>-->
-<!--  <ng-container *ngIf="$user | async as user else notLoggedIn">-->
-<!--    <div class="action">-->
-<!--      <a routerLink="schedule">{{'header.schedule' | translate}}</a>-->
-<!--      <a routerLink="journal">{{'header.journal' | translate}}</a>-->
-
-<!--      <img src="assets/schedule.svg" alt="schedule" routerLink="schedule">-->
-<!--      <img src="assets/journal.svg" alt="journal" routerLink="journal">-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <a routerLink="profile" class="username">{{user.login}}</a>-->
-<!--      <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">-->
-<!--    </div>-->
-<!--  </ng-container>-->
-<!--  <ng-template #notLoggedIn>-->
-<!--    <div class="action">-->
-<!--      <a routerLink="schedule">{{'header.schedule' | translate}}</a>-->
-
-<!--      <img src="assets/schedule.svg" alt="schedule" routerLink="schedule/login">-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <button type="button" class="btn btn-outline-light"-->
-<!--              routerLink="auth/login">{{'header.login' | translate}}</button>-->
-<!--      <button type="button" class="btn btn-outline-light"-->
-<!--              routerLink="auth/signup">{{'header.signUp' | translate}}</button>-->
-<!--    </div>-->
-<!--  </ng-template>-->
-<!--</nav>-->
-
-<!--<main #tempTitleContainer class="temp">-->
-<!--  <img *ngIf="tempTitle !== 'Studyum'" src="assets/home.svg" alt="home" routerLink="">-->
-<!--  <a routerLink="">{{tempTitle | translate}}</a>-->
-<!--</main>-->
-
-
 <h4 class="logo-text"><a routerLink="/">Studyum</a></h4>
+<h4 class="logo-text logo-text-sm"><a routerLink="/">St</a></h4>
 <div class="right-wrapper">
   <nav class="nav-bar">
-    <a routerLink="schedule">Schedule</a>
-    <a *ngIf="$user |async" routerLink="journal">Journal</a>
+    <a routerLink="schedule" [innerText]="'header.schedule' | translate"></a>
+    <a *ngIf="$user | async" routerLink="journal" [innerText]="'header.journal' | translate"></a>
+  </nav>
+  <nav class="nav-bar nav-bar-sm">
+    <a routerLink="schedule"><img src="assets/schedule.svg" alt="schedule"></a>
+    <a *ngIf="$user | async" routerLink="journal"><img src="assets/journal.svg" alt="journal"></a>
   </nav>
   <hr class="block-divider">
   <a *ngIf="$user | async as user else notLogin" routerLink="profile" class="user-block">
     {{user.login}}
-    <img [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
+    <img class="profile-image" [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
   </a>
   <ng-template #notLogin>
     <div class="user-block">
       <a class="btn icon-btn login-btn" routerLink="auth/login">Login <img src="assets/login.svg" alt=""></a>
       <a class="btn icon-btn signup-btn" routerLink="auth/signup">SignUp <img src="assets/signup.svg" alt=""></a>
+    </div>
+    <div class="user-block user-block-sm">
+      <a class="btn icon-btn login-btn" routerLink="auth/login"><img src="assets/login.svg" alt=""></a>
+      <a class="btn icon-btn signup-btn" routerLink="auth/signup"><img src="assets/signup.svg" alt=""></a>
     </div>
   </ng-template>
 </div>

@@ -60,6 +60,20 @@
   margin-top: 5px;
 }
 
+.logo-text-sm {
+  display: none;
+}
+
+@media (max-width: 350px) {
+  .logo-text {
+    display: none;
+  }
+
+  .logo-text-sm {
+    display: block;
+  }
+}
+
 .right-wrapper {
   grid-area: nav;
 
@@ -73,6 +87,26 @@
   .nav-bar {
     display: flex;
     gap: 15px;
+  }
+
+  .nav-bar-sm {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    .nav-bar {
+      display: none;
+    }
+
+    .nav-bar-sm {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .profile-image {
+      display: none;
+    }
   }
 
   .block-divider {
@@ -90,6 +124,20 @@
     display: flex;
     align-items: center;
     gap: 15px;
+  }
+
+  .user-block-sm {
+    display: none;
+  }
+
+  @media (max-width: 450px) {
+    .user-block {
+      display: none;
+    }
+
+    .user-block-sm {
+      display: flex;
+    }
   }
 }
 

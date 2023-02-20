@@ -9,10 +9,7 @@ import {KeyboardService} from "./services/shared/keyboard.service"
   styleUrls: ["app.component.scss"],
 })
 export class AppComponent {
-  constructor(
-    translate: SettingsService,
-    private keyboardService: KeyboardService
-  ) {
+  constructor(translate: SettingsService, private keyboardService: KeyboardService) {
     translate.setup()
   }
 
