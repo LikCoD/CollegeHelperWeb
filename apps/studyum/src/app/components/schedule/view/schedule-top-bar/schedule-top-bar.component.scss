@@ -2,17 +2,20 @@
   display: flex;
   gap: 10px;
 
-  > * {
-    display: flex;
-    flex-flow: row;
+  flex-wrap: wrap;
+}
 
-    gap: 16px;
-  }
+.actions {
+  display: flex;
+  gap: 16px;
+
+  overflow: scroll;
 }
 
 .search {
   display: flex;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 16px;
 
   flex-grow: 1;
 

@@ -1,4 +1,4 @@
-<div>
+<div class="actions">
   <button
     class="btn btn-outline-light btn-sm" (click)="changeEditMode()"
     *ngIf="canEdit(user)"
@@ -29,36 +29,49 @@
       class="btn btn-light btn-sm" (click)="changeTimeMode()"
     >{{'schedule.view.time' | translate}}</button>
   </ng-template>
+
+  <button
+    *ngIf="!isSearchMode else searchMode"
+    class="btn btn-outline-light btn-sm" (click)="toggleSearch()"
+  >{{'schedule.view.search' | translate}}</button>
+
+  <ng-template #searchMode>
+    <button
+      class="btn btn-light btn-sm" (click)="toggleSearch()"
+    >{{'schedule.view.search' | translate}}</button>
+  </ng-template>
 </div>
 
-<form [formGroup]="findForm" class="search" *ngIf="studyPlaces$ | async as studyPlaces" (submit)="submitFind()">
-  <div class="input-group input-group-sm">
-    <input
-      #studyPlaceInput
-      class="form-control"
-      list="studyPlaces"
-      [placeholder]="'schedule.find.studyPlace' | translate"
-      (change)="changeStudyPlace(studyPlaces, studyPlaceInput)">
-  </div>
-  <datalist id="studyPlaces">
-    <option *ngFor="let studyPlace of studyPlaces" [value]="studyPlace.name"></option>
-  </datalist>
-
-  <div class="input-group input-group-sm" *ngIf="findItems$ | async as items">
-    <select #itemTypeSelect class="form-select" formControlName="type">
-      <option value="group">{{'schedule.find.group' | translate}}</option>
-      <option value="teacher">{{'schedule.find.teacher' | translate}}</option>
-      <option value="subject">{{'schedule.find.subject' | translate}}</option>
-      <option value="room">{{'schedule.find.room' | translate}}</option>
-    </select>
-    <input
-      class="form-control"
-      list="items-list"
-      formControlName="name"
-      [placeholder]="'schedule.find.name' | translate">
-    <datalist id="items-list">
-      <option *ngFor="let item of items[itemTypeSelect.value + 's'] ?? []">{{item}}</option>
+<ng-container *ngIf="isSearchMode">
+  <form [formGroup]="findForm" class="search" *ngIf="studyPlaces$ | async as studyPlaces" (submit)="submitFind()">
+    <div class="input-group input-group-sm">
+      <input
+        #studyPlaceInput
+        class="form-control"
+        list="studyPlaces"
+        [placeholder]="'schedule.find.studyPlace' | translate"
+        (change)="changeStudyPlace(studyPlaces, studyPlaceInput)">
+    </div>
+    <datalist id="studyPlaces">
+      <option *ngFor="let studyPlace of studyPlaces" [value]="studyPlace.name"></option>
     </datalist>
-    <button class="btn btn-secondary" type="submit"></button>
-  </div>
-</form>
+
+    <div class="input-group input-group-sm" *ngIf="findItems$ | async as items">
+      <select #itemTypeSelect class="form-select" formControlName="type">
+        <option value="group">{{'schedule.find.group' | translate}}</option>
+        <option value="teacher">{{'schedule.find.teacher' | translate}}</option>
+        <option value="subject">{{'schedule.find.subject' | translate}}</option>
+        <option value="room">{{'schedule.find.room' | translate}}</option>
+      </select>
+      <input
+        class="form-control"
+        list="items-list"
+        formControlName="name"
+        [placeholder]="'schedule.find.name' | translate">
+      <datalist id="items-list">
+        <option *ngFor="let item of items[itemTypeSelect.value + 's'] ?? []">{{item}}</option>
+      </datalist>
+      <button class="btn btn-secondary" type="submit"></button>
+    </div>
+  </form>
+</ng-container>

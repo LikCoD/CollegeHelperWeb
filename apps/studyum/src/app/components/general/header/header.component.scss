@@ -102,13 +102,7 @@
       display: flex;
     }
   }
-
-  @media (max-width: 400px) {
-    .profile-image {
-      display: none;
-    }
-  }
-
+  
   .block-divider {
     width: 2px;
     height: 30px;
@@ -157,43 +151,4 @@ img {
   height: 38px;
 
   border-radius: 25%;
-}
-
-.action {
-  img {
-    display: none;
-  }
-}
-
-
-@media (max-width: 800px) {
-  main {
-    padding: 5px;
-
-    a {
-      display: none;
-    }
-
-    img {
-      margin-bottom: 0;
-    }
-  }
-}
-
-@media (max-width: 520px) {
-  .username {
-    display: none;
-  }
-}
-
-@media (max-width: 450px) {
-  .action {
-    img {
-      display: block;
-    }
-
-    a {
-      display: none;
-    }
-  }
 }

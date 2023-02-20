@@ -12,7 +12,7 @@ import {Router} from "@angular/router"
 @Component({
   selector: "app-schedule-top-bar",
   templateUrl: "./schedule-top-bar.component.html",
-  styleUrls: ["./schedule-top-bar.component.scss"]
+  styleUrls: ["./schedule-top-bar.component.scss"],
 })
 export class ScheduleTopBarComponent implements OnInit {
   @Input() minScale: number
@@ -28,6 +28,7 @@ export class ScheduleTopBarComponent implements OnInit {
   isEditGeneral = false
   isTimeMode = true
   scaleMode = 0
+  isSearchMode = false
 
   user: User | undefined
 
@@ -37,10 +38,15 @@ export class ScheduleTopBarComponent implements OnInit {
   findForm = new FormGroup({
     studyPlaceID: new FormControl(""),
     type: new FormControl("group", Validators.required),
-    name: new FormControl("", Validators.required)
+    name: new FormControl("", Validators.required),
   })
 
-  constructor(private router: Router, private userService: UserService, private generalService: GeneralService, private scheduleService: ScheduleService) {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private generalService: GeneralService,
+    private scheduleService: ScheduleService
+  ) {
     this.findItems$ = this.scheduleService.getTypes("")
   }
 
@@ -48,7 +54,7 @@ export class ScheduleTopBarComponent implements OnInit {
     this.studyPlaces$ = this.generalService.getNotRestrictedStudyPlaces()
 
     this.userService.user$.subscribe({
-      next: user => {
+      next: (user) => {
         this.user = user
         this.findForm.get("studyPlaceID")?.setValue(user?.studyPlaceId ?? "")
       },
@@ -56,7 +62,7 @@ export class ScheduleTopBarComponent implements OnInit {
   }
 
   changeStudyPlace(studyPlaces: StudyPlace[], input: HTMLInputElement): void {
-    let studyPlace = studyPlaces.find(sp => sp.name == input.value)
+    let studyPlace = studyPlaces.find((sp) => sp.name == input.value)
     if (studyPlace == undefined) {
       input.value = studyPlaces[0]?.name ?? "-"
       return
@@ -67,7 +73,11 @@ export class ScheduleTopBarComponent implements OnInit {
   }
 
   canEdit(user: User | null | undefined): boolean {
-    return user != undefined && user.permissions != undefined && user.permissions.findIndex(value => value === "editSchedule") != -1
+    return (
+      user != undefined &&
+      user.permissions != undefined &&
+      user.permissions.findIndex((value) => value === "editSchedule") != -1
+    )
   }
 
   changeEditMode() {
@@ -104,5 +114,9 @@ export class ScheduleTopBarComponent implements OnInit {
   changeTimeMode() {
     this.isTimeMode = !this.isTimeMode
     this.timeViewMode.emit(this.isTimeMode)
+  }
+
+  toggleSearch() {
+    this.isSearchMode = !this.isSearchMode
   }
 }
