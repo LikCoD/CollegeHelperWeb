@@ -10,13 +10,15 @@
     <a *ngIf="$user | async" routerLink="journal"><img src="assets/journal.svg" alt="journal"></a>
   </nav>
   <hr class="block-divider">
-  <a *ngIf="$user | async as user else notLogin" routerLink="profile" class="user-block">
-    {{user.login}}
-    <img class="profile-image" [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
-  </a>
-  <a *ngIf="$user | async as user else notLogin" routerLink="profile" class="user-block user-block-sm">
-    <img class="profile-image" [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
-  </a>
+  <ng-container *ngIf="$user | async as user else notLogin">
+    <a routerLink="profile" class="user-block">
+      {{user.login}}
+      <img class="profile-image" [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
+    </a>
+    <a routerLink="profile" class="user-block user-block-sm">
+      <img class="profile-image" [src]="user.picture" referrerpolicy="no-referrer" alt="profile" routerLink="profile">
+    </a>
+  </ng-container>
   <ng-template #notLogin>
     <div class="user-block">
       <a class="btn icon-btn login-btn" routerLink="auth/login">Login <img src="assets/login.svg" alt=""></a>
