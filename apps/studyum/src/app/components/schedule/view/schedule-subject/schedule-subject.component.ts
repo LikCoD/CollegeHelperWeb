@@ -29,9 +29,7 @@ import {Lesson} from "../../../../models/schedule"
     },
   ],
 })
-export class ScheduleSubjectComponent
-  implements OnInit, Validator, ControlValueAccessor
-{
+export class ScheduleSubjectComponent implements OnInit, Validator, ControlValueAccessor {
   private studyPlaceID: string
 
   isUpdated: boolean
@@ -51,10 +49,10 @@ export class ScheduleSubjectComponent
     this.form
       .get("secondaryColor")!!
       .setValue(
-        value.secondaryColor == "" || !value.secondaryColor
-          ? "transparent"
-          : value.secondaryColor
+        value.secondaryColor == "" || !value.secondaryColor ? "transparent" : value.secondaryColor
       )
+
+    this._lesson = value
   }
 
   @Input() editable: boolean = false
@@ -76,19 +74,15 @@ export class ScheduleSubjectComponent
     this.form.statusChanges.subscribe(() => {
       if (typeof this.onChange !== "function") return
 
-      this.onChange({...this.form.value})
+      this.onChange({...this._lesson, ...this.form.value})
     })
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.form.get("subject")?.errors != null)
-      return this.form.get("subject")!!.errors
-    if (this.form.get("teacher")?.errors != null)
-      return this.form.get("teacher")!!.errors
-    if (this.form.get("room")?.errors != null)
-      return this.form.get("room")!!.errors
-    if (this.form.get("group")?.errors != null)
-      return this.form.get("group")!!.errors
+    if (this.form.get("subject")?.errors != null) return this.form.get("subject")!!.errors
+    if (this.form.get("teacher")?.errors != null) return this.form.get("teacher")!!.errors
+    if (this.form.get("room")?.errors != null) return this.form.get("room")!!.errors
+    if (this.form.get("group")?.errors != null) return this.form.get("group")!!.errors
 
     return null
   }
@@ -114,4 +108,6 @@ export class ScheduleSubjectComponent
       studyPlaceID: this.studyPlaceID,
     }
   }
+
+  private _lesson: Lesson
 }

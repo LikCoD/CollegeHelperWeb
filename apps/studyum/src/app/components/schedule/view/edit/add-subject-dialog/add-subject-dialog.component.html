@@ -1,37 +1,27 @@
 <app-dialog-frame>
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="studyPlace$ | async as studyPlace">
     <h3>{{'schedule.view.addLesson' | translate}}</h3>
 
-    <div class="date-container">
-      <p>{{'schedule.view.startDate' | translate}}</p>
-      <app-form-property [property]="form.get('startDate')!!">
-        <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="startDate">
-      </app-form-property>
-    </div>
-    <div class="date-container">
-      <p>{{'schedule.view.endDate' | translate}}</p>
-      <app-form-property [property]="form.get('endDate')!!">
-        <input type="datetime-local" class="form-control" [min]="currentDate" formControlName="endDate">
-      </app-form-property>
+    <div class="top-row">
+      <select class="form-select form-select-sm" formControlName="type">
+        <option *ngFor="let type of studyPlace.lessonTypes" [innerText]="type.type"></option>
+      </select>
+
+      <app-color-input formControlName="primaryColor" />
+      <app-color-input formControlName="secondaryColor" [clearable]="true" />
     </div>
 
-    <div class="lesson-row">
-      <div class="colors">
-        <input #primaryColorInput type="color" class="form-control"
-               (input)="onPrimaryColorChange(primaryColorInput.value)">
-        <div class="btn-group mr-2">
-          <input #secondaryColorInput type="color" class="form-control"
-                 (input)="onSecondaryColorChange(secondaryColorInput.value)">
-          <button type="button" class="btn" (click)="onSecondaryColorChange('transparent')"
-                  [style.--secondaryColor]="secondaryColorInput.value">
-            X
-          </button>
-        </div>
-      </div>
-      <app-form-property [property]="form.get('lesson')!!">
-        <app-schedule-subject [editable]="true" formControlName="lesson"></app-schedule-subject>
-      </app-form-property>
+    <div class="lesson-block">
+      <input class="text-input label-start-date" type="datetime-local" [min]="currentDate" formControlName="startDate">
+      <input class="text-input label-index" formControlName="lessonIndex">
+      <input class="text-input label-end-date" type="datetime-local" [min]="currentDate" formControlName="endDate">
+
+      <app-schedule-subject class="lesson" [editable]="true" formControlName="lesson"></app-schedule-subject>
     </div>
+    <app-form-property [property]="form.get('startDate')!!" />
+    <app-form-property [property]="form.get('lessonIndex')!!" />
+    <app-form-property [property]="form.get('endDate')!!" />
+    <app-form-property [property]="form.get('lesson')!!" />
 
     <button [disabled]="!form.valid" type="submit"
             class="btn btn-outline-dark">{{'schedule.view.add' | translate}}</button>

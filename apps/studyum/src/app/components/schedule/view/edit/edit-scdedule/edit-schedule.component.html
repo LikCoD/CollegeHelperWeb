@@ -8,5 +8,5 @@
 <button class="btn btn-light" (click)="makeGeneral.emit()">{{'schedule.view.makeGeneral' | translate}}</button>
 
 <ng-template #manageSubjectTemplate>
-  <app-add-subject-dialog [templateSubject]="selectedLesson"></app-add-subject-dialog>
+  <app-add-subject-dialog [lesson]="selectedLesson"></app-add-subject-dialog>
 </ng-template>

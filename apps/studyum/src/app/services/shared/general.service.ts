@@ -12,7 +12,7 @@ export class GeneralService {
     this.studyPlaces$ = httpService.getStudyPlaces()
   }
 
-  getCurrentStudyPlace(id: string): Observable<StudyPlace> {
+  getCurrentStudyPlace(id: string = "self"): Observable<StudyPlace> {
     this.currentStudyPlace$ = this.httpService.getCurrentStudyPlace(id)
     return this.currentStudyPlace$
   }

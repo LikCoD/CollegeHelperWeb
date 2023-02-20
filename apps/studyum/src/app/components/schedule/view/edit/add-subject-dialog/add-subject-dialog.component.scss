@@ -1,42 +1,5 @@
 @use "../../../../../../styles";
 
-:host {
-  position: relative;
-}
-
-form {
-  width: 310px;
-  height: 320px;
-}
-
-.btn-close {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 20px;
-  height: 20px;
-  background-color: aliceblue;
-  border-radius: 10px;
-}
-
-.time-container {
-  display: flex;
-  width: 130px;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.date-container {
-  display: flex;
-  margin-bottom: 10px;
-  justify-content: space-between;
-  align-items: center;
-}
-
-input[type="datetime-local"] {
-  width: 185px;
-}
-
 app-schedule-subject {
   width: 180px;
   height: 90px;
@@ -46,77 +9,87 @@ app-schedule-subject {
   display: block;
 }
 
-.lesson-row {
-  background-color: styles.$backgroundColor;
-  border-radius: 36px;
-  padding: 10px;
-
-  display: flex;
-  justify-content: space-between;
-
-  .colors {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-
-    width: 75px;
-
-    * {
-      width: inherit;
-    }
-
-    div {
-      display: flex;
-
-      button {
-        border-color: var(--secondaryColor);
-        color: var(--secondaryColor);
-
-        padding: 0;
-
-        height: 30px;
-        width: 30px;
-
-        transition: none;
-
-        &:hover {
-          transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-
-          color: white;
-          background-color: var(--secondaryColor);
-        }
-      }
-    }
-  }
-}
-
 button[type="submit"] {
   margin-top: 15px;
   width: 100%;
 }
 
-
-input[type="color"] {
-  padding: 0;
-  height: 30px;
-
-  border: none;
+.form-select {
+  max-width: 200px;
 }
 
-input[type="color"]::-webkit-color-swatch {
-  border: none;
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 75px 75px;
 
-  border-radius: 0.25rem;
+  gap: 15px;
+
+  margin-bottom: 15px;
+
+  app-color-input {
+    height: 100%;
+  }
 }
 
-.btn-group {
-  input[type="color"]:last-child::-webkit-color-swatch {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+.lesson-block {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: repeat(3, 1fr);
+
+  padding: 10px;
+  border-radius: 35px;
+
+  background-color: styles.$backgroundColor;
+}
+
+.label- {
+  &start-date {
+    grid-column: 1;
+    grid-row: 1;
+
+    color: styles.$onBackgroundColor;
   }
 
-  input[type="color"]:first-child::-webkit-color-swatch {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  &index {
+    grid-column: 1;
+    grid-row: 2;
+
+    color: styles.$onBackgroundColor;
+
+    margin: 3px 10px 3px 0;
+    border-radius: 5px;
+
+    &.ng-dirty {
+      background-color: rgba(255, 144, 144, 0.5);
+    }
+
+    &.ng-valid {
+      background-color: transparent;
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
+
+  &end-date {
+    grid-column: 1;
+    grid-row: 3;
+
+    color: styles.$onBackgroundColor;
+  }
+}
+
+.lesson {
+  grid-column: 2;
+  grid-row: 1/4;
+}
+
+.text-input {
+  background-color: transparent;
+  border: none;
+
+  font-size: 12px;
 }

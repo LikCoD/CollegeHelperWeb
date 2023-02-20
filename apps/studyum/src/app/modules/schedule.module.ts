@@ -14,6 +14,7 @@ import {TranslateModule} from "@ngx-translate/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "./shared.module"
 import {ModalsModule} from "../../../../../libs/modals/src"
+import {UiElementsModule} from "../../../../../libs/ui-elements/src"
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
+    UiElementsModule,
   ],
   exports: [RouterModule],
 })

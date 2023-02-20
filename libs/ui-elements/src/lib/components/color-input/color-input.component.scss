@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  flex-flow: row;
+
+  height: 25px;
+}
+
+input {
+  border: none;
+  padding: 0;
+
+  background: transparent;
+
+  height: 100%;
+  flex-grow: 1;
+}
+
+input::-webkit-color-swatch {
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.clearable::-webkit-color-swatch {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.transparent::-webkit-color-swatch {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: 1px black solid;
+}
+
+button {
+  border-color: var(--color);
+  color: var(--color);
+
+  padding: 0;
+
+  height: 100%;
+  aspect-ratio: 1;
+
+  &:hover {
+    color: white;
+    background-color: var(--color);
+  }
+
+  &.transition-disable {
+    transition: none;
+  }
+}

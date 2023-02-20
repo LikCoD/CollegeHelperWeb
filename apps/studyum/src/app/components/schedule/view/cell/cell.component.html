@@ -28,5 +28,5 @@
 <ng-template #manageSubjectTemplate>
   <app-add-subject-dialog
     *ngIf="!!selectedLessons && selectedLessons.length != 0"
-    [templateSubject]="selectedLessons[0]"></app-add-subject-dialog>
+    [lesson]="selectedLessons[0]"></app-add-subject-dialog>
 </ng-template>

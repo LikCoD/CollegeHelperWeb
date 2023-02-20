@@ -3,49 +3,64 @@ import * as moment from "moment"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {Lesson} from "../../../../../models/schedule"
 import {DialogService} from "../../../../../services/ui/dialog.service"
+import {GeneralService} from "../../../../../services/shared/general.service"
+import {Observable, tap} from "rxjs"
+import {StudyPlace} from "../../../../../models/general"
 
 @Component({
-  selector: 'app-add-subject-dialog',
-  templateUrl: './add-subject-dialog.component.html',
-  styleUrls: ['./add-subject-dialog.component.scss']
+  selector: "app-add-subject-dialog",
+  templateUrl: "./add-subject-dialog.component.html",
+  styleUrls: ["./add-subject-dialog.component.scss"],
 })
 export class AddSubjectDialogComponent implements AfterViewInit {
-
-  lesson: Lesson | undefined
-
-  @ViewChild('primaryColorInput') primaryColorInput: ElementRef;
-  @ViewChild('secondaryColorInput') secondaryColorInput: ElementRef;
+  @ViewChild("primaryColorInput") primaryColorInput: ElementRef
+  @ViewChild("secondaryColorInput") secondaryColorInput: ElementRef
 
   @Input()
-  set templateSubject(value: Lesson | undefined | null) {
-    if (!value) value = {
-      group: "GROUP",
-      room: "ROOM",
-      teacher: "TEACHER",
-      subject: "SUBJECT",
-      primaryColor: "#F1F1F1",
-      secondaryColor: "transparent",
-      lessonIndex: 0,
-      startDate: moment().add(1, "days"),
-      endDate: moment().add(1, "days")
-    }
+  set lesson(value: Lesson | undefined | null) {
+    if (!value)
+      value = {
+        group: "GROUP",
+        room: "ROOM",
+        teacher: "TEACHER",
+        subject: "SUBJECT",
+        primaryColor: "#F1F1F1",
+        secondaryColor: "transparent",
+        type: "LESSON TYPE",
+        lessonIndex: 0,
+        startDate: moment().add(1, "days"),
+        endDate: moment().add(1, "days"),
+      }
 
-    this.lesson = {...value}
-
-    this.form.get("lesson")!!.setValue(this.lesson)
-    this.form.get("startDate")!!.setValue(this.lesson.startDate!!.format("YYYY-MM-DDTHH:mm"))
-    this.form.get("endDate")!!.setValue(this.lesson.endDate!!.format("YYYY-MM-DDTHH:mm"))
+    this.form.get("lesson")!!.setValue(value)
+    this.form.get("startDate")!!.setValue(value.startDate!!.format("YYYY-MM-DDTHH:mm"))
+    this.form.get("endDate")!!.setValue(value.endDate!!.format("YYYY-MM-DDTHH:mm"))
   }
 
   form = new FormGroup({
-    startDate: new FormControl(moment().add(1, "days").format("YYYY-MM-DDTHH:mm"), Validators.required),
-    endDate: new FormControl(moment().add(1, "days").format("YYYY-MM-DDTHH:mm"), Validators.required),
+    startDate: new FormControl(
+      moment().add(1, "days").format("YYYY-MM-DDTHH:mm"),
+      Validators.required
+    ),
+    endDate: new FormControl(
+      moment().add(1, "days").add(1, "hour").format("YYYY-MM-DDTHH:mm"),
+      Validators.required
+    ),
+    lessonIndex: new FormControl(1, [Validators.required, Validators.pattern("[0-9]+")]),
+    primaryColor: new FormControl("#000000"),
+    secondaryColor: new FormControl("transparent"),
+    type: new FormControl("", Validators.required),
     lesson: new FormControl<Lesson | null>(null),
   })
 
-  currentDate: string = moment().format('YYYY-MM-DD');
+  currentDate: string = moment().format("YYYY-MM-DD")
 
-  constructor(public dialog: DialogService) {
+  studyPlace$: Observable<StudyPlace>
+
+  constructor(public dialog: DialogService, private generalService: GeneralService) {
+    this.studyPlace$ = generalService
+      .getCurrentStudyPlace()
+      .pipe(tap((value) => this.form.get("type")?.setValue(value.lessonTypes[0].type)))
   }
 
   close() {
@@ -53,31 +68,39 @@ export class AddSubjectDialogComponent implements AfterViewInit {
   }
 
   submit() {
-    let value = this.form.value
+    const value = this.form.value
+    const lessonRaw = value.lesson
+    delete value.lesson
 
-    let lesson = <Lesson>{
-      ...value.lesson,
+    const lesson = <Lesson>{
+      ...value,
+      ...lessonRaw,
       startDate: moment.utc(value.startDate),
-      endDate: moment.utc(value.endDate)
+      endDate: moment.utc(value.endDate),
     }
 
     this.dialog.close(lesson)
   }
 
-  onPrimaryColorChange(color: string) {
-    let lesson = this.form.get("lesson")!!
-    lesson.value!!.primaryColor = color
-    lesson.setValue(lesson.value)
-  }
-
-  onSecondaryColorChange(color: string) {
-    let lessonControl = this.form.get("lesson")!!
-    lessonControl.value!!.secondaryColor = color
-    lessonControl.setValue(lessonControl.value)
-  }
-
   ngAfterViewInit(): void {
-    this.primaryColorInput.nativeElement.value = this.lesson!!.primaryColor
-    this.secondaryColorInput.nativeElement.value = this.lesson!!.secondaryColor == "" || !this.lesson!!.secondaryColor ? this.lesson!!.primaryColor : this.lesson!!.secondaryColor
+    const lesson = this.form.get("lesson")!.value!
+
+    this.form.get("primaryColor")?.setValue(lesson.primaryColor)
+    this.form.get("secondaryColor")?.setValue(lesson.secondaryColor ?? "transparent")
+
+    this.form.get("primaryColor")?.valueChanges.subscribe({
+      next: (v) => {
+        const lesson = this.form.get("lesson")!.value!
+        lesson.primaryColor = v ?? ""
+        this.form.get("lesson")!.setValue(lesson)
+      },
+    })
+    this.form.get("secondaryColor")?.valueChanges.subscribe({
+      next: (v) => {
+        const lesson = this.form.get("lesson")!.value!
+        lesson.secondaryColor = v ?? ""
+        this.form.get("lesson")!.setValue(lesson)
+      },
+    })
   }
 }
