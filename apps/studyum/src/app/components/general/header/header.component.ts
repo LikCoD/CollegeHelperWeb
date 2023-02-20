@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core"
 import {Observable} from "rxjs"
-import {HeaderService} from "../../../services/ui/header.service"
+import {TitleService} from "../../../services/ui/title.service"
 import {UserService} from "../../../services/shared/user.service"
 import {User} from "../../../models/user"
 
@@ -12,7 +12,7 @@ import {User} from "../../../models/user"
 export class HeaderComponent implements OnInit {
   public $user: Observable<User | undefined>
 
-  constructor(private service: HeaderService, private userService: UserService) {}
+  constructor(private service: TitleService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.$user = this.userService.getUser()

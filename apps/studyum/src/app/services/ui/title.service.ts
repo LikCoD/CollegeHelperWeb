@@ -7,7 +7,7 @@ import {TranslateService} from "@ngx-translate/core"
 @Injectable({
   providedIn: "root",
 })
-export class HeaderService {
+export class TitleService {
   private $title = new BehaviorSubject<string>("Studyum")
 
   constructor(private title: Title, private translation: TranslateService) {
@@ -24,7 +24,9 @@ export class HeaderService {
     if (this.$title.value === title && !force) return
 
     this.$title.next(title)
-    firstValueFrom(this.translation.get(title)).then((value) => this.title.setTitle(value))
+    firstValueFrom(this.translation.get(title)).then((value) =>
+      this.title.setTitle(`Studyum | ${value}`)
+    )
   }
 }
 
@@ -32,7 +34,7 @@ export class HeaderService {
   providedIn: "root",
 })
 export class HeaderTitleStrategy extends TitleStrategy {
-  constructor(private readonly title: Title, private service: HeaderService) {
+  constructor(private readonly title: Title, private service: TitleService) {
     super()
   }
 
