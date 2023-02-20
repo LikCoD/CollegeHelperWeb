@@ -46,9 +46,11 @@
   <form [formGroup]="findForm" class="search" *ngIf="studyPlaces$ | async as studyPlaces" (submit)="submitFind()">
     <div class="input-group input-group-sm">
       <input
+        *ngrxLet="studyPlace$ as studyPlace"
         #studyPlaceInput
         class="form-control"
         list="studyPlaces"
+        [value]="studyPlace?.name ?? ''"
         [placeholder]="'schedule.find.studyPlace' | translate"
         (change)="changeStudyPlace(studyPlaces, studyPlaceInput)">
     </div>

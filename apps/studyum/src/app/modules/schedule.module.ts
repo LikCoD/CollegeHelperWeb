@@ -15,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "./shared.module"
 import {ModalsModule} from "../../../../../libs/modals/src"
 import {UiElementsModule} from "../../../../../libs/ui-elements/src"
+import {LetModule} from "@ngrx/component"
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
     SharedModule,
     ModalsModule,
     UiElementsModule,
+    LetModule,
   ],
   exports: [RouterModule],
 })

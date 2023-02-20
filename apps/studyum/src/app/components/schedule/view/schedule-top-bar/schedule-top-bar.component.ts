@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core"
 import {User} from "../../../../models/user"
 import {UserService} from "../../../../services/shared/user.service"
 import {GeneralService} from "../../../../services/shared/general.service"
 import {StudyPlace} from "../../../../models/general"
-import {Observable} from "rxjs"
+import {BehaviorSubject, Observable} from "rxjs"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {ScheduleTypes} from "../../../../models/schedule"
 import {ScheduleService} from "../../../../services/shared/schedule.service"
@@ -15,6 +15,8 @@ import {Router} from "@angular/router"
   styleUrls: ["./schedule-top-bar.component.scss"],
 })
 export class ScheduleTopBarComponent implements OnInit {
+  @ViewChild("studyPlaceInput") studyPlaceRef: ElementRef<HTMLInputElement>
+
   @Input() minScale: number
   @Input() maxScale: number
   @Input() preferredMaxScale: number
@@ -33,6 +35,7 @@ export class ScheduleTopBarComponent implements OnInit {
   user: User | undefined
 
   studyPlaces$: Observable<StudyPlace[]>
+  studyPlace$ = new BehaviorSubject<StudyPlace | null>(null)
   findItems$: Observable<ScheduleTypes>
 
   findForm = new FormGroup({
@@ -53,10 +56,14 @@ export class ScheduleTopBarComponent implements OnInit {
   ngOnInit(): void {
     this.studyPlaces$ = this.generalService.getNotRestrictedStudyPlaces()
 
-    this.userService.user$.subscribe({
-      next: (user) => {
-        this.user = user
-        this.findForm.get("studyPlaceID")?.setValue(user?.studyPlaceId ?? "")
+    this.scheduleService.schedule$.subscribe({
+      next: (value) => {
+        const info = value.info
+        this.findForm.get("studyPlaceID")!.setValue(info.studyPlace.id)
+        this.findForm.get("type")!.setValue(info.type)
+        this.findForm.get("name")!.setValue(info.typeName)
+
+        this.studyPlace$.next(info.studyPlace)
       },
     })
   }
