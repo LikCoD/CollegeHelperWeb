@@ -1,4 +1,8 @@
-@use 'apps/studyum/src/styles';
+@use '../../../../../../../styles';
+
+:host {
+  display: block;
+}
 
 popper-content {
   z-index: 10;

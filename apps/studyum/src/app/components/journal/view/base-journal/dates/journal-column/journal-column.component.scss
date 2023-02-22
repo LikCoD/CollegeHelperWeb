@@ -13,16 +13,6 @@
   background-color: styles.$backgroundColor;
 }
 
-section {
-  display: flex;
-  flex-flow: column;
-
-  align-items: center;
-
-  gap: 16px;
-  margin-top: 8px;
-}
-
 ::ng-deep div[data-popper-placement] {
   app-lesson-info, app-select-mark, app-lesson-addition-data {
     margin-right: 70px;

@@ -1,0 +1,27 @@
+<ng-container *ngFor="let month of row.cells">
+  <app-base-journal-row-month-section [cells]="month" />
+</ng-container>
+<section>
+  <app-base-journal-cell
+    *ngIf="mode == 'general'"
+    [entries]="[average]"
+    [color]="row.color">
+  </app-base-journal-cell>
+  <app-base-journal-cell
+    *ngIf="mode == 'absences'"
+    [entries]="[{text: row.absencesAmount.toString(), color: colors.general}]"
+    [color]="row.color">
+  </app-base-journal-cell>
+  <app-base-journal-cell
+    *ngIf="mode == 'absences'"
+    [entries]="[{text: row.absencesTime.toString(), color: colors.general}]"
+    [color]="row.color">
+  </app-base-journal-cell>
+  <ng-container *ngIf="mode != 'absences' && showAmount">
+    <app-base-journal-cell
+      *ngFor="let entry of availableMarks;"
+      [entries]="[entry]"
+      [color]="row.color">
+    </app-base-journal-cell>
+  </ng-container>
+</section>

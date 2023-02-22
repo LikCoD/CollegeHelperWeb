@@ -5,7 +5,7 @@ import {
   ElementRef,
   Input,
   OnInit,
-  ViewChild
+  ViewChild,
 } from "@angular/core"
 import {Lesson} from "../../../../../../models/schedule"
 import {JournalCellService} from "../../../../../../services/shared/journal/journal.cell.service"
@@ -13,7 +13,6 @@ import {JournalService} from "../../../../../../services/shared/journal/journal.
 import {LessonType, StudyPlace} from "../../../../../../models/general"
 import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
 import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
-import {Entry} from "../../base-journal-cell/journal-cell.component"
 import {DialogService} from "../../../../../../services/ui/dialog.service"
 import {JournalCell} from "../../../../../../models/journal"
 
@@ -21,7 +20,7 @@ import {JournalCell} from "../../../../../../models/journal"
   selector: "app-journal-column",
   templateUrl: "./journal-column.component.html",
   styleUrls: ["./journal-column.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JournalColumnComponent implements OnInit {
   @Input() date: Lesson
@@ -38,19 +37,18 @@ export class JournalColumnComponent implements OnInit {
     private modeService: JournalDisplayModeService,
     private modalService: DialogService,
     private cdr: ChangeDetectorRef
-  ) {
-  }
+  ) {}
 
   get studyPlace(): StudyPlace {
     return this.journalService.journal.info.studyPlace
   }
 
   get lessonType(): LessonType | undefined {
-    return this.studyPlace.lessonTypes.find(v => v.type === this.date.type)
+    return this.studyPlace.lessonTypes.find((v) => v.type === this.date.type)
   }
 
   get marks(): string[] {
-    return this.lessonType?.marks?.map(m => m.mark) ?? []
+    return this.lessonType?.marks?.map((m) => m.mark) ?? []
   }
 
   get editable(): boolean {
@@ -59,24 +57,24 @@ export class JournalColumnComponent implements OnInit {
 
   ngOnInit(): void {
     this.cellService.selectedDate$.subscribe({
-      next: date => {
+      next: (date) => {
         if (
           (date?.startDate === this.date.startDate && this.dateSelected) ||
           (date?.startDate !== this.date.startDate && !this.dateSelected)
-        ) return
+        )
+          return
 
         this.dateSelected = date?.startDate === this.date.startDate
         this.cdr.detectChanges()
-      }
+      },
     })
   }
 
   onDateClick(): void {
     this.cellService.selectDate(this.date)
-    this.collapseService.click(this.date)
+    this.collapseService.click(this.date.point!)
   }
 
-  entries = (lesson: JournalCell): Entry[] => this.modeService.getEntries(lesson)
   clearSelectedPoints = () => this.cellService.clearPoints()
 
   isPopupOpen = () => this.modalService.openedModalRef !== null
@@ -86,7 +84,7 @@ export class JournalColumnComponent implements OnInit {
     if (openResult === null) return true
 
     openResult.subscribe({
-      next: _ => this.clearSelectedPoints()
+      next: (_) => this.clearSelectedPoints(),
     })
     return true
   }

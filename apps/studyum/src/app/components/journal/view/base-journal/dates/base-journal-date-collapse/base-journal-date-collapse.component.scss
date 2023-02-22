@@ -1,0 +1,17 @@
+:host {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  width: 50px;
+  padding-top: 10px;
+}
+
+p {
+  text-align: center;
+}
+
+app-more-indicator {
+  right: -5px;
+  top: 0;
+}

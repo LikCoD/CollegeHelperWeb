@@ -7,19 +7,19 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core"
-import {JournalService} from "../../../../../../../services/shared/journal/journal.service"
+import {JournalService} from "../../../../../../services/shared/journal/journal.service"
 import {
   JournalCellService,
   Key,
-} from "../../../../../../../services/shared/journal/journal.cell.service"
-import {JournalCollapseService} from "../../../../../../../services/shared/journal/journal-collapse.service"
-import {JournalDisplayModeService} from "../../../../../../../services/shared/journal/journal-display-mode.service"
-import {DialogService} from "../../../../../../../services/ui/dialog.service"
-import {LessonType, StudyPlace} from "../../../../../../../models/general"
-import {Entry} from "../../../base-journal-cell/journal-cell.component"
-import {JournalMarksService} from "../../../../../../../services/shared/journal/journal-marks.service"
-import {JournalCell} from "../../../../../../../models/journal"
-import {KeyboardService} from "../../../../../../../services/shared/keyboard.service"
+} from "../../../../../../services/shared/journal/journal.cell.service"
+import {JournalCollapseService} from "../../../../../../services/shared/journal/journal-collapse.service"
+import {JournalDisplayModeService} from "../../../../../../services/shared/journal/journal-display-mode.service"
+import {DialogService} from "../../../../../../services/ui/dialog.service"
+import {LessonType, StudyPlace} from "../../../../../../models/general"
+import {Entry} from "../../base-journal-cell/journal-cell.component"
+import {JournalMarksService} from "../../../../../../services/shared/journal/journal-marks.service"
+import {JournalCell} from "../../../../../../models/journal"
+import {KeyboardService} from "../../../../../../services/shared/keyboard.service"
 
 @Component({
   selector: "app-journal-column-cell",
@@ -57,9 +57,7 @@ export class JournalColumnCellComponent implements OnInit {
   }
 
   get lessonType(): LessonType | undefined {
-    return this.studyPlace.lessonTypes.find(
-      (v) => !!this.cell.type?.includes(v.type)
-    )
+    return this.studyPlace.lessonTypes.find((v) => !!this.cell.type?.includes(v.type))
   }
 
   get marks(): string[] {
@@ -74,7 +72,7 @@ export class JournalColumnCellComponent implements OnInit {
     return this.journalService.journal.info.editable
   }
 
-  onCellClick(e: any): void {
+  onCellClick(): void {
     this.cellService.selectDate(null)
     this.cellService.addPoint(this.cell.point!!)
   }
@@ -109,10 +107,7 @@ export class JournalColumnCellComponent implements OnInit {
 
     this.marksService.refresh$.subscribe({
       next: (cell) => {
-        if (
-          this.cell.point?.x === cell.point?.x &&
-          this.cell.point?.y === cell.point?.y
-        ) {
+        if (this.cell.point?.x === cell.point?.x && this.cell.point?.y === cell.point?.y) {
           this.cell = cell
 
           this.entries = this.modeService.getEntries(cell)
@@ -133,9 +128,7 @@ export class JournalColumnCellComponent implements OnInit {
 
     this.cellService.points$.subscribe({
       next: (points) => {
-        let i = points.findIndex(
-          (p) => p.y === this.cell.point?.y && p.x === this.cell.point?.x
-        )
+        let i = points.findIndex((p) => p.y === this.cell.point?.y && p.x === this.cell.point?.x)
         if (i === -1 && !this.isSelected) return
 
         if (

@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  gap: 8px;
+
+  height: fit-content;
+}
+
+section {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  font-weight: bold;
+  flex-grow: 1;
+}

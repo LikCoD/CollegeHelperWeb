@@ -1,17 +1,14 @@
-<ng-template #unCollapsed>
+<ng-template #collapsedElse>
+  <app-base-journal-date-collapse
+    [date]="(day[0].startDate | moment : 'MMM') + '\n' + (day[0].startDate | moment : 'DD')"
+    [amount]="collapseAmount"
+    (click)="dateClick()" />
+</ng-template>
+
+<ng-container *ngIf="!collapsed else collapsedElse">
   <ng-container *ngFor="let date of day; let i = index">
     <app-journal-column
       *ngIf="showColumn(date)"
-      [date]="date"
-      [lessons]="mapDay(i)"
-    ></app-journal-column>
+      [date]="date" />
   </ng-container>
-</ng-template>
-
-<app-journal-collapse-column
-  *ngIf="collapsed else unCollapsed"
-  [lessons]="mapCollapse()"
-  [date]="day[0].startDate | moment : 'DD MM'"
-  [amount]="collapseAmount"
-  (click)="dateClick()"
-></app-journal-collapse-column>
+</ng-container>

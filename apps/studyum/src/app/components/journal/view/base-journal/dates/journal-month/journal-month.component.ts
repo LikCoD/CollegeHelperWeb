@@ -7,34 +7,27 @@ import {JournalCell} from "../../../../../../models/journal"
   selector: "app-journal-month",
   templateUrl: "./journal-month.component.html",
   styleUrls: ["./journal-month.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JournalMonthComponent implements OnInit {
   @Input() month: Lesson[][]
   @Input() monthLessons: JournalCell[][][]
 
-  constructor(private service: JournalCollapseService, private cdr: ChangeDetectorRef) {
-  }
+  constructor(private service: JournalCollapseService, private cdr: ChangeDetectorRef) {}
 
   get collapsed(): boolean {
-    return this.service.getLessonCollapseType(this.month[0][0]) === "month"
+    return this.service.pointCollapseType(this.month[0][0].point!) === "month"
   }
 
   get collapseAmount(): number {
     return this.service.getCollapseAmount(this.month)
   }
 
-  mapMonth(monthLesson: JournalCell[][][], i: number): JournalCell[][] {
-    return monthLesson.map(l => l[i])
-  }
-
-  mapCollapse = (): JournalCell[] => this.service.buildLessons(this.monthLessons.map(v => v.flat()))
-
   dateClick(): void {
-    return this.service.click(this.month[0][0])
+    return this.service.click(this.month[0][0].point!)
   }
 
   ngOnInit(): void {
-    this.service.selectType$.subscribe({next: _ => this.cdr.detectChanges()})
+    this.service.selectType$.subscribe({next: (_) => this.cdr.detectChanges()})
   }
 }

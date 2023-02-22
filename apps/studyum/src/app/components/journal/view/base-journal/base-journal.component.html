@@ -1,7 +1,12 @@
 <ng-container>
-  <div class="corner"></div>
+  <div class="corner">
+    <button
+      class="btn btn-sm btn-outline-light co="
+      [innerText]="showTitle ? '<' : '>'"
+      (click)="showTitle = !showTitle"></button>
+  </div>
   <ol class="titles">
-    <li *ngFor="let row of journal.rows">{{row.title}}</li>
+    <li *ngFor="let row of journal.rows" [innerText]="showTitle ? row.title : ''"></li>
   </ol>
   <div class="date-row">
     <app-journal-month
@@ -9,42 +14,22 @@
       [month]="days"
       [monthLessons]="monthLessons(journal, i)"
     ></app-journal-month>
+    <section>
+      <p *ngIf="mode == 'general'" [innerText]="'journal.view.avg' | translate"></p>
+      <p *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesAmount' | translate"></p>
+      <p *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesTime' | translate"></p>
+      <ng-container *ngIf="mode != 'absences' && showAmount">
+        <p *ngFor="let markText of availableMarks();">{{markText}}</p>
+      </ng-container>
+    </section>
   </div>
-  <app-base-journal-markup></app-base-journal-markup>
-  <section>
-    <div *ngIf="mode == 'general'">
-      <p>{{'journal.view.avg' | translate}}</p>
-      <app-base-journal-cell
-        *ngFor="let row of journal.rows"
-        [entries]="[getAverage(row)]"
-        [color]="row.color">
-      </app-base-journal-cell>
-    </div>
-    <div *ngIf="mode == 'absences'">
-      <p>{{'journal.view.absencesAmount' | translate}}</p>
-      <app-base-journal-cell
-        *ngFor="let row of journal.rows"
-        [entries]="[{text: row.absencesAmount.toString(), color: journalColors.general}]"
-        [color]="row.color">
-      </app-base-journal-cell>
-    </div>
-    <div *ngIf="mode == 'absences'">
-      <p>{{'journal.view.absencesTime' | translate}}</p>
-      <app-base-journal-cell
-        *ngFor="let row of journal.rows"
-        [entries]="[{text: row.absencesTime.toString(), color: journalColors.general}]"
-        [color]="row.color">
-      </app-base-journal-cell>
-    </div>
-    <ng-container *ngIf="mode != 'absences' && showAmount">
-      <div *ngFor="let markText of availableMarks();">
-        <p>{{markText}}</p>
-        <app-base-journal-cell
-          *ngFor="let row of journal.rows"
-          [entries]="[marksAmount(row, markText)]"
-          [color]="row.color">
-        </app-base-journal-cell>
-      </div>
+  <main>
+    <ng-container *ngFor="let row of journal.rows">
+      <app-base-journal-row
+        [studyPlace]="journal.info.studyPlace"
+        [row]="row"
+        [mode]="mode"
+        [showAmount]="showAmount" />
     </ng-container>
-  </section>
+  </main>
 </ng-container>

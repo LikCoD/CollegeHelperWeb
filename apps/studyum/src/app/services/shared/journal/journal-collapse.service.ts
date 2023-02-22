@@ -7,6 +7,7 @@ import {Subject} from "rxjs"
 import {SettingsService} from "../../ui/settings.service"
 import {JournalCell} from "../../../models/journal"
 import {KeyboardService} from "../keyboard.service"
+import {Point} from "./journal.cell.service"
 
 @Injectable({
   providedIn: "root",
@@ -34,23 +35,20 @@ export class JournalCollapseService {
     this.collapsed = []
     switch (type) {
       case "month":
-        this.service.journal?.dates?.forEach((m) => this.addMonth(m[0][0]))
+        this.service.journal?.dates?.forEach((m) => this.addMonth(m[0][0].startDate))
         break
       case "day":
-        this.service.journal?.dates?.forEach((m) =>
-          m.forEach((d) => this.addDay(d[0]))
-        )
+        this.service.journal?.dates?.forEach((m) => m.forEach((d) => this.addDay(d[0].startDate)))
         break
       case "smart":
         this.service.journal?.dates?.forEach((m, i, arr) => {
           if (i === arr.length - 1)
             m.forEach((d) => {
-              if (d[0].startDate.format("L") === moment.utc().format("L"))
-                return
+              if (d[0].startDate.format("L") === moment.utc().format("L")) return
 
-              this.addDay(d[0])
+              this.addDay(d[0].startDate)
             })
-          else this.addMonth(m[0][0])
+          else this.addMonth(m[0][0].startDate)
         })
         break
     }
@@ -60,10 +58,10 @@ export class JournalCollapseService {
 
   loadType = () => (this.type = this.settingsService.collapseType)
 
-  getLessonCollapseType(lesson: Lesson): CollapseType {
-    let year = lesson.startDate.format(JournalCollapseService.YearFormat)
-    let month = lesson.startDate.format(JournalCollapseService.MonthFormat)
-    let day = lesson.startDate.format(JournalCollapseService.DayFormat)
+  dateCollapseType(startDate: moment.Moment): CollapseType {
+    let year = startDate.format(JournalCollapseService.YearFormat)
+    let month = startDate.format(JournalCollapseService.MonthFormat)
+    let day = startDate.format(JournalCollapseService.DayFormat)
 
     if (this.collapsed.find((c) => c === year)) return "year"
     if (this.collapsed.find((c) => c === month)) return "month"
@@ -71,6 +69,9 @@ export class JournalCollapseService {
 
     return "null"
   }
+
+  pointCollapseType = (point: Point): CollapseType =>
+    this.dateCollapseType(this.service.journal.dates.flat(2)[point.x].startDate)
 
   remove(date: moment.Moment, format: string): boolean {
     let formatted = date.format(format)
@@ -91,43 +92,31 @@ export class JournalCollapseService {
     )
   }
 
-  getCollapseAmount(
-    lesson: JournalCell[] | JournalCell[][] | Lesson[] | Lesson[][]
-  ): number {
+  getCollapseAmount(lesson: JournalCell[] | JournalCell[][] | Lesson[] | Lesson[][]): number {
     if (this.modeService.mode !== "standalone") return lesson.flat().length
     return lesson
       .flat()
-      .filter((v) =>
-        v.type?.includes(this.modeService.selectedStandaloneType?.type ?? "")
-      ).length
+      .filter((v) => v.type?.includes(this.modeService.selectedStandaloneType?.type ?? "")).length
   }
 
-  checkAdd = (lesson: Lesson[] | Lesson[][]): boolean =>
-    this.getCollapseAmount(lesson) > 1
+  checkAdd = (lesson: Lesson[] | Lesson[][]): boolean => this.getCollapseAmount(lesson) > 1
 
-  addDay(lesson: Lesson): void {
-    let dayIndexes = this.service.findDay(lesson.startDate)
-    if (
-      !this.checkAdd(this.service.journal.dates[dayIndexes[0]][dayIndexes[1]])
-    )
-      return
+  addDay(date: moment.Moment): void {
+    let dayIndexes = this.service.findDay(date)
+    if (!this.checkAdd(this.service.journal.dates[dayIndexes[0]][dayIndexes[1]])) return
 
-    this.collapsed.push(
-      lesson.startDate.format(JournalCollapseService.DayFormat)
-    )
+    this.collapsed.push(date.format(JournalCollapseService.DayFormat))
   }
 
-  addMonth(lesson: Lesson): void {
-    let monthIndex = this.service.findMonth(lesson.startDate)
+  addMonth(date: moment.Moment): void {
+    let monthIndex = this.service.findMonth(date)
     if (!this.checkAdd(this.service.journal.dates[monthIndex])) return
 
-    this.collapsed.push(
-      lesson.startDate.format(JournalCollapseService.MonthFormat)
-    )
+    this.collapsed.push(date.format(JournalCollapseService.MonthFormat))
   }
 
-  click(lesson: Lesson): void {
-    let date = lesson.startDate
+  click(point: Point): void {
+    const date = this.service.journal.dates.flat(2)[point.x].startDate
 
     if (this.removeAll(date)) {
       this.change$.next(null)
@@ -135,24 +124,26 @@ export class JournalCollapseService {
     }
 
     if (this.keyboardService.key === "shift") {
-      this.addMonth(lesson)
-      this.change$.next(lesson.startDate)
+      this.addMonth(date)
+      this.change$.next(date)
       return
     }
 
     if (this.keyboardService.key === "control") {
-      this.addDay(lesson)
-      this.change$.next(lesson.startDate)
+      this.addDay(date)
+      this.change$.next(date)
       return
     }
   }
 
-  buildLesson(lessons: JournalCell[]): JournalCell {
-    let selectedLessons = lessons.filter(
-      (l) =>
-        this.modeService.mode !== "standalone" ||
-        !!l.type?.includes(this.modeService.selectedStandaloneType?.type ?? "")
-    )
+  buildLesson(lessons: JournalCell[] | JournalCell[][]): JournalCell {
+    let selectedLessons = lessons
+      .flat()
+      .filter(
+        (l) =>
+          this.modeService.mode !== "standalone" ||
+          !!l.type?.includes(this.modeService.selectedStandaloneType?.type ?? "")
+      )
 
     let colors = this.service.journal.info.studyPlace.journalColors
 
@@ -180,10 +171,4 @@ export class JournalCollapseService {
     lessons.map(this.buildLesson.bind(this))
 }
 
-export type CollapseType =
-  | "year"
-  | "month"
-  | "day"
-  | "smart"
-  | "expanded"
-  | "null"
+export type CollapseType = "year" | "month" | "day" | "smart" | "expanded" | "null"

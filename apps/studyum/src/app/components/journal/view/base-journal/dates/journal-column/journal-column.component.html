@@ -3,8 +3,7 @@
     [appPopup]="popper"
     [show]="dateSelected && editable"
     [lesson]="date"
-    (click)="onDateClick()"
-  ></app-base-journal-date-item>
+    (click)="onDateClick()" />
 
   <popper-content #popper>
     <ng-container
@@ -13,10 +12,6 @@
     ></ng-container>
   </popper-content>
 </div>
-
-<section>
-  <app-journal-column-cell *ngFor="let lesson of lessons" [cell]="lesson"></app-journal-column-cell>
-</section>
 
 <ng-template #lessonDataTemplate>
   <app-lesson-addition-data
