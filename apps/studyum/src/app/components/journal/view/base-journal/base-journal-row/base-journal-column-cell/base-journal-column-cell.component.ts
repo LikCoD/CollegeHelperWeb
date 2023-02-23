@@ -22,12 +22,12 @@ import {JournalCell} from "../../../../../../models/journal"
 import {KeyboardService} from "../../../../../../services/shared/keyboard.service"
 
 @Component({
-  selector: "app-journal-column-cell",
-  templateUrl: "./journal-column-cell.component.html",
-  styleUrls: ["./journal-column-cell.component.scss"],
+  selector: "app-base-journal-column-cell",
+  templateUrl: "./base-journal-column-cell.component.html",
+  styleUrls: ["./base-journal-column-cell.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JournalColumnCellComponent implements OnInit {
+export class BaseJournalColumnCellComponent implements OnInit {
   @Input() cell: JournalCell
 
   @ViewChild("lessonInfoTemplate", {static: true}) lessonInfoRef: ElementRef

@@ -3,10 +3,10 @@ import {RouterModule, Routes} from "@angular/router"
 import {JournalComponent} from "../components/journal/journal.component"
 import {NotLoginGuard} from "../guards/not-login.guard"
 import {JournalViewComponent} from "../components/journal/view/view.component"
-import {JournalMonthComponent} from "../components/journal/view/base-journal/dates/journal-month/journal-month.component"
-import {JournalDayComponent} from "../components/journal/view/base-journal/dates/journal-day/journal-day.component"
-import {JournalColumnComponent} from "../components/journal/view/base-journal/dates/journal-column/journal-column.component"
-import {JournalColumnCellComponent} from "../components/journal/view/base-journal/base-journal-row/journal-column-cell/journal-column-cell.component"
+import {BaseJournalDatesMonthSectionComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-dates-month-section/base-journal-dates-month-section.component"
+import {BaseJournalDatesDaySectionComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-dates-day-section/base-journal-dates-day-section.component"
+import {BaseJournalDateComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-date/base-journal-date.component"
+import {BaseJournalColumnCellComponent} from "../components/journal/view/base-journal/base-journal-row/base-journal-column-cell/base-journal-column-cell.component"
 import {GenerateMarksReportComponent} from "../components/journal/generate/generate-marks-report/generate-marks-report.component"
 import {GenerateAbsencesReportComponent} from "../components/journal/generate/generate-absences-report/generate-absences-report.component"
 import {CellExpandComponent} from "../components/standalones/popups/cell-expand/cell-expand.component"
@@ -21,9 +21,9 @@ import {NgxPopperjsModule} from "ngx-popperjs"
 import {AbsenceControlComponent} from "../components/standalones/popups/select-mark/enteries/absence-control.component"
 import {SelectMarkComponent} from "../components/standalones/popups/select-mark/select-mark.component"
 import {LessonAdditionDataComponent} from "../components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
-import {JournalBottomActionBarComponent} from "../components/journal/view/journal-bottom-action-bar/journal-bottom-action-bar.component"
+import {JournalBottomBarComponent} from "../components/journal/view/journal-bottom-bar/journal-bottom-bar.component"
 import {BaseJournalDateItemComponent} from "../components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
-import {BaseJournalTopActionBarComponent} from "../components/journal/view/base-journal/base-journal-top-action-bar/base-journal-top-action-bar.component"
+import {JournalTopBarComponent} from "../components/journal/view/journal-top-bar/journal-top-bar.component"
 import {LessonInfoComponent} from "../components/standalones/popups/lesson-info/lesson-info.component"
 import {TextDirective} from "../../../../../libs/auto-color/src/lib/text.directive"
 import {JournalService} from "../services/shared/journal/journal.service"
@@ -35,7 +35,8 @@ import {JournalMarksService} from "../services/shared/journal/journal-marks.serv
 import {BaseJournalRowComponent} from "../components/journal/view/base-journal/base-journal-row/base-journal-row.component"
 import {BaseJournalRowMonthSectionComponent} from "../components/journal/view/base-journal/base-journal-row/base-journal-row-month-section/base-journal-row-month-section.component"
 import {BaseJournalRowDaySectionComponent} from "../components/journal/view/base-journal/base-journal-row/base-journal-row-day-section/base-journal-row-day-section.component"
-import {BaseJournalDateCollapseComponent} from "../components/journal/view/base-journal/dates/base-journal-date-collapse/base-journal-date-collapse.component"
+import {BaseJournalDateCollapseComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-date/base-journal-date-collapse/base-journal-date-collapse.component"
+import {BaseJournalDatesComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-dates.component"
 
 const routes: Routes = [
   {
@@ -64,20 +65,22 @@ const routes: Routes = [
     AbsenceControlComponent,
     SelectMarkComponent,
     LessonAdditionDataComponent,
-    JournalBottomActionBarComponent,
+    JournalBottomBarComponent,
     BaseJournalDateItemComponent,
-    BaseJournalTopActionBarComponent,
+    JournalTopBarComponent,
     LessonInfoComponent,
+
+    BaseJournalDatesComponent,
 
     BaseJournalRowComponent,
     BaseJournalRowMonthSectionComponent,
     BaseJournalRowDaySectionComponent,
 
     BaseJournalDateCollapseComponent,
-    JournalMonthComponent,
-    JournalDayComponent,
-    JournalColumnComponent,
-    JournalColumnCellComponent,
+    BaseJournalDatesMonthSectionComponent,
+    BaseJournalDatesDaySectionComponent,
+    BaseJournalDateComponent,
+    BaseJournalColumnCellComponent,
   ],
   imports: [
     CommonModule,

@@ -5,12 +5,12 @@ import {JournalDisplayModeService} from "../../../../../../services/shared/journ
 import {JournalCell} from "../../../../../../models/journal"
 
 @Component({
-  selector: "app-journal-day",
-  templateUrl: "./journal-day.component.html",
-  styleUrls: ["./journal-day.component.scss"],
+  selector: "app-base-journal-dates-day-section",
+  templateUrl: "./base-journal-dates-day-section.component.html",
+  styleUrls: ["./base-journal-dates-day-section.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JournalDayComponent implements OnInit {
+export class BaseJournalDatesDaySectionComponent implements OnInit {
   @Input() day: Lesson[]
   @Input() dayLessons: JournalCell[][]
 

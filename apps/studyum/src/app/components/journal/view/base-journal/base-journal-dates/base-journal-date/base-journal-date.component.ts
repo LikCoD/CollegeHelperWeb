@@ -17,12 +17,12 @@ import {DialogService} from "../../../../../../services/ui/dialog.service"
 import {JournalCell} from "../../../../../../models/journal"
 
 @Component({
-  selector: "app-journal-column",
-  templateUrl: "./journal-column.component.html",
-  styleUrls: ["./journal-column.component.scss"],
+  selector: "app-base-journal-date",
+  templateUrl: "./base-journal-date.component.html",
+  styleUrls: ["./base-journal-date.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JournalColumnComponent implements OnInit {
+export class BaseJournalDateComponent implements OnInit {
   @Input() date: Lesson
   @Input() lessons: JournalCell[]
 

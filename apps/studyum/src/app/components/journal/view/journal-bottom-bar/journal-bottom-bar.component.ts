@@ -5,13 +5,12 @@ import {JournalDisplayModeService} from "../../../../services/shared/journal/jou
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 
 @Component({
-  selector: "app-journal-bottom-action-bar",
-  templateUrl: "./journal-bottom-action-bar.component.html",
-  styleUrls: ["./journal-bottom-action-bar.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-journal-bottom-bar",
+  templateUrl: "./journal-bottom-bar.component.html",
+  styleUrls: ["./journal-bottom-bar.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JournalBottomActionBarComponent {
-
+export class JournalBottomBarComponent {
   @Input() journal: Journal
   @Input() isShowAmount: boolean
 
@@ -26,11 +25,13 @@ export class JournalBottomActionBarComponent {
     return this.modeService.selectedStandaloneType
   }
 
-  constructor(private modeService: JournalDisplayModeService, private collapseService: JournalCollapseService) {
-  }
+  constructor(
+    private modeService: JournalDisplayModeService,
+    private collapseService: JournalCollapseService
+  ) {}
 
   getLessonTypes() {
-    return this.journal.info.studyPlace.lessonTypes.map(type => {
+    return this.journal.info.studyPlace.lessonTypes.map((type) => {
       type.toString = () => type.type
       return type
     })

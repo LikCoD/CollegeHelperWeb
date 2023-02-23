@@ -8,21 +8,11 @@
   <ol class="titles">
     <li *ngFor="let row of journal.rows" [innerText]="showTitle ? row.title : ''"></li>
   </ol>
-  <div class="date-row">
-    <app-journal-month
-      *ngFor="let days of journal.dates; let i = index"
-      [month]="days"
-      [monthLessons]="monthLessons(journal, i)"
-    ></app-journal-month>
-    <section>
-      <p *ngIf="mode == 'general'" [innerText]="'journal.view.avg' | translate"></p>
-      <p *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesAmount' | translate"></p>
-      <p *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesTime' | translate"></p>
-      <ng-container *ngIf="mode != 'absences' && showAmount">
-        <p *ngFor="let markText of availableMarks();">{{markText}}</p>
-      </ng-container>
-    </section>
-  </div>
+  <app-base-journal-dates
+    [studyPlace]="journal.info.studyPlace"
+    [dates]="journal.dates"
+    [mode]="mode"
+    [showAmount]="showAmount" />
   <main>
     <ng-container *ngFor="let row of journal.rows">
       <app-base-journal-row

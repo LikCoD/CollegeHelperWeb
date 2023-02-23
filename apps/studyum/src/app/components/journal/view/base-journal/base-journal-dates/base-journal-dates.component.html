@@ -1,0 +1,11 @@
+<app-base-journal-dates-month-section
+  *ngFor="let days of dates; let i = index"
+  [month]="days" />
+<section>
+  <p *ngIf="mode == 'general'" [innerText]="'journal.view.avg' | translate"></p>
+  <p *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesAmount' | translate"></p>
+  <p *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesTime' | translate"></p>
+  <ng-container *ngIf="mode != 'absences' && showAmount">
+    <p *ngFor="let markText of availableMarks();">{{markText}}</p>
+  </ng-container>
+</section>

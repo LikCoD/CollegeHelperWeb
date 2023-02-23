@@ -1,0 +1,21 @@
+@use "../../../../../../styles";
+
+:host {
+  display: flex;
+  background: styles.$backgroundColor;
+}
+
+section {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  flex-grow: 1;
+
+  p {
+    display: grid;
+    place-items: center;
+
+    width: 50px;
+  }
+}

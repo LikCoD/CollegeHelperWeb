@@ -7,14 +7,13 @@ import {
   OnDestroy,
   OnInit,
 } from "@angular/core"
-import {Journal, JournalCell} from "../../../../models/journal"
+import {Journal} from "../../../../models/journal"
 import {JournalCellService} from "../../../../services/shared/journal/journal.cell.service"
 import {JournalCollapseService} from "../../../../services/shared/journal/journal-collapse.service"
 import {
   JournalDisplayModeService,
   JournalMode,
 } from "../../../../services/shared/journal/journal-display-mode.service"
-import {MarkType} from "../../../../models/general"
 import {SettingsService} from "../../../../services/ui/settings.service"
 import {DialogService} from "../../../../services/ui/dialog.service"
 import {JournalLessonService} from "../../../../services/shared/journal/journal-lesson.service"
@@ -30,6 +29,7 @@ import {KeyboardService} from "../../../../services/shared/keyboard.service"
 export class BaseJournalComponent implements OnDestroy, OnInit {
   @Input() journal: Journal
   @Input() showAmount = false
+
   mode: JournalMode
   showTitle: boolean = true
 
@@ -75,22 +75,6 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
     if (this.cellService.selectedDate$.value === null || tagName === "INPUT") return
 
     this.lessonService.parseTextColumn(e.clipboardData?.getData("text") ?? "")
-  }
-
-  availableMarks(): string[] {
-    if (this.modeService.mode === "absences") return []
-
-    const types = this.journal.info.studyPlace.lessonTypes
-    let marks: MarkType[] =
-      this.modeService.mode === "general"
-        ? types.flatMap((lt) => (lt.marks ?? []).concat(lt.standaloneMarks ?? []))
-        : types.flatMap((lt) => lt.standaloneMarks ?? [])
-
-    return marks.map((m) => m.mark).filter((m, i, a) => a.indexOf(m) === i) //distinct
-  }
-
-  monthLessons(journal: Journal, i: number): JournalCell[][][] {
-    return journal.rows.map((r) => r.cells[i])
   }
 
   ngOnInit(): void {
