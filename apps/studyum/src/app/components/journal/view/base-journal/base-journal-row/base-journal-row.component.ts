@@ -1,9 +1,12 @@
 import {Component, Input} from "@angular/core"
-import {JournalRow} from "../../../../../models/journal"
+import {JournalCell, JournalRow} from "../../../../../models/journal"
 import {Entry} from "../base-journal-cell/journal-cell.component"
 import {SettingsService} from "../../../../../services/ui/settings.service"
 import {JournalColors, MarkType, StudyPlace} from "../../../../../models/general"
-import {JournalMode} from "../../../../../services/shared/journal/journal-display-mode.service"
+import {
+  JournalDisplayModeService,
+  JournalMode,
+} from "../../../../../services/shared/journal/journal-display-mode.service"
 
 @Component({
   selector: "app-base-journal-row",
@@ -21,7 +24,10 @@ export class BaseJournalRowComponent {
     return this.studyPlace.journalColors
   }
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    private modeService: JournalDisplayModeService
+  ) {}
 
   get average(): Entry {
     let locale = this.settingsService.localeCode
@@ -51,4 +57,9 @@ export class BaseJournalRowComponent {
           }
       )
   }
+
+  asCell = (cell: any): JournalCell => cell as JournalCell
+  showColumn = (cell: JournalCell): boolean => this.modeService.showColumn(cell)
+  collapsedEntries = (cell: JournalCell): Entry[] => this.modeService.getEntries(cell)
+  collapsedColor = (cell: JournalCell): string => this.modeService.cellColor(cell)
 }

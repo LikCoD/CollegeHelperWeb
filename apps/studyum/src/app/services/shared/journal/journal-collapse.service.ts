@@ -73,6 +73,11 @@ export class JournalCollapseService {
   pointCollapseType = (point: Point): CollapseType =>
     this.dateCollapseType(this.service.journal.dates.flat(2)[point.x].startDate)
 
+  isCollapsed = (point: Point, index: number) =>
+    this.pointCollapseType(point) === this.collapsedType(index)
+
+  collapsedType = (index: number) => ["month", "day"][index]
+
   remove(date: moment.Moment, format: string): boolean {
     let formatted = date.format(format)
     let i = this.collapsed.findIndex((v) => v === formatted)
@@ -136,9 +141,9 @@ export class JournalCollapseService {
     }
   }
 
-  buildLesson(lessons: JournalCell[] | JournalCell[][]): JournalCell {
+  buildLesson(lessons: Cells): JournalCell {
     let selectedLessons = lessons
-      .flat()
+      .flat(3)
       .filter(
         (l) =>
           this.modeService.mode !== "standalone" ||
@@ -166,9 +171,9 @@ export class JournalCollapseService {
       journalCellColor: color,
     }
   }
-
-  buildLessons = (lessons: JournalCell[][]): JournalCell[] =>
-    lessons.map(this.buildLesson.bind(this))
 }
 
 export type CollapseType = "year" | "month" | "day" | "smart" | "expanded" | "null"
+
+export type Cells = MultiDimensionArray<JournalCell> | MultiDimensionArray<Lesson>
+export type MultiDimensionArray<T> = T[] | T[][] | T[][][] | T[][][][]

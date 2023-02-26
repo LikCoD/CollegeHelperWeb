@@ -5,6 +5,8 @@ import {
   JournalMode,
 } from "../../../../../services/shared/journal/journal-display-mode.service"
 import {MarkType, StudyPlace} from "../../../../../models/general"
+import {JournalCell} from "../../../../../models/journal"
+import {CollapseType} from "../../../../../services/shared/journal/journal-collapse.service"
 
 @Component({
   selector: "app-base-journal-dates",
@@ -20,6 +22,8 @@ export class BaseJournalDatesComponent {
 
   constructor(private modeService: JournalDisplayModeService) {}
 
+  showColumn = (date: Lesson) => this.modeService.showColumn(date as JournalCell)
+
   availableMarks(): string[] {
     if (this.modeService.mode === "absences") return []
 
@@ -30,5 +34,18 @@ export class BaseJournalDatesComponent {
         : types.flatMap((lt) => lt.standaloneMarks ?? [])
 
     return marks.map((m) => m.mark).filter((m, i, a) => a.indexOf(m) === i) //distinct
+  }
+
+  asLesson = (cell: any): Lesson => cell as Lesson
+
+  displayDate(type: CollapseType): string {
+    switch (type) {
+      case "day":
+        return "MMM[\r\n]dd DD"
+      case "month":
+        return "MMM"
+      default:
+        return "MMM[\r\n]DD YY"
+    }
   }
 }

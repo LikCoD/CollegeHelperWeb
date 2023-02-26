@@ -1,10 +1,12 @@
 :host {
   position: relative;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 
   width: 50px;
+  height: 75px;
   padding-top: 10px;
+  padding-bottom: 18px;
 }
 
 p {

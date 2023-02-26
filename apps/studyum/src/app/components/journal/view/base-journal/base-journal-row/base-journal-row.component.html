@@ -1,6 +1,24 @@
-<ng-container *ngFor="let month of row.cells">
-  <app-base-journal-row-month-section [cells]="month" />
-</ng-container>
+<app-base-journal-collapser
+  [cells]="row.cells"
+  [active]="cellRef"
+  [collapsed]="collapsedRef" />
+
+<ng-template #cellRef let-cell="cell">
+  <app-base-journal-column-cell
+    *ngIf="showColumn(cell)"
+    [cell]="cell" />
+</ng-template>
+<ng-template #collapsedRef let-cell="cell" let-click="click">
+  <ng-container *ngIf="asCell(cell) as cell">
+    <app-base-journal-cell
+      [entries]="collapsedEntries(cell)"
+      [color]="collapsedColor(cell)"
+      (click)="click()"
+    ></app-base-journal-cell>
+  </ng-container>
+</ng-template>
+
+
 <section>
   <app-base-journal-cell
     *ngIf="mode == 'general'"
