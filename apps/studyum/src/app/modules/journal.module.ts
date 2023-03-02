@@ -3,10 +3,18 @@ import {RouterModule, Routes} from "@angular/router"
 import {JournalComponent} from "../components/journal/journal.component"
 import {NotLoginGuard} from "../guards/not-login.guard"
 import {JournalViewComponent} from "../components/journal/view/view.component"
-import {BaseJournalDateComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-date/base-journal-date.component"
-import {BaseJournalColumnCellComponent} from "../components/journal/view/base-journal/base-journal-row/base-journal-column-cell/base-journal-column-cell.component"
-import {GenerateMarksReportComponent} from "../components/journal/generate/generate-marks-report/generate-marks-report.component"
-import {GenerateAbsencesReportComponent} from "../components/journal/generate/generate-absences-report/generate-absences-report.component"
+import {
+  BaseJournalDateComponent
+} from "../components/journal/view/base-journal/base-journal-dates/base-journal-date/base-journal-date.component"
+import {
+  BaseJournalColumnCellComponent
+} from "../components/journal/view/base-journal/base-journal-row/base-journal-column-cell/base-journal-column-cell.component"
+import {
+  GenerateMarksReportComponent
+} from "../components/journal/generate/generate-marks-report/generate-marks-report.component"
+import {
+  GenerateAbsencesReportComponent
+} from "../components/journal/generate/generate-absences-report/generate-absences-report.component"
 import {CellExpandComponent} from "../components/standalones/popups/cell-expand/cell-expand.component"
 import {JournalCellComponent} from "../components/journal/view/base-journal/base-journal-cell/journal-cell.component"
 import {BaseJournalComponent} from "../components/journal/view/base-journal/base-journal.component"
@@ -18,9 +26,13 @@ import {ModalsModule} from "modals"
 import {NgxPopperjsModule} from "ngx-popperjs"
 import {AbsenceControlComponent} from "../components/standalones/popups/select-mark/enteries/absence-control.component"
 import {SelectMarkComponent} from "../components/standalones/popups/select-mark/select-mark.component"
-import {LessonAdditionDataComponent} from "../components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
+import {
+  LessonAdditionDataComponent
+} from "../components/standalones/popups/lesson-addition-data/lesson-addition-data.component"
 import {JournalBottomBarComponent} from "../components/journal/view/journal-bottom-bar/journal-bottom-bar.component"
-import {BaseJournalDateItemComponent} from "../components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
+import {
+  BaseJournalDateItemComponent
+} from "../components/journal/view/base-journal/base-journal-date-item/base-journal-date-item.component"
 import {JournalTopBarComponent} from "../components/journal/view/journal-top-bar/journal-top-bar.component"
 import {LessonInfoComponent} from "../components/standalones/popups/lesson-info/lesson-info.component"
 import {TextDirective} from "../../../../../libs/auto-color/src/lib/text.directive"
@@ -30,24 +42,33 @@ import {JournalCellService} from "../services/shared/journal/journal.cell.servic
 import {JournalDisplayModeService} from "../services/shared/journal/journal-display-mode.service"
 import {JournalLessonService} from "../services/shared/journal/journal-lesson.service"
 import {JournalMarksService} from "../services/shared/journal/journal-marks.service"
-import {BaseJournalRowComponent} from "../components/journal/view/base-journal/base-journal-row/base-journal-row.component"
-import {BaseJournalDateCollapseComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-date/base-journal-date-collapse/base-journal-date-collapse.component"
-import {BaseJournalDatesComponent} from "../components/journal/view/base-journal/base-journal-dates/base-journal-dates.component"
-import {BaseJournalCollapserComponent} from "../components/journal/view/base-journal/base-journal-collapser/base-journal-collapser.component"
+import {
+  BaseJournalRowComponent
+} from "../components/journal/view/base-journal/base-journal-row/base-journal-row.component"
+import {
+  BaseJournalDateCollapseComponent
+} from "../components/journal/view/base-journal/base-journal-dates/base-journal-date/base-journal-date-collapse/base-journal-date-collapse.component"
+import {
+  BaseJournalDatesComponent
+} from "../components/journal/view/base-journal/base-journal-dates/base-journal-dates.component"
+import {
+  BaseJournalCollapserComponent
+} from "../components/journal/view/base-journal/base-journal-collapser/base-journal-collapser.component"
+import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
 
 const routes: Routes = [
   {
     title: "header.sliders.journal",
     path: "",
     component: JournalComponent,
-    canActivate: [NotLoginGuard],
+    canActivate: [NotLoginGuard]
   },
   {
     title: "header.sliders.journal",
     path: "view",
     component: JournalViewComponent,
-    canActivate: [NotLoginGuard],
-  },
+    canActivate: [NotLoginGuard]
+  }
 ]
 
 @NgModule({
@@ -74,7 +95,7 @@ const routes: Routes = [
     BaseJournalDateComponent,
     BaseJournalColumnCellComponent,
 
-    BaseJournalCollapserComponent,
+    BaseJournalCollapserComponent
   ],
   imports: [
     CommonModule,
@@ -87,6 +108,7 @@ const routes: Routes = [
     NgxPopperjsModule,
     TextDirective,
     ModalsModule,
+    ErrorInfoComponent
   ],
   providers: [
     JournalService,
@@ -94,8 +116,9 @@ const routes: Routes = [
     JournalCollapseService,
     JournalDisplayModeService,
     JournalLessonService,
-    JournalMarksService,
+    JournalMarksService
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class JournalModule {}
+export class JournalModule {
+}

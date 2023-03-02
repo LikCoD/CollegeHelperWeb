@@ -2,41 +2,17 @@
   <div class="image-block">
     <img [src]="image" alt="profile image" (click)="imageFile.click()">
     <div class="image-block--selection">
-      <input id="picture" class="form-control form-control-sm" formControlName="picture" placeholder="Picture url" >
+      <input id="picture" class="form-control form-control-sm" formControlName="picture" placeholder="Picture url">
       <button class="btn btn-success btn-sm" (click)="imageFile.click()">{{'user.edit.attach' | translate}}</button>
       <input #imageFile id="profile-upload" type="file" accept="image/*" (input)="changeImage(imageFile.files!![0])">
     </div>
     <app-error-info [property]="form.get('picture')!!"></app-error-info>
   </div>
 
-  <div class="form-floating">
-    <input id="login" class="form-control" formControlName="login" placeholder="Login">
-    <label for="login">{{'user.edit.login' | translate}}</label>
+  <ui-floating-input controlName="login" label="user.edit.login" />
+  <ui-floating-input controlName="email" label="user.edit.email" />
+  <ui-floating-input type="password" controlName="password" label="user.edit.password" />
+  <ui-floating-input type="password" controlName="confirmPassword" label="user.edit.confirmPassword" />
 
-    <app-error-info [property]="form.get('login')!!"></app-error-info>
-  </div>
-
-  <div class="form-floating">
-    <input id="email" class="form-control" formControlName="email" placeholder="Email">
-    <label for="email">{{'user.edit.email' | translate}}</label>
-
-    <app-error-info [property]="form.get('email')!!"></app-error-info>
-  </div>
-
-  <div class="form-floating">
-    <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
-    <label for="password">{{'user.edit.password' | translate}}</label>
-
-    <app-error-info [property]="form.get('password')!!"></app-error-info>
-  </div>
-
-  <div class="form-floating">
-    <input id="passwordConfirm" class="form-control" type="password" formControlName="passwordConfirm"
-           placeholder="Confirm password">
-    <label for="passwordConfirm">{{'user.edit.confirmPassword' | translate}}</label>
-
-    <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
-  </div>
-
-  <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{'user.edit.continue' | translate}}</button>
+  <button uiButton type="submit" [disabled]="!form.valid">{{'user.edit.continue' | translate}}</button>
 </form>

@@ -3,7 +3,7 @@
     <h3>{{'schedule.view.addLesson' | translate}}</h3>
 
     <div class="top-row">
-      <select class="form-select form-select-sm" formControlName="type">
+      <select uiSelect uiSelectSmall formControlName="type">
         <option *ngFor="let type of studyPlace.lessonTypes" [innerText]="type.type"></option>
       </select>
 
@@ -24,6 +24,6 @@
     <app-form-property [property]="form.get('lesson')!!" />
 
     <button [disabled]="!form.valid" type="submit"
-            class="btn btn-outline-dark">{{'schedule.view.add' | translate}}</button>
+            uiButton>{{'schedule.view.add' | translate}}</button>
   </form>
 </app-dialog-frame>

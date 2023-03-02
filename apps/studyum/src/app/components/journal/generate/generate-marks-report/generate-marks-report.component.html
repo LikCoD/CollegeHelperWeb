@@ -2,48 +2,15 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <h4 [innerText]="'journal.generate.generateMarksTitle' | translate"></h4>
 
-    <div class="form-floating">
-      <input id="startDate" type="date" class="form-control" formControlName="startDate" placeholder=" ">
-      <label for="startDate">{{'journal.generate.startDate' | translate}}</label>
+    <ui-floating-input controlName="startDate" label="journal.generate.startDate" type="date" />
+    <ui-floating-input controlName="endDate" label="journal.generate.endDate" type="date" />
 
-      <app-error-info [property]="form.get('startDate')!!"></app-error-info>
-    </div>
+    <ui-floating-select controlName="lessonType" label="journal.generate.lessonType" [data]="types" />
+    <ui-floating-select controlName="mark" label="journal.generate.mark" [data]="marks" />
 
-    <div class="form-floating">
-      <input id="endDate" type="date" class="form-control" formControlName="endDate" placeholder=" ">
-      <label for="endDate">{{'journal.generate.endDate' | translate}}</label>
-
-      <app-error-info [property]="form.get('endDate')!!"></app-error-info>
-    </div>
-
-    <div class="form-floating">
-      <select id="typeSelect" class="form-control" formControlName="lessonType">
-        <option *ngFor="let type of studyPlace.lessonTypes"
-                [innerText]="type.type" [selected]="!!type.standaloneMarks"></option>
-      </select>
-      <label for="typeSelect">{{'journal.generate.lessonType' | translate}}</label>
-
-      <app-error-info [property]="form.get('lessonType')!!"></app-error-info>
-    </div>
-
-    <div class="form-floating">
-      <select id="markSelect" class="form-control" formControlName="mark">
-        <option *ngFor="let mark of marks(studyPlace)"
-                [innerText]="mark" [selected]="isSelectedMark(studyPlace, mark)"></option>
-      </select>
-      <label for="markSelect">{{'journal.generate.mark' | translate}}</label>
-
-      <app-error-info [property]="form.get('mark')!!"></app-error-info>
-    </div>
-
-    <div class="form-check-inline">
-      <input id="notExists" type="checkbox" class="form-check" formControlName="notExists" placeholder=" ">
-      <label for="notExists">{{'journal.generate.notExists' | translate}}</label>
-
-      <app-error-info [property]="form.get('notExists')!!"></app-error-info>
-    </div>
+    <ui-floating-checkbox controlName="notExists" label="journal.generate.notExists" />
 
     <button [disabled]="!form.valid" type="submit"
-            class="btn btn-outline-dark">{{'journal.generate.submit' | translate}}</button>
+            uiButton>{{'journal.generate.submit' | translate}}</button>
   </form>
 </app-dialog-frame>

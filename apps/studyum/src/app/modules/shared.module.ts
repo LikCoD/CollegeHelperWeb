@@ -1,6 +1,5 @@
 import {NgModule} from "@angular/core"
 import {CommonModule} from "@angular/common"
-import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
 import {FormPropertyComponent} from "../components/general/form-property/form-property.component"
 import {DialogFrameComponent} from "../components/general/dialog-frame/dialog-frame.component"
 import {MoreIndicatorComponent} from "../components/standalones/more-indicator.component"
@@ -10,10 +9,10 @@ import {ActionButtonsComponent} from "../components/standalones/buttons/action-b
 import {MiniSelectBtnDirective} from "../components/standalones/buttons/directives/mini-select-btn.directive"
 import {SecondaryBtnDirective} from "../components/standalones/buttons/directives/secondary-btn.directive"
 import {ActionSelectBtnDirective} from "../components/standalones/buttons/directives/action-select-btn.directive"
+import {UiElementsModule} from "../../../../../libs/ui-elements/src"
 
 @NgModule({
   declarations: [
-    ErrorInfoComponent,
     FormPropertyComponent,
     DialogFrameComponent,
     MoreIndicatorComponent,
@@ -29,7 +28,6 @@ import {ActionSelectBtnDirective} from "../components/standalones/buttons/direct
     ActionSelectBtnDirective,
   ],
   exports: [
-    ErrorInfoComponent,
     FormPropertyComponent,
     DialogFrameComponent,
     MoreIndicatorComponent,
@@ -43,8 +41,9 @@ import {ActionSelectBtnDirective} from "../components/standalones/buttons/direct
     SecondaryBtnDirective,
 
     ActionSelectBtnDirective,
+
+    UiElementsModule,
   ],
-  imports: [CommonModule]
+  imports: [CommonModule, UiElementsModule],
 })
-export class SharedModule {
-}
+export class SharedModule {}

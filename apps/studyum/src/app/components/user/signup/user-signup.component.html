@@ -5,55 +5,22 @@
     [topColor]="'rgb(232,125,138)'"
     [bottomColor]="'rgb(165,217,255)'">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-floating top-group">
-        <input id="login" class="form-control" formControlName="login" placeholder="Login">
-        <label for="login">{{'user.login.userLogin' | translate}}</label>
-
-        <app-error-info [property]="form.get('login')!!"></app-error-info>
-      </div>
+      <ui-floating-input class="top-group" controlName="login" label="user.login.userLogin" />
 
       <hr>
 
-      <div class="form-floating">
-        <input id="email" class="form-control" formControlName="email" placeholder="Email">
-        <label for="email">{{'user.login.email' | translate}}</label>
-
-        <app-error-info [property]="form.get('email')!!"></app-error-info>
-      </div>
-      <div class="form-floating">
-        <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
-        <label for="password">{{'user.login.password' | translate}}</label>
-
-        <app-error-info [property]="form.get('password')!!"></app-error-info>
-      </div>
-
-      <div class="form-floating">
-        <input id="passwordConfirm" class="form-control" type="password" formControlName="passwordConfirm"
-               placeholder="Confirm password">
-        <label for="passwordConfirm">{{'user.login.confirmPassword' | translate}}</label>
-
-        <app-error-info [property]="form.get('passwordConfirm')!!"></app-error-info>
-      </div>
+      <ui-floating-input controlName="email" label="user.login.email" />
+      <ui-floating-input type="password" controlName="password" label="user.login.password" />
+      <ui-floating-input type="password" controlName="passwordConfirm" label="user.login.confirmPassword" />
 
       <hr>
 
-      <p>Or use code</p>
+      <ui-floating-input controlName="code" label="user.login.code" />
 
-      <div class="form-floating">
-        <input id="code" class="form-control" formControlName="code"
-               placeholder="Code">
-        <label for="passwordConfirm">{{'user.login.code' | translate}}</label>
-
-        <app-error-info [property]="form.get('code')!!"></app-error-info>
-      </div>
-
-
-      <div class="input-group bottom-group">
-        <button type="submit" class="btn btn-outline-light"
+      <div uiGroupContainer class="bottom-group">
+        <button uiButton type="submit"
                 [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
-        <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
-          <img src="assets/google-logo.svg" alt="google">
-        </button>
+        <ui-google-button (click)="continueViaGoogle()" />
       </div>
     </form>
   </app-glassmorphism-frame>

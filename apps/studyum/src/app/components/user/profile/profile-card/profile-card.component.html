@@ -10,8 +10,8 @@
   <p>{{user.typeName}}</p>
 </div>
 
-<button class="btn btn-warning" (click)="signout.emit($event)">{{'user.profile.signOut' | translate}}</button>
-<button class="btn btn-danger" (click)="revoke.emit($event)">{{'user.profile.revokeToken' | translate}}</button>
+<button uiButtonWarning (click)="signout.emit($event)">{{'user.profile.signOut' | translate}}</button>
+<button uiButtonDanger (click)="revoke.emit($event)">{{'user.profile.revokeToken' | translate}}</button>
 
 
 <div *ngIf="warnings() as warnings">

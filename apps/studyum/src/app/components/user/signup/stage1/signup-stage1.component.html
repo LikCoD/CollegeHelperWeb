@@ -1,4 +1,4 @@
-<main *ngIf="this.userService.user$ | async as user">
+<main>
   <div class="top-block">
     <h2 [innerText]="'user.login.signUp' | translate"></h2>
     <div class="use-code-block" routerLink="code">
@@ -11,45 +11,19 @@
     [topColor]="'rgb(232,125,138)'"
     [bottomColor]="'rgb(165,217,255)'">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-floating top-group">
-        <input id="name" class="form-control" formControlName="name" placeholder="Login">
-        <label for="name">{{'user.login.name' | translate}}</label>
-
-        <app-error-info [property]="form.get('name')!!"></app-error-info>
-      </div>
-
-
-      <div class="form-floating" *ngIf="generalService.studyPlaces$ | async as studyPlaces">
-        <input id="studyPlace" class="form-control" list="studyPlaces" placeholder="Study Place"
-               (change)="studyPlaceChange($event, studyPlaces)" (focusout)="markStudyPlaceAsTouched()" />
-        <label for="studyPlace">{{'user.login.studyPlace' | translate}}</label>
-
-        <datalist id="studyPlaces">
-          <option *ngFor="let studyPlace of studyPlaces" data-value="{{studyPlace.id}}"
-                  [value]="studyPlace.name"></option>
-        </datalist>
-        <app-error-info [property]="form.get('studyPlaceId')!!"></app-error-info>
-      </div>
-      <div class="form-floating">
-        <select id="type" class="form-control" formControlName="type" (change)="onTypeChange(user)">
-          <option label="{{'user.login.group' | translate}}" value="group"></option>
-          <option label="{{'user.login.teacher' | translate}}" value="teacher"></option>
-        </select>
-        <label for="type">{{'user.login.type' | translate}}</label>
-
-        <app-error-info [property]="form.get('type')!!"></app-error-info>
-      </div>
-      <div class="form-floating">
-        <input id="typeName" class="form-control" formControlName="typeName" placeholder="Type name">
-        <label for="typeName">{{'user.login.typename' | translate}}</label>
-
-        <app-error-info [property]="form.get('typeName')!!"></app-error-info>
-      </div>
+      <ng-container *ngIf="studyPlaces$ | async as studyPlaces">
+        <ui-floating-input class="top-group" controlName="name" label="user.login.name" />
+        <ui-floating-input controlName="studyPlaceId" label="user.login.studyPlace" [data]="studyPlaces" />
+        <ui-floating-select controlName="type" label="user.login.type" [data]="['group', 'teacher']" />
+        <ui-floating-input controlName="typeName" label="user.login.typename" />
+      </ng-container>
 
       <div class="input-group bottom-group">
-        <button type="submit" class="btn btn-outline-light"
+        <button uiButton type="submit"
                 [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
       </div>
+
+      {{form.value | json}}
     </form>
   </app-glassmorphism-frame>
 </main>

@@ -31,7 +31,7 @@
       <app-error-info [property]="form.get('homework')!!"></app-error-info>
     </div>
 
-    <button type="submit" class="btn btn-success"
+    <button uiButton type="submit"
             [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
   </form>
 </app-dialog-frame>

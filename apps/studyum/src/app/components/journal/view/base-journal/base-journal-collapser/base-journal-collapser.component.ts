@@ -5,20 +5,17 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
+  TemplateRef
 } from "@angular/core"
 import {JournalCell} from "../../../../../models/journal"
-import {
-  Cells,
-  JournalCollapseService,
-} from "../../../../../services/shared/journal/journal-collapse.service"
+import {Cells, JournalCollapseService} from "../../../../../services/shared/journal/journal-collapse.service"
 import {Subscription} from "rxjs"
 
 @Component({
   selector: "app-base-journal-collapser",
   templateUrl: "./base-journal-collapser.component.html",
   styleUrls: ["./base-journal-collapser.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BaseJournalCollapserComponent implements OnInit, OnDestroy {
   @Input() cells: Cells
@@ -35,11 +32,12 @@ export class BaseJournalCollapserComponent implements OnInit, OnDestroy {
 
   private change$: Subscription | undefined
 
-  constructor(private service: JournalCollapseService, private cdr: ChangeDetectorRef) {}
+  constructor(private service: JournalCollapseService, private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
     this.service.change$.subscribe({
-      next: (value) => this.cdr.detectChanges(),
+      next: () => this.cdr.detectChanges()
     })
   }
 

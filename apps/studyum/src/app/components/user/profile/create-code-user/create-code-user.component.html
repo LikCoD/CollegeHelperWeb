@@ -1,31 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <div class="form-floating">
-    <input id="code" class="form-control" formControlName="code" placeholder="Code">
-    <label for="code">{{'user.create.code' | translate}}</label>
+  <ui-floating-input controlName="code" label="user.create.code" />
+  <ui-floating-input controlName="name" label="user.create.name" />
+  <ui-floating-select controlName="type" label="user.create.name" [data]="['group', 'teacher']" />
+  <ui-floating-input controlName="typeName" label="user.create.typename" />
 
-    <app-error-info [property]="form.get('code')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <input id="name" class="form-control" formControlName="name" placeholder="Name">
-    <label for="name">{{'user.create.name' | translate}}</label>
-
-    <app-error-info [property]="form.get('name')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <select id="type" class="form-control" formControlName="type">
-      <option label="Group" value="group"></option>
-      <option label="Teacher" value="teacher"></option>
-    </select>
-    <label for="type">{{'user.create.type' | translate}}</label>
-
-    <app-error-info [property]="form.get('type')!!"></app-error-info>
-  </div>
-  <div class="form-floating">
-    <input id="typeName" class="form-control" formControlName="typeName" placeholder="Type name">
-    <label for="typeName">{{'user.create.typename' | translate}}</label>
-
-    <app-error-info [property]="form.get('typeName')!!"></app-error-info>
-  </div>
-
-  <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
+  <button type="submit" uiButton [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
 </form>

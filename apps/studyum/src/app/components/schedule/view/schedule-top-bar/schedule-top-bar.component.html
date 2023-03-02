@@ -1,21 +1,21 @@
 <div class="actions">
   <button
-    class="btn btn-outline-light btn-sm" (click)="changeEditMode()"
+    uiButton uiButtonSmall (click)="changeEditMode()"
     *ngIf="canEdit(user)"
   >{{'schedule.view.edit' | translate}}</button>
 
   <button
-    class="btn btn-outline-light btn-sm" (click)="changeScaleMode()"
+    uiButton uiButtonSmall (click)="changeScaleMode()"
   >{{'schedule.view.scale' | translate}}</button>
 
   <button
     *ngIf="isEditGeneral else actualMode"
-    class="btn btn-light btn-sm" (click)="changeViewMode()"
+    uiButton uiButtonSmall (click)="changeViewMode()"
   >{{'schedule.view.actual' | translate}}</button>
 
   <ng-template #actualMode>
     <button
-      class="btn btn-outline-light btn-sm" (click)="changeViewMode()"
+      uiButton uiButtonSmall (click)="changeViewMode()"
     >{{'schedule.view.general' | translate}}</button>
   </ng-template>
 
@@ -26,18 +26,18 @@
 
   <ng-template #lessonIndexMode>
     <button
-      class="btn btn-light btn-sm" (click)="changeTimeMode()"
+      uiButton uiButtonSmall (click)="changeTimeMode()"
     >{{'schedule.view.time' | translate}}</button>
   </ng-template>
 
   <button
     *ngIf="!isSearchMode else searchMode"
-    class="btn btn-outline-light btn-sm" (click)="toggleSearch()"
+    uiButton uiButtonSmall (click)="toggleSearch()"
   >{{'schedule.view.search' | translate}}</button>
 
   <ng-template #searchMode>
     <button
-      class="btn btn-light btn-sm" (click)="toggleSearch()"
+      uiButton uiButtonSmall (click)="toggleSearch()"
     >{{'schedule.view.search' | translate}}</button>
   </ng-template>
 </div>
@@ -48,7 +48,7 @@
       <input
         *ngrxLet="studyPlace$ as studyPlace"
         #studyPlaceInput
-        class="form-control"
+        uiInput
         list="studyPlaces"
         [value]="studyPlace?.name ?? ''"
         [placeholder]="'schedule.find.studyPlace' | translate"
@@ -59,14 +59,14 @@
     </datalist>
 
     <div class="input-group input-group-sm" *ngIf="findItems$ | async as items">
-      <select #itemTypeSelect class="form-select" formControlName="type">
+      <select #itemTypeSelect uiSelect formControlName="type">
         <option value="group">{{'schedule.find.group' | translate}}</option>
         <option value="teacher">{{'schedule.find.teacher' | translate}}</option>
         <option value="subject">{{'schedule.find.subject' | translate}}</option>
         <option value="room">{{'schedule.find.room' | translate}}</option>
       </select>
       <input
-        class="form-control"
+        uiInput
         list="items-list"
         formControlName="name"
         [placeholder]="'schedule.find.name' | translate">

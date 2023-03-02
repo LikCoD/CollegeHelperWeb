@@ -12,8 +12,8 @@
         <app-symbol-input #code id="code" amount="6" formControlName="code"></app-symbol-input>
       </div>
 
-      <div class="input-group bottom-group">
-        <button type="submit" class="btn btn-outline-light"
+      <div uiGroupContainer class="bottom-group">
+        <button uiButton type="submit"
                 [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
       </div>
     </form>

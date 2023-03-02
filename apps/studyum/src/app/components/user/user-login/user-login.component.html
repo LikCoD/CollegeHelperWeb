@@ -5,25 +5,13 @@
     [topColor]="'rgb(232,125,138)'"
     [bottomColor]="'rgb(165,217,255)'">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-floating top-group">
-        <input id="login" class="form-control" formControlName="login" placeholder="Login">
-        <label for="login">{{'user.login.userLogin' | translate}}</label>
+      <ui-floating-input class="top-group" controlName="login" label="user.login.userLogin" />
+      <ui-floating-input type="password" controlName="password" label="user.login.password" />
 
-        <app-error-info [property]="form.get('login')!!"></app-error-info>
-      </div>
-      <div class="form-floating">
-        <input id="password" class="form-control" type="password" formControlName="password" placeholder="Password">
-        <label for="password">{{'user.login.password' | translate}}</label>
-
-        <app-error-info [property]="form.get('password')!!"></app-error-info>
-      </div>
-
-      <div class="input-group bottom-group">
-        <button type="submit" class="btn btn-outline-light"
+      <div uiGroupContainer class="bottom-group">
+        <button uiButton type="submit"
                 [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
-        <button type="button" class="btn btn-light google" (click)="continueViaGoogle()">
-          <img src="assets/google-logo.svg" alt="google">
-        </button>
+        <ui-google-button (click)="continueViaGoogle()" />
       </div>
     </form>
   </app-glassmorphism-frame>

@@ -3,9 +3,13 @@ import {RouterModule, Routes} from "@angular/router"
 import {ViewComponent} from "../components/schedule/view/view.component"
 import {CellComponent} from "../components/schedule/view/cell/cell.component"
 import {ScheduleSubjectComponent} from "../components/schedule/view/schedule-subject/schedule-subject.component"
-import {AddSubjectDialogComponent} from "../components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component"
+import {
+  AddSubjectDialogComponent
+} from "../components/schedule/view/edit/add-subject-dialog/add-subject-dialog.component"
 import {SubjectSelectionComponent} from "../components/schedule/view/subject-selection/subject-selection.component"
-import {SelectSubjectDialogComponent} from "../components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component"
+import {
+  SelectSubjectDialogComponent
+} from "../components/schedule/view/cell/select-subject-dialog/select-subject-dialog.component"
 import {ScheduleCellDirective} from "../components/schedule/view/cell/cell-directive/schedule-cell.directive"
 import {EditScheduleComponent} from "../components/schedule/view/edit/edit-scdedule/edit-schedule.component"
 import {ScheduleTopBarComponent} from "../components/schedule/view/schedule-top-bar/schedule-top-bar.component"
@@ -14,7 +18,6 @@ import {TranslateModule} from "@ngx-translate/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "./shared.module"
 import {ModalsModule} from "../../../../../libs/modals/src"
-import {UiElementsModule} from "../../../../../libs/ui-elements/src"
 import {LetModule} from "@ngrx/component"
 
 const routes: Routes = [
@@ -22,8 +25,8 @@ const routes: Routes = [
     title: "header.sliders.schedule",
     path: "",
     component: ViewComponent,
-    canActivate: [],
-  },
+    canActivate: []
+  }
 ]
 
 @NgModule({
@@ -36,7 +39,7 @@ const routes: Routes = [
     ScheduleCellDirective,
     EditScheduleComponent,
     ScheduleTopBarComponent,
-    ViewComponent,
+    ViewComponent
   ],
   imports: [
     CommonModule,
@@ -46,9 +49,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
-    UiElementsModule,
-    LetModule,
+    LetModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class ScheduleModule {}
+export class ScheduleModule {
+}

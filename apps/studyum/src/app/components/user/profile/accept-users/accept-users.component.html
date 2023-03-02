@@ -1,9 +1,11 @@
 <div *ngIf="acceptUsers$ | async as users">
   <div *ngFor="let user of users" class="users">
-    <p class="username">{{buildUser(user)}}</p>
+    <p class="username" [innerText]="buildUser(user)"></p>
     <div>
-      <button class="btn btn-success btn-sm btn-accept-action" (click)="acceptUser(users, user.id)">+</button>
-      <button class="btn btn-danger btn-sm btn-accept-action" (click)="declineUser(users, user.id)">-</button>
+      <button uiButtonSuccess uiButtonSmall class="btn-accept-action" (click)="acceptUser(users, user.id)">+
+      </button>
+      <button uiButtonDanger uiButtonSmall class="btn-accept-action" (click)="declineUser(users, user.id)">-
+      </button>
     </div>
   </div>
 </div>

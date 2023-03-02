@@ -9,7 +9,7 @@ import * as moment from "moment/moment"
 @Component({
   selector: "app-generate-marks-report",
   templateUrl: "./generate-marks-report.component.html",
-  styleUrls: ["./generate-marks-report.component.scss"],
+  styleUrls: ["./generate-marks-report.component.scss"]
 })
 export class GenerateMarksReportComponent {
   form = new FormGroup({
@@ -17,10 +17,13 @@ export class GenerateMarksReportComponent {
     endDate: new FormControl(),
     lessonType: new FormControl("", Validators.required),
     mark: new FormControl("", Validators.required),
-    notExists: new FormControl(false, Validators.required),
+    notExists: new FormControl(false, Validators.required)
   })
 
   studyPlace$: Observable<StudyPlace>
+
+  marks: string[]
+  types: string[]
 
   constructor(
     private generalService: GeneralService,
@@ -28,6 +31,13 @@ export class GenerateMarksReportComponent {
   ) {
     this.studyPlace$ = this.generalService.getCurrentStudyPlace("self").pipe(
       tap((sp) => {
+        this.marks = sp.lessonTypes
+          .flatMap((t) => [...(t.marks ?? []), ...(t.standaloneMarks ?? [])])
+          .map((m) => m.mark)
+          .filter((value, index, array) => array.indexOf(value) === index)
+
+        this.types = sp.lessonTypes.map(t => t.type)
+
         let type = sp.lessonTypes.filter((el) => !!el.standaloneMarks)[0]
         if (!type) return
 
@@ -43,19 +53,5 @@ export class GenerateMarksReportComponent {
     v.endDate = moment.utc(v.endDate).toISOString()
 
     this.service.generateMarks(v)
-  }
-
-  marks(studyPlace: StudyPlace): string[] {
-    return studyPlace.lessonTypes
-      .flatMap((t) => [...(t.marks ?? []), ...(t.standaloneMarks ?? [])])
-      .map((m) => m.mark)
-      .filter((value, index, array) => array.indexOf(value) === index)
-  }
-
-  isSelectedMark(studyPlace: StudyPlace, mark: string): boolean {
-    return !!studyPlace.lessonTypes
-      .filter((t) => !!t.standaloneMarks)
-      .flatMap((m) => m.standaloneMarks)
-      .find((m) => m.mark === mark)
   }
 }

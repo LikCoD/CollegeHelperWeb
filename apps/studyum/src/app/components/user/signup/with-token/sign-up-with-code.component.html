@@ -5,15 +5,10 @@
     [topColor]="'rgb(232,125,138)'"
     [bottomColor]="'rgb(165,217,255)'">
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-floating top-group">
-        <input id="code" class="form-control" formControlName="code" placeholder="Code">
-        <label for="code">{{'user.login.code' | translate}}</label>
+      <ui-floating-input class="top-group" controlName="code" label="user.login.code" />
 
-        <app-error-info [property]="form.get('code')!!"></app-error-info>
-      </div>
-      
-      <div class="input-group bottom-group">
-        <button type="submit" class="btn btn-outline-light"
+      <div uiGroupContainer class="bottom-group">
+        <button uiButton type="submit"
                 [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
       </div>
     </form>

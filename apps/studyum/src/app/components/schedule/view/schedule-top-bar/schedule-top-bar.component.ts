@@ -55,6 +55,9 @@ export class ScheduleTopBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.studyPlaces$ = this.generalService.getNotRestrictedStudyPlaces()
+    this.userService.user$.subscribe({
+      next: (value) => (this.user = value),
+    })
 
     this.scheduleService.schedule$.subscribe({
       next: (value) => {

@@ -14,13 +14,13 @@ import {SignUpWithCodeComponent} from "../components/user/signup/with-token/sign
 import {UserLoginComponent} from "../components/user/user-login/user-login.component"
 import {ReceiveTokenComponent} from "../components/user/receive-token/receive-token.component"
 import {EmailVerificationComponent} from "../components/user/signup/email-verification/email-verification.component"
-import {UiElementsModule} from "../../../../../libs/ui-elements/src"
+import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
 
 const routes: Routes = [
   {
     title: "header.sliders.signup",
     path: "signup",
-    component: UserSignupComponent,
+    component: SignupStage1Component,
     canActivate: [LoginGuard],
   },
   {
@@ -74,7 +74,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
-    UiElementsModule,
+    ErrorInfoComponent,
   ],
   exports: [RouterModule],
 })

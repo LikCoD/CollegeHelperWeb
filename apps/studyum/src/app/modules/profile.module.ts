@@ -14,31 +14,34 @@ import {SharedModule} from "./shared.module"
 import {ModalsModule} from "../../../../../libs/modals/src"
 import {ProfileCardComponent} from "../components/user/profile/profile-card/profile-card.component"
 import {PasswordResetComponent} from "../components/user/signup/password-reset/password-reset.component"
-import {UiElementsModule} from "../../../../../libs/ui-elements/src"
-import {PasswordResetEmailRequestComponent} from "../components/user/signup/password-reset-email-request/password-reset-email-request.component"
+import {
+  PasswordResetEmailRequestComponent
+} from "../components/user/signup/password-reset-email-request/password-reset-email-request.component"
 import {LoginGuard} from "../guards/login.guard"
+import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
+import {FloatingContainerDirective} from "../../../../../libs/ui-elements/src/lib/elements/floating-container.directive"
 
 const routes: Routes = [
   {
     title: "header.sliders.profile",
     path: "",
     component: ProfileComponent,
-    canActivate: [NotLoginGuard],
+    canActivate: [NotLoginGuard]
   },
 
   {
     title: "header.sliders.profile",
     path: "password/reset",
     component: PasswordResetComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard]
   },
 
   {
     title: "header.sliders.profile",
     path: "password/reset/email",
     component: PasswordResetEmailRequestComponent,
-    canActivate: [LoginGuard],
-  },
+    canActivate: [LoginGuard]
+  }
 ]
 
 @NgModule({
@@ -52,7 +55,7 @@ const routes: Routes = [
     ProfileCardComponent,
 
     PasswordResetEmailRequestComponent,
-    PasswordResetComponent,
+    PasswordResetComponent
   ],
   imports: [
     CommonModule,
@@ -62,8 +65,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
-    UiElementsModule,
+    ErrorInfoComponent,
+    FloatingContainerDirective
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class ProfileModule {}
+export class ProfileModule {
+}

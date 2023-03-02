@@ -1,54 +1,42 @@
-import {Component} from "@angular/core"
+import {Component, OnInit} from "@angular/core"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {UserService} from "../../../../services/shared/user.service"
 import {StudyPlace} from "../../../../models/general"
 import {User} from "../../../../models/user"
 import {GeneralService} from "../../../../services/shared/general.service"
 import {Router} from "@angular/router"
+import {map, Observable} from "rxjs"
+import {Data} from "../../../../../../../../libs/ui-elements/src/lib/models/selectData"
 
 @Component({
   selector: "app-stage1",
   templateUrl: "./signup-stage1.component.html",
-  styleUrls: [
-    "./signup-stage1.component.scss",
-    "../../../../../assets/scss/form.scss",
-  ],
+  styleUrls: ["./signup-stage1.component.scss", "../../../../../assets/scss/form.scss"]
 })
-export class SignupStage1Component {
+export class SignupStage1Component implements OnInit {
   form = new FormGroup({
     name: new FormControl("", Validators.required),
     studyPlaceId: new FormControl("", Validators.required),
     type: new FormControl("group", Validators.required),
-    typeName: new FormControl("", Validators.required),
+    typeName: new FormControl("", Validators.required)
   })
 
-  selectedStudyPlace = ""
-  showTypeName = true
+  studyPlaces$: Observable<Data<StudyPlace, string>[]>
 
   constructor(
     public userService: UserService,
-    public generalService: GeneralService,
+    private generalService: GeneralService,
     public router: Router
-  ) {}
-
-  studyPlaceChange(event: Event, studyPlaces: StudyPlace[]) {
-    let input = event.target as HTMLInputElement
-
-    let studyPlace = studyPlaces.find((value) => value.name == input.value)
-    if (studyPlace == undefined) {
-      input.value = this.selectedStudyPlace
-      return
-    }
-
-    this.form.get("studyPlaceId")?.setValue(studyPlace.id)
-    this.selectedStudyPlace = input.value
+  ) {
   }
 
-  markStudyPlaceAsTouched() {
-    this.form.get("studyPlaceId")?.markAsTouched()
+  ngOnInit(): void {
+    this.studyPlaces$ = this.generalService.studyPlaces$.pipe(
+      map((v) => v.map((s) => new Data<StudyPlace, string>(s, s.id, s.name)))
+    )
   }
 
-  onTypeChange(user: User) {
+  selectType(user: User) {
     if (this.form.get("type")?.value == "teacher") {
       this.form.get("typeName")?.setValue(user.name)
     }
@@ -56,7 +44,7 @@ export class SignupStage1Component {
 
   submit() {
     this.userService.signUpStage1(this.form.value).subscribe({
-      next: (_) => this.router.navigate([""]),
+      next: (_) => this.router.navigate([""])
     })
   }
 }
