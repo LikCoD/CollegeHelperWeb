@@ -48,6 +48,6 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
 
-          script:
-            curl https://raw.githubusercontent.com/${{ github.repository }}/master/docker-compose.yml -o docker-compose.yml \
+          script: |
+            curl https://raw.githubusercontent.com/${{ github.repository }}/${GITHUB_REF##*/}/docker-compose.yml -o docker-compose.yml
             docker compose -f web/docker-compose.yml up -d
