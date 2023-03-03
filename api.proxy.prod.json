@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://api.studyum.net/",
+    "target": "https://api.studyum.net/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
