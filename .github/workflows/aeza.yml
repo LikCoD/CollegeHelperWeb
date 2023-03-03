@@ -49,5 +49,5 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
 
           script: |
-            curl https://raw.githubusercontent.com/${{ github.repository }}/${GITHUB_REF##*/}/docker-compose.yml -o docker-compose.yml
+            curl https://raw.githubusercontent.com/${{ github.repository }}/${GITHUB_REF##*/}/docker-compose.yml -o web/docker-compose.yml
             docker compose -f web/docker-compose.yml up -d
