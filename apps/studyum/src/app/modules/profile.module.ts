@@ -18,7 +18,7 @@ import {
   PasswordResetEmailRequestComponent
 } from "../components/user/signup/password-reset-email-request/password-reset-email-request.component"
 import {LoginGuard} from "../guards/login.guard"
-import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
+import {ErrorInfoComponent} from "../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 import {FloatingContainerDirective} from "../../../../../libs/ui-elements/src/lib/elements/floating-container.directive"
 
 const routes: Routes = [

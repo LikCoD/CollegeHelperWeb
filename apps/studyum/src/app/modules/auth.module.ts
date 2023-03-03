@@ -14,45 +14,45 @@ import {SignUpWithCodeComponent} from "../components/user/signup/with-token/sign
 import {UserLoginComponent} from "../components/user/user-login/user-login.component"
 import {ReceiveTokenComponent} from "../components/user/receive-token/receive-token.component"
 import {EmailVerificationComponent} from "../components/user/signup/email-verification/email-verification.component"
-import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
+import {ErrorInfoComponent} from "../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 
 const routes: Routes = [
   {
     title: "header.sliders.signup",
     path: "signup",
     component: SignupStage1Component,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard]
   },
   {
     title: "header.sliders.email",
     path: "email/verification",
     component: EmailVerificationComponent,
-    canActivate: [NotLoginGuard],
+    canActivate: [NotLoginGuard]
   },
   {
     title: "header.sliders.signup",
     path: "signup/stage1",
     component: SignupStage1Component,
-    canActivate: [NotLoginGuard, SignupStage1Guard],
+    canActivate: [NotLoginGuard, SignupStage1Guard]
   },
   {
     title: "header.sliders.signup",
     path: "signup/stage1/code",
     component: SignUpWithCodeComponent,
-    canActivate: [NotLoginGuard, SignupStage1Guard],
+    canActivate: [NotLoginGuard, SignupStage1Guard]
   },
   {
     title: "header.sliders.login",
     path: "login",
     component: UserLoginComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard]
   },
 
   {
     title: "Studyum",
     path: "token",
-    component: ReceiveTokenComponent,
-  },
+    component: ReceiveTokenComponent
+  }
 ]
 
 @NgModule({
@@ -64,7 +64,7 @@ const routes: Routes = [
     SignUpWithCodeComponent,
     UserLoginComponent,
 
-    EmailVerificationComponent,
+    EmailVerificationComponent
   ],
   imports: [
     CommonModule,
@@ -74,8 +74,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     ModalsModule,
-    ErrorInfoComponent,
+    ErrorInfoComponent
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AuthModule {}
+export class AuthModule {
+}

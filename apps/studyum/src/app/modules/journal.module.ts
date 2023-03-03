@@ -54,7 +54,7 @@ import {
 import {
   BaseJournalCollapserComponent
 } from "../components/journal/view/base-journal/base-journal-collapser/base-journal-collapser.component"
-import {ErrorInfoComponent} from "../components/general/error-info/error-info.component"
+import {ErrorInfoComponent} from "../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 
 const routes: Routes = [
   {
