@@ -23,7 +23,7 @@ app-dialog-frame {
   grid-column: 0;
   grid-template-columns: 1fr;
 
-  background: inherit;
+  background: styles.$backgroundColor;
 }
 
 app-base-journal {

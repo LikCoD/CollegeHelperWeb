@@ -1,13 +1,5 @@
 <ng-container>
-  <div class="corner">
-    <button
-      uiButton uiButtonSmall
-      [innerText]="showTitle ? '<' : '>'"
-      (click)="showTitle = !showTitle"></button>
-  </div>
-  <ol class="titles">
-    <li *ngFor="let row of journal.rows" [innerText]="showTitle ? row.title : ''"></li>
-  </ol>
+  <div class="corner"></div>
   <app-base-journal-dates
     [studyPlace]="journal.info.studyPlace"
     [dates]="journal.dates"

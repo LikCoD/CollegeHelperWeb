@@ -1,3 +1,5 @@
+<p class="title" [innerText]="title"></p>
+
 <app-base-journal-collapser
   [cells]="row.cells"
   [active]="cellRef"
@@ -18,28 +20,31 @@
   </ng-container>
 </ng-template>
 
-
 <section>
+  <p class="summary-text" *ngIf="mode == 'general'" [innerText]="'journal.view.avg' | translate"></p>
   <app-base-journal-cell
     *ngIf="mode == 'general'"
     [entries]="[average]"
-    [color]="row.color">
-  </app-base-journal-cell>
+    [color]="row.color" />
+
+  <p class="summary-text" *ngIf="mode == 'absences'" [innerText]="'journal.view.avg' | translate"></p>
   <app-base-journal-cell
     *ngIf="mode == 'absences'"
     [entries]="[{text: row.absencesAmount.toString(), color: colors.general}]"
-    [color]="row.color">
-  </app-base-journal-cell>
+    [color]="row.color" />
+
+  <p class="summary-text" *ngIf="mode == 'absences'" [innerText]="'journal.view.absencesTime' | translate"></p>
   <app-base-journal-cell
     *ngIf="mode == 'absences'"
     [entries]="[{text: row.absencesTime.toString(), color: colors.general}]"
-    [color]="row.color">
-  </app-base-journal-cell>
+    [color]="row.color" />
+
   <ng-container *ngIf="mode != 'absences' && showAmount">
-    <app-base-journal-cell
-      *ngFor="let entry of availableMarks;"
-      [entries]="[entry]"
-      [color]="row.color">
-    </app-base-journal-cell>
+    <ng-container *ngFor="let mark of availableMarks;">
+      <p class="summary-text" [innerText]="mark.text"></p>
+      <app-base-journal-cell
+        [entries]="[mark.entry]"
+        [color]="row.color" />
+    </ng-container>
   </ng-container>
 </section>

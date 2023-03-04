@@ -31,7 +31,6 @@ export class BaseJournalComponent implements OnDestroy, OnInit {
   @Input() showAmount = false
 
   mode: JournalMode
-  showTitle: boolean = true
 
   constructor(
     private cellService: JournalCellService,

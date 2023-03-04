@@ -24,6 +24,11 @@ export class BaseJournalRowComponent {
     return this.studyPlace.journalColors
   }
 
+  get title(): string {
+    const i = this.row.cells.flat(3)[0]?.point?.y ?? 0
+    return `${i + 1} ${this.row.title}`
+  }
+
   constructor(
     private settingsService: SettingsService,
     private modeService: JournalDisplayModeService
@@ -37,7 +42,7 @@ export class BaseJournalRowComponent {
     }
   }
 
-  get availableMarks(): Entry[] {
+  get availableMarks(): {text: string; entry: Entry}[] {
     if (this.mode === "absences") return []
 
     const types = this.studyPlace.lessonTypes
@@ -49,13 +54,14 @@ export class BaseJournalRowComponent {
     return marks
       .map((m) => m.mark)
       .filter((m, i, a) => a.indexOf(m) === i) //distinct
-      .map(
-        (m) =>
-          <Entry>{
-            text: this.row.marksAmount[m]?.toString() ?? "0",
-            color: this.colors.general,
-          }
-      )
+      .map((m) => {
+        const entry = {
+          text: this.row.marksAmount[m]?.toString() ?? "0",
+          color: this.colors.general,
+        }
+
+        return {entry: entry, text: m}
+      })
   }
 
   asCell = (cell: any): JournalCell => cell as JournalCell
