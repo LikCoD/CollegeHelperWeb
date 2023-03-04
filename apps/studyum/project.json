@@ -18,8 +18,13 @@
         "main": "apps/studyum/src/main.ts",
         "polyfills": "apps/studyum/src/polyfills.ts",
         "tsConfig": "apps/studyum/tsconfig.app.json",
-        "assets": ["apps/studyum/src/favicon.ico", "apps/studyum/src/assets"],
-        "styles": ["apps/studyum/src/styles.scss"],
+        "assets": [
+          "apps/studyum/src/favicon.ico",
+          "apps/studyum/src/assets"
+        ],
+        "styles": [
+          "apps/studyum/src/styles.scss"
+        ],
         "scripts": [],
         "allowedCommonJsDependencies": [
           "moment",
@@ -50,7 +55,8 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
+          "buildOptimizer": true,
+          "aot": true,
           "optimization": false,
           "vendorChunk": true,
           "extractLicenses": false,
@@ -86,8 +92,13 @@
         "polyfills": "apps/studyum/src/polyfills.ts",
         "tsConfig": "apps/studyum/tsconfig.spec.json",
         "karmaConfig": "apps/studyum/karma.conf.js",
-        "assets": ["apps/studyum/src/favicon.ico", "apps/studyum/src/assets"],
-        "styles": ["apps/studyum/src/styles.scss"],
+        "assets": [
+          "apps/studyum/src/favicon.ico",
+          "apps/studyum/src/assets"
+        ],
+        "styles": [
+          "apps/studyum/src/styles.scss"
+        ],
         "scripts": []
       }
     }

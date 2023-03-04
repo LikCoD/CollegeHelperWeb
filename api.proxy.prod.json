@@ -1,9 +1,9 @@
 {
   "/api/*": {
     "target": "https://api.studyum.net/",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/storage/*": {
     "target": "http://likdn.co/",
