@@ -1,36 +1,17 @@
 {
-  "name": "ui-elements",
+  "name": "ui-elements∆",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/ui-elements/src",
-  "prefix": "ui",
+  "sourceRoot": "libs/modals/src",
+  "prefix": "app",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": [
-        "{workspaceRoot}/dist/{projectRoot}"
-      ],
-      "options": {
-        "project": "libs/ui-elements/ng-package.json",
-        "tailwindConfig": "libs/ui-elements/tailwind.config.js"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ui-elements/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/ui-elements/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "libs/ui-elements/jest.config.ts",
+        "jestConfig": "libs/modals/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -41,8 +22,8 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/ui-elements/**/*.ts",
-          "libs/ui-elements/**/*.html"
+          "libs/modals/**/*.ts",
+          "libs/modals/**/*.html"
         ]
       }
     }
