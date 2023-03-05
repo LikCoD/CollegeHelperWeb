@@ -9,7 +9,7 @@ import {ActionButtonsComponent} from "../components/standalones/buttons/action-b
 import {MiniSelectBtnDirective} from "../components/standalones/buttons/directives/mini-select-btn.directive"
 import {SecondaryBtnDirective} from "../components/standalones/buttons/directives/secondary-btn.directive"
 import {ActionSelectBtnDirective} from "../components/standalones/buttons/directives/action-select-btn.directive"
-import {UiElementsModule} from "../../../../../libs/ui-elements/src"
+import {UiElementsModule} from "ui-elements"
 
 @NgModule({
   declarations: [

@@ -22,22 +22,22 @@ const appRoutes: Routes = [
 
   {
     path: "auth",
-    loadChildren: () => import("./modules/auth.module").then((m) => m.AuthModule),
+    loadChildren: () => import("./modules/auth/auth.module").then((m) => m.AuthModule),
   },
 
   {
     path: "profile",
-    loadChildren: () => import("./modules/profile.module").then((m) => m.ProfileModule),
+    loadChildren: () => import("./modules/profile/profile.module").then((m) => m.ProfileModule),
   },
 
   {
     path: "schedule",
-    loadChildren: () => import("./modules/schedule.module").then((m) => m.ScheduleModule),
+    loadChildren: () => import("./modules/schedule/schedule.module").then((m) => m.ScheduleModule),
   },
 
   {
     path: "journal",
-    loadChildren: () => import("./modules/journal.module").then((m) => m.JournalModule),
+    loadChildren: () => import("./modules/journal/journal.module").then((m) => m.JournalModule),
   },
 ]
 
