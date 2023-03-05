@@ -18,12 +18,10 @@
         <ui-floating-input controlName="typeName" label="user.login.typename" />
       </ng-container>
 
-      <div class="input-group bottom-group">
+      <div uiGroupContainer class="bottom-group">
         <button uiButton type="submit"
                 [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
       </div>
-
-      {{form.value | json}}
     </form>
   </app-glassmorphism-frame>
 </main>

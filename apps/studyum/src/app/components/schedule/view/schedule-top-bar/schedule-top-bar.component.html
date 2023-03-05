@@ -1,50 +1,34 @@
 <div class="actions">
   <button
-    uiButton uiButtonSmall (click)="changeEditMode()"
-    *ngIf="canEdit(user)"
-  >{{'schedule.view.edit' | translate}}</button>
+    [uiToggleButton]="isEditMode" uiButtonSmall
+    [text]="'schedule.view.edit' | translate"
+    (click)="toggleEdit()"></button>
 
   <button
     uiButton uiButtonSmall (click)="changeScaleMode()"
   >{{'schedule.view.scale' | translate}}</button>
 
   <button
-    *ngIf="isEditGeneral else actualMode"
-    uiButton uiButtonSmall (click)="changeViewMode()"
-  >{{'schedule.view.actual' | translate}}</button>
-
-  <ng-template #actualMode>
-    <button
-      uiButton uiButtonSmall (click)="changeViewMode()"
-    >{{'schedule.view.general' | translate}}</button>
-  </ng-template>
+    [uiToggleButton]="isGeneralMode" uiButtonSmall
+    [text]="'schedule.view.general' | translate"
+    [selectedText]="'schedule.view.actual' | translate"
+    (click)="toggleViewMode()"></button>
 
   <button
-    *ngIf="isTimeMode else lessonIndexMode"
-    class="btn btn-outline-light btn-sm" (click)="changeTimeMode()"
-  >{{'schedule.view.lessonIndex' | translate}}</button>
-
-  <ng-template #lessonIndexMode>
-    <button
-      uiButton uiButtonSmall (click)="changeTimeMode()"
-    >{{'schedule.view.time' | translate}}</button>
-  </ng-template>
+    [uiToggleButton]="!isTimeMode" uiButtonSmall
+    [text]="'schedule.view.lessonIndex' | translate"
+    [selectedText]="'schedule.view.time' | translate"
+    (click)="toggleTime()"></button>
 
   <button
-    *ngIf="!isSearchMode else searchMode"
-    uiButton uiButtonSmall (click)="toggleSearch()"
-  >{{'schedule.view.search' | translate}}</button>
-
-  <ng-template #searchMode>
-    <button
-      uiButton uiButtonSmall (click)="toggleSearch()"
-    >{{'schedule.view.search' | translate}}</button>
-  </ng-template>
+    [uiToggleButton]="isSearchMode" uiButtonSmall
+    [text]="'schedule.view.search' | translate"
+    (click)="toggleSearch()"></button>
 </div>
 
 <ng-container *ngIf="isSearchMode">
   <form [formGroup]="findForm" class="search" *ngIf="studyPlaces$ | async as studyPlaces" (submit)="submitFind()">
-    <div class="input-group input-group-sm">
+    <div uiGroupContainer uiGroupContainerSmall>
       <input
         *ngrxLet="studyPlace$ as studyPlace"
         #studyPlaceInput
@@ -58,7 +42,7 @@
       <option *ngFor="let studyPlace of studyPlaces" [value]="studyPlace.name"></option>
     </datalist>
 
-    <div class="input-group input-group-sm" *ngIf="findItems$ | async as items">
+    <div uiGroupContainer uiGroupContainerSmall *ngIf="findItems$ | async as items">
       <select #itemTypeSelect uiSelect formControlName="type">
         <option value="group">{{'schedule.find.group' | translate}}</option>
         <option value="teacher">{{'schedule.find.teacher' | translate}}</option>
@@ -73,7 +57,7 @@
       <datalist id="items-list">
         <option *ngFor="let item of items[itemTypeSelect.value + 's'] ?? []">{{item}}</option>
       </datalist>
-      <button class="btn btn-secondary" type="submit"></button>
+      <button uiButtonSuccess type="submit"></button>
     </div>
   </form>
 </ng-container>

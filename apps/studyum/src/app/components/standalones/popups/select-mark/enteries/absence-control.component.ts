@@ -4,19 +4,35 @@ import {JournalCell} from "../../../../../models/journal"
 @Component({
   selector: "app-absence-control",
   template: `
-    <input #minutesInput
-           class="form-control"
-           [placeholder]="'journal.view.absenceMinutes' | translate"
-           [value]="minutes()">
-    <button [appMiniSelectBtn]="isAbsence()" (click)="click()">{{isAbsence() ? '🗑' : absenceMark}}</button>
+    <input
+      #minutesInput
+      uiInput
+      [placeholder]="'journal.view.absenceMinutes' | translate"
+      [value]="minutes()"
+    />
+    <button
+      [uiToggleDarkButton]="isAbsence()"
+      [text]="absenceMark"
+      selectedText="🗑"
+      (click)="click()"
+    ></button>
   `,
-  styles: [`
-    input {
-      width: 90px !important;
-      height: 30px !important;
-    }
-  `],
-  host: {"[class]": "\"input-group input-group-sm\""}
+  styles: [
+    `
+      input {
+        width: 90px !important;
+        height: 30px !important;
+      }
+
+      button {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+      }
+    `,
+  ],
 })
 export class AbsenceControlComponent {
   @Input() absenceMark: string

@@ -1,7 +1,7 @@
 <app-dialog-frame (close)="close.emit()">
   <input
     *ngIf="showStandaloneMarks || showAllMarks"
-    #markInput type="text" class="form-control mark-input"
+    #markInput type="text" uiInput class="mark-input"
     placeholder="{{'journal.view.mark' | translate}}">
 
   <app-select-buttons
@@ -25,6 +25,7 @@
 
   <app-absence-control
     #absence
+    uiGroupContainer uiGroupContainerSmall
     *ngIf="showAbsence"
     [absenceMark]="absenceMark"
     [lesson]="lesson"

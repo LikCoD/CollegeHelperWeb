@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core"
+import {Component, Input} from "@angular/core"
 import {AbstractControl} from "@angular/forms"
 import {NgIf} from "@angular/common"
 
@@ -9,10 +9,7 @@ import {NgIf} from "@angular/common"
   standalone: true,
   imports: [NgIf],
 })
-export class ErrorInfoComponent implements OnInit {
+export class ErrorInfoComponent {
   @Input() property: AbstractControl
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  @Input() pattern: string | null
 }

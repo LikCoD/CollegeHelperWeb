@@ -27,7 +27,7 @@ export class ScheduleTopBarComponent implements OnInit {
   @Output() timeViewMode = new EventEmitter<boolean>()
 
   isEditMode = false
-  isEditGeneral = false
+  isGeneralMode = false
   isTimeMode = true
   scaleMode = 0
   isSearchMode = false
@@ -90,7 +90,7 @@ export class ScheduleTopBarComponent implements OnInit {
     )
   }
 
-  changeEditMode() {
+  toggleEdit() {
     this.isEditMode = !this.isEditMode
     this.editMode.emit(this.isEditMode)
   }
@@ -116,12 +116,12 @@ export class ScheduleTopBarComponent implements OnInit {
     this.router.navigate(["schedule"], {queryParams: this.findForm.value})
   }
 
-  changeViewMode() {
-    this.isEditGeneral = !this.isEditGeneral
-    this.generalViewMode.emit(this.isEditGeneral)
+  toggleViewMode() {
+    this.isGeneralMode = !this.isGeneralMode
+    this.generalViewMode.emit(this.isGeneralMode)
   }
 
-  changeTimeMode() {
+  toggleTime() {
     this.isTimeMode = !this.isTimeMode
     this.timeViewMode.emit(this.isTimeMode)
   }

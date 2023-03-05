@@ -1,16 +1,27 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core"
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TrackByFunction,
+} from "@angular/core"
 import {FormControl, FormGroupDirective} from "@angular/forms"
 import {FloatingContainerDirective} from "./floating-container.directive"
 import {Data} from "../models/selectData"
 
 @Component({
   selector: "ui-floating-select",
-  template: `
-    <select uiSelect [id]="id" [formControl]="control" (change)="select.emit($event)">
-      <option *ngFor="let option of _data" [label]="option.label" [value]="option.value"></option>
+  template: ` <select uiSelect [id]="id" [formControl]="control">
+      <option
+        *ngFor="let option of _data; trackBy: track"
+        [label]="option.label"
+        [value]="option.value"
+      ></option>
     </select>
 
-    <label *ngIf="!!label" [for]="controlName" [innerText]="label! | translate"></label>
+    <label *ngIf="!!label" [for]="id" [innerText]="label! | translate"></label>
 
     <app-error-info *ngIf="showErrorMessage && control" [property]="control" />`,
   styles: [
@@ -22,9 +33,10 @@ import {Data} from "../models/selectData"
       select {
         text-transform: capitalize;
       }
-    `
+    `,
   ],
-  hostDirectives: [{directive: FloatingContainerDirective}]
+  hostDirectives: [{directive: FloatingContainerDirective}],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FloatingSelectComponent<T, D> implements OnInit {
   @Input() label: string | null = null
@@ -42,14 +54,19 @@ export class FloatingSelectComponent<T, D> implements OnInit {
 
   control: FormControl
 
-  constructor(private formGroup: FormGroupDirective) {
-  }
+  track: TrackByFunction<any> = (i: number, v: Data<T, D>) => v.value
+
+  constructor(private formGroup: FormGroupDirective) {}
 
   ngOnInit(): void {
     if (!!this.controlName) {
       this.id ||= this.controlName
     }
 
-    this.control = this.formGroup.form.get(this.controlName!) as FormControl
+    const form = this.formGroup.form
+    this.control =
+      !!this.controlName && form.contains(this.controlName!)
+        ? (form.get(this.controlName!) as FormControl)
+        : new FormControl<any>(null)
   }
 }

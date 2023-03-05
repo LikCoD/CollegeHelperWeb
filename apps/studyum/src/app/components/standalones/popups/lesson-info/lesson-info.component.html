@@ -6,7 +6,7 @@
       <section *ngIf="lessons.length != 0">
         <button
           *ngFor="let lesson of lessons"
-          class="btn"
+          uiButton
           [ngClass]="{'btn--selected': selectedLesson == lesson}"
           [autoColorText]="lesson.secondaryColor ?? 'white'"
           [style.border-color]="buttonBorderColor(lesson)"

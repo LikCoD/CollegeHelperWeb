@@ -14,14 +14,11 @@ form {
   }
 }
 
-input[type="file"] {
-  display: none;
-}
-
 .image-block {
   $radius: 5px;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   flex-flow: row;
 
   align-items: center;
@@ -29,7 +26,7 @@ input[type="file"] {
   width: 100%;
 
   img {
-    width: 62px;
+    width: 69px;
     aspect-ratio: 1;
 
     border-radius: $radius 0 0 $radius;
@@ -41,13 +38,17 @@ input[type="file"] {
 
     align-items: center;
 
-    .form-control {
+    .url-input {
       border-radius: 0 $radius 0 0;
     }
 
-    .btn-success {
+    ui-floating-file-chooser {
       width: 100%;
       border-radius: 0 0 $radius 0;
     }
+  }
+
+  app-error-info {
+    grid-column: 1/3;
   }
 }

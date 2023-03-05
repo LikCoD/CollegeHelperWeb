@@ -19,6 +19,11 @@ import {SelectDirective} from "./elements/select.directive"
 import {SelectSmallDirective} from "./elements/select-small.directive"
 import {FloatingCheckboxComponent} from "./elements/floating-checkbox.component"
 import {CheckboxDirective} from "./elements/checkbox.directive"
+import {ToggleButtonDirective} from "./buttons/toggle-button.directive"
+import {GroupContainerSmallDirective} from "./elements/group-container-small.directive"
+import {FloatingFileChooserComponent} from "./elements/floating-file-chooser.component"
+import {FloatingTextareaComponent} from "./elements/floating-textarea.component"
+import {ToggleDarkButtonDirective} from "./buttons/toggle-dark-button.directive"
 
 @NgModule({
   declarations: [
@@ -34,10 +39,15 @@ import {CheckboxDirective} from "./elements/checkbox.directive"
     GroupContainerDirective,
     FloatingInputComponent,
     FloatingSelectComponent,
+    FloatingTextareaComponent,
     SelectDirective,
     SelectSmallDirective,
     FloatingCheckboxComponent,
-    CheckboxDirective
+    CheckboxDirective,
+    ToggleButtonDirective,
+    GroupContainerSmallDirective,
+    FloatingFileChooserComponent,
+    ToggleDarkButtonDirective,
   ],
   exports: [
     SymbolInputComponent,
@@ -54,9 +64,13 @@ import {CheckboxDirective} from "./elements/checkbox.directive"
     FloatingInputComponent,
     FloatingSelectComponent,
     SelectSmallDirective,
-    FloatingCheckboxComponent
+    FloatingCheckboxComponent,
+    ToggleButtonDirective,
+    GroupContainerSmallDirective,
+    FloatingFileChooserComponent,
+    FloatingTextareaComponent,
+    ToggleDarkButtonDirective,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ErrorInfoComponent]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ErrorInfoComponent],
 })
-export class UiElementsModule {
-}
+export class UiElementsModule {}

@@ -5,10 +5,14 @@
   (action)="select($event)"
 ></app-action-buttons>
 <button
-  [appActionSelectBtn]="isAbsencesSelected"
+  [uiToggleButton]="isAbsencesSelected"
+  [text]="'journal.view.absences' | translate"
+  [selectedText]="'journal.view.back' | translate"
   (click)="toggleAbsence()"
->{{ 'journal.view.' + (isAbsencesSelected ? 'back' : 'absences') | translate }}</button>
+></button>
 <button
-  [appActionSelectBtn]="isShowAmount"
+  [uiToggleButton]="isShowAmount"
+  [text]="'journal.view.showAmount' | translate"
+  [selectedText]="'journal.view.hideAmount' | translate"
   (click)="toggleAmount.emit()"
->{{ 'journal.view.' + (isShowAmount ? 'hideAmount' : 'showAmount') | translate }}</button>
+></button>

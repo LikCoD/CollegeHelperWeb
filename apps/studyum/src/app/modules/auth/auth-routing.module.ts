@@ -8,12 +8,13 @@ import {SignupStage1Guard} from "../../guards/signup-stage1.guard"
 import {SignUpWithCodeComponent} from "../../components/user/signup/with-token/sign-up-with-code.component"
 import {UserLoginComponent} from "../../components/user/user-login/user-login.component"
 import {ReceiveTokenComponent} from "../../components/user/receive-token/receive-token.component"
+import {UserSignupComponent} from "../../components/user/signup/user-signup.component"
 
 const routes: Routes = [
   {
     title: "header.sliders.signup",
     path: "signup",
-    component: SignupStage1Component,
+    component: UserSignupComponent,
     canActivate: [LoginGuard],
   },
   {

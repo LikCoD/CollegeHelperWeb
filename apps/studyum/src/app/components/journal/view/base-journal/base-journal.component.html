@@ -1,17 +1,15 @@
-<ng-container>
-  <div class="corner"></div>
-  <app-base-journal-dates
-    [studyPlace]="journal.info.studyPlace"
-    [dates]="journal.dates"
-    [mode]="mode"
-    [showAmount]="showAmount" />
-  <main>
-    <ng-container *ngFor="let row of journal.rows">
-      <app-base-journal-row
-        [studyPlace]="journal.info.studyPlace"
-        [row]="row"
-        [mode]="mode"
-        [showAmount]="showAmount" />
-    </ng-container>
-  </main>
-</ng-container>
+<div class="corner"></div>
+<app-base-journal-dates
+  [studyPlace]="journal.info.studyPlace"
+  [dates]="journal.dates"
+  [mode]="mode"
+  [showAmount]="showAmount" />
+<main>
+  <ng-container *ngFor="let row of journal.rows">
+    <app-base-journal-row
+      [studyPlace]="journal.info.studyPlace"
+      [row]="row"
+      [mode]="mode"
+      [showAmount]="showAmount" />
+  </ng-container>
+</main>

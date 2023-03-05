@@ -1,5 +1,5 @@
 <select #selectElement
-        class="form-select form-select-sm"
+        uiSelect uiSelectSmall
         (change)="selectCollapse(selectElement.value)"
         [(ngModel)]="selectedCollapseType">
   <option hidden disabled value="null">{{"journal.view.collapse.custom" | translate}}</option>
