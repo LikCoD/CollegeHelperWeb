@@ -15,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "../shared.module"
 import {ModalsModule} from "modals"
 import {LetModule} from "@ngrx/component"
+import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {LetModule} from "@ngrx/component"
     ModalsModule,
     LetModule,
     ScheduleRoutingModule,
+    ErrorInfoComponent,
   ],
 })
 export class ScheduleModule {}

@@ -1,6 +1,5 @@
 import {NgModule} from "@angular/core"
 import {CommonModule} from "@angular/common"
-import {FormPropertyComponent} from "../components/general/form-property/form-property.component"
 import {DialogFrameComponent} from "../components/general/dialog-frame/dialog-frame.component"
 import {MoreIndicatorComponent} from "../components/standalones/more-indicator.component"
 import {MomentPipe} from "../pipes/moment.pipe"
@@ -10,7 +9,6 @@ import {UiElementsModule} from "ui-elements"
 
 @NgModule({
   declarations: [
-    FormPropertyComponent,
     DialogFrameComponent,
     MoreIndicatorComponent,
 
@@ -20,7 +18,6 @@ import {UiElementsModule} from "ui-elements"
     ActionButtonsComponent,
   ],
   exports: [
-    FormPropertyComponent,
     DialogFrameComponent,
     MoreIndicatorComponent,
 

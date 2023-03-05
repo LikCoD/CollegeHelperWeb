@@ -18,10 +18,10 @@
 
       <app-schedule-subject class="lesson" [editable]="true" formControlName="lesson"></app-schedule-subject>
     </div>
-    <app-form-property [property]="form.get('startDate')!!" />
-    <app-form-property [property]="form.get('lessonIndex')!!" />
-    <app-form-property [property]="form.get('endDate')!!" />
-    <app-form-property [property]="form.get('lesson')!!" />
+    <app-error-info [property]="form.get('startDate')!!" />
+    <app-error-info [property]="form.get('lessonIndex')!!" />
+    <app-error-info [property]="form.get('endDate')!!" />
+    <app-error-info [property]="form.get('lesson')!!" />
 
     <button [disabled]="!form.valid" type="submit"
             uiButton>{{'schedule.view.add' | translate}}</button>
