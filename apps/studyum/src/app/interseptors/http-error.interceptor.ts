@@ -13,14 +13,12 @@ import {ToastService} from "../services/ui/toast.service"
 export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private toastService: ToastService) {}
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) return throwError(() => err)
         this.toastService.showError(`(${err.status}) - ${err.error}`)
-        return throwError(err)
+        return throwError(() => err)
       })
     )
   }
