@@ -1,6 +1,6 @@
 <ng-container *ngIf="journalService.options$ | async as options">
   <div class="generate-container">
-    <h4 [innerText]="'journal.select.generate' | translate"></h4>
+    <h2 [innerText]="'journal.select.generate' | translate"></h2>
     <button uiButton (click)="generateMarks()"
             [innerText]="'journal.select.generateMarks' | translate"></button>
     <button uiButton (click)="generateAbsences()"
@@ -8,10 +8,10 @@
   </div>
 
   <div>
-    <h4 [innerText]="'journal.select.select' | translate"></h4>
+    <h2 [innerText]="'journal.select.select' | translate"></h2>
     <div class="select-parent">
       <div *ngFor="let option of options" (click)="selectOption(option)" class="select-container">
-        <h5>{{option.subject}}</h5>
+        <h3>{{option.subject}}</h3>
         <p>{{option.group}}</p>
         <p>{{option.teacher}}</p>
         <ng-container *ngIf="!option.editable">(View only)</ng-container>

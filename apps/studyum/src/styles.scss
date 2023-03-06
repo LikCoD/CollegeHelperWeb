@@ -1,4 +1,9 @@
-@use "assets/scss/buttons";
+@import "assets/scss/buttons";
+@import "libs/ui-elements/src/lib/assets/styles/general";
+@import "libs/ui-elements/src/lib/assets/styles/dialog";
+@import "libs/ui-elements/src/lib/assets/styles/buttons";
+@import "libs/ui-elements/src/lib/assets/styles/controls";
+@import "libs/ui-elements/src/lib/assets/styles/form-controls";
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
@@ -43,13 +48,9 @@ $dangerColor: #FF5517;
   --backgroundColorGradient: linear-gradient(90deg, #CFCFCF 0%, #BEBEBE 100%);
 }
 
-html, body {
-  height: 100%;
-}
 
 body {
   background: var(--backgroundColorGradient);
-  font-family: 'Roboto', sans-serif;
 }
 
 p, li {
@@ -109,17 +110,4 @@ a:hover, a:focus {
 
 ::-webkit-scrollbar-corner {
   background: transparent;
-}
-
-.modal {
-  display: flex !important;
-  justify-content: center;
-
-  &-dialog {
-    width: fit-content;
-  }
-
-  &-content {
-    background-color: unset;
-  }
 }

@@ -1,5 +1,5 @@
 <div>
-  <h6 [innerText]="'user.info.generalConfig' | translate"></h6>
+  <h5 [innerText]="'user.info.generalConfig' | translate"></h5>
   <label>
     {{'user.info.language' | translate}}
     <select #languageSelect class="form-select form-select-sm" (change)="currentLocaleCode = languageSelect.value">
@@ -22,7 +22,7 @@
     </select>
   </label>
   <hr>
-  <h6 [innerText]="'user.info.journalConfig' | translate"></h6>
+  <h5 [innerText]="'user.info.journalConfig' | translate"></h5>
   <label>
     {{'user.info.showAbsences' | translate}}
     <input

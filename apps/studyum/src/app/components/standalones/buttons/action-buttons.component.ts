@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core"
     <ng-content></ng-content>
     <button
       *ngFor="let btn of buttons"
-      [uiToggleDarkButton]="btn == this.selectedButton && !!selectedText"
+      [uiToggleButton]="btn == this.selectedButton && !!selectedText"
       [text]="btn!.toString()"
       [selectedText]="selectedText!"
       (click)="action.emit(btn)"
