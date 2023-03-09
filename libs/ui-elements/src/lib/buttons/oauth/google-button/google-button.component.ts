@@ -6,12 +6,13 @@ import {Component, ElementRef} from "@angular/core"
   styles: [
     `
       :host {
+        display: flex;
         padding: 0;
       }
 
       img {
-        width: 38px;
-        height: 38px;
+        width: 34px;
+        height: 34px;
       }
     `,
   ],

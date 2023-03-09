@@ -3,7 +3,7 @@
   <app-subject-selection [lessons]="lessons" (select)="select($event)"></app-subject-selection>
   <button
     *ngIf="multiSelect"
-    uiButton
+    mat-flat-button
     class="select-all-btn"
     (click)="selectAll()">{{'schedule.view.selectAll' | translate}}
   </button>

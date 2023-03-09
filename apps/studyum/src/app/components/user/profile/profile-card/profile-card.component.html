@@ -10,9 +10,15 @@
   <p>{{user.typeName}}</p>
 </div>
 
-<button uiButtonWarning (click)="signout.emit($event)">{{'user.profile.signOut' | translate}}</button>
-<button uiButtonDanger (click)="revoke.emit($event)">{{'user.profile.revokeToken' | translate}}</button>
+<button
+  mat-raised-button color="accent"
+  (click)="signout.emit($event)"
+  [innerText]="'user.profile.signOut' | translate"></button>
 
+<button
+  mat-raised-button color="warn"
+  (click)="revoke.emit($event)"
+  [innerText]="'user.profile.revokeToken' | translate"></button>
 
 <div *ngIf="warnings() as warnings">
   <ul>

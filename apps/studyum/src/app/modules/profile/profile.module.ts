@@ -16,6 +16,7 @@ import {SharedModule} from "../shared.module"
 import {ModalsModule} from "modals"
 import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 import {FloatingContainerDirective} from "../../../../../../libs/ui-elements/src/lib/elements/floating-container.directive"
+import {MatButtonModule} from "@angular/material/button"
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {FloatingContainerDirective} from "../../../../../../libs/ui-elements/src
     ErrorInfoComponent,
     FloatingContainerDirective,
     ProfileRoutingModule,
+    MatButtonModule,
   ],
 })
 export class ProfileModule {}

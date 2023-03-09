@@ -1,10 +1,12 @@
 <ng-container *ngIf="journalService.options$ | async as options">
   <div class="generate-container">
     <h2 [innerText]="'journal.select.generate' | translate"></h2>
-    <button uiButton (click)="generateMarks()"
-            [innerText]="'journal.select.generateMarks' | translate"></button>
-    <button uiButton (click)="generateAbsences()"
-            [innerText]="'journal.select.generateAbsences' | translate"></button>
+    <button mat-stroked-button (click)="generateMarks()">
+      {{'journal.select.generateMarks' | translate}}
+    </button>
+    <button mat-stroked-button (click)="generateAbsences()">
+      {{'journal.select.generateAbsences' | translate}}
+    </button>
   </div>
 
   <div>

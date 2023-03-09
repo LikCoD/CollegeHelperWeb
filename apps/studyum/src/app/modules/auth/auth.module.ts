@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "../shared.module"
 import {ModalsModule} from "modals"
 import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
+import {MatButtonModule} from "@angular/material/button"
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/ele
     ModalsModule,
     ErrorInfoComponent,
     AuthRoutingModule,
+    MatButtonModule,
   ],
 })
 export class AuthModule {}

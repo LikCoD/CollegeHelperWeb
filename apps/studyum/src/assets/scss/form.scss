@@ -23,10 +23,6 @@ form {
 
     margin: 10px 0;
   }
-
-  button[type="submit"] {
-    width: 260px;
-  }
 }
 
 .top-group {
@@ -36,4 +32,10 @@ form {
 .bottom-group {
   margin-top: 30px !important;
   margin-bottom: 0 !important;
+
+  display: flex;
+
+  button {
+    flex-grow: 1;
+  }
 }

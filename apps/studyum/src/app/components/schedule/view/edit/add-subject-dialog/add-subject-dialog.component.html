@@ -23,7 +23,7 @@
     <app-error-info [property]="form.get('endDate')!!" />
     <app-error-info [property]="form.get('lesson')!!" />
 
-    <button [disabled]="!form.valid" type="submit"
-            uiButton>{{'schedule.view.add' | translate}}</button>
+    <button mat-stroked-button [disabled]="!form.valid" type="submit"
+    >{{'schedule.view.add' | translate}}</button>
   </form>
 </app-dialog-frame>

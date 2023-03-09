@@ -4,5 +4,6 @@
   <ui-floating-select controlName="type" label="user.create.name" [data]="['group', 'teacher']" />
   <ui-floating-input controlName="typeName" label="user.create.typename" />
 
-  <button type="submit" uiButton [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
+  <button type="submit" mat-stroked-button color="primary"
+          [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
 </form>

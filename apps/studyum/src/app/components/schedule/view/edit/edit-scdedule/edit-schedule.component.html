@@ -1,11 +1,11 @@
 <div>
   <input uiInput type="text" [(ngModel)]="templatesFilter">
-  <button type="button" uiButton (click)="add()">{{'schedule.view.add' | translate}}</button>
+  <button mat-stroked-button type="button" (click)="add()">{{'schedule.view.add' | translate}}</button>
 </div>
 <section>
   <app-subject-selection [lessons]="filterLessons(templatesFilter)" (select)="add($event)"></app-subject-selection>
 </section>
-<button uiButton (click)="makeGeneral.emit()">{{'schedule.view.makeGeneral' | translate}}</button>
+<button mat-stroked-button (click)="makeGeneral.emit()">{{'schedule.view.makeGeneral' | translate}}</button>
 
 <ng-template #manageSubjectTemplate>
   <app-add-subject-dialog [lesson]="selectedLesson"></app-add-subject-dialog>

@@ -10,7 +10,7 @@
 
     <ui-floating-checkbox controlName="notExists" label="journal.generate.notExists" />
 
-    <button [disabled]="!form.valid" type="submit"
-            uiButton>{{'journal.generate.submit' | translate}}</button>
+    <button mat-stroked-button [disabled]="!form.valid" type="submit"
+    >{{'journal.generate.submit' | translate}}</button>
   </form>
 </app-dialog-frame>

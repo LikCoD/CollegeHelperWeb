@@ -16,6 +16,7 @@ import {SharedModule} from "../shared.module"
 import {ModalsModule} from "modals"
 import {LetModule} from "@ngrx/component"
 import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
+import {MatButtonModule} from "@angular/material/button"
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/ele
     LetModule,
     ScheduleRoutingModule,
     ErrorInfoComponent,
+    MatButtonModule,
   ],
 })
 export class ScheduleModule {}

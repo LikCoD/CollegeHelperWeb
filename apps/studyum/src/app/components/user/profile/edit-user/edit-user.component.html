@@ -15,5 +15,6 @@
   <ui-floating-input type="password" controlName="password" label="user.edit.password" />
   <ui-floating-input type="password" controlName="confirmPassword" label="user.edit.confirmPassword" />
 
-  <button uiButtonSuccess type="submit" [disabled]="!form.valid">{{'user.edit.continue' | translate}}</button>
+  <button mat-stroked-button color="primary" type="submit"
+          [disabled]="!form.valid">{{'user.edit.continue' | translate}}</button>
 </form>

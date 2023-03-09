@@ -1,0 +1,115 @@
+@use "@angular/material" as mat;
+@use "@angular/material/theming" as theming;
+
+@include mat.core();
+
+$theme-primary-hue: 700;
+$theme-accent-hue: 500;
+$theme-warn-hue: 500;
+$dark-primary-text: rgba(black, 0.87);
+$dark-secondary-text: rgba(black, 0.54);
+$dark-disabled-text: rgba(black, 0.38);
+$dark-dividers: rgba(black, 0.12);
+$dark-focused: rgba(black, 0.12);
+$dark-primary-text: #ffffff;
+$light-secondary-text: rgba(white, 0.7);
+$light-disabled-text: rgba(white, 0.5);
+$light-dividers: rgba(white, 0.12);
+$light-focused: rgba(white, 0.12);
+
+
+$primary-palette: (
+        50: #9316ff,
+        100: #9316ff,
+        200: #9316ff,
+        300: #9316ff,
+        400: #9316ff,
+        500: #9316ff,
+        600: #9316ff,
+        700: #9316ff,
+        800: #9316ff,
+        900: #9316ff,
+        A100: #9316ff,
+        A200: #9316ff,
+        A400: #9316ff,
+        A700: #9316ff,
+        contrast: (
+                50: $dark-primary-text,
+                100: $dark-primary-text,
+                200: $dark-primary-text,
+                300: $dark-primary-text,
+                400: $dark-primary-text,
+                500: $dark-primary-text,
+                600: $dark-primary-text,
+                700: $dark-primary-text,
+                800: $dark-primary-text,
+                900: $dark-primary-text,
+                A100: $dark-primary-text,
+                A200: $dark-primary-text,
+                A400: $dark-primary-text,
+                A700: $dark-primary-text,
+        )
+);
+
+$orange-color: #ff5b17;
+
+$orange-palette: (
+        50: $orange-color,
+        100: $orange-color,
+        200: $orange-color,
+        300: $orange-color,
+        400: $orange-color,
+        500: $orange-color,
+        600: $orange-color,
+        700: $orange-color,
+        800: $orange-color,
+        900: $orange-color,
+        A100: $orange-color,
+        A200: $orange-color,
+        A400: $orange-color,
+        A700: $orange-color,
+        contrast: (
+                50: $dark-primary-text,
+                100: $dark-primary-text,
+                200: $dark-primary-text,
+                300: $dark-primary-text,
+                400: $dark-primary-text,
+                500: $dark-primary-text,
+                600: $dark-primary-text,
+                700: $dark-primary-text,
+                800: $dark-primary-text,
+                900: $dark-primary-text,
+                A100: $dark-primary-text,
+                A200: $dark-primary-text,
+                A400: $dark-primary-text,
+                A700: $dark-primary-text,
+        )
+);
+
+$primary: mat.define-palette($primary-palette, $theme-primary-hue, 500, 900);
+$accent: mat.define-palette($orange-palette, $theme-accent-hue);
+$warn: mat.define-palette(mat.$red-palette, $theme-warn-hue);
+
+$config: mat.define-typography-config(
+        $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+);
+
+$theme: mat.define-dark-theme((
+        color: (
+                primary: $primary,
+                accent: $accent,
+                warn: $warn
+        ),
+        typography: $config
+));
+
+
+@include mat.all-component-themes($theme);
+
+$color-primary: map-get($theme, primary);
+$color-accent: map-get($theme, accent);
+$color-warn: map-get($theme, warn);
+
+
+//TODO enable {p margin set to 0}
+//@include theming.angular-material-typography($config);

@@ -7,8 +7,8 @@
     <ui-floating-input controlName="title" label="popups.lessonAdditionData.title" />
     <ui-floating-textarea controlName="description" label="popups.lessonAdditionData.description" />
     <ui-floating-input controlName="homework" label="popups.lessonAdditionData.homework" />
-    
-    <button uiButton type="submit"
+
+    <button mat-flat-button type="submit"
             [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>
   </form>
 </app-dialog-frame>
