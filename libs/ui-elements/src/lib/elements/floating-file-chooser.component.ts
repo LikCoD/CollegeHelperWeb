@@ -11,8 +11,8 @@ import {FormControl, FormGroupDirective} from "@angular/forms"
       (input)="input.emit($event)"
     />
     <button
-      uiButtonSuccess
-      uiButtonSmall
+      mat-flat-button
+      color="primary"
       (click)="imageFile.click()"
       [innerText]="label | translate"
     ></button>

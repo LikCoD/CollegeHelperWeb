@@ -4,13 +4,16 @@ import {Component, EventEmitter, Input, Output} from "@angular/core"
   selector: "app-select-buttons",
   template: `
     <ng-content></ng-content>
-    <button
+    <mat-button-toggle
       *ngFor="let btn of buttons"
       [uiToggleDarkButton]="btn == this.selectedButton"
       [text]="btn!.toString()"
       [selectedText]="selectedButton!.toString()"
       (click)="action.emit(btn)"
-    ></button>
+      >{{
+        btn == this.selectedButton ? btn!.toString() : selectedButton!.toString()
+      }}</mat-button-toggle
+    >
   `,
   styles: [
     `

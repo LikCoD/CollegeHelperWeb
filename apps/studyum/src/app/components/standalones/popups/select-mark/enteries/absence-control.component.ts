@@ -1,5 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
 import {JournalCell} from "../../../../../models/journal"
+import {isA} from "@jest/expect-utils"
 
 @Component({
   selector: "app-absence-control",
@@ -10,26 +11,26 @@ import {JournalCell} from "../../../../../models/journal"
       [placeholder]="'journal.view.absenceMinutes' | translate"
       [value]="minutes()"
     />
-    <button
-      [uiToggleDarkButton]="isAbsence()"
-      [text]="absenceMark"
-      selectedText="🗑"
-      (click)="click()"
-    ></button>
+    <mat-button-toggle [checked]="isAbsence()" (click)="click()">
+      {{ !isAbsence() ? absenceMark : "🗑" }}
+    </mat-button-toggle>
   `,
   styles: [
     `
       input {
-        width: 90px !important;
-        height: 30px !important;
+        width: 100px !important;
       }
 
-      button {
-        width: 30px;
+      mat-button-toggle {
+        width: 35px;
         height: 30px;
         padding: 0;
         margin: 0;
         align-items: center;
+      }
+
+      button span {
+        line-height: unset;
       }
     `,
   ],
@@ -87,4 +88,6 @@ export class AbsenceControlComponent {
 
     this.edit.emit(Number.parseInt(minutes))
   }
+
+  protected readonly isA = isA
 }

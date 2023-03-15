@@ -37,6 +37,10 @@ export class JournalBottomBarComponent {
     })
   }
 
+  isLessonTypeSelected(type: LessonType): boolean {
+    return this.selectedType === type
+  }
+
   select(type: LessonType | null) {
     this.modeService.mode = type === this.selectedType ? "general" : "standalone"
     this.modeService.selectedStandaloneType = type === this.selectedType ? null : type

@@ -1,18 +1,15 @@
-<app-action-buttons
-  [buttons]="getLessonTypes()"
-  [selectedText]="'journal.view.back' | translate"
-  [selectedButton]="selectedType"
-  (action)="select($event)"
-></app-action-buttons>
-<button
-  [uiToggleButton]="isAbsencesSelected"
-  [text]="'journal.view.absences' | translate"
-  [selectedText]="'journal.view.back' | translate"
-  (click)="toggleAbsence()"
-></button>
-<button
-  [uiToggleButton]="isShowAmount"
-  [text]="'journal.view.showAmount' | translate"
-  [selectedText]="'journal.view.hideAmount' | translate"
-  (click)="toggleAmount.emit()"
-></button>
+<mat-button-toggle-group>
+  <mat-button-toggle
+    *ngFor="let type of getLessonTypes()"
+    [checked]="isLessonTypeSelected(type)"
+    (change)="select(type)">
+    {{type.type}}
+  </mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-button-toggle-group multiple>
+  <mat-button-toggle (change)="toggleAmount.emit()">{{'journal.view.showAmount' | translate}}</mat-button-toggle>
+  <!--  TODO avg/total-->
+</mat-button-toggle-group>
+
+<mat-button-toggle (change)="toggleAbsence()">{{'journal.view.absences' | translate}}</mat-button-toggle>

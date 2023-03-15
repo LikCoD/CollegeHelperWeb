@@ -29,6 +29,7 @@ import {NgxPopperjsModule} from "ngx-popperjs"
 import {TextDirective} from "../../../../../../libs/auto-color/src/lib/text.directive"
 import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 import {MatButtonModule} from "@angular/material/button"
+import {MatButtonToggleModule} from "@angular/material/button-toggle"
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {MatButtonModule} from "@angular/material/button"
     ErrorInfoComponent,
     JournalRoutingModule,
     MatButtonModule,
+    MatButtonToggleModule,
   ],
 })
 export class JournalModule {}

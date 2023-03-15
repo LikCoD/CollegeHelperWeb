@@ -2,10 +2,10 @@
   <div *ngFor="let user of users" class="users">
     <p class="username" [innerText]="buildUser(user)"></p>
     <div>
-      <button mat-stroked-button color="primary" uiButtonSmall class="btn-accept-action"
+      <button mat-stroked-button color="primary" class="btn-accept-action"
               (click)="acceptUser(users, user.id)">+
       </button>
-      <button mat-stroked-button color="warn" uiButtonSmall class="btn-accept-action"
+      <button mat-stroked-button color="warn" class="btn-accept-action"
               (click)="declineUser(users, user.id)">-
       </button>
     </div>

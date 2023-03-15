@@ -1,16 +1,17 @@
 @use "../../../../../styles";
 
+:host {
+  color: styles.$onBackgroundColor;
+
+}
+
 .child {
   margin: 15px;
   padding: 10px;
-  background: styles.$secondaryColor;
   border-radius: 15px;
+  background: #2E4F4F;
 
   min-width: 280px;
-
-  p {
-    color: styles.$onSecondaryColor;
-  }
 }
 
 .expand-line {

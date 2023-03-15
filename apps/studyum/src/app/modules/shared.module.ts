@@ -4,19 +4,11 @@ import {DialogFrameComponent} from "../components/general/dialog-frame/dialog-fr
 import {MoreIndicatorComponent} from "../components/standalones/more-indicator.component"
 import {MomentPipe} from "../pipes/moment.pipe"
 import {SelectButtonsComponent} from "../components/standalones/buttons/select-buttons.component"
-import {ActionButtonsComponent} from "../components/standalones/buttons/action-buttons.component"
 import {UiElementsModule} from "ui-elements"
+import {MatButtonToggleModule} from "@angular/material/button-toggle"
 
 @NgModule({
-  declarations: [
-    DialogFrameComponent,
-    MoreIndicatorComponent,
-
-    MomentPipe,
-
-    SelectButtonsComponent,
-    ActionButtonsComponent,
-  ],
+  declarations: [DialogFrameComponent, MoreIndicatorComponent, MomentPipe, SelectButtonsComponent],
   exports: [
     DialogFrameComponent,
     MoreIndicatorComponent,
@@ -24,10 +16,9 @@ import {UiElementsModule} from "ui-elements"
     MomentPipe,
 
     SelectButtonsComponent,
-    ActionButtonsComponent,
 
     UiElementsModule,
   ],
-  imports: [CommonModule, UiElementsModule],
+  imports: [CommonModule, UiElementsModule, MatButtonToggleModule],
 })
 export class SharedModule {}

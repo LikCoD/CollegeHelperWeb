@@ -1,5 +1,5 @@
 @use "@angular/material" as mat;
-@use "@angular/material/theming" as theming;
+@import "@angular/material/theming";
 
 @include mat.core();
 
@@ -106,10 +106,26 @@ $theme: mat.define-dark-theme((
 
 @include mat.all-component-themes($theme);
 
-$color-primary: map-get($theme, primary);
-$color-accent: map-get($theme, accent);
-$color-warn: map-get($theme, warn);
-
 
 //TODO enable {p margin set to 0}
 //@include theming.angular-material-typography($config);
+
+@mixin mix-app-theme($theme) {
+  .mat-button-toggle-group {
+    border-color: #fff !important;
+  }
+
+  .mat-button-toggle {
+    background-color: unset;
+    border-color: #fff !important;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .mat-button-toggle-checked {
+    background-color: #fff;
+    border-color: #fff !important;
+    color: rgba(0, 0, 0, 0.88) !important;
+  }
+}
+
+@include mix-app-theme($theme);

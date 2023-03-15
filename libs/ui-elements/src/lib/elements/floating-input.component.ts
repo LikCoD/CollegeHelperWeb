@@ -6,19 +6,19 @@ import {Data} from "../models/selectData"
 @Component({
   selector: "ui-floating-input",
   template: `
-    <input
-      uiInput
-      [id]="controlName"
-      [type]="type"
-      [attr.list]="controlName+'_list'"
-      [formControl]="control"
-      [placeholder]="!!label ? (label | translate) : null"
-      (change)="change($event)">
-    <label *ngIf="!!label" [for]="controlName" [innerText]="label! | translate"></label>
+    <mat-form-field appearance="outline" color="accent" [hintLabel]="error || '' | titlecase">
+      <mat-label>{{ label! | translate }}</mat-label>
+      <input
+        matInput
+        [formControl]="control"
+        [id]="id"
+        [type]="type"
+        [attr.list]="controlName + '_list'"
+        (change)="change($event)"
+      />
+    </mat-form-field>
 
-    <app-error-info *ngIf="showErrorMessage && control" [property]="control" />
-
-    <datalist *ngIf="!!_data" [id]="controlName+'_list'">
+    <datalist *ngIf="!!_data" [id]="controlName + '_list'">
       <option *ngFor="let value of _data" [value]="value.label"></option>
     </datalist>
   `,
@@ -28,12 +28,17 @@ import {Data} from "../models/selectData"
         display: block;
       }
 
+      mat-form-field {
+        width: 100%;
+        color: red;
+      }
+
       datalist {
         text-transform: capitalize;
       }
-    `
+    `,
   ],
-  hostDirectives: [{directive: FloatingContainerDirective}]
+  hostDirectives: [{directive: FloatingContainerDirective}],
 })
 export class FloatingInputComponent<T, D> implements OnInit {
   @Input() label: string | null = null
@@ -54,8 +59,7 @@ export class FloatingInputComponent<T, D> implements OnInit {
 
   control: FormControl
 
-  constructor(private formGroup: FormGroupDirective) {
-  }
+  constructor(private formGroup: FormGroupDirective) {}
 
   ngOnInit(): void {
     if (!!this.controlName) {
@@ -81,5 +85,10 @@ export class FloatingInputComponent<T, D> implements OnInit {
 
     this.formGroup.form.get(this.controlName!)!.setValue(formValue)
     this.dataSelect.emit(data)
+  }
+
+  get error(): string | null {
+    if (this.control.errors == null) return null
+    return Object.keys(this.control.errors as any)[0]
   }
 }

@@ -82,11 +82,10 @@ export class ScheduleTopBarComponent implements OnInit {
     this.findItems$ = this.scheduleService.getTypes(studyPlace.id)
   }
 
-  canEdit(user: User | null | undefined): boolean {
+  canEdit(): boolean {
     return (
-      user != undefined &&
-      user.permissions != undefined &&
-      user.permissions.findIndex((value) => value === "editSchedule") != -1
+      !!this.user?.permissions &&
+      this.user.permissions.findIndex((value) => value === "editSchedule") != -1
     )
   }
 

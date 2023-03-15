@@ -1,29 +1,14 @@
 <div class="actions">
-  <button
-    [uiToggleButton]="isEditMode" uiButtonSmall
-    [text]="'schedule.view.edit' | translate"
-    (click)="toggleEdit()"></button>
+  <mat-button-toggle-group multiple>
+    <mat-button-toggle *ngIf="canEdit()"
+                       (change)="toggleEdit()">{{'schedule.view.edit' | translate}}</mat-button-toggle>
+    <mat-button-toggle [checked]="scaleMode === 2"
+                       (change)="changeScaleMode()">{{'schedule.view.scale' | translate}}</mat-button-toggle>
+    <mat-button-toggle (change)="toggleViewMode()">{{'schedule.view.general' | translate}}</mat-button-toggle>
+    <mat-button-toggle (change)="toggleTime()">{{'schedule.view.lessonIndex' | translate}}</mat-button-toggle>
+  </mat-button-toggle-group>
 
-  <button
-    uiButton uiButtonSmall (click)="changeScaleMode()"
-  >{{'schedule.view.scale' | translate}}</button>
-
-  <button
-    [uiToggleButton]="isGeneralMode" uiButtonSmall
-    [text]="'schedule.view.general' | translate"
-    [selectedText]="'schedule.view.actual' | translate"
-    (click)="toggleViewMode()"></button>
-
-  <button
-    [uiToggleButton]="!isTimeMode" uiButtonSmall
-    [text]="'schedule.view.lessonIndex' | translate"
-    [selectedText]="'schedule.view.time' | translate"
-    (click)="toggleTime()"></button>
-
-  <button
-    [uiToggleButton]="isSearchMode" uiButtonSmall
-    [text]="'schedule.view.search' | translate"
-    (click)="toggleSearch()"></button>
+  <mat-button-toggle (change)="toggleSearch()">{{'schedule.view.search' | translate}}</mat-button-toggle>
 </div>
 
 <ng-container *ngIf="isSearchMode">
@@ -57,7 +42,7 @@
       <datalist id="items-list">
         <option *ngFor="let item of items[itemTypeSelect.value + 's'] ?? []">{{item}}</option>
       </datalist>
-      <button uiButtonSuccess type="submit"></button>
+      <button mat-flat-button color="primary" type="submit"></button>
     </div>
   </form>
 </ng-container>

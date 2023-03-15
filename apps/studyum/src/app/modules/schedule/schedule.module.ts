@@ -17,6 +17,7 @@ import {ModalsModule} from "modals"
 import {LetModule} from "@ngrx/component"
 import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 import {MatButtonModule} from "@angular/material/button"
+import {MatButtonToggleModule} from "@angular/material/button-toggle"
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatButtonModule} from "@angular/material/button"
     ScheduleRoutingModule,
     ErrorInfoComponent,
     MatButtonModule,
+    MatButtonToggleModule,
   ],
 })
 export class ScheduleModule {}
