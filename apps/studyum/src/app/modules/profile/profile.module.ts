@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core"
-import {CommonModule} from "@angular/common"
+import {CommonModule, NgOptimizedImage} from "@angular/common"
 import {ProfileRoutingModule} from "./profile-routing.module"
 import {AcceptUsersComponent} from "../../components/user/profile/accept-users/accept-users.component"
 import {ProfileComponent} from "../../components/user/profile/profile.component"
@@ -42,6 +42,7 @@ import {MatButtonModule} from "@angular/material/button"
     FloatingContainerDirective,
     ProfileRoutingModule,
     MatButtonModule,
+    NgOptimizedImage,
   ],
 })
 export class ProfileModule {}

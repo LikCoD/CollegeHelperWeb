@@ -1,11 +1,8 @@
-<div class="child">
-  <div (click)="itemClicked()" class="expand-line">
-    <p>{{title | translate}}</p>
-    <img src="assets/down-arrow.svg" referrerpolicy="no-referrer" alt="profile" width="16" height="16"
-         [@rotatedState]="arrowState">
-  </div>
-  <div [@showItemState]="contentState">
-    <div style="height: 15px"></div>
-    <ng-content></ng-content>
-  </div>
+<div (click)="itemClicked()" class="expand-line">
+  <p>{{title | translate}}</p>
+  <img ngSrc="assets/down-arrow.svg" alt="profile" [@rotatedState]="arrowState" [width]="16" [height]="16">
+</div>
+<div [@showItemState]="contentState">
+  <div class="indent"></div>
+  <ng-content></ng-content>
 </div>

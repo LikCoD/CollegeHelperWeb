@@ -1,17 +1,19 @@
-@use "../../../../../styles";
+@import "../../../../../styles";
 
 :host {
-  color: styles.$onBackgroundColor;
-
-}
-
-.child {
+  background: $secondaryBackgroundColor;
+  color: $onBackgroundColor;
   margin: 15px;
   padding: 10px;
   border-radius: 15px;
-  background: #2E4F4F;
 
   min-width: 280px;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.indent {
+  height: 16px;
 }
 
 .expand-line {
