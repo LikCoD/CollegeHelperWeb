@@ -7,7 +7,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core"
 import {TranslateHttpLoader} from "@ngx-translate/http-loader"
 import {HomeComponent} from "./components/general/home/home.component"
-import {HomeCardComponent} from "./components/general/home/home-card/home-card.component"
 import {HeaderComponent} from "./components/general/header/header.component"
 import {HeaderTitleStrategy} from "./services/ui/title.service"
 import {HttpAuthInterceptor} from "./interseptors/http-auth.interceptor"
@@ -15,9 +14,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
 import {MomentJsInterceptor} from "./interseptors/moment-js.interceptor"
 import {HttpErrorInterceptor} from "./interseptors/http-error.interceptor"
 import {ToastComponent} from "./components/general/toast/toast.component"
-import {LetModule} from "@ngrx/component"
 import {ThemeSelectorComponent} from "../../../../libs/theme-selector/theme-selector.component"
 import {MatIconModule} from "@angular/material/icon"
+import {HomeModule} from "./modules/home/home.module"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -48,7 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HomeCardComponent, HeaderComponent, ToastComponent],
+  declarations: [AppComponent, HeaderComponent, ToastComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -62,9 +61,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     NgbModule,
-    LetModule,
     ThemeSelectorComponent,
     MatIconModule,
+    HomeModule,
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},

@@ -1,0 +1,134 @@
+@use "../../../../../styles";
+
+.schedule-container {
+  display: grid;
+
+  height: fit-content;
+
+  background: styles.$backgroundColor;
+  padding: 10px;
+}
+
+.schedule-wrapper {
+  width: 0;
+  overflow: scroll;
+  display: flex;
+
+  flex-grow: 1;
+
+  justify-content: flex-start;
+
+  white-space: nowrap;
+}
+
+.empty-corner {
+  position: sticky;
+  top: 0;
+
+  background: inherit;
+  z-index: 4;
+
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.time-container {
+  display: grid;
+  position: sticky;
+  left: 0;
+
+  grid-column: 1;
+  grid-row: 2;
+
+  height: inherit;
+
+  margin-top: 20px;
+  margin-right: 10px;
+
+  background: inherit;
+  z-index: 3;
+}
+
+.markup {
+  position: sticky;
+  left: 0;
+
+  grid-column: 2;
+  grid-row: 2;
+
+  margin-top: 20px;
+
+  hr {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+
+    border-top: 1px dashed styles.$onBackgroundColor;
+    opacity: 0.6;
+  }
+}
+
+.weekdays-container {
+  display: flex;
+  position: sticky;
+  grid-area: weekdays;
+
+  grid-column: 2;
+  grid-row: 1;
+
+  height: 30px;
+  top: 0;
+
+  background: inherit;
+
+  z-index: 3;
+}
+
+.lessons-container {
+  position: relative;
+
+  height: 100%;
+
+  grid-column: 2;
+  grid-row: 2;
+
+  margin-left: 10px;
+  margin-top: 20px;
+
+  z-index: 2;
+}
+
+.cell {
+  position: absolute;
+}
+
+.time {
+  grid-row: 1;
+  grid-column: 1;
+
+  color: styles.$onBackgroundColor;
+  text-align: center;
+
+  right: 10px;
+}
+
+.weekday {
+  color: styles.$onBackgroundColor;
+  text-align: center;
+  margin: 0 10px;
+
+  width: 180px;
+}
+
+app-schedule-subject {
+  width: 180px;
+}
+
+hr {
+  margin: 0 10px;
+  min-height: 1px;
+
+  background-color: #FFFFFF;
+  opacity: 0.2;
+  border-radius: 1px;
+}

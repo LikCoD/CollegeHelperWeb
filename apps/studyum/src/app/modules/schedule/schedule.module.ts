@@ -18,6 +18,7 @@ import {LetModule} from "@ngrx/component"
 import {ErrorInfoComponent} from "../../../../../../libs/ui-elements/src/lib/elements/error-info/error-info.component"
 import {MatButtonModule} from "@angular/material/button"
 import {MatButtonToggleModule} from "@angular/material/button-toggle"
+import {BaseScheduleComponent} from "../../components/schedule/view/base-schedule/base-schedule.component"
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle"
     EditScheduleComponent,
     ScheduleTopBarComponent,
     ViewComponent,
+    BaseScheduleComponent,
   ],
   imports: [
     CommonModule,
@@ -44,5 +46,6 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle"
     MatButtonModule,
     MatButtonToggleModule,
   ],
+  exports: [CellComponent, ScheduleCellDirective],
 })
 export class ScheduleModule {}

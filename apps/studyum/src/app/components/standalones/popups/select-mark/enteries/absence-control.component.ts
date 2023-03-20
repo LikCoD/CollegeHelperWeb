@@ -1,6 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
 import {JournalCell} from "../../../../../models/journal"
-import {isA} from "@jest/expect-utils"
 
 @Component({
   selector: "app-absence-control",
@@ -88,6 +87,4 @@ export class AbsenceControlComponent {
 
     this.edit.emit(Number.parseInt(minutes))
   }
-
-  protected readonly isA = isA
 }
