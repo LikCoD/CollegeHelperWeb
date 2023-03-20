@@ -1,10 +1,10 @@
 import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"
-import {ProfileComponent} from "../../components/user/profile/profile.component"
-import {NotLoginGuard} from "../../guards/not-login.guard"
-import {PasswordResetComponent} from "../../components/user/signup/password-reset/password-reset.component"
-import {LoginGuard} from "../../guards/login.guard"
-import {PasswordResetEmailRequestComponent} from "../../components/user/signup/password-reset-email-request/password-reset-email-request.component"
+import {NotLoginGuard} from "../../shared/guards/not-login.guard"
+import {PasswordResetComponent} from "./components/password-reset/password-reset.component"
+import {LoginGuard} from "../../shared/guards/login.guard"
+import {PasswordResetEmailRequestComponent} from "./components/password-reset-email-request/password-reset-email-request.component"
+import {ProfileComponent} from "./components/profile.component"
 
 const routes: Routes = [
   {

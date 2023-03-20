@@ -1,0 +1,26 @@
+@use '../../../../../../../../styles';
+
+:host {
+  display: block;
+}
+
+popper-content {
+  z-index: 10;
+}
+
+.focused {
+  box-shadow: 0 0 0 4px styles.$secondaryColor;
+  border-radius: 15px;
+}
+
+::ng-deep div[data-popper-placement] {
+  app-lesson-info, app-select-mark, app-lesson-addition-data {
+    margin-right: 70px;
+  }
+
+  &[data-popper-placement="bottom-end"] {
+    app-lesson-info, app-select-mark, app-lesson-addition-data {
+      transform: translateX(70px);
+    }
+  }
+}

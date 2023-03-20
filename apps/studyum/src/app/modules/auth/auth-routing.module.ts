@@ -1,14 +1,14 @@
 import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"
-import {SignupStage1Component} from "../../components/user/signup/stage1/signup-stage1.component"
-import {LoginGuard} from "../../guards/login.guard"
-import {EmailVerificationComponent} from "../../components/user/signup/email-verification/email-verification.component"
-import {NotLoginGuard} from "../../guards/not-login.guard"
-import {SignupStage1Guard} from "../../guards/signup-stage1.guard"
-import {SignUpWithCodeComponent} from "../../components/user/signup/with-token/sign-up-with-code.component"
-import {UserLoginComponent} from "../../components/user/user-login/user-login.component"
-import {ReceiveTokenComponent} from "../../components/user/receive-token/receive-token.component"
-import {UserSignupComponent} from "../../components/user/signup/user-signup.component"
+import {SignupStage1Component} from "./components/signup/stage1/signup-stage1.component"
+import {LoginGuard} from "../../shared/guards/login.guard"
+import {EmailVerificationComponent} from "./components/signup/email-verification/email-verification.component"
+import {NotLoginGuard} from "../../shared/guards/not-login.guard"
+import {SignupStage1Guard} from "../../shared/guards/signup-stage1.guard"
+import {SignUpWithCodeComponent} from "./components/signup/with-token/sign-up-with-code.component"
+import {UserLoginComponent} from "./components/user-login/user-login.component"
+import {ReceiveTokenComponent} from "./components/receive-token/receive-token.component"
+import {UserSignupComponent} from "./components/signup/user-signup.component"
 
 const routes: Routes = [
   {

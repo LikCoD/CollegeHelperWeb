@@ -1,7 +1,7 @@
 import {Component, HostListener} from "@angular/core"
-import {SettingsService} from "./services/ui/settings.service"
-import {Key} from "./services/shared/journal/journal.cell.service"
-import {KeyboardService} from "./services/shared/keyboard.service"
+import {SettingsService} from "./shared/services/ui/settings.service"
+import {Key} from "./modules/journal/services/journal.cell.service"
+import {KeyboardService} from "./shared/services/core/keyboard.service"
 
 @Component({
   selector: "app-root",

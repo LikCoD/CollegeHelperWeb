@@ -1,0 +1,59 @@
+@use '../../../../styles';
+
+:host {
+  display: flex;
+  flex-flow: column;
+
+  gap: 65px;
+
+  margin: 0 25px;
+}
+
+.generate-container {
+  display: flex;
+  flex-flow: row;
+  gap: 15px;
+}
+
+.select-parent {
+  display: grid;
+  grid-gap: 15px;
+
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+  margin-top: 30px;
+}
+
+.select-container {
+  width: 250px;
+  height: 150px;
+
+  background: styles.$secondaryColor;
+  color: styles.$onSecondaryColor;
+  border-radius: 25px;
+
+  gap: 15px;
+  padding: 5px 10px;
+
+  p, h3 {
+    color: styles.$onSecondaryColor
+  }
+}
+
+h3 {
+  text-align: center;
+  font-weight: bold;
+}
+
+h2 {
+  color: styles.$onBackgroundColor
+}
+
+hr {
+  margin: 0 10px;
+  min-height: 1px;
+
+  background-color: #FFFFFF;
+  opacity: 0.2;
+  border-radius: 1px;
+}

@@ -1,0 +1,75 @@
+@use '../../../../../../../styles';
+
+:host {
+  border-radius: 15px;
+  height: 50px;
+  width: 50px;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: currentColor;
+  }
+
+  &:hover {
+    app-cell-expand {
+      display: grid;
+    }
+
+    app-more-indicator {
+      transform: scale(1.5) translate(75%, -75%);
+    }
+  }
+}
+
+.mark2 {
+  align-self: center;
+  height: 100%;
+  width: 100%;
+
+  p {
+    text-align: center;
+
+    &:first-child {
+      margin-right: 15px;
+    }
+
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+
+  hr {
+    transform: rotate(-45deg);
+    height: 1px;
+    background-color: currentColor;
+    border: none;
+    margin: 0;
+    opacity: 1;
+  }
+}
+
+app-cell-expand {
+  display: none;
+
+  position: absolute;
+  z-index: 1;
+
+  top: 100%;
+  left: 0;
+
+  color: black;
+}
+
+app-more-indicator {
+  right: 4px;
+  top: 4px;
+
+  transform: translate(100%, -100%);
+
+  transition: transform .2s;
+}

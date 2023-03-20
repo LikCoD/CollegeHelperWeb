@@ -1,0 +1,24 @@
+@use '../../../../../../../styles';
+
+:host {
+  min-width: 50px;
+  padding-top: 10px;
+
+  position: relative;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  display: flex;
+  flex-flow: column;
+
+  color: styles.$onBackgroundColor;
+}
+
+div {
+  width: 85%;
+  height: 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+}
