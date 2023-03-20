@@ -38,11 +38,11 @@
 }
 
 .login-btn {
-  background-color: #2A9D8F;
+  background-color: styles.$primaryColor;
 }
 
 .signup-btn {
-  background-color: #E76F51;
+  background-color: styles.$secondaryColor;
 }
 
 .logo-text {
@@ -102,7 +102,7 @@
       display: flex;
     }
   }
-  
+
   .block-divider {
     width: 2px;
     height: 30px;

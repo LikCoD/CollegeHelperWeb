@@ -6,8 +6,8 @@ import {Component, ElementRef} from "@angular/core"
   styles: [
     `
       :host {
-        display: flex;
-        padding: 0;
+        display: flex !important;
+        padding: 0 !important;
       }
 
       img {

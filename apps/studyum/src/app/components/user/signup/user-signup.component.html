@@ -1,27 +1,13 @@
-<main>
-  <h2 [innerText]="'user.login.signUp' | translate"></h2>
-  <app-glassmorphism-frame
-    [color]="'rgba(255,255,255,0.2)'"
-    [topColor]="'rgb(232,125,138)'"
-    [bottomColor]="'rgb(165,217,255)'">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <ui-floating-input class="top-group" controlName="login" label="user.login.userLogin" />
+<ui-default-form title="user.login.signUp" [formGroup]="form" (submit)="submit()" showSocial>
+  <ui-floating-input class="top-group" controlName="login" label="user.login.userLogin" />
 
-      <hr>
+  <hr>
 
-      <ui-floating-input controlName="email" label="user.login.email" />
-      <ui-floating-input type="password" controlName="password" label="user.login.password" />
-      <ui-floating-input type="password" controlName="passwordConfirm" label="user.login.confirmPassword" />
+  <ui-floating-input controlName="email" label="user.login.email" />
+  <ui-floating-input type="password" controlName="password" label="user.login.password" />
+  <ui-floating-input type="password" controlName="passwordConfirm" label="user.login.confirmPassword" />
 
-      <hr>
+  <hr>
 
-      <ui-floating-input controlName="code" label="user.login.code" />
-
-      <div uiGroupContainer class="bottom-group">
-        <button mat-flat-button color="primary"
-                [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
-        <ui-google-button (click)="continueViaGoogle()" />
-      </div>
-    </form>
-  </app-glassmorphism-frame>
-</main>
+  <ui-floating-input controlName="code" label="user.login.code" />
+</ui-default-form>

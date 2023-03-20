@@ -1,4 +1,14 @@
 {
+  "errors": {
+    "required": "Данное поле обязательно",
+    "email": "Введите правильный email",
+    "minlength": "Минимальная длина {{requiredLength}} символов",
+    "maxlength": "Максимальная длина {{requiredLength}} символов",
+    "min": "Минимальное значение {{min}}",
+    "max": "Максимальное значение {{max}}",
+    "pattern": "Поле не соответствует патерну - {{requiredPattern}}",
+    "notSame": "Данное поле не одинаковое"
+  },
   "header": {
     "schedule": "Расписание",
     "findSchedule": "Поиск расписания",

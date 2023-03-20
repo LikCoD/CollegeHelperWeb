@@ -1,20 +1,6 @@
-<main>
-  <h2 [innerText]="'user.login.login' | translate"></h2>
-  <app-glassmorphism-frame
-    [color]="'rgba(255,255,255,0.2)'"
-    [topColor]="'rgb(232,125,138)'"
-    [bottomColor]="'rgb(165,217,255)'">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <ui-floating-input class="top-group" controlName="login" label="user.login.userLogin" />
-      <ui-floating-input type="password" controlName="password" label="user.login.password" />
+<ui-default-form title="user.login.login" [formGroup]="form" (submit)="submit()" showSocial>
+  <ui-floating-input class="top-group" controlName="login" label="user.login.userLogin" />
+  <ui-floating-input type="password" controlName="password" label="user.login.password" />
 
-      <div uiGroupContainer class="bottom-group">
-        <button mat-flat-button color="primary"
-                [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
-        <ui-google-button (click)="continueViaGoogle()" />
-      </div>
-    </form>
-  </app-glassmorphism-frame>
-  <a class="reset-password" routerLink="/profile/password/reset/email">Reset password</a>
-</main>
-
+  <a bottom class="reset-password" routerLink="/profile/password/reset/email">Reset password</a>
+</ui-default-form>

@@ -6,7 +6,11 @@ import {Data} from "../models/selectData"
 @Component({
   selector: "ui-floating-input",
   template: `
-    <mat-form-field appearance="outline" color="accent" [hintLabel]="error || '' | titlecase">
+    <mat-form-field
+      appearance="outline"
+      color="accent"
+      [hintLabel]="errorKey | translate : errorParams"
+    >
       <mat-label>{{ label! | translate }}</mat-label>
       <input
         matInput
@@ -87,8 +91,15 @@ export class FloatingInputComponent<T, D> implements OnInit {
     this.dataSelect.emit(data)
   }
 
-  get error(): string | null {
-    if (this.control.errors == null) return null
-    return Object.keys(this.control.errors as any)[0]
+  get errors(): any {
+    return this.control.errors
+  }
+
+  get errorKey(): string {
+    return !this.errors || !this.control.touched ? "" : "errors." + Object.keys(this.errors)[0]
+  }
+
+  get errorParams(): any {
+    return this.errors === null ? {} : this.errors[Object.keys(this.errors)[0]]
   }
 }

@@ -16,6 +16,8 @@ import {MomentJsInterceptor} from "./interseptors/moment-js.interceptor"
 import {HttpErrorInterceptor} from "./interseptors/http-error.interceptor"
 import {ToastComponent} from "./components/general/toast/toast.component"
 import {LetModule} from "@ngrx/component"
+import {ThemeSelectorComponent} from "../../../../libs/theme-selector/theme-selector.component"
+import {MatIconModule} from "@angular/material/icon"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -61,6 +63,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgbModule,
     LetModule,
+    ThemeSelectorComponent,
+    MatIconModule,
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},

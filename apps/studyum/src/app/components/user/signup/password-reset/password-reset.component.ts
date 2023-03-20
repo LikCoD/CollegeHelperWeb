@@ -9,18 +9,12 @@ import {ActivatedRoute, Router} from "@angular/router"
 @Component({
   selector: "app-password-reset",
   templateUrl: "./password-reset.component.html",
-  styleUrls: [
-    "../../../../../assets/scss/form.scss",
-    "./password-reset.component.scss",
-  ],
+  styleUrls: ["./password-reset.component.scss"],
 })
 export class PasswordResetComponent implements AfterViewInit {
   form = new FormGroup({
     code: new FormControl("", Validators.required),
-    password: new FormControl("", [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
+    password: new FormControl("", [Validators.required, Validators.minLength(8)]),
     passwordConfirm: new FormControl("", sameAs("password")),
   })
 

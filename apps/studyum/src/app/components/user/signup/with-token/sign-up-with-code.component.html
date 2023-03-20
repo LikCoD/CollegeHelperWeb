@@ -1,16 +1,3 @@
-<main>
-  <h2 [innerText]="'user.login.signUp' | translate"></h2>
-  <app-glassmorphism-frame
-    [color]="'rgba(255,255,255,0.2)'"
-    [topColor]="'rgb(232,125,138)'"
-    [bottomColor]="'rgb(165,217,255)'">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <ui-floating-input class="top-group" controlName="code" label="user.login.code" />
-
-      <div uiGroupContainer class="bottom-group">
-        <button mat-flat-button color="primary"
-                [disabled]="!form.valid">{{'user.login.continue' | translate}}</button>
-      </div>
-    </form>
-  </app-glassmorphism-frame>
-</main>
+<ui-default-form title="user.login.signUp" [formGroup]="form" (submit)="submit()">
+  <ui-floating-input class="top-group" controlName="code" label="user.login.code" />
+</ui-default-form>

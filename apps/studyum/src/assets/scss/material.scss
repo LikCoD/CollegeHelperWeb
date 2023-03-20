@@ -19,20 +19,20 @@ $light-focused: rgba(white, 0.12);
 
 
 $primary-palette: (
-        50: #9316ff,
-        100: #9316ff,
-        200: #9316ff,
-        300: #9316ff,
-        400: #9316ff,
-        500: #9316ff,
-        600: #9316ff,
-        700: #9316ff,
-        800: #9316ff,
-        900: #9316ff,
-        A100: #9316ff,
-        A200: #9316ff,
-        A400: #9316ff,
-        A700: #9316ff,
+        50 : #eef1fb,
+        100 : #d5dcf4,
+        200 : #b9c4ed,
+        300 : #9cace5,
+        400 : #879be0,
+        500 : #7289da,
+        600 : #6a81d6,
+        700 : #5f76d0,
+        800 : #556ccb,
+        900 : #4259c2,
+        A100 : #ffffff,
+        A200 : #e2e7ff,
+        A400 : #afbdff,
+        A700 : #96a7ff,
         contrast: (
                 50: $dark-primary-text,
                 100: $dark-primary-text,
@@ -50,24 +50,53 @@ $primary-palette: (
                 A700: $dark-primary-text,
         )
 );
-
-$orange-color: #ff5b17;
-
-$orange-palette: (
-        50: $orange-color,
-        100: $orange-color,
-        200: $orange-color,
-        300: $orange-color,
-        400: $orange-color,
-        500: $orange-color,
-        600: $orange-color,
-        700: $orange-color,
-        800: $orange-color,
-        900: $orange-color,
-        A100: $orange-color,
-        A200: $orange-color,
-        A400: $orange-color,
-        A700: $orange-color,
+$accent-palette: (
+        50 : #fff3e0,
+        100 : #ffe0b3,
+        200 : #ffcc80,
+        300 : #ffb84d,
+        400 : #ffa826,
+        500 : #ff9900,
+        600 : #ff9100,
+        700 : #ff8600,
+        800 : #ff7c00,
+        900 : #ff6b00,
+        A100 : #ffffff,
+        A200 : #fff7f2,
+        A400 : #ffd6bf,
+        A700 : #ffc6a6,
+        contrast: (
+                50: $dark-primary-text,
+                100: $dark-primary-text,
+                200: $dark-primary-text,
+                300: $dark-primary-text,
+                400: $dark-primary-text,
+                500: $dark-primary-text,
+                600: $dark-primary-text,
+                700: $dark-primary-text,
+                800: $dark-primary-text,
+                900: $dark-primary-text,
+                A100: $dark-primary-text,
+                A200: $dark-primary-text,
+                A400: $dark-primary-text,
+                A700: $dark-primary-text,
+        )
+);
+$warn-palette: (
+        50: #FFEAEA,
+        100: #FFCBCB,
+        200: #FFA9A9,
+        300: #FF8686,
+        400: #FF6C6C,
+        500: #FF5252,
+        600: #FF4B4B,
+        700: #FF4141,
+        800: #FF3838,
+        900: #FF2828,
+        A100: #FFFFFF,
+        A200: #FFFFFF,
+        A300: #FFD5D5,
+        A700: #FFBCBC,
         contrast: (
                 50: $dark-primary-text,
                 100: $dark-primary-text,
@@ -87,8 +116,8 @@ $orange-palette: (
 );
 
 $primary: mat.define-palette($primary-palette, $theme-primary-hue, 500, 900);
-$accent: mat.define-palette($orange-palette, $theme-accent-hue);
-$warn: mat.define-palette(mat.$red-palette, $theme-warn-hue);
+$accent: mat.define-palette($accent-palette, $theme-accent-hue);
+$warn: mat.define-palette($warn-palette, $theme-warn-hue);
 
 $config: mat.define-typography-config(
         $font-family: 'Roboto, "Helvetica Neue", sans-serif',

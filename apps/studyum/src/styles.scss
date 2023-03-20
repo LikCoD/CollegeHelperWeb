@@ -18,40 +18,44 @@ $onBackgroundColor: var(--onBackgroundColor);
 $onSecondaryBackgroundColor: var(--onSecondaryBackgroundColor);
 $onPrimaryColor: var(--onPrimaryColor);
 $onSecondaryColor: var(--onSecondaryColor);
+$boxShadow: var(--box-shadow);
 
-$dangerColor: #FF5517;
+
+$dangerColor: #FF5252;
 
 .dark {
-  --primaryColor: #0A3E26;
-  --secondaryColor: #F1F1F1;
-  --onPrimaryColor: #EFEFEF;
-  --onSecondaryColor: #3A3A3A;
-  --thirdColor: #CC88FF;
-  --backgroundColor: #264653;
-  --secondaryBackgroundColor: #4A4A4A;
-  --onBackgroundColor: #E1E1E1;
-  --onSecondaryBackgroundColor: #EFEFEF;
+  --backgroundColor: #262E3F;
+  --secondaryBackgroundColor: #3B4252;
+  --primaryColor: #7289DA;
+  --secondaryColor: #FF9900;
+  --onBackgroundColor: #F0F0F0;
+  --onPrimaryColor: #F0F0F0;
+  --onSecondaryColor: #F0F0F0;
+  --onSecondaryBackgroundColor: #F0F0F0;
 
+  --thirdColor: #CC88FF;
   --backgroundColorGradient: linear-gradient(90deg, #264653 0%, #1E404E 100%);
+  --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .light {
-  --primaryColor: #0A3E26;
-  --secondaryColor: #F1F1F1;
-  --onPrimaryColor: #EFEFEF;
-  --onSecondaryColor: #3A3A3A;
-  --thirdColor: #CC88FF;
-  --backgroundColor: #CFCFCF;
-  --secondaryBackgroundColor: #4A4A4A;
-  --onBackgroundColor: #4A4A4A;
-  --onSecondaryBackgroundColor: #EFEFEF;
+  --backgroundColor: #F0F0F0;
+  --secondaryBackgroundColor: #FFFFFF;
+  --primaryColor: #5866B2;
+  --secondaryColor: #FF9900;
+  --onBackgroundColor: #262E3F;
+  --onPrimaryColor: #262E3F;
+  --onSecondaryColor: #262E3F;
+  --onSecondaryBackgroundColor: #262E3F;
 
+  --thirdColor: #CC88FF;
   --backgroundColorGradient: linear-gradient(90deg, #CFCFCF 0%, #BEBEBE 100%);
+  --box-shadow: 0px 4px 6px rgba(38, 46, 63, 0.1), 0px 1px 3px rgba(38, 46, 63, 0.08);
 }
 
 
 body {
-  background: var(--backgroundColorGradient);
+  background: var(--backgroundColor);
 }
 
 p, li {

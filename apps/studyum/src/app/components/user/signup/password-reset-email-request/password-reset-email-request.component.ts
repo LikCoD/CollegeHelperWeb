@@ -7,10 +7,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms"
 @Component({
   selector: "app-password-reset-email-request",
   templateUrl: "./password-reset-email-request.component.html",
-  styleUrls: [
-    "../../../../../assets/scss/form.scss",
-    "./password-reset-email-request.component.scss",
-  ],
+  styleUrls: ["./password-reset-email-request.component.scss"],
 })
 export class PasswordResetEmailRequestComponent {
   form = new FormGroup({

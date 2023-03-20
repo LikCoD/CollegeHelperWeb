@@ -3,15 +3,12 @@ import {FormControl, FormGroup} from "@angular/forms"
 import {UserService} from "../../../../services/shared/user.service"
 import {ActivatedRoute, Router} from "@angular/router"
 import {ToastService} from "../../../../services/ui/toast.service"
-import {SymbolInputComponent} from "../../../../../../../../libs/ui-elements/src/lib/components/symbol-input/symbol-input.component"
+import {SymbolInputComponent} from "ui-elements"
 
 @Component({
   selector: "app-email-verification",
   templateUrl: "./email-verification.component.html",
-  styleUrls: [
-    "../../../../../assets/scss/form.scss",
-    "./email-verification.component.scss",
-  ],
+  styleUrls: ["./email-verification.component.scss"],
 })
 export class EmailVerificationComponent implements AfterViewInit {
   form = new FormGroup({
@@ -37,8 +34,7 @@ export class EmailVerificationComponent implements AfterViewInit {
     this.service.confirmEmail(this.form.value).subscribe({
       next: (_) =>
         this.service.user$.subscribe({
-          next: (user) =>
-            this.router.navigate([!user?.type ? "auth/signup/stage1" : "/"]),
+          next: (user) => this.router.navigate([!user?.type ? "auth/signup/stage1" : "/"]),
         }),
     })
   }

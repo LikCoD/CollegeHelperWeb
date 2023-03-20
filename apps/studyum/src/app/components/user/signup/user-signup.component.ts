@@ -1,16 +1,13 @@
 import {Component} from "@angular/core"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
-import {continueViaGoogle, sameAs} from "../../../utils"
+import {sameAs} from "../../../utils"
 import {UserService} from "../../../services/shared/user.service"
 import {Router} from "@angular/router"
 
 @Component({
   selector: "app-signup",
   templateUrl: "./user-signup.component.html",
-  styleUrls: [
-    "./user-signup.component.scss",
-    "../../../../assets/scss/form.scss",
-  ],
+  styleUrls: ["./user-signup.component.scss"],
 })
 export class UserSignupComponent {
   form = new FormGroup({
@@ -28,6 +25,4 @@ export class UserSignupComponent {
       next: (_) => this.router.navigate(["auth/email/verification"]).then(),
     })
   }
-
-  continueViaGoogle = () => continueViaGoogle()
 }

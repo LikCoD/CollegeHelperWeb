@@ -6,10 +6,7 @@ import {Router} from "@angular/router"
 @Component({
   selector: "app-sign-up-with-token",
   templateUrl: "./sign-up-with-code.component.html",
-  styleUrls: [
-    "./sign-up-with-code.component.scss",
-    "../../../../../assets/scss/form.scss",
-  ],
+  styleUrls: ["./sign-up-with-code.component.scss"],
 })
 export class SignUpWithCodeComponent {
   form = new FormGroup({

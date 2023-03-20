@@ -11,3 +11,15 @@ app-toast {
   margin: 10px;
   z-index: 1000;
 }
+
+div {
+  position: absolute;
+  right: 0;
+  z-index: 2000;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  padding: 10px;
+  color: white;
+  background-color: styles.$backgroundColor;
+}
