@@ -1,20 +1,29 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core"
-import {User} from "../../../../shared/models/user"
-import {UserService} from "../../../../shared/services/core/user.service"
-import {GeneralService} from "../../../../shared/services/core/general.service"
-import {StudyPlace} from "../../../../shared/models/general"
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from "@angular/core"
+import {User} from "../../../../../apps/studyum/src/app/shared/models/user"
 import {BehaviorSubject, Observable} from "rxjs"
+import {StudyPlace} from "../../../../../apps/studyum/src/app/shared/models/general"
+import {ScheduleTypes} from "../../../../../apps/studyum/src/app/shared/models/schedule"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
-import {ScheduleTypes} from "../../../../shared/models/schedule"
-import {ScheduleService} from "../../servieces/schedule.service"
 import {Router} from "@angular/router"
+import {UserService} from "../../../../../apps/studyum/src/app/shared/services/core/user.service"
+import {GeneralService} from "../../../../../apps/studyum/src/app/shared/services/core/general.service"
+import {ScheduleService} from "../../../../../apps/studyum/src/app/modules/schedule/servieces/schedule.service"
 
 @Component({
-  selector: "app-schedule-top-bar",
-  templateUrl: "./schedule-top-bar.component.html",
-  styleUrls: ["./schedule-top-bar.component.scss"],
+  selector: "schdl-top-bar",
+  templateUrl: "./top-bar.component.html",
+  styleUrls: ["./top-bar.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScheduleTopBarComponent implements OnInit {
+export class TopBarComponent {
   @ViewChild("studyPlaceInput") studyPlaceRef: ElementRef<HTMLInputElement>
 
   @Input() minScale: number

@@ -1,13 +1,12 @@
 <div class="wrapper">
-  <app-schedule-top-bar
+  <schdl-top-bar
     [minScale]="scheduleService.minYScale"
     [maxScale]="scheduleService.maxYScale"
     [preferredMaxScale]="scheduleService.preferredMaxYSScale"
     (editMode)="isEditMode = $event"
     (timeViewMode)="changeTimeMode($event)"
     (scale)="scheduleService.scaleY = $event"
-    (generalViewMode)="changeViewMode($event)"
-  ></app-schedule-top-bar>
+    (generalViewMode)="changeViewMode($event)" />
   <hr>
   <main *ngIf="schedule$ | async as schedule">
     <app-edit-schedule *ngIf="isEditMode" [schedule]="schedule" (makeGeneral)="makeGeneral()" />

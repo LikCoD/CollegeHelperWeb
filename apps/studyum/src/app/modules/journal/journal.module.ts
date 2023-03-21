@@ -24,7 +24,7 @@ import {BaseJournalCollapserComponent} from "./components/view/base-journal/base
 import {TranslateModule} from "@ngx-translate/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "../../shared/shared.module"
-import {ModalsModule} from "modals"
+import {ModalsModule} from "@common/modals"
 import {NgxPopperjsModule} from "ngx-popperjs"
 import {TextDirective} from "../../../../../../libs/common/auto-color/src/lib/text.directive"
 import {ErrorInfoComponent} from "../../../../../../libs/common/ui-elements/src/lib/elements/error-info/error-info.component"

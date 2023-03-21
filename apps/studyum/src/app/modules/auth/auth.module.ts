@@ -10,7 +10,7 @@ import {EmailVerificationComponent} from "./components/signup/email-verification
 import {TranslateModule} from "@ngx-translate/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "../../shared/shared.module"
-import {ModalsModule} from "modals"
+import {ModalsModule} from "@common/modals"
 import {ErrorInfoComponent} from "../../../../../../libs/common/ui-elements/src/lib/elements/error-info/error-info.component"
 import {MatButtonModule} from "@angular/material/button"
 

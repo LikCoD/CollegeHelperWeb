@@ -24,14 +24,17 @@
       "dom"
     ],
     "paths": {
-      "auto-color": [
+      "@common/auto-color": [
         "libs/auto-color/src/index.ts"
       ],
-      "modals": [
-        "libs/modals/src/index.ts"
+      "@common/modals": [
+        "libs/common/modals/src/index.ts"
       ],
-      "ui-elements": [
-        "libs/ui-elements/src/index.ts"
+      "@common/ui-elements": [
+        "libs/common/ui-elements/src/index.ts"
+      ],
+      "@schedule/action-bar": [
+        "libs/schedule/action-bar/src/index.ts"
       ]
     },
     "rootDir": "."

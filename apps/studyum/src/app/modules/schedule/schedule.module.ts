@@ -8,17 +8,17 @@ import {SubjectSelectionComponent} from "./components/subject-selection/subject-
 import {SelectSubjectDialogComponent} from "./components/cell/select-subject-dialog/select-subject-dialog.component"
 import {ScheduleCellDirective} from "./components/cell/cell-directive/schedule-cell.directive"
 import {EditScheduleComponent} from "./components/edit/edit-scdedule/edit-schedule.component"
-import {ScheduleTopBarComponent} from "./components/schedule-top-bar/schedule-top-bar.component"
 import {ViewComponent} from "./components/view.component"
 import {TranslateModule} from "@ngx-translate/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {SharedModule} from "../../shared/shared.module"
-import {ModalsModule} from "modals"
+import {ModalsModule} from "@common/modals"
 import {LetModule} from "@ngrx/component"
 import {ErrorInfoComponent} from "../../../../../../libs/common/ui-elements/src/lib/elements/error-info/error-info.component"
 import {MatButtonModule} from "@angular/material/button"
 import {MatButtonToggleModule} from "@angular/material/button-toggle"
 import {BaseScheduleComponent} from "./components/base-schedule/base-schedule.component"
+import {ScheduleActionBarModule} from "@schedule/action-bar"
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import {BaseScheduleComponent} from "./components/base-schedule/base-schedule.co
     SelectSubjectDialogComponent,
     ScheduleCellDirective,
     EditScheduleComponent,
-    ScheduleTopBarComponent,
     ViewComponent,
     BaseScheduleComponent,
   ],
@@ -45,6 +44,7 @@ import {BaseScheduleComponent} from "./components/base-schedule/base-schedule.co
     ErrorInfoComponent,
     MatButtonModule,
     MatButtonToggleModule,
+    ScheduleActionBarModule,
   ],
   exports: [CellComponent, ScheduleCellDirective],
 })
