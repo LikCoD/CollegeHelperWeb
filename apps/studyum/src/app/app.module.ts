@@ -14,7 +14,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
 import {MomentJsInterceptor} from "./shared/interseptors/moment-js.interceptor"
 import {HttpErrorInterceptor} from "./shared/interseptors/http-error.interceptor"
 import {ToastComponent} from "./shared/components/toast/toast.component"
-import {ThemeSelectorComponent} from "../../../../libs/theme-selector/theme-selector.component"
+import {ThemeSelectorComponent} from "../../../../libs/common/theme-selector/theme-selector.component"
 import {MatIconModule} from "@angular/material/icon"
 import {HomeModule} from "./modules/home/home.module"
 

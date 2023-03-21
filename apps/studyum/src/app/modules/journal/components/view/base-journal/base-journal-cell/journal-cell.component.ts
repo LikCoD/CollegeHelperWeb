@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
-import {TextDirective} from "../../../../../../../../../../libs/auto-color/src/lib/text.directive"
+import {TextDirective} from "../../../../../../../../../../libs/common/auto-color/src/lib/text.directive"
 
 @Component({
   selector: "app-base-journal-cell",

@@ -4,7 +4,7 @@ import {DialogFrameComponent} from "./components/dialog-frame/dialog-frame.compo
 import {MoreIndicatorComponent} from "./components/more-indicator.component"
 import {MomentPipe} from "./pipes/moment.pipe"
 import {SelectButtonsComponent} from "./components/buttons/select-buttons.component"
-import {UiElementsModule} from "../../../../../libs/ui-elements/src"
+import {UiElementsModule} from "../../../../../libs/common/ui-elements/src"
 import {MatButtonToggleModule} from "@angular/material/button-toggle"
 
 @NgModule({

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core"
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {sameAs} from "../../../../utils"
-import {SymbolInputComponent} from "../../../../../../../../libs/ui-elements/src/lib/components/symbol-input/symbol-input.component"
+import {SymbolInputComponent} from "../../../../../../../../libs/common/ui-elements/src/lib/components/symbol-input/symbol-input.component"
 import {UserService} from "../../../../shared/services/core/user.service"
 import {ToastService} from "../../../../shared/services/ui/toast.service"
 import {ActivatedRoute, Router} from "@angular/router"

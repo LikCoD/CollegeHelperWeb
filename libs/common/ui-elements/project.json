@@ -1,9 +1,9 @@
 {
-  "name": "modals",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "ui-elements",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/modals/src",
-  "prefix": "app",
+  "sourceRoot": "../modals/src",
+  "prefix": "ui",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

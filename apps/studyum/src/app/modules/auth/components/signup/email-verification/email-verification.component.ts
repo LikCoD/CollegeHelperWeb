@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms"
 import {UserService} from "../../../../../shared/services/core/user.service"
 import {ActivatedRoute, Router} from "@angular/router"
 import {ToastService} from "../../../../../shared/services/ui/toast.service"
-import {SymbolInputComponent} from "../../../../../../../../../libs/ui-elements/src"
+import {SymbolInputComponent} from "../../../../../../../../../libs/common/ui-elements/src"
 
 @Component({
   selector: "app-email-verification",

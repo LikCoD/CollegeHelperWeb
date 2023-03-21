@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  forwardRef,
-  Input,
-} from "@angular/core"
+import {ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input} from "@angular/core"
 import {
   AbstractControl,
   ControlValueAccessor,

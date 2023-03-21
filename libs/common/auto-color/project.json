@@ -1,8 +1,8 @@
 {
   "name": "auto-color",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/auto-color/src",
+  "sourceRoot": "src",
   "prefix": "autoColor",
   "targets": {
     "lint": {

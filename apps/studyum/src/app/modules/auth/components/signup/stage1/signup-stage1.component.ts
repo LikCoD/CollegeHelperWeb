@@ -6,7 +6,7 @@ import {User} from "../../../../../shared/models/user"
 import {GeneralService} from "../../../../../shared/services/core/general.service"
 import {Router} from "@angular/router"
 import {map, Observable} from "rxjs"
-import {Data} from "../../../../../../../../../libs/ui-elements/src/lib/models/selectData"
+import {Data} from "../../../../../../../../../libs/common/ui-elements/src/lib/models/selectData"
 
 @Component({
   selector: "app-stage1",

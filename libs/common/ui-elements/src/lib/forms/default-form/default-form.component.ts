@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core"
 import {FormGroup} from "@angular/forms"
-import {continueViaGoogle} from "../../../../../../apps/studyum/src/app/utils"
+import {continueViaGoogle} from "../../../../../../../apps/studyum/src/app/utils"
 
 @Component({
   selector: "ui-default-form",
