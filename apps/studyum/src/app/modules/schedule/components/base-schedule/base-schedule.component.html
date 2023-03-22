@@ -25,11 +25,26 @@
     <p *ngFor="let i of days" class="weekday">{{weekdays[i % 7]}}</p>
   </div>
   <div class="lessons-container">
-    <app-schedule-cell
+    <schdl-cell
       *ngFor="let cell of schedule.cells"
-      [appScheduleCell]="cell"
       class="cell"
+      [schdlCell]="cell"
       [cell]="cell"
-      [isEditMode]="isEditMode"></app-schedule-cell>
+      [isEditMode]="isEditMode"
+      (delete)="cellAction(cell,true, removeSubject)"
+      (edit)="cellAction(cell,false, editLesson)"
+    />
   </div>
 </div>
+
+<ng-template #selectSubjectTemplate>
+  <app-select-subject-dialog
+    [lessons]="cell.lessons"
+    [multiSelect]="multiSelect" />
+</ng-template>
+
+<ng-template #manageSubjectTemplate>
+  <app-add-subject-dialog
+    *ngIf="!!selectedLesson"
+    [lesson]="selectedLesson" />
+</ng-template>

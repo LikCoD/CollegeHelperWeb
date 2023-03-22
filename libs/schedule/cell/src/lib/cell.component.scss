@@ -14,7 +14,6 @@
   cursor: auto;
 }
 
-
 .btn-cell {
   position: absolute;
   width: 100%;
@@ -24,33 +23,11 @@
   user-select: none;
 }
 
-.expand-btn-container {
-  margin: 0 0 auto auto;
-}
-
-
-.expand-btn-container-invisible {
-  margin: 0 0 auto auto;
-  display: none;
-}
-
-.cell {
-  width: 100%;
-  height: 100%;
-}
-
-app-more-indicator {
+ui-more-indicator {
   position: absolute;
 
-  right: -5px;
-  top: -5px;
-}
-
-.time {
-  position: absolute;
-  right: 15px;
-  top: 0;
-  font-size: 12px;
+  right: -10px;
+  top: -10px;
 }
 
 section {
@@ -73,7 +50,7 @@ section {
   }
 }
 
-.cell:hover .edit-container, .edit-container:hover {
+:host:hover .edit-container, .edit-container:hover {
   transform: translateY(-17px);
 }
 
@@ -112,8 +89,4 @@ section {
 
 .edit-btn {
   background-image: url("/assets/edit.svg");
-}
-
-:host {
-  position: relative;
 }

@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core"
-import {Lesson} from "../../../../../shared/models/schedule"
-import {DialogService} from "../../../../../shared/services/ui/dialog.service"
+import {Lesson} from "../../../../shared/models/schedule"
+import {DialogService} from "../../../../shared/services/ui/dialog.service"
 
 @Component({
   selector: "app-select-subject-dialog",

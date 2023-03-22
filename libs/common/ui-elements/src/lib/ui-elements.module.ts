@@ -21,6 +21,7 @@ import {ToggleDarkButtonDirective} from "./buttons/toggle-dark-button.directive"
 import {MatButtonModule} from "@angular/material/button"
 import {MatInputModule} from "@angular/material/input"
 import {DefaultFormComponent} from "./forms/default-form/default-form.component"
+import {MoreIndicatorComponent} from "./more-indicator/more-indicator.component"
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {DefaultFormComponent} from "./forms/default-form/default-form.component"
     FloatingFileChooserComponent,
     ToggleDarkButtonDirective,
     DefaultFormComponent,
+    MoreIndicatorComponent,
   ],
   exports: [
     SymbolInputComponent,
@@ -57,6 +59,7 @@ import {DefaultFormComponent} from "./forms/default-form/default-form.component"
     FloatingTextareaComponent,
     ToggleDarkButtonDirective,
     DefaultFormComponent,
+    MoreIndicatorComponent,
   ],
   imports: [
     CommonModule,

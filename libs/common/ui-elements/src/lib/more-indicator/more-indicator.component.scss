@@ -1,0 +1,27 @@
+@import "apps/studyum/src/styles";
+
+:host {
+  position: absolute;
+
+  aspect-ratio: 1 / 1;
+
+  min-height: 7px;
+
+  height: fit-content;
+  width: fit-content;
+  background-color: $secondaryColor;
+  border-radius: 50%;
+}
+
+p {
+  display: grid;
+  place-items: center;
+
+  font-size: 14px;
+  line-height: 16px;
+
+  aspect-ratio: 1/1;
+  min-height: 16px;
+
+  color: $onSecondaryColor;
+}

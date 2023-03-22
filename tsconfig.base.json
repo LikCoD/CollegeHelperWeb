@@ -19,23 +19,14 @@
     "skipLibCheck": true,
     "target": "es2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "paths": {
-      "@common/auto-color": [
-        "libs/auto-color/src/index.ts"
-      ],
-      "@common/modals": [
-        "libs/common/modals/src/index.ts"
-      ],
-      "@common/ui-elements": [
-        "libs/common/ui-elements/src/index.ts"
-      ],
-      "@schedule/action-bar": [
-        "libs/schedule/action-bar/src/index.ts"
-      ]
+      "@common/auto-color": ["libs/auto-color/src/index.ts"],
+      "@common/modals": ["libs/common/modals/src/index.ts"],
+      "@common/ui-elements": ["libs/common/ui-elements/src/index.ts"],
+      "@schedule/action-bar": ["libs/schedule/action-bar/src/index.ts"],
+      "schedule/cell": ["libs/schedule/cell/src/index.ts"],
+      "schedule/lesson": ["libs/schedule/lesson/src/index.ts"]
     },
     "rootDir": "."
   },
@@ -44,8 +35,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

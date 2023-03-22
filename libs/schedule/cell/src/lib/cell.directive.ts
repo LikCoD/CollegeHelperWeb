@@ -1,22 +1,22 @@
 import {Directive, ElementRef, Input} from "@angular/core"
-import {Cell} from "../../../../../shared/models/schedule"
-import {ScheduleService} from "../../../servieces/schedule.service"
+import {Cell} from "../../../../../apps/studyum/src/app/shared/models/schedule"
+import {ScheduleService} from "../../../../../apps/studyum/src/app/modules/schedule/servieces/schedule.service"
 
 @Directive({
-  selector: "[appScheduleCell]",
+  selector: "[schdlCell]",
 })
-export class ScheduleCellDirective {
+export class CellDirective {
   constructor(private el: ElementRef, private scheduleService: ScheduleService) {}
 
-  @Input() set appScheduleCell(cell: Cell) {
+  @Input() set schdlCell(cell: Cell) {
     this.update(cell)
 
     this.scheduleService.scale$.subscribe({
-      next: (_) => this.update(cell),
+      next: () => this.update(cell),
     })
 
     this.scheduleService.timeViewMode$.subscribe({
-      next: (_) => this.update(cell),
+      next: () => this.update(cell),
     })
   }
 
