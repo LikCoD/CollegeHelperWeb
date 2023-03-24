@@ -13,25 +13,19 @@ import {Data} from "../models/selectData"
 
 @Component({
   selector: "ui-floating-select",
-  template: ` <select uiSelect [id]="id" [formControl]="control">
-      <option
-        *ngFor="let option of _data; trackBy: track"
-        [label]="option.label"
-        [value]="option.value"
-      ></option>
-    </select>
-
-    <label *ngIf="!!label" [for]="id" [innerText]="label! | translate"></label>
+  template: ` <mat-form-field appearance="outline">
+      <mat-select [id]="id" [formControl]="control">
+        <mat-option *ngFor="let option of _data; trackBy: track" [value]="option.value">{{
+          option.label
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <app-error-info *ngIf="showErrorMessage && control" [property]="control" />`,
   styles: [
     `
       :host {
         display: block;
-      }
-
-      select {
-        text-transform: capitalize;
       }
     `,
   ],

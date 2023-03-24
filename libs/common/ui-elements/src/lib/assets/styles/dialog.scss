@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1055;
+  z-index: 995 !important;
   display: flex !important;
   justify-content: center;
   width: 100%;
@@ -28,7 +28,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 990 !important;
   width: 100vw;
   height: 100vh;
   background-color: #000000FF;

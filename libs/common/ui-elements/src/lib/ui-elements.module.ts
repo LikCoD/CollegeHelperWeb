@@ -22,6 +22,7 @@ import {MatButtonModule} from "@angular/material/button"
 import {MatInputModule} from "@angular/material/input"
 import {DefaultFormComponent} from "./forms/default-form/default-form.component"
 import {MoreIndicatorComponent} from "./more-indicator/more-indicator.component"
+import {MatSelectModule} from "@angular/material/select"
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {MoreIndicatorComponent} from "./more-indicator/more-indicator.component"
     ErrorInfoComponent,
     MatButtonModule,
     MatInputModule,
+    MatSelectModule,
   ],
 })
 export class UiElementsModule {}

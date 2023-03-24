@@ -40,6 +40,14 @@ import {Data} from "../models/selectData"
       datalist {
         text-transform: capitalize;
       }
+
+      input {
+        height: 24px !important;
+      }
+
+      ::ng-deep .mat-mdc-form-field-infix {
+        display: flex !important;
+      }
     `,
   ],
   hostDirectives: [{directive: FloatingContainerDirective}],
