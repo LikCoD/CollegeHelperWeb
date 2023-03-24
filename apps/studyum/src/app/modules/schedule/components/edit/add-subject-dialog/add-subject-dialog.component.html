@@ -16,7 +16,7 @@
       <input class="text-input label-index" formControlName="lessonIndex">
       <input class="text-input label-end-date" type="datetime-local" [min]="currentDate" formControlName="endDate">
 
-      <app-schedule-subject class="lesson" [editable]="true" formControlName="lesson"></app-schedule-subject>
+      <schdl-lesson class="lesson" [editable]="true" formControlName="lesson" />
     </div>
     <app-error-info [property]="form.get('startDate')!!" />
     <app-error-info [property]="form.get('lessonIndex')!!" />

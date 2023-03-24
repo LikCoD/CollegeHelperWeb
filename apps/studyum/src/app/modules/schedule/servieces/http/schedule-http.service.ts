@@ -9,11 +9,19 @@ export class ScheduleHttpService {
 
   constructor(private http: HttpClient) {}
 
-  getSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
+  getSchedule(
+    type: string,
+    name: string,
+    studyPlaceID: string,
+    from: string | null = null,
+    to: string | null = null
+  ): Observable<Schedule> {
     let url = `${type}/${name}?studyPlaceID=${studyPlaceID}`
-    if (type == undefined || name == undefined) url = ""
+    if (!type || !name) url = ""
 
-    return this.http.get<Schedule>(`${this.API_PATH}/schedule/${url}`)
+    return this.http.get<Schedule>(
+      `${this.API_PATH}/schedule/${url}?startDate=${from}&endDate=${to}`
+    )
   }
 
   getGeneralSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {

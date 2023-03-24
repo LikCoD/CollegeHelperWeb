@@ -1,0 +1,10 @@
+<ng-container *ngIf="days$ | async as days">
+  <section *ngFor="let day of days">
+    <h3>{{day.date | moment: "MMM DD ddd"}}</h3>
+    <div class="lessons-container">
+      <schdl-lesson
+        *ngFor="let cell of day.cells"
+        [lesson]="cell[0]" />
+    </div>
+  </section>
+</ng-container>

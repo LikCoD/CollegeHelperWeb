@@ -1,13 +1,18 @@
-<section *ngrxLet="user$ as user">
-  <ng-container *ngFor="let card of cards">
-    <app-home-card
-      *ngIf="checkPermissions(user, card.permissions)"
+<ng-container *ngIf="user$ | async as user else notLoginRef">
+  <prfl-card [user]="user" />
+
+  <home-cards [user]="user" [cards]="cards" />
+  <home-cards-small [user]="user" [cards]="cards" />
+
+  <hm-schdl-preview />
+</ng-container>
+
+<ng-template #notLoginRef>
+  <section *ngFor="let card of cards">
+    <home-card
+      *ngIf="card.permissions === undefined"
       [title]="card.title"
       [imageUrl]="card.url"
-      [routerLink]="card.route"
-    ></app-home-card>
-  </ng-container>
-
-  <ng-container *ngIf="user">
-  </ng-container>
-</section>
+      [routerLink]="card.route" />
+  </section>
+</ng-template>

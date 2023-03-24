@@ -4,6 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 16px;
+  gap: 64px;
 }
 
 @media (max-width: 570px) {
@@ -19,7 +21,6 @@ section {
   justify-content: space-evenly;
   flex-grow: 1;
 
-  margin: 15px 75px;
   min-width: 310px;
 
   border-radius: 25px;

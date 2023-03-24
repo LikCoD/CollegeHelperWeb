@@ -1,0 +1,31 @@
+@import 'apps/studyum/src/styles';
+
+:host {
+  display: flex;
+  background-color: $secondaryBackgroundColor;
+  box-shadow: $boxShadow;
+  border-radius: 16px;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+a {
+  height: 48px;
+}
+
+img {
+  width: 48px;
+  height: 48px;
+}
+
+hr {
+  width: 2px;
+  height: 36px;
+  margin: 0;
+
+  background-color: #FFFFFF;
+  opacity: 0.2;
+  border-radius: 1px;
+}

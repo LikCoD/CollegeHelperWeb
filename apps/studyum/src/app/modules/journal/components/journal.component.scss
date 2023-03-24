@@ -24,20 +24,9 @@
   margin-top: 30px;
 }
 
-.select-container {
+jrnl-card {
   width: 250px;
   height: 150px;
-
-  background: styles.$secondaryColor;
-  color: styles.$onSecondaryColor;
-  border-radius: 25px;
-
-  gap: 15px;
-  padding: 5px 10px;
-
-  p, h3 {
-    color: styles.$onSecondaryColor
-  }
 }
 
 h3 {

@@ -1,8 +1,7 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core"
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from "@angular/core"
 import {Cell, Lesson} from "../../../../../apps/studyum/src/app/shared/models/schedule"
 import {Observable} from "rxjs"
 import {Key} from "../../../../../apps/studyum/src/app/modules/journal/services/journal.cell.service"
-import {ScheduleSubjectComponent} from "../../../../../apps/studyum/src/app/modules/schedule/components/schedule-subject/schedule-subject.component"
 import {DialogService} from "../../../../../apps/studyum/src/app/shared/services/ui/dialog.service"
 import {ScheduleService} from "../../../../../apps/studyum/src/app/modules/schedule/servieces/schedule.service"
 import {KeyboardService} from "../../../../../apps/studyum/src/app/shared/services/core/keyboard.service"
@@ -26,8 +25,6 @@ export class CellComponent implements OnInit {
   lessons: Lesson[][] = []
 
   key$: Observable<Key>
-
-  @ViewChild("subject") subjectElement: ScheduleSubjectComponent | undefined
 
   constructor(
     private dialog: DialogService,

@@ -30,6 +30,7 @@ import {TextDirective} from "../../../../../../libs/common/auto-color/src/lib/te
 import {ErrorInfoComponent} from "../../../../../../libs/common/ui-elements/src/lib/elements/error-info/error-info.component"
 import {MatButtonModule} from "@angular/material/button"
 import {MatButtonToggleModule} from "@angular/material/button-toggle"
+import {JournalCardModule} from "journal/card"
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle"
     JournalRoutingModule,
     MatButtonModule,
     MatButtonToggleModule,
+    JournalCardModule,
   ],
 })
 export class JournalModule {}

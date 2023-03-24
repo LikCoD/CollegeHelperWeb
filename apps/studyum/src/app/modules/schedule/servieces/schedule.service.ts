@@ -155,6 +155,16 @@ export class ScheduleService {
     return this.schedule$
   }
 
+  getScheduleRaw(
+    type: string,
+    name: string,
+    studyPlaceID: string,
+    from: string,
+    to: string
+  ): Observable<Schedule> {
+    return this.httpService.getSchedule(type, name, studyPlaceID, from, to)
+  }
+
   getGeneralSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
     this.httpService.getGeneralSchedule(type, name, studyPlaceID).subscribe({
       next: (value) => this.initSchedule(value),

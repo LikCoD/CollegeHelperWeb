@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnInit} from "@angular/core"
+import {Component, forwardRef, Input} from "@angular/core"
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -29,54 +29,32 @@ import {Lesson} from "../../../../../apps/studyum/src/app/shared/models/schedule
     },
   ],
 })
-export class LessonComponent implements OnInit, Validator, ControlValueAccessor {
+export class LessonComponent implements Validator, ControlValueAccessor {
   private studyPlaceID: string
 
   isUpdated: boolean
 
   @Input()
-  set lesson(value: Lesson | undefined) {
-    if (value == undefined) return
-
+  set lesson(value: Lesson) {
     this.isUpdated = value.isGeneral ?? false
     this.studyPlaceID = value.studyPlaceId ?? ""
-
-    this.form.get("subject")!!.setValue(value.subject)
-    this.form.get("teacher")!!.setValue(value.teacher)
-    this.form.get("room")!!.setValue(value.room)
-    this.form.get("group")!!.setValue(value.group)
-    this.form.get("primaryColor")!!.setValue(value.primaryColor)
-    this.form
-      .get("secondaryColor")!!
-      .setValue(
-        value.secondaryColor == "" || !value.secondaryColor ? "transparent" : value.secondaryColor
-      )
-
-    this._lesson = value
+    this.setFormValue(value)
   }
 
   @Input() editable: boolean = false
   @Input() showForeground: boolean = true
   @Input() routing: boolean = false
-
-  onChange: any
+  @Input() preview: boolean = false
 
   form = new FormGroup({
-    subject: new FormControl("SUBJECT", Validators.required),
-    teacher: new FormControl("TEACHER", Validators.required),
-    room: new FormControl("ROOM", Validators.required),
-    group: new FormControl("GROUP", Validators.required),
-    primaryColor: new FormControl("#F1F1F1"),
+    id: new FormControl("", Validators.required),
+    subject: new FormControl("", Validators.required),
+    teacher: new FormControl("", Validators.required),
+    room: new FormControl("", Validators.required),
+    group: new FormControl("", Validators.required),
+    primaryColor: new FormControl("#FFFFFF"),
     secondaryColor: new FormControl("transparent"),
   })
-
-  ngOnInit(): void {
-    this.form.statusChanges.subscribe(() => {
-      if (typeof this.onChange !== "function") return
-
-      this.onChange({...this._lesson, ...this.form.value})
-    })
-  }
 
   validate(control: AbstractControl): ValidationErrors | null {
     if (this.form.get("subject")?.errors != null) return this.form.get("subject")!!.errors
@@ -88,17 +66,13 @@ export class LessonComponent implements OnInit, Validator, ControlValueAccessor 
   }
 
   registerOnChange(fn: any): void {
-    this.onChange = fn
+    this.form.valueChanges.subscribe(fn)
   }
 
-  registerOnTouched(fn: any): void {
-    fn()
-  }
+  registerOnTouched(fn: any): void {}
 
-  writeValue(obj: any): void {
-    if (obj == undefined) return
-
-    this.lesson = obj
+  writeValue(lesson: Lesson): void {
+    this.setFormValue(lesson)
   }
 
   buildQueryParams(type: string): any {
@@ -109,5 +83,16 @@ export class LessonComponent implements OnInit, Validator, ControlValueAccessor 
     }
   }
 
-  private _lesson: Lesson
+  private setFormValue(lesson: Lesson) {
+    const value = {
+      id: lesson.id || null,
+      subject: lesson.subject,
+      teacher: lesson.teacher,
+      room: lesson.room,
+      group: lesson.group,
+      primaryColor: lesson.primaryColor,
+      secondaryColor: lesson.secondaryColor || null,
+    }
+    this.form.setValue(value)
+  }
 }

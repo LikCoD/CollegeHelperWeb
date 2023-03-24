@@ -12,12 +12,7 @@
   <div>
     <h2 [innerText]="'journal.select.select' | translate"></h2>
     <div class="select-parent">
-      <div *ngFor="let option of options" (click)="selectOption(option)" class="select-container">
-        <h3>{{option.subject}}</h3>
-        <p>{{option.group}}</p>
-        <p>{{option.teacher}}</p>
-        <ng-container *ngIf="!option.editable">(View only)</ng-container>
-      </div>
+      <jrnl-card *ngFor="let option of options" [option]="option" />
     </div>
   </div>
 </ng-container>

@@ -1,12 +1,13 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core"
-import {User} from "../../../../shared/models/user"
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from "@angular/core"
+import {User} from "../../../../../apps/studyum/src/app/shared/models/user"
 
 @Component({
-  selector: "app-profile-card",
-  templateUrl: "./profile-card.component.html",
-  styleUrls: ["./profile-card.component.scss"],
+  selector: "prfl-card",
+  templateUrl: "./card.component.html",
+  styleUrls: ["./card.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileCardComponent {
+export class CardComponent {
   @Input() user: User
 
   @Output() signout = new EventEmitter<MouseEvent>()

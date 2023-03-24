@@ -16,7 +16,7 @@ import {ProfileOptionComponent} from "./components/profile-option/profile-option
 import {EditUserComponent} from "./components/edit-user/edit-user.component"
 import {CreateCodeUserComponent} from "./components/create-code-user/create-code-user.component"
 import {UserInfoComponent} from "./components/user-info/user-info.component"
-import {ProfileCardComponent} from "./components/profile-card/profile-card.component"
+import {ProfileCardModule} from "profile/card"
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import {ProfileCardComponent} from "./components/profile-card/profile-card.compo
     EditUserComponent,
     CreateCodeUserComponent,
     UserInfoComponent,
-    ProfileCardComponent,
 
     PasswordResetEmailRequestComponent,
     PasswordResetComponent,
@@ -43,6 +42,7 @@ import {ProfileCardComponent} from "./components/profile-card/profile-card.compo
     ProfileRoutingModule,
     MatButtonModule,
     NgOptimizedImage,
+    ProfileCardModule,
   ],
 })
 export class ProfileModule {}

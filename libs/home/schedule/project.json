@@ -1,0 +1,22 @@
+{
+  "name": "home-schedule",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/home/schedule/src",
+  "prefix": "hm-schdl",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/home/schedule/**/*.ts",
+          "libs/home/schedule/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

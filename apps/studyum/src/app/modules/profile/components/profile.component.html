@@ -1,5 +1,5 @@
 <ng-container class="main-container" *ngIf="user$ | async as user">
-  <app-profile-card [user]="user" (signout)="signOut()" (revoke)="revoke()"></app-profile-card>
+  <prfl-card [user]="user" (signout)="signOut()" (revoke)="revoke()" />
   <section>
     <app-profile-option title="user.info.info" [opened]="true">
       <app-user-info></app-user-info>

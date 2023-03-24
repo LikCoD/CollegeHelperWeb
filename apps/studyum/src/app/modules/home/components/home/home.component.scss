@@ -1,4 +1,46 @@
-section {
-  display: flex;
+@import "apps/studyum/src/styles";
+
+:host {
+  display: grid;
+  grid-template-areas: "profile schedule actions" ". schedule .";
+  grid-template-columns: auto auto 1fr;
+  grid-gap: 8px;
+  padding: 16px;
   flex-wrap: wrap;
+}
+
+prfl-card {
+  grid-area: profile;
+}
+
+home-card, home-cards-small {
+  grid-area: actions;
+}
+
+home-cards-small {
+  display: none;
+  width: 100%;
+}
+
+hm-schdl-preview {
+  grid-area: schedule;
+  flex-wrap: wrap;
+  height: fit-content;
+}
+
+@media (max-width: 1000px) {
+  :host {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  home-cards {
+    display: none;
+  }
+
+  home-cards-small {
+    display: flex;
+  }
 }

@@ -2,6 +2,7 @@ import {Component} from "@angular/core"
 import {UserService} from "../../../../shared/services/core/user.service"
 import {User} from "../../../../shared/models/user"
 import {Observable} from "rxjs"
+import {Card} from "../../../../../../../../libs/home/cards/src/lib/models"
 
 @Component({
   selector: "app-home",
@@ -9,7 +10,7 @@ import {Observable} from "rxjs"
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent {
-  cards: {title: string; url: string; route: string; permissions?: string[]}[] = [
+  cards: Card[] = [
     {
       title: "header.schedule",
       url: "assets/schedule-gray.svg",
