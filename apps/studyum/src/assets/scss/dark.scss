@@ -1,0 +1,117 @@
+@use "@angular/material" as mat;
+
+$primary-palette: (
+        50 : #eef1fb,
+        100 : #d5dcf4,
+        200 : #b9c4ed,
+        300 : #9cace5,
+        400 : #879be0,
+        500 : #7289da,
+        600 : #6a81d6,
+        700 : #5f76d0,
+        800 : #556ccb,
+        900 : #4259c2,
+        A100 : #ffffff,
+        A200 : #e2e7ff,
+        A400 : #afbdff,
+        A700 : #96a7ff,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #000000,
+                400 : #000000,
+                500 : #000000,
+                600 : #000000,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #000000,
+                A400 : #000000,
+                A700 : #000000,
+        )
+);
+
+$accent-palette: (
+        50 : #fff3e0,
+        100 : #ffe0b3,
+        200 : #ffcc80,
+        300 : #ffb84d,
+        400 : #ffa826,
+        500 : #ff9900,
+        600 : #ff9100,
+        700 : #ff8600,
+        800 : #ff7c00,
+        900 : #ff6b00,
+        A100 : #ffffff,
+        A200 : #fff7f2,
+        A400 : #ffd6bf,
+        A700 : #ffc6a6,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #000000,
+                400 : #000000,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #000000,
+                A400 : #000000,
+                A700 : #000000,
+        )
+);
+
+$warn-palette: (
+        50 : #ffeaea,
+        100 : #ffcbcb,
+        200 : #ffa9a9,
+        300 : #ff8686,
+        400 : #ff6c6c,
+        500 : #ff5252,
+        600 : #ff4b4b,
+        700 : #ff4141,
+        800 : #ff3838,
+        900 : #ff2828,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffd5d5,
+        A700 : #ffbcbc,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #000000,
+                400 : #000000,
+                500 : #000000,
+                600 : #000000,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #000000,
+                A400 : #000000,
+                A700 : #000000,
+        )
+);
+
+$primary: mat.define-palette($primary-palette);
+$accent: mat.define-palette($accent-palette);
+$warn: mat.define-palette($warn-palette);
+
+$config: mat.define-typography-config(
+        $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+);
+
+$theme: mat.define-dark-theme((
+        color: (
+                primary: $primary,
+                accent: $accent,
+                warn: $warn
+        ),
+        typography: $config
+));

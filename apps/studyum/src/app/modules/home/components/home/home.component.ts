@@ -30,14 +30,4 @@ export class HomeComponent {
   constructor(public userService: UserService) {
     this.user$ = this.userService.user$
   }
-
-  checkPermissions(user: User | undefined, permissions?: string[]) {
-    if (permissions == undefined) return true
-    if (user == undefined) return false
-
-    for (let permission of permissions)
-      if (user?.permissions.findIndex((p) => p == permission) == -1) return false
-
-    return true
-  }
 }

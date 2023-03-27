@@ -8,11 +8,5 @@
 </ng-container>
 
 <ng-template #notLoginRef>
-  <section *ngFor="let card of cards">
-    <home-card
-      *ngIf="card.permissions === undefined"
-      [title]="card.title"
-      [imageUrl]="card.url"
-      [routerLink]="card.route" />
-  </section>
+  <home-cards [cards]="cards" />
 </ng-template>

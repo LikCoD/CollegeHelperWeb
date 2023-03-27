@@ -1,147 +1,17 @@
-@use "@angular/material" as mat;
+@import "@angular/material";
 @import "@angular/material/theming";
-
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-@include mat.core();
+@include core();
 
-$theme-primary-hue: 700;
-$theme-accent-hue: 500;
-$theme-warn-hue: 500;
-$dark-primary-text: rgba(black, 0.87);
-$dark-secondary-text: rgba(black, 0.54);
-$dark-disabled-text: rgba(black, 0.38);
-$dark-dividers: rgba(black, 0.12);
-$dark-focused: rgba(black, 0.12);
-$dark-primary-text: #ffffff;
-$light-secondary-text: rgba(white, 0.7);
-$light-disabled-text: rgba(white, 0.5);
-$light-dividers: rgba(white, 0.12);
-$light-focused: rgba(white, 0.12);
-
-
-$primary-palette: (
-        50 : #eef1fb,
-        100 : #d5dcf4,
-        200 : #b9c4ed,
-        300 : #9cace5,
-        400 : #879be0,
-        500 : #7289da,
-        600 : #6a81d6,
-        700 : #5f76d0,
-        800 : #556ccb,
-        900 : #4259c2,
-        A100 : #ffffff,
-        A200 : #e2e7ff,
-        A400 : #afbdff,
-        A700 : #96a7ff,
-        contrast: (
-                50: $dark-primary-text,
-                100: $dark-primary-text,
-                200: $dark-primary-text,
-                300: $dark-primary-text,
-                400: $dark-primary-text,
-                500: $dark-primary-text,
-                600: $dark-primary-text,
-                700: $dark-primary-text,
-                800: $dark-primary-text,
-                900: $dark-primary-text,
-                A100: $dark-primary-text,
-                A200: $dark-primary-text,
-                A400: $dark-primary-text,
-                A700: $dark-primary-text,
-        )
-);
-$accent-palette: (
-        50 : #fff3e0,
-        100 : #ffe0b3,
-        200 : #ffcc80,
-        300 : #ffb84d,
-        400 : #ffa826,
-        500 : #ff9900,
-        600 : #ff9100,
-        700 : #ff8600,
-        800 : #ff7c00,
-        900 : #ff6b00,
-        A100 : #ffffff,
-        A200 : #fff7f2,
-        A400 : #ffd6bf,
-        A700 : #ffc6a6,
-        contrast: (
-                50: $dark-primary-text,
-                100: $dark-primary-text,
-                200: $dark-primary-text,
-                300: $dark-primary-text,
-                400: $dark-primary-text,
-                500: $dark-primary-text,
-                600: $dark-primary-text,
-                700: $dark-primary-text,
-                800: $dark-primary-text,
-                900: $dark-primary-text,
-                A100: $dark-primary-text,
-                A200: $dark-primary-text,
-                A400: $dark-primary-text,
-                A700: $dark-primary-text,
-        )
-);
-$warn-palette: (
-        50: #FFEAEA,
-        100: #FFCBCB,
-        200: #FFA9A9,
-        300: #FF8686,
-        400: #FF6C6C,
-        500: #FF5252,
-        600: #FF4B4B,
-        700: #FF4141,
-        800: #FF3838,
-        900: #FF2828,
-        A100: #FFFFFF,
-        A200: #FFFFFF,
-        A300: #FFD5D5,
-        A700: #FFBCBC,
-        contrast: (
-                50: $dark-primary-text,
-                100: $dark-primary-text,
-                200: $dark-primary-text,
-                300: $dark-primary-text,
-                400: $dark-primary-text,
-                500: $dark-primary-text,
-                600: $dark-primary-text,
-                700: $dark-primary-text,
-                800: $dark-primary-text,
-                900: $dark-primary-text,
-                A100: $dark-primary-text,
-                A200: $dark-primary-text,
-                A400: $dark-primary-text,
-                A700: $dark-primary-text,
-        )
-);
-
-$primary: mat.define-palette($primary-palette, $theme-primary-hue, 500, 900);
-$accent: mat.define-palette($accent-palette, $theme-accent-hue);
-$warn: mat.define-palette($warn-palette, $theme-warn-hue);
-
-$config: mat.define-typography-config(
-        $font-family: 'Roboto, "Helvetica Neue", sans-serif',
-);
-
-$theme: mat.define-dark-theme((
-        color: (
-                primary: $primary,
-                accent: $accent,
-                warn: $warn
-        ),
-        typography: $config
-));
-
-
-@include mat.all-component-themes($theme);
-
-
-//TODO enable {p margin set to 0}
-//@include theming.angular-material-typography($config);
+$theme-ignore-duplication-warnings: true;
 
 @mixin mix-app-theme($theme) {
+  @include all-component-themes($theme);
+
+  $primary-button-contrast: mat-contrast(map-get($theme, primary), 500);
+  $accent-button-contrast: mat-contrast(map-get($theme, accent), 500);
+
   .mat-button-toggle-group {
     border-color: #fff !important;
   }
@@ -157,6 +27,33 @@ $theme: mat.define-dark-theme((
     border-color: #fff !important;
     color: rgba(0, 0, 0, 0.88) !important;
   }
+
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-filled-button-label-text-color: #{$primary-button-contrast};
+  }
+
+  .mat-mdc-unelevated-button.mat-accent {
+    --mdc-filled-button-label-text-color: #{$accent-button-contrast};
+  }
+
+  .mat-mdc-raised-button.mat-primary {
+    --mdc-protected-button-label-text-color: #{$primary-button-contrast};
+  }
+
+  .mat-mdc-raised-button.mat-accent {
+    --mdc-protected-button-label-text-color: #{$accent-button-contrast};
+  }
 }
 
-@include mix-app-theme($theme);
+.light {
+  @import "light";
+  @include mix-app-theme($theme);
+}
+
+.dark {
+  @import "dark";
+  @include mix-app-theme($theme);
+}
+
+//TODO enable {p margin set to 0}
+//@include theming.angular-material-typography($config);
