@@ -11,14 +11,14 @@ import {Data} from "../../../../../../../../../libs/common/ui-elements/src/lib/m
 @Component({
   selector: "app-stage1",
   templateUrl: "./signup-stage1.component.html",
-  styleUrls: ["./signup-stage1.component.scss"],
+  styleUrls: ["./signup-stage1.component.scss"]
 })
 export class SignupStage1Component implements OnInit {
   form = new FormGroup({
     name: new FormControl("", Validators.required),
-    studyPlaceId: new FormControl("", Validators.required),
+    studyPlaceID: new FormControl("", Validators.required),
     type: new FormControl("group", Validators.required),
-    typeName: new FormControl("", Validators.required),
+    typeName: new FormControl("", Validators.required)
   })
 
   studyPlaces$: Observable<Data<StudyPlace, string>[]>
@@ -27,7 +27,8 @@ export class SignupStage1Component implements OnInit {
     public userService: UserService,
     private generalService: GeneralService,
     public router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.studyPlaces$ = this.generalService.studyPlaces$.pipe(
@@ -43,7 +44,7 @@ export class SignupStage1Component implements OnInit {
 
   submit() {
     this.userService.signUpStage1(this.form.value).subscribe({
-      next: (_) => this.router.navigate([""]),
+      next: (_) => this.router.navigate([""])
     })
   }
 }

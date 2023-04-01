@@ -5,7 +5,7 @@
   </div>
   <ng-container *ngIf="studyPlaces$ | async as studyPlaces">
     <ui-floating-input class="top-group" controlName="name" label="user.login.name" />
-    <ui-floating-input controlName="studyPlaceId" label="user.login.studyPlace" [data]="studyPlaces" />
+    <ui-floating-input controlName="studyPlaceID" label="user.login.studyPlace" [data]="studyPlaces" />
     <ui-floating-select controlName="type" label="user.login.type" [data]="['group', 'teacher']" />
     <ui-floating-input controlName="typeName" label="user.login.typename" />
   </ng-container>

@@ -1,36 +1,29 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  TrackByFunction,
-} from "@angular/core"
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TrackByFunction} from "@angular/core"
 import {FormControl, FormGroupDirective} from "@angular/forms"
 import {FloatingContainerDirective} from "./floating-container.directive"
 import {Data} from "../models/selectData"
 
 @Component({
   selector: "ui-floating-select",
-  template: ` <mat-form-field appearance="outline">
+  template: `
+    <mat-form-field appearance="outline">
       <mat-select [id]="id" [formControl]="control">
         <mat-option *ngFor="let option of _data; trackBy: track" [value]="option.value">{{
           option.label
-        }}</mat-option>
+          }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <app-error-info *ngIf="showErrorMessage && control" [property]="control" />`,
   styles: [
     `
-      :host {
-        display: block;
-      }
-    `,
+        :host {
+            display: block;
+        }
+    `
   ],
   hostDirectives: [{directive: FloatingContainerDirective}],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FloatingSelectComponent<T, D> implements OnInit {
   @Input() label: string | null = null
@@ -50,7 +43,8 @@ export class FloatingSelectComponent<T, D> implements OnInit {
 
   track: TrackByFunction<any> = (i: number, v: Data<T, D>) => v.value
 
-  constructor(private formGroup: FormGroupDirective) {}
+  constructor(private formGroup: FormGroupDirective) {
+  }
 
   ngOnInit(): void {
     if (!!this.controlName) {

@@ -10,16 +10,17 @@ import {groupBy} from "apps/studyum/src/app/utils"
   selector: "hm-schdl-preview",
   templateUrl: "./preview.component.html",
   styleUrls: ["./preview.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewComponent implements OnInit {
   days$: Observable<Day[]>
 
-  constructor(private service: ScheduleService) {}
+  constructor(private service: ScheduleService) {
+  }
 
   ngOnInit(): void {
     const from = this.formatDate(moment())
-    const to = this.formatDate(moment().add(1, "day"))
+    const to = this.formatDate(moment().add(2, "day"))
     this.days$ = this.service.getScheduleRaw("", "", "", from, to).pipe(
       map((v) => {
         const cells = groupBy(v.lessons, (l) => l.startDate.format()).values()
@@ -28,7 +29,7 @@ export class PreviewComponent implements OnInit {
           (v) =>
             <Day>{
               date: v[1][0][0].startDate,
-              cells: v[1],
+              cells: v[1]
             }
         )
       })
