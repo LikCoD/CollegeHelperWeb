@@ -23,23 +23,23 @@ const appRoutes: Routes = [
 
   {
     path: "auth",
-    loadChildren: () => import("./modules/auth/auth.module").then((m) => m.AuthModule),
+    loadChildren: () => import("./modules/auth/auth.module").then((m) => m.AuthModule)
   },
 
   {
     path: "profile",
-    loadChildren: () => import("./modules/profile/profile.module").then((m) => m.ProfileModule),
+    loadChildren: () => import("./modules/profile/profile.module").then((m) => m.ProfileModule)
   },
 
   {
     path: "schedule",
-    loadChildren: () => import("./modules/schedule/schedule.module").then((m) => m.ScheduleModule),
+    loadChildren: () => import("./modules/schedule/schedule.module").then((m) => m.ScheduleModule)
   },
 
   {
     path: "journal",
-    loadChildren: () => import("./modules/journal/journal.module").then((m) => m.JournalModule),
-  },
+    loadChildren: () => import("./modules/journal/journal.module").then((m) => m.JournalModule)
+  }
 ]
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -57,20 +57,21 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
+        deps: [HttpClient]
+      }
     }),
     NgbModule,
     ThemeSelectorComponent,
     MatIconModule,
-    HomeModule,
+    HomeModule
   ],
   providers: [
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: MomentJsInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: MomentJsInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

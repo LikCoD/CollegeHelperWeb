@@ -1,6 +1,5 @@
 import * as moment from "moment"
 import {Absence, Mark} from "./journal"
-import {StudyPlace} from "./general"
 import {Point} from "../../modules/journal/services/journal.cell.service"
 
 export interface ScheduleTypes {
@@ -31,10 +30,10 @@ export interface Lesson {
 }
 
 export interface ScheduleInfo {
+  studyPlaceID: string
   type: string
   typeName: string
-  studyPlace: StudyPlace
-  startWeekDate: moment.Moment
+  startDate: moment.Moment
   date: moment.Moment
 
   indexes: number[]

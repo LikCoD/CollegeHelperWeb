@@ -20,7 +20,8 @@ export class ScheduleService {
   isTimeMode = true
   private scaleY_ = 1
 
-  constructor(private httpService: ScheduleHttpService) {}
+  constructor(private httpService: ScheduleHttpService) {
+  }
 
   get scaleY(): number {
     return this.scaleY_
@@ -44,7 +45,7 @@ export class ScheduleService {
   }
 
   getCellX(cell: Cell): number {
-    return cell.startDate.diff(this.schedule.info.startWeekDate, "days") * 200
+    return cell.startDate.diff(this.schedule.info.startDate, "days") * 200
   }
 
   getCellY(cell: Cell): number {
@@ -82,14 +83,14 @@ export class ScheduleService {
           lessons: [lesson],
           lessonIndex: lesson.lessonIndex,
           endDate: lesson.endDate!!,
-          startDate: lesson.startDate!!,
+          startDate: lesson.startDate!!
         })
       else cell.lessons.push(lesson)
 
       times.add(moment(lesson.startDate!!.format("HH:mm"), [moment.ISO_8601, "HH:mm"]))
       times.add(moment(lesson.endDate!!.format("HH:mm"), [moment.ISO_8601, "HH:mm"]))
 
-      let days = lesson.startDate!!.diff(schedule.info.startWeekDate, "days")
+      let days = lesson.startDate!!.diff(schedule.info.startDate, "days")
       if (daysNumber < days) daysNumber = days
 
       if (lesson.lessonIndex < minLessonIndex) minLessonIndex = lesson.lessonIndex
@@ -143,13 +144,15 @@ export class ScheduleService {
 
     schedule.cells = Array.from(cells.values())
 
+    console.log(schedule.info.daysNumber)
+
     this.schedule = schedule
     this.schedule$.next(schedule)
   }
 
   getSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
     this.httpService.getSchedule(type, name, studyPlaceID).subscribe({
-      next: (value) => this.initSchedule(value),
+      next: (value) => this.initSchedule(value)
     })
 
     return this.schedule$
@@ -167,7 +170,7 @@ export class ScheduleService {
 
   getGeneralSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
     this.httpService.getGeneralSchedule(type, name, studyPlaceID).subscribe({
-      next: (value) => this.initSchedule(value),
+      next: (value) => this.initSchedule(value)
     })
 
     return this.schedule$
@@ -209,7 +212,7 @@ export class ScheduleService {
   changeViewMode(isGeneral: boolean) {
     const type = this.schedule.info.type
     const typeName = this.schedule.info.typeName
-    const studyPlaceID = this.schedule.info.studyPlace.id
+    const studyPlaceID = this.schedule.info.studyPlaceID
 
     if (isGeneral) this.getGeneralSchedule(type, typeName, studyPlaceID)
     else this.getSchedule(type, typeName, studyPlaceID)

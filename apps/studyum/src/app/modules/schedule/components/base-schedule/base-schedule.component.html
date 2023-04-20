@@ -21,8 +21,10 @@
     </div>
   </ng-template>
 
-  <div class="weekdays-container">
-    <p *ngFor="let i of days" class="weekday">{{weekdays[i % 7]}}</p>
+  <div class="weekdays-container" *ngIf="schedule.info.startDate.clone() as counter">
+    <p *ngFor="let i of days" class="weekday">
+      {{counter.add(i > 0 ? 1 : 0, 'days') | moment: "MMM DD dddd"}}
+    </p>
   </div>
   <div class="lessons-container">
     <schdl-cell

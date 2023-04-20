@@ -71,7 +71,7 @@ app-root {
     display: none;
   }
 
-  > :last-child {
+  > :nth-last-child(2) {
     flex-grow: 1;
     overflow: auto;
 

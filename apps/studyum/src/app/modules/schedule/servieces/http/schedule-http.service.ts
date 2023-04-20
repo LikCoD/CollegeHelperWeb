@@ -7,7 +7,8 @@ import {Lesson, Schedule, ScheduleTypes} from "../../../../shared/models/schedul
 export class ScheduleHttpService {
   API_PATH = "/api"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getSchedule(
     type: string,

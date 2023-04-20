@@ -1,19 +1,17 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core"
 import {Cell, Lesson, Schedule} from "../../../../shared/models/schedule"
 import {ScheduleService} from "../../servieces/schedule.service"
-import * as moment from "moment/moment"
 import {DialogService} from "../../../../shared/services/ui/dialog.service"
 
 @Component({
   selector: "app-base-schedule",
   templateUrl: "./base-schedule.component.html",
-  styleUrls: ["./base-schedule.component.scss"],
+  styleUrls: ["./base-schedule.component.scss"]
 })
 export class BaseScheduleComponent implements OnInit {
   @Input() schedule: Schedule
   @Input() isEditMode: boolean
 
-  weekdays: string[]
   days: number[]
 
   multiSelect: boolean
@@ -25,14 +23,10 @@ export class BaseScheduleComponent implements OnInit {
   @ViewChild("manageSubjectTemplate", {static: true})
   manageSubjectRef: ElementRef
 
-  constructor(public scheduleService: ScheduleService, private dialog: DialogService) {}
+  constructor(public scheduleService: ScheduleService, private dialog: DialogService) {
+  }
 
   ngOnInit(): void {
-    this.weekdays = moment
-      .weekdays()
-      .map((value) => value.charAt(0).toUpperCase() + value.substring(1))
-    this.weekdays = [...this.weekdays.slice(1), this.weekdays[0]]
-
     this.days = new Array(this.schedule.info.daysNumber).fill(0).map((_, i) => i)
   }
 
@@ -46,7 +40,7 @@ export class BaseScheduleComponent implements OnInit {
     if (cell.lessons.length === 1) return callback(cell.lessons)
 
     this.dialog.open<Lesson[]>(this.selectSubjectRef).subscribe({
-      next: (value) => callback(value),
+      next: (value) => callback(value)
     })
   }
 
@@ -58,7 +52,7 @@ export class BaseScheduleComponent implements OnInit {
     if (!lessons[0]) return
     this.selectedLesson = lessons[0]
     this.dialog.open<Lesson>(this.manageSubjectRef).subscribe({
-      next: (lesson) => this.scheduleService.editLesson(lesson),
+      next: (lesson) => this.scheduleService.editLesson(lesson)
     })
   }
 }

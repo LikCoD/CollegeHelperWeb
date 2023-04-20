@@ -19,7 +19,7 @@
         #studyPlaceInput
         uiInput
         list="studyPlaces"
-        [value]="studyPlace?.name ?? ''"
+        [value]="studyPlace ?? ''"
         [placeholder]="'schedule.find.studyPlace' | translate"
         (change)="changeStudyPlace(studyPlaces, studyPlaceInput)">
     </div>

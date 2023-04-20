@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
-} from "@angular/core"
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core"
 import {User} from "../../../../../apps/studyum/src/app/shared/models/user"
 import {BehaviorSubject, Observable} from "rxjs"
 import {StudyPlace} from "../../../../../apps/studyum/src/app/shared/models/general"
@@ -21,7 +13,7 @@ import {ScheduleService} from "../../../../../apps/studyum/src/app/modules/sched
   selector: "schdl-top-bar",
   templateUrl: "./top-bar.component.html",
   styleUrls: ["./top-bar.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopBarComponent {
   @ViewChild("studyPlaceInput") studyPlaceRef: ElementRef<HTMLInputElement>
@@ -44,13 +36,13 @@ export class TopBarComponent {
   user: User | undefined
 
   studyPlaces$: Observable<StudyPlace[]>
-  studyPlace$ = new BehaviorSubject<StudyPlace | null>(null)
+  studyPlace$ = new BehaviorSubject<string | null>(null)
   findItems$: Observable<ScheduleTypes>
 
   findForm = new FormGroup({
     studyPlaceID: new FormControl(""),
     type: new FormControl("group", Validators.required),
-    name: new FormControl("", Validators.required),
+    name: new FormControl("", Validators.required)
   })
 
   constructor(
@@ -65,18 +57,18 @@ export class TopBarComponent {
   ngOnInit(): void {
     this.studyPlaces$ = this.generalService.getNotRestrictedStudyPlaces()
     this.userService.user$.subscribe({
-      next: (value) => (this.user = value),
+      next: (value) => (this.user = value)
     })
 
     this.scheduleService.schedule$.subscribe({
       next: (value) => {
         const info = value.info
-        this.findForm.get("studyPlaceID")!.setValue(info.studyPlace.id)
+        this.findForm.get("studyPlaceID")!.setValue(info.studyPlaceID)
         this.findForm.get("type")!.setValue(info.type)
         this.findForm.get("name")!.setValue(info.typeName)
 
-        this.studyPlace$.next(info.studyPlace)
-      },
+        this.studyPlace$.next(info.studyPlaceID)
+      }
     })
   }
 
