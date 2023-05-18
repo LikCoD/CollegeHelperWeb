@@ -8,6 +8,7 @@ import {Router} from "@angular/router"
 import {UserService} from "../../../../../apps/studyum/src/app/shared/services/core/user.service"
 import {GeneralService} from "../../../../../apps/studyum/src/app/shared/services/core/general.service"
 import {ScheduleService} from "../../../../../apps/studyum/src/app/modules/schedule/servieces/schedule.service"
+import * as moment from "moment"
 
 @Component({
   selector: "schdl-top-bar",
@@ -22,6 +23,7 @@ export class TopBarComponent {
   @Input() maxScale: number
   @Input() preferredMaxScale: number
 
+  @Output() rangeSelect = new EventEmitter<{from: moment.Moment, till: moment.Moment}>()
   @Output() editMode = new EventEmitter<boolean>()
   @Output() scale = new EventEmitter<number>()
   @Output() generalViewMode = new EventEmitter<boolean>()
@@ -38,6 +40,11 @@ export class TopBarComponent {
   studyPlaces$: Observable<StudyPlace[]>
   studyPlace$ = new BehaviorSubject<string | null>(null)
   findItems$: Observable<ScheduleTypes>
+
+  rangeForm = new FormGroup({
+    from: new FormControl("", Validators.required),
+    till: new FormControl("", Validators.required)
+  })
 
   findForm = new FormGroup({
     studyPlaceID: new FormControl(""),
@@ -62,12 +69,17 @@ export class TopBarComponent {
 
     this.scheduleService.schedule$.subscribe({
       next: (value) => {
+        if (!value) return
+
         const info = value.info
         this.findForm.get("studyPlaceID")!.setValue(info.studyPlaceID)
         this.findForm.get("type")!.setValue(info.type)
         this.findForm.get("name")!.setValue(info.typeName)
 
         this.studyPlace$.next(info.studyPlaceID)
+
+        this.rangeForm.get("from")!.setValue(info.startDate.toISOString())
+        this.rangeForm.get("till")!.setValue(info.endDate.toISOString())
       }
     })
   }
@@ -116,17 +128,26 @@ export class TopBarComponent {
     this.router.navigate(["schedule"], {queryParams: this.findForm.value})
   }
 
-  toggleViewMode() {
+  toggleViewMode(): void {
     this.isGeneralMode = !this.isGeneralMode
     this.generalViewMode.emit(this.isGeneralMode)
   }
 
-  toggleTime() {
+  toggleTime(): void {
     this.isTimeMode = !this.isTimeMode
     this.timeViewMode.emit(this.isTimeMode)
   }
 
-  toggleSearch() {
+  toggleSearch(): void {
     this.isSearchMode = !this.isSearchMode
+  }
+
+  range(): void {
+    if (!this.rangeForm.valid) return
+
+    const from = moment.utc(this.rangeForm.value.from)
+    const till = moment.utc(this.rangeForm.value.till)
+
+    this.rangeSelect.emit({from, till})
   }
 }

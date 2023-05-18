@@ -46,3 +46,21 @@ button[type=submit] {
   background-repeat: no-repeat;
   background-image: url("../../../../../apps/studyum/src/assets/search.svg");
 }
+
+mat-date-range-input input {
+  color: white;
+}
+
+:host::ng-deep.mat-mdc-form-field-bottom-align {
+  display: none;
+}
+
+.actions > {
+  & mat-button-toggle-group, & mat-button-toggle, & mat-form-field {
+    margin-top: 6px;
+  }
+}
+
+mat-button-toggle {
+  display: flex;
+}

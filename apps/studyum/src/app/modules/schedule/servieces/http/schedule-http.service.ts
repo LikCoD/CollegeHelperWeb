@@ -17,11 +17,11 @@ export class ScheduleHttpService {
     from: string | null = null,
     to: string | null = null
   ): Observable<Schedule> {
-    let url = `${type}/${name}?studyPlaceID=${studyPlaceID}`
-    if (!type || !name) url = ""
+    let url = `${type}/${name}?studyPlaceID=${studyPlaceID}&`
+    if (!type || !name) url = "?"
 
     return this.http.get<Schedule>(
-      `${this.API_PATH}/schedule/${url}?startDate=${from}&endDate=${to}`
+      `${this.API_PATH}/schedule/${url}startDate=${from}&endDate=${to}`
     )
   }
 

@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core"
 import * as moment from "moment"
 import * as Collections from "typescript-collections"
-import {Observable, Subject} from "rxjs"
+import {BehaviorSubject, filter, map, Observable, Subject} from "rxjs"
 import {Cell, Lesson, Schedule, ScheduleTypes} from "../../../shared/models/schedule"
 import {ScheduleHttpService} from "./http/schedule-http.service"
 
 @Injectable({providedIn: "root"})
 export class ScheduleService {
-  schedule$ = new Subject<Schedule>()
+  schedule$ = new BehaviorSubject<Schedule | undefined>(undefined)
   scale$ = new Subject<number>()
   timeViewMode$ = new Subject<boolean>()
 
@@ -65,7 +65,6 @@ export class ScheduleService {
   initSchedule(schedule: Schedule) {
     let cells = new Map<string, Cell>()
 
-    let indexes: number[] = []
     let minLessonIndex = Number.MAX_VALUE
     let maxLessonIndex = Number.MIN_VALUE
 
@@ -144,18 +143,16 @@ export class ScheduleService {
 
     schedule.cells = Array.from(cells.values())
 
-    console.log(schedule.info.daysNumber)
-
     this.schedule = schedule
     this.schedule$.next(schedule)
   }
 
-  getSchedule(type: string, name: string, studyPlaceID: string): Observable<Schedule> {
-    this.httpService.getSchedule(type, name, studyPlaceID).subscribe({
+  getSchedule(type: string, name: string, studyPlaceID: string, from?: string, to?: string): Observable<Schedule> {
+    this.httpService.getSchedule(type, name, studyPlaceID, from, to).subscribe({
       next: (value) => this.initSchedule(value)
     })
 
-    return this.schedule$
+    return this.schedule$.pipe(filter(v => !!v), map(v => v!))
   }
 
   getScheduleRaw(
@@ -173,7 +170,7 @@ export class ScheduleService {
       next: (value) => this.initSchedule(value)
     })
 
-    return this.schedule$
+    return this.schedule$.pipe(filter(v => !!v), map(v => v!))
   }
 
   addLesson(lesson: Lesson) {

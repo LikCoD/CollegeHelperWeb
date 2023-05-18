@@ -1,4 +1,14 @@
 <div class="actions">
+  <mat-form-field appearance="outline">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker" [formGroup]="rangeForm">
+      <input matStartDate formControlName="from" placeholder="Start date">
+      <input matEndDate formControlName="till" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker (closed)="range()"></mat-date-range-picker>
+  </mat-form-field>
+
   <mat-button-toggle-group multiple>
     <mat-button-toggle *ngIf="canEdit()"
                        (change)="toggleEdit()">{{'schedule.view.edit' | translate}}</mat-button-toggle>
@@ -9,6 +19,7 @@
   </mat-button-toggle-group>
 
   <mat-button-toggle (change)="toggleSearch()">{{'schedule.view.search' | translate}}</mat-button-toggle>
+
 </div>
 
 <ng-container *ngIf="isSearchMode">

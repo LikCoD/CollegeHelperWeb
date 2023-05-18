@@ -34,6 +34,7 @@ export interface ScheduleInfo {
   type: string
   typeName: string
   startDate: moment.Moment
+  endDate: moment.Moment
   date: moment.Moment
 
   indexes: number[]
