@@ -17,7 +17,7 @@ export class UserService {
       },
       error: (_) => {
         this.user$.next(undefined)
-      },
+      }
     })
   }
 
@@ -51,7 +51,7 @@ export class UserService {
     this.httpService.updateUser(data).subscribe({
       next: (value) => {
         this.user$.next(value)
-      },
+      }
     })
   }
 
@@ -105,7 +105,7 @@ export class UserService {
           next: (u) => {
             u!.verifiedEmail = true
             this.user$.next(u)
-          },
+          }
         })
       )
     )

@@ -3,6 +3,7 @@
   <ui-floating-input controlName="name" label="user.create.name" />
   <ui-floating-select controlName="type" label="user.create.name" [data]="['group', 'teacher']" />
   <ui-floating-input controlName="typeName" label="user.create.typename" />
+  <ui-floating-input controlName="password" label="user.create.password" />
 
   <button type="submit" mat-stroked-button color="primary"
           [disabled]="!form.valid">{{'user.create.confirm' | translate}}</button>

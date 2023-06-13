@@ -5,7 +5,7 @@ import {UserService} from "../../../../shared/services/core/user.service"
 @Component({
   selector: "app-create-code-user",
   templateUrl: "./create-code-user.component.html",
-  styleUrls: ["./create-code-user.component.scss"],
+  styleUrls: ["./create-code-user.component.scss"]
 })
 export class CreateCodeUserComponent {
   form = new FormGroup({
@@ -13,9 +13,11 @@ export class CreateCodeUserComponent {
     name: new FormControl("", Validators.required),
     type: new FormControl("group", Validators.required),
     typeName: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.minLength(8))
   })
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   submit() {
     this.userService.createCode(this.form.value).subscribe({
@@ -27,7 +29,7 @@ export class CreateCodeUserComponent {
 
         this.form.get("type")?.setValue(type ?? "")
         this.form.get("typeName")?.setValue(typeName ?? "")
-      },
+      }
     })
   }
 }
