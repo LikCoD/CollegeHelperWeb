@@ -1,5 +1,5 @@
 #stage 1
-FROM node:latest as node
+FROM node:lts as node
 WORKDIR /app
 COPY . .
 COPY package.json .
