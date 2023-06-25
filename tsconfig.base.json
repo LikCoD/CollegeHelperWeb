@@ -19,44 +19,20 @@
     "skipLibCheck": true,
     "target": "es2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "paths": {
-      "@common/auto-color": [
-        "libs/auto-color/src/index.ts"
-      ],
-      "@common/modals": [
-        "libs/common/modals/src/index.ts"
-      ],
-      "@common/ui-elements": [
-        "libs/common/ui-elements/src/index.ts"
-      ],
-      "@schedule/action-bar": [
-        "libs/schedule/action-bar/src/index.ts"
-      ],
-      "home/cards": [
-        "libs/home/cards/src/index.ts"
-      ],
-      "home/schedule": [
-        "libs/home/schedule/src/index.ts"
-      ],
-      "journal/card": [
-        "libs/journal/card/src/index.ts"
-      ],
-      "profile/card": [
-        "libs/profile/card/src/index.ts"
-      ],
-      "schedule/cell": [
-        "libs/schedule/cell/src/index.ts"
-      ],
-      "schedule/lesson": [
-        "libs/schedule/lesson/src/index.ts"
-      ],
-      "user/card": [
-        "libs/user/card/src/index.ts"
-      ]
+      "@common/auto-color": ["libs/auto-color/src/index.ts"],
+      "@common/modals": ["libs/common/modals/src/index.ts"],
+      "@common/ui-elements": ["libs/common/ui-elements/src/index.ts"],
+      "@schedule/action-bar": ["libs/schedule/action-bar/src/index.ts"],
+      "common/jwt-http": ["libs/common/jwt-http/src/index.ts"],
+      "home/cards": ["libs/home/cards/src/index.ts"],
+      "home/schedule": ["libs/home/schedule/src/index.ts"],
+      "journal/card": ["libs/journal/card/src/index.ts"],
+      "profile/card": ["libs/profile/card/src/index.ts"],
+      "schedule/cell": ["libs/schedule/cell/src/index.ts"],
+      "schedule/lesson": ["libs/schedule/lesson/src/index.ts"],
+      "user/card": ["libs/user/card/src/index.ts"]
     },
     "rootDir": "."
   },
@@ -65,8 +41,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

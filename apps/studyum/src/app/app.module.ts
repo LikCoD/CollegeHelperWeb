@@ -1,6 +1,12 @@
 import {NgModule} from "@angular/core"
 import {BrowserModule} from "@angular/platform-browser"
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http"
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors
+} from "@angular/common/http"
 import {RouterModule, Routes, TitleStrategy} from "@angular/router"
 import {AppComponent} from "./app.component"
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
@@ -17,6 +23,7 @@ import {ToastComponent} from "./shared/components/toast/toast.component"
 import {ThemeSelectorComponent} from "../../../../libs/common/theme-selector/theme-selector.component"
 import {MatIconModule} from "@angular/material/icon"
 import {HomeModule} from "./modules/home/home.module"
+import {jwtInterceptor} from "../../../../libs/common/jwt-http/src/lib/jwt.interceptor"
 
 const appRoutes: Routes = [
   {title: "Studyum", path: "", component: HomeComponent},
@@ -69,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     {provide: TitleStrategy, useClass: HeaderTitleStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: MomentJsInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: MomentJsInterceptor, multi: true},
+    provideHttpClient(withInterceptors([jwtInterceptor]))
   ],
   bootstrap: [AppComponent]
 })
