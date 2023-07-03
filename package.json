@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "nx",
-    "start": "nx serve --proxy-config=api.proxy.json --host=0.0.0.0 --disable-host-check --ssl",
-    "startProdProxy": "nx serve --proxy-config=api.proxy.prod.json --host=0.0.0.0 --disable-host-check --ssl",
+    "start": "nx serve --proxy-config=api.proxy.json --host=0.0.0.0 --disable-host-check",
+    "startProdProxy": "nx serve --proxy-config=api.proxy.prod.json --host=0.0.0.0 --disable-host-check",
     "build": "nx build",
     "watch": "nx build --watch --configuration development"
   },
