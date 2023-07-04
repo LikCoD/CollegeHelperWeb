@@ -1,33 +1,35 @@
-import {Component} from "@angular/core"
-import {UserService} from "../../../../shared/services/core/user.service"
-import {User} from "../../../../shared/models/user"
+import {Component, OnInit} from "@angular/core"
+import {JwtService} from "../../../../../../../../libs/common/jwt-http/src/lib/jwt.service"
 import {Observable} from "rxjs"
 import {Card} from "../../../../../../../../libs/home/cards/src/lib/models"
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  styleUrls: ["./home.component.scss"]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   cards: Card[] = [
     {
       title: "header.schedule",
       url: "assets/schedule-gray.svg",
       route: "schedule",
-      permissions: undefined,
+      permissions: undefined
     },
     {
       title: "header.journal",
       url: "assets/journal-gray.svg",
       route: "journal",
-      permissions: [],
-    },
+      permissions: []
+    }
   ]
 
-  user$: Observable<User | undefined>
+  user$: Observable<any>
 
-  constructor(public userService: UserService) {
-    this.user$ = this.userService.user$
+  constructor(public jwtService: JwtService) {
+  }
+
+  ngOnInit(): void {
+    this.user$ = this.jwtService.userPreview$
   }
 }

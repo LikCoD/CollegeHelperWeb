@@ -48,7 +48,7 @@ export class TopBarComponent {
 
   findForm = new FormGroup({
     studyPlaceID: new FormControl(""),
-    type: new FormControl("group", Validators.required),
+    role: new FormControl("group", Validators.required),
     name: new FormControl("", Validators.required)
   })
 
@@ -73,7 +73,7 @@ export class TopBarComponent {
 
         const info = value.info
         this.findForm.get("studyPlaceID")!.setValue(info.studyPlaceID)
-        this.findForm.get("type")!.setValue(info.type)
+        this.findForm.get("role")!.setValue(info.type)
         this.findForm.get("name")!.setValue(info.typeName)
 
         this.studyPlace$.next(info.studyPlaceID)
@@ -97,8 +97,8 @@ export class TopBarComponent {
 
   canEdit(): boolean {
     return (
-      !!this.user?.permissions &&
-      this.user.permissions.findIndex((value) => value === "editSchedule") != -1
+      !!this.user?.studyPlaceInfo?.permissions &&
+      this.user.studyPlaceInfo?.permissions.findIndex((value) => value === "editSchedule") != -1
     )
   }
 

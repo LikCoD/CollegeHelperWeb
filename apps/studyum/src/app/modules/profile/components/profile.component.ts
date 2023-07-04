@@ -7,12 +7,13 @@ import {Router} from "@angular/router"
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.scss"],
+  styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent implements OnInit {
   user$: Observable<User | undefined>
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.user$ = this.userService.getUser()
@@ -20,16 +21,16 @@ export class ProfileComponent implements OnInit {
 
   revoke() {
     this.userService.terminateAllSessions().subscribe({
-      next: (_) => this.router.navigate([""]).then(),
+      next: (_) => this.router.navigate([""]).then()
     })
   }
 
   signOut() {
     this.userService.signOut().subscribe({
-      next: (_) => this.router.navigate([""]).then(),
+      next: (_) => this.router.navigate([""]).then()
     })
   }
 
   hasPermission = (user: User, permission: string) =>
-    !!user?.permissions?.find((p) => p === permission)
+    !!user?.studyPlaceInfo?.permissions?.find((p) => p === permission)
 }

@@ -8,11 +8,11 @@ import {SymbolInputComponent} from "../../../../../../../../../libs/common/ui-el
 @Component({
   selector: "app-email-verification",
   templateUrl: "./email-verification.component.html",
-  styleUrls: ["./email-verification.component.scss"],
+  styleUrls: ["./email-verification.component.scss"]
 })
 export class EmailVerificationComponent implements AfterViewInit {
   form = new FormGroup({
-    code: new FormControl(""),
+    code: new FormControl("")
   })
 
   @ViewChild("code") codeRef: SymbolInputComponent
@@ -22,11 +22,12 @@ export class EmailVerificationComponent implements AfterViewInit {
     private toastService: ToastService,
     private router: Router,
     private activeRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.activeRoute.queryParams.subscribe({
-      next: (params) => (this.codeRef.value = params["code"] ?? ""),
+      next: (params) => (this.codeRef.value = params["code"] ?? "")
     })
   }
 
@@ -34,14 +35,14 @@ export class EmailVerificationComponent implements AfterViewInit {
     this.service.confirmEmail(this.form.value).subscribe({
       next: (_) =>
         this.service.user$.subscribe({
-          next: (user) => this.router.navigate([!user?.type ? "auth/signup/stage1" : "/"]),
-        }),
+          next: (user) => this.router.navigate([!user?.studyPlaceInfo ? "auth/signup/stage1" : "/"])
+        })
     })
   }
 
   resendCode(): void {
     this.service.resendEmailCode().subscribe({
-      next: (_) => this.toastService.showInfo("Email send successfully"),
+      next: (_) => this.toastService.showInfo("Email send successfully")
     })
   }
 }

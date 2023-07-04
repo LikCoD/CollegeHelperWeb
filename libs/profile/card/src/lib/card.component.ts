@@ -5,7 +5,7 @@ import {User} from "../../../../../apps/studyum/src/app/shared/models/user"
   selector: "prfl-card",
   templateUrl: "./card.component.html",
   styleUrls: ["./card.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
   @Input() user: User
@@ -19,13 +19,13 @@ export class CardComponent {
       warnings.push({
         message: "Email not verified",
         routerLink: "/auth/email/verification",
-        color: "#FF4B4B",
+        color: "#FF4B4B"
       })
-    if (!this.user.type)
+    if (!this.user.studyPlaceInfo)
       warnings.push({
         message: "You're not a member",
         routerLink: "/auth/signup/stage1",
-        color: "#FF4B4B",
+        color: "#FF4B4B"
       })
 
     return warnings

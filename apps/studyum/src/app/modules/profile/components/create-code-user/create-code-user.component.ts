@@ -11,8 +11,8 @@ export class CreateCodeUserComponent {
   form = new FormGroup({
     code: new FormControl("", Validators.required),
     name: new FormControl("", Validators.required),
-    type: new FormControl("group", Validators.required),
-    typeName: new FormControl("", Validators.required),
+    role: new FormControl("group", Validators.required),
+    roleName: new FormControl("", Validators.required),
     password: new FormControl("", Validators.minLength(8))
   })
 
@@ -22,13 +22,13 @@ export class CreateCodeUserComponent {
   submit() {
     this.userService.createCode(this.form.value).subscribe({
       next: (_) => {
-        let type = this.form.get("type")?.value
-        let typeName = this.form.get("typeName")?.value
+        let role = this.form.get("role")?.value
+        let roleName = this.form.get("roleName")?.value
 
         this.form.reset()
 
-        this.form.get("type")?.setValue(type ?? "")
-        this.form.get("typeName")?.setValue(typeName ?? "")
+        this.form.get("role")?.setValue(role ?? "")
+        this.form.get("roleName")?.setValue(roleName ?? "")
       }
     })
   }

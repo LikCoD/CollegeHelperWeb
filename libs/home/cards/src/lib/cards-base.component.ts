@@ -4,7 +4,7 @@ import {User} from "../../../../../apps/studyum/src/app/shared/models/user"
 
 @Component({
   template: "",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardsBaseComponent {
   @Input() cards: Card[]
@@ -15,7 +15,7 @@ export class CardsBaseComponent {
     if (this.user == undefined) return false
 
     for (let permission of permissions)
-      if (this.user?.permissions.findIndex((p) => p == permission) == -1) return false
+      if (this.user?.studyPlaceInfo?.permissions.findIndex((p) => p == permission) == -1) return false
 
     return true
   }

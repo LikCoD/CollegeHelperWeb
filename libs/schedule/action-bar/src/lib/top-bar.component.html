@@ -39,7 +39,7 @@
     </datalist>
 
     <div uiGroupContainer uiGroupContainerSmall *ngIf="findItems$ | async as items">
-      <select #itemTypeSelect uiSelect formControlName="type">
+      <select #itemTypeSelect uiSelect formControlName="role">
         <option value="group">{{'schedule.find.group' | translate}}</option>
         <option value="teacher">{{'schedule.find.teacher' | translate}}</option>
         <option value="subject">{{'schedule.find.subject' | translate}}</option>

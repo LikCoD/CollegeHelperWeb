@@ -5,10 +5,11 @@ import {UserService} from "../services/core/user.service"
 import {User} from "../models/user"
 
 @Injectable({
-  providedIn: "root",
+  providedIn: "root"
 })
 export class SignupStage1Guard implements CanActivate {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -18,7 +19,7 @@ export class SignupStage1Guard implements CanActivate {
       map((user?: User) => {
         if (user == undefined) return false
 
-        return user.type == ""
+        return user.studyPlaceInfo?.role == ""
       })
     )
   }

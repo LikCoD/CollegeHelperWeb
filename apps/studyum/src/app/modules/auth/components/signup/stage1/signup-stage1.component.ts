@@ -17,7 +17,7 @@ export class SignupStage1Component implements OnInit {
   form = new FormGroup({
     name: new FormControl("", Validators.required),
     studyPlaceID: new FormControl("", Validators.required),
-    type: new FormControl("group", Validators.required),
+    role: new FormControl("group", Validators.required),
     typeName: new FormControl("", Validators.required)
   })
 
@@ -37,8 +37,8 @@ export class SignupStage1Component implements OnInit {
   }
 
   selectType(user: User) {
-    if (this.form.get("type")?.value == "teacher") {
-      this.form.get("typeName")?.setValue(user.name)
+    if (this.form.get("role")?.value == "teacher") {
+      this.form.get("typeName")?.setValue(user.studyPlaceInfo?.name ?? "")
     }
   }
 

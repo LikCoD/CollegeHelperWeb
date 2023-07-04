@@ -1,24 +1,25 @@
 export interface User {
   id: string,
-  email: string
   login: string
-  name: string
-  type: string
-  typeName: string
-  studyPlaceId: string
-  password: string
-  passwordRepeat: string
-  studyPlace: string,
+  picture: string,
+  email: string
+  verifiedEmail: boolean,
+  studyPlaceInfo?: UserStudyPlaceInfo,
+}
+
+export interface UserStudyPlaceInfo {
+  id: string,
+  name: string,
+  role: string,
+  roleName: string,
   permissions: string[],
   accepted: boolean,
-  verifiedEmail: boolean,
-  picture: string,
 }
 
 
 export interface AcceptUser {
   id: string,
   name: string
-  type: string
-  typename: string
+  role: string
+  roleName: string
 }

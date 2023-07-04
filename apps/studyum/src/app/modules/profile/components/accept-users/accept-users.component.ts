@@ -6,36 +6,37 @@ import {UserService} from "../../../../shared/services/core/user.service"
 @Component({
   selector: "app-accept-users",
   templateUrl: "./accept-users.component.html",
-  styleUrls: ["./accept-users.component.scss"],
+  styleUrls: ["./accept-users.component.scss"]
 })
 export class AcceptUsersComponent implements OnInit {
   acceptUsers$: Observable<AcceptUser[]>
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.acceptUsers$ = this.userService.getAcceptUsers()
   }
 
   buildUser(user: AcceptUser) {
-    let type = ""
-    switch (user.type) {
+    let role = ""
+    switch (user.role) {
       case "group":
-        type = user.typename
+        role = user.roleName
         break
       case "teacher":
-        type = "Teacher"
+        role = "Teacher"
         break
     }
 
-    return `${user.name} ${type}`
+    return `${user.name} ${role}`
   }
 
   acceptUser(users: AcceptUser[], id: string) {
     this.userService.acceptUser(id).subscribe({
       next: (_) => {
         users.splice(users.findIndex((u) => u.id == id))
-      },
+      }
     })
   }
 
@@ -43,7 +44,7 @@ export class AcceptUsersComponent implements OnInit {
     this.userService.blockUser(id).subscribe({
       next: (_) => {
         users.splice(users.findIndex((u) => u.id == id))
-      },
+      }
     })
   }
 }

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core"
-import {BehaviorSubject, finalize, Observable} from "rxjs"
+import {BehaviorSubject, finalize, map, Observable} from "rxjs"
 import jwtDecode from "jwt-decode"
-import {Data} from "./jwt.models"
+import {Data, UserPreview} from "./jwt.models"
 import * as moment from "moment"
 import {HttpClient, HttpResponse} from "@angular/common/http"
 
@@ -20,7 +20,7 @@ export class JwtService {
 
   set access(value: string) {
     localStorage.setItem(JwtService.ACCESS_TOKEN_NAME, value)
-    this._data = this.decode()
+    this._data$.next(this.decode())
   }
 
   get refresh() {
@@ -44,11 +44,14 @@ export class JwtService {
   }
 
   get data(): Data | null {
-    return this._data
+    return this._data$.value
+  }
+
+  get userPreview$(): Observable<UserPreview | null> {
+    return this._data$.pipe(map(v => v?.claims ?? null))
   }
 
   constructor(private http: HttpClient) {
-    this._data = this.decode()
   }
 
   removeTokens(): void {
@@ -82,7 +85,7 @@ export class JwtService {
   }
 
   private _updating$ = new BehaviorSubject<boolean>(false)
-  private _data: Data | null
+  private _data$ = new BehaviorSubject<Data | null>(this.decode())
 
   private decode(): Data | null {
     try {
