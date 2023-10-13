@@ -8,6 +8,6 @@ RUN npm install -f
 RUN npm run build --omit=dev
 #stage 2
 FROM nginx:latest
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=node  /app/dist/apps/studyum /usr/share/nginx/html
+COPY deploy/nginx.conf /etc/nginx/nginx.conf
+COPY --from=node  /app/dist/studyum /usr/share/nginx/html
 
