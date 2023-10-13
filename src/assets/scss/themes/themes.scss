@@ -1,0 +1,66 @@
+@import "dark";
+@import "light";
+
+@import "actions";
+
+$theme-map: null;
+
+$primaryColor: null;
+$secondaryColor: null;
+$backgroundColor: null;
+$secondaryBackgroundColor: null;
+$onPrimaryColor: null;
+$onSecondaryColor: null;
+$onBackgroundColor: null;
+$onSecondaryBackgroundColor: null;
+$skeletonColor: null;
+$skeletonIndicatorColor: null;
+$skeletonPrimaryColor: null;
+$skeletonPrimaryIndicatorColor: null;
+$onEmpty: null;
+$onError: null;
+
+//the last would be default (without '@include theme()')
+$themes: (
+  light: $light,
+  dark: $dark,
+);
+
+@mixin theme {
+  @each $theme, $map in $themes {
+    $theme-map: $map !global;
+
+    $primaryColor: theme-get("primaryColor") !global;
+    $secondaryColor: theme-get("secondaryColor") !global;
+    $backgroundColor: theme-get("backgroundColor") !global;
+    $secondaryBackgroundColor: theme-get("secondaryBackgroundColor") !global;
+    $onPrimaryColor: theme-get("onPrimaryColor") !global;
+    $onSecondaryColor: theme-get("onSecondaryColor") !global;
+    $onBackgroundColor: theme-get("onBackgroundColor") !global;
+    $onSecondaryBackgroundColor: theme-get("onSecondaryBackgroundColor") !global;
+    $skeletonColor: theme-get("skeletonColor") !global;
+    $skeletonIndicatorColor: theme-get("skeletonIndicatorColor") !global;
+    $skeletonPrimaryColor: theme-get("skeletonPrimaryColor") !global;
+    $skeletonPrimaryIndicatorColor: theme-get("skeletonPrimaryIndicatorColor") !global;
+    $onEmpty: theme-get("onEmpty") !global;
+    $onError: theme-get("onError") !global;
+
+    @if (theme-get("_default")) {
+      & {
+        @content;
+      }
+    } @else {
+      &.#{$theme} {
+        @content;
+      }
+
+      :host-context(.#{$theme}) & {
+        @content;
+      }
+    }
+  }
+}
+
+@function theme-get($key) {
+  @return map-get($theme-map, $key);
+}

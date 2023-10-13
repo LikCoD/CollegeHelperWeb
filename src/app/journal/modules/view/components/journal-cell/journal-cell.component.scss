@@ -1,0 +1,53 @@
+@import "indents";
+@import "themes";
+
+:host {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: $borderRadius2;
+  background-color: white;
+  color: black;
+}
+
+:host.empty {
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+  }
+}
+
+.mark2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $indent1 $indent1 + $indentHalf;
+  height: 100%;
+  width: 100%;
+
+  p2 {
+    text-align: center;
+    display: flex;
+    width: 100%;
+
+    &:first-child {
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+  }
+
+  hr {
+    transform: rotate(-45deg);
+    height: 1px;
+    background-color: currentColor;
+    border: none;
+    margin: 0;
+    opacity: 1;
+  }
+}

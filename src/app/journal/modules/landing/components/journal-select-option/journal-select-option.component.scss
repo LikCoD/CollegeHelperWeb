@@ -1,0 +1,23 @@
+@import "themes";
+@import "indents";
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: $indent1;
+  padding: $indent2 $indent3;
+  border-radius: $borderRadius1;
+
+  @include theme {
+    @include clickable($secondaryBackgroundColor);
+    color: $onSecondaryBackgroundColor;
+  }
+
+  p1 {
+    width: 100%;
+  }
+
+  icon {
+    min-width: fit-content;
+  }
+}

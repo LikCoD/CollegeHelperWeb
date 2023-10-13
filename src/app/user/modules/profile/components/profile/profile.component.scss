@@ -1,0 +1,7 @@
+@import "indents";
+
+:host {
+  display: flex;
+  gap: $indent3;
+  margin: $indent2;
+}

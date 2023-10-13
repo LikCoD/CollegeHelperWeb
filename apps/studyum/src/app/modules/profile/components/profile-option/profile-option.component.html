@@ -1,8 +1,0 @@
-<div (click)="itemClicked()" class="expand-line">
-  <p>{{title | translate}}</p>
-  <img ngSrc="assets/down-arrow.svg" alt="profile" [@rotatedState]="arrowState" [width]="16" [height]="16">
-</div>
-<div [@showItemState]="contentState">
-  <div class="indent"></div>
-  <ng-content></ng-content>
-</div>

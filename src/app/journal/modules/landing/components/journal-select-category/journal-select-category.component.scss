@@ -1,0 +1,27 @@
+@import "themes";
+@import "indents";
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  @include theme {
+    color: $onBackgroundColor;
+  }
+}
+
+head2 {
+  position: sticky;
+  top: 0;
+  padding-bottom: $indent3;
+
+  @include theme {
+    background-color: $backgroundColor;
+  }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: $indent2;
+}

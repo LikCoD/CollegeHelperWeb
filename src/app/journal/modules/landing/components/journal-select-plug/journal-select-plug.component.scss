@@ -1,0 +1,30 @@
+@import "indents";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: $indent4;
+  padding: $indent1 $indent3;
+}
+
+.search {
+  width: 100%;
+  min-height: 60px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: $indent2;
+}
+
+section skeleton-loader.primary {
+  width: 150px;
+  height: 30px;
+  margin-bottom: $indent1;
+}
+
+section skeleton-loader:not(.primary) {
+  width: 100%;
+  height: 45px;
+}

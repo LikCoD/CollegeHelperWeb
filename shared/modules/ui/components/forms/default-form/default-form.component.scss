@@ -1,0 +1,44 @@
+@import "themes";
+@import "indents";
+@import "typography";
+
+:host {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  min-width: min(100%, 350px);
+  width: fit-content;
+}
+
+head1 {
+  font-family: $font2;
+  font-weight: $fontWeightMedium;
+  margin-bottom: $indent1;
+  align-self: flex-start;
+
+  @include theme {
+    color: $onSecondaryBackgroundColor;
+  }
+}
+
+form {
+  width: 100%;
+  padding: $indent4;
+  border-radius: $borderRadius2;
+  display: flex;
+  flex-flow: column;
+  gap: $indent2;
+
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+  }
+}
+
+url {
+  margin-top: $indent1;
+
+  @include theme {
+    color: $onSecondaryBackgroundColor;
+  }
+}

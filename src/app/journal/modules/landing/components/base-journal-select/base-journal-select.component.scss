@@ -1,0 +1,17 @@
+@import "themes";
+@import "indents";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: $indent1 $indent3;
+  max-height: 100%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: $indent4;
+  flex-grow: 1;
+  overflow-y: scroll;
+}

@@ -1,0 +1,18 @@
+<div class="empty-corner"></div>
+<div class="dates-container">
+  <journal-date-cell *ngFor="let date of journal.dates" [cell]="date" />
+</div>
+<div class="titles-container">
+  <p1 *ngFor="let row of journal.rows" [key]="row.title" />
+</div>
+<div class="cells-container">
+  <div *ngFor="let row of journal.rows" class="row">
+    <journal-cell
+      elementRef
+      #cellRef="elementRef"
+      *ngFor="let cell of row.cells"
+      [entries]="entries(cell)"
+      (click)="openAddMarkDialog(journal, cell, row, cellRef.el)"
+    />
+  </div>
+</div>

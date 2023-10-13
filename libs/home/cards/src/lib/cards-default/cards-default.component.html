@@ -1,7 +1,0 @@
-<ng-container *ngFor="let card of cards">
-  <home-card
-    *ngIf="checkPermissions(card.permissions)"
-    [title]="card.title"
-    [imageUrl]="card.url"
-    [routerLink]="card.route" />
-</ng-container>

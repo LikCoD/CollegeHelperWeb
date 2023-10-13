@@ -1,0 +1,23 @@
+@import "indents";
+
+:host {
+  background: #eee;
+  border-radius: $borderRadius1;
+  display: block;
+}
+
+:host:not(.disabled) {
+  animation: 2s shine linear infinite;
+  background: linear-gradient(110deg, var(--skeleton-color, #ececec) 8%, var(--skeleton-line-color, #f5f5f5) 18%, var(--skeleton-color, #ececec) 33%);
+  background-size: 200% 100%;
+}
+
+:host.disabled {
+  background-color: var(--skeleton-color, #ececec);
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}

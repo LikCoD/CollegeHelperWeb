@@ -1,0 +1,84 @@
+@import "themes";
+@import "indents";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: $indent2;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: $borderRadius2;
+  width: 230px;
+  height: auto;
+  padding: $indent2;
+  margin-bottom: $indent3;
+  gap: $indent2;
+
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+    color: $onSecondaryBackgroundColor;
+  }
+
+  div {
+    display: flex;
+  }
+
+  p1 {
+    margin: $indentHalf;
+    width: 200px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+
+    image {
+      margin-right: $indent2;
+      border-radius: 25%;
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    margin-top: $indent2;
+    gap: $indent1;
+
+    @include theme {
+      color: $onBackgroundColor;
+    }
+
+    icon {
+      position: relative;
+    }
+
+    icon::before {
+      position: absolute;
+      content: " ";
+      width: 80%;
+      height: 80%;
+      top: 10%;
+      left: 10%;
+      border-radius: 50%;
+
+      @include theme {
+        background: $onBackgroundColor;
+      }
+    }
+  }
+}

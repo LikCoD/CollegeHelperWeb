@@ -1,0 +1,68 @@
+<ng-container *ngFor="let entries of formConfigEntries; trackBy: trackBy">
+  <ng-container [ngSwitch]="entries[1].type">
+    <ng-container *ngSwitchCase="Types.TEXT">
+      <text-input
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.PASSWORD">
+      <text-input
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+        type="password"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.FILE">
+      TODO
+      <!--TODO-->
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.CHECKBOX">
+      TODO
+      <!--TODO-->
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.SELECT">
+      <items-select
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [items]="$any($any(entries[1]).typeConfig.items ?? [])"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.SEARCHABLE_SELECT">
+      <searchable-select
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [items]="$any($any(entries[1]).typeConfig.items ?? [])"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.AUTOCOMPLETE_TEXT">
+      <autocomplete-text
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [items]="$any($any(entries[1]).typeConfig.items ?? [])"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.DATE_RANGE">
+      <date-range-picker
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      TODO
+      <!--TODO-->
+    </ng-container>
+  </ng-container>
+</ng-container>

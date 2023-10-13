@@ -1,0 +1,25 @@
+@use "@angular/material" as mat;
+@import "icons";
+@import "themes";
+@import "densities";
+
+@include mat.core();
+
+@mixin theme($theme) {
+  @include mat.all-component-colors($theme);
+}
+
+body.light {
+  @import "themes/light";
+  @include theme($theme);
+}
+
+body {
+  @import "themes/dark";
+  @include mat.all-component-themes($theme);
+}
+
+.mat-mdc-select-panel-above div.mat-mdc-select-panel,
+.cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
+  padding-top: 0;
+}

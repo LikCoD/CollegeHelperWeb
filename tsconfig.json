@@ -1,0 +1,107 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@translate/*": [
+        "shared/modules/translate/*"
+      ],
+      "@jwt/*": [
+        "shared/modules/jwt/*"
+      ],
+      "@ui": [
+        "shared/modules/ui/ui.module.ts"
+      ],
+      "@ui/text/*": [
+        "shared/modules/ui/components/text/*"
+      ],
+      "@ui/text": [
+        "shared/modules/ui/components/text/text.module.ts"
+      ],
+      "@ui/images/*": [
+        "shared/modules/ui/components/images/*"
+      ],
+      "@ui/images": [
+        "shared/modules/ui/components/images/images.module.ts"
+      ],
+      "@ui/dividers/*": [
+        "shared/modules/ui/components/dividers/*"
+      ],
+      "@ui/dividers": [
+        "shared/modules/ui/components/dividers/dividers.module.ts"
+      ],
+      "@ui/forms/*": [
+        "shared/modules/ui/components/forms/*"
+      ],
+      "@ui/forms": [
+        "shared/modules/ui/components/forms/forms.module.ts"
+      ],
+      "@ui/inputs/*": [
+        "shared/modules/ui/components/inputs/*"
+      ],
+      "@ui/inputs": [
+        "shared/modules/ui/components/inputs/inputs.module.ts"
+      ],
+      "@ui/errors/*": [
+        "shared/modules/ui/components/errors/*"
+      ],
+      "@ui/errors": [
+        "shared/modules/ui/components/errors/errors.module.ts"
+      ],
+      "@ui/selects/*": [
+        "shared/modules/ui/components/selects/*"
+      ],
+      "@ui/selects": [
+        "shared/modules/ui/components/selects/selects.module.ts"
+      ],
+      "@ui/indicators/*": [
+        "shared/modules/ui/components/indicators/*"
+      ],
+      "@ui/indicators": [
+        "shared/modules/ui/components/indicators/indicators.module.ts"
+      ],
+      "@home/*": [
+        "src/app/home/*"
+      ],
+      "@journal/*": [
+        "src/app/journal/*"
+      ],
+      "@schedule/*": [
+        "src/app/schedule/*"
+      ],
+      "@user/*": [
+        "src/app/user/*"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

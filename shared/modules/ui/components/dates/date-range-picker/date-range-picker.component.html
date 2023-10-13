@@ -1,0 +1,11 @@
+<mat-form-field [appearance]="'outline'" color="accent">
+  <mat-label *ngIf="label">{{ label | translate }}</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input [formControl]="startDateControl" matStartDate [placeholder]="placeholder" />
+    <input [formControl]="endDateControl" matEndDate />
+  </mat-date-range-input>
+  <mat-hint *ngIf="hint">{{ hint | translate }}</mat-hint>
+  <mat-datepicker-toggle [for]="picker" matIconSuffix />
+  <mat-date-range-picker #picker />
+  <control-error [control]="control" matError />
+</mat-form-field>

@@ -1,0 +1,42 @@
+@import "themes";
+@import "typography";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body, app-root {
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+}
+
+app-root > router-outlet ~:last-child {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+body {
+  font-family: $font;
+  @include theme {
+    background-color: $backgroundColor;
+  }
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:visited {
+    color: currentColor;
+  }
+}
+
+input:-webkit-autofill {
+  border-radius: 2px;
+}

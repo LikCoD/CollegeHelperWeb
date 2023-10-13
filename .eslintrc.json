@@ -1,54 +1,142 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx"
-  ],
+  "ignorePatterns": [],
   "overrides": [
     {
       "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.*?.json",
+          "e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "airbnb-typescript/base",
+        "plugin:prettier/recommended"
       ],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "no-continue": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars-experimental": "error",
+        "no-unused-vars": "off",
+        "no-console": "off",
+        "no-plusplus": "off",
+        "import/order": "off",
+        "import/extensions": "off",
+        "no-underscore-dangle": "off",
+        "linebreak-style": "off",
+        "lines-between-class-members": "off",
+        "@typescript-eslint/lines-between-class-members": "off",
+        "import/prefer-default-export": "off",
+        "no-param-reassign": "off",
+        "no-return-assign": "off",
+        "class-methods-use-this": "off",
+        "member-ordering": "off",
+        "@typescript-eslint/no-useless-constructor": "off",
+        "@typescript-eslint/no-empty-function": [
+          "warn"
+        ],
+        "@angular-eslint/no-empty-lifecycle-method": [
+          "warn"
+        ],
+        "@typescript-eslint/member-ordering": [
           "error",
           {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
-              }
+            "default": [
+              "signature",
+              "public-static-field",
+              "protected-static-field",
+              "private-static-field",
+              "public-decorated-field",
+              "protected-decorated-field",
+              "private-decorated-field",
+              "public-instance-field",
+              "protected-instance-field",
+              "private-instance-field",
+              "public-abstract-field",
+              "protected-abstract-field",
+              "private-abstract-field",
+              "public-field",
+              "protected-field",
+              "private-field",
+              "static-field",
+              "instance-field",
+              "abstract-field",
+              "decorated-field",
+              "field",
+              "public-constructor",
+              "protected-constructor",
+              "private-constructor",
+              "constructor",
+              "public-static-method",
+              "protected-static-method",
+              "private-static-method",
+              "public-decorated-method",
+              "protected-decorated-method",
+              "private-decorated-method",
+              "public-instance-method",
+              "protected-instance-method",
+              "private-instance-method",
+              "public-abstract-method",
+              "protected-abstract-method",
+              "private-abstract-method",
+              "public-method",
+              "protected-method",
+              "private-method",
+              "static-method",
+              "instance-method",
+              "abstract-method",
+              "decorated-method",
+              "method"
             ]
+          }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true,
+            "allowDirectConstAssertionInArrowFunctions": true,
+            "allowConciseArrowFunctionExpressionsStartingWithVoid": true
+          }
+        ],
+        "consistent-return": "off",
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "spaced-comment": "off",
+        "max-len": [
+          "warn",
+          {
+            "code": 120,
+            "ignoreUrls": true
           }
         ]
       }
     },
     {
       "files": [
-        "*.ts",
-        "*.tsx"
+        "*.html"
       ],
       "extends": [
-        "plugin:@nrwl/nx/typescript"
-      ],
-      "rules": {}
-    },
-    {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
+        "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {}
     }

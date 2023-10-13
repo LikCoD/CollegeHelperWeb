@@ -1,0 +1,43 @@
+@import "themes";
+@import "indents";
+
+:host {
+  position: relative;
+  display: flex;
+}
+
+mat-form-field {
+  width: 100%;
+  height: 100%;
+}
+
+mat-hint {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+section {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: $indent2;
+  padding: $indent2;
+  background-color: var(--mat-select-panel-background-color);
+  z-index: 2;
+
+  @include theme {
+    color: $onBackgroundColor;
+    border-bottom: $onBackgroundColor 1px solid;
+    box-shadow: 0 -5px 10px 7px rgba(0, 0, 0, 0.25)
+  }
+}
+
+input {
+  @include theme {
+    color: $onBackgroundColor;
+  }
+}
+
+mat-option.hidden {
+  display: none;
+}

@@ -1,0 +1,9 @@
+<ng-container *ngIf="observable | async as data; else plugTmp">
+  <ng-container *ngIf="!plug(); else plugTmp">
+    <ng-container *ngComponentOutlet="dataComponent; inputs: { data: data }"></ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #plugTmp>
+  <skeleton-plug [plug]="plug()!" [plugComponent]="plugComponent" />
+</ng-template>

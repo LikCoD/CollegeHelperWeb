@@ -1,0 +1,6 @@
+<mat-form-field [appearance]="'outline'" color="accent">
+  <mat-label *ngIf="label">{{label | translate}}</mat-label>
+  <input [formControl]="control" [placeholder]="(placeholder ?? label ?? '') | translate" [type]="type" matInput>
+  <mat-hint *ngIf="hint">{{hint | translate}}</mat-hint>
+  <control-error [control]="control" matError />
+</mat-form-field>

@@ -1,7 +1,0 @@
-<ngb-toast
-  *ngIf="toast$ | async as toast"
-  [autohide]="true"
-  [delay]="2500"
-  (hidden)="close()"
-  [style.background-color]="toast.color"
-  [innerText]="toast.message" />

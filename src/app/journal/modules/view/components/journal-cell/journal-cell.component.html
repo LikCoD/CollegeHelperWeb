@@ -1,0 +1,12 @@
+<ng-container *ngIf="entries.length !== 0">
+  <ng-container *ngIf="entries.length == 1">
+    <p1>{{ entries[0] }}</p1>
+  </ng-container>
+  <ng-container *ngIf="entries.length > 1">
+    <div class="mark2">
+      <p2>{{ entries[0] }}</p2>
+      <hr />
+      <p2>{{ entries[1] }}</p2>
+    </div>
+  </ng-container>
+</ng-container>

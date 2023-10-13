@@ -1,0 +1,28 @@
+@import "themes";
+@import "indents";
+@import "typography";
+
+:host {
+  display: flex;
+  align-content: center;
+  margin: 0 $indent2 $indent2 $indent2;
+
+  @include theme {
+    color: $onBackgroundColor;
+  }
+}
+
+icon {
+  cursor: pointer;
+  font-size: $fontSizeExtraLarge;
+  width: $fontSizeExtraLarge;
+  height: $fontSizeExtraLarge;
+}
+
+span {
+  width: 100%;
+  height: min-content;
+  align-self: center;
+  text-align: center;
+  font-size: $fontSizeBig;
+}
