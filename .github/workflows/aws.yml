@@ -31,9 +31,9 @@ jobs:
 
     steps:
       - name: Update AWS
-        uses: appleboy/ssh-action@v0.1.3
+        uses: D3rHase/ssh-command-action@v0.2.2
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: ./update.sh frontend
+          user: ${{ secrets.SSH_USER }}
+          private_key: ${{ secrets.SSH_KEY }}
+          command: cd ./StudyumDeploy && sudo ./update.sh backend
