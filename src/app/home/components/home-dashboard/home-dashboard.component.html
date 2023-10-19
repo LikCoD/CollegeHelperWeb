@@ -1,0 +1,28 @@
+<main>
+  <ng-container *ngIf="user$ | async as user; else notAuth">
+    <head2>
+      <head2 key="welcome" />
+      <span>, </span>
+      <head2>{{ user.login }}</head2>
+    </head2>
+    <section>
+      <home-dashboard-nav-card key="schedule" routerLink="schedule" />
+      <home-dashboard-nav-card key="journal" routerLink="journal" />
+    </section>
+  </ng-container>
+  <div>
+    <home-dashboard-chart />
+    <home-dashboard-chart />
+    <home-dashboard-chart />
+    <home-dashboard-chart />
+  </div>
+</main>
+<character position="sits_by_the_table" />
+
+<ng-template #notAuth>
+  <head2 key="welcome" />
+  <section>
+    <home-dashboard-nav-card key="login" routerLink="user/auth/login" />
+    <home-dashboard-nav-card key="signup" routerLink="user/auth/signup" />
+  </section>
+</ng-template>

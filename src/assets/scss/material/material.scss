@@ -1,22 +1,31 @@
 @use "@angular/material" as mat;
 @import "icons";
 @import "themes";
+@import "indents";
 @import "densities";
 
 @include mat.core();
 
-@mixin theme($theme) {
+@mixin mat-theme($theme) {
   @include mat.all-component-colors($theme);
 }
 
 body.light {
   @import "themes/light";
-  @include theme($theme);
+  @include mat-theme($theme);
 }
 
 body {
   @import "themes/dark";
   @include mat.all-component-themes($theme);
+}
+
+.mat-mdc-dialog-surface.mdc-dialog__surface {
+  padding: $indent2 $indent3;
+
+  @include theme {
+    --mdc-dialog-container-color: #{$secondaryBackgroundColor} !important;
+  }
 }
 
 .mat-mdc-select-panel-above div.mat-mdc-select-panel,

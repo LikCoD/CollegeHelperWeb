@@ -11,11 +11,12 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
 import { DateTime } from 'luxon';
+import { CharacterComponent } from '@ui/images/character.component';
 
 @Component({
   selector: 'app-search-schedule-dialog',
   standalone: true,
-  imports: [CommonModule, DefaultFormComponent],
+  imports: [CommonModule, DefaultFormComponent, CharacterComponent],
   templateUrl: './search-schedule-dialog.component.html',
   styleUrls: ['./search-schedule-dialog.component.scss'],
   providers: [translatePrefixProvider('search')],

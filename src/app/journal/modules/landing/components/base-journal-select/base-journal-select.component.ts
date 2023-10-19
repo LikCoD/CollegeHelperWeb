@@ -12,11 +12,13 @@ import { JournalOptionsService } from '@journal/modules/landing/services/journal
 import { JournalOptionsSearchService } from '@journal/modules/landing/services/journal-options-search.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 
 @Component({
   selector: 'app-base-journal-select',
   templateUrl: './base-journal-select.component.html',
   styleUrls: ['./base-journal-select.component.scss'],
+  providers: [translatePrefixProvider('select')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseJournalSelectComponent implements OnInit, OnDestroy {

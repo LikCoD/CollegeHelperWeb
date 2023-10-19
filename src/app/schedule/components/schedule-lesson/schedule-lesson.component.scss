@@ -25,9 +25,14 @@
 
 main {
   display: flex;
-
   padding: 0 $indent3 0 $indent1;
   height: 100%;
+}
+
+p1, head4 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 form {

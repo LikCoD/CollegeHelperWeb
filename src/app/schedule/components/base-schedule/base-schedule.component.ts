@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScheduleService } from '@schedule/services/schedule.service';
 import { Observable, tap } from 'rxjs';
@@ -37,6 +37,8 @@ import { ScheduleCellPositionDirective } from '@schedule/components/base-schedul
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseScheduleComponent implements OnInit {
+  @Input() data: any;
+
   schedule$!: Observable<Schedule>;
   topOffset!: number;
 

@@ -2,10 +2,12 @@ import {HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpRe
 import {inject} from "@angular/core"
 import {JwtService} from "./jwt.service"
 import {catchError, filter, map, mergeMap, Observable, take, tap, throwError} from "rxjs"
+import { Router } from '@angular/router';
 
 export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<any> => {
   if (!req.url.startsWith("api") || req.url === JwtService.UPDATE_URL) return next(req)
   const service = inject(JwtService)
+  const router = inject(Router)
 
   const setTokensPipe = tap((e: HttpResponse<any>) => {
     if (!e) return
@@ -40,8 +42,9 @@ export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: H
     const httpErr: HttpErrorResponse = err as HttpErrorResponse
     if (httpErr.status !== 401) return throwError(() => err)
 
-    if (httpErr.error !== "access token has expired") {
+    if (httpErr.error === "access token has expired") {
       service.removeTokens()
+      router.navigate(['']).then()
       return throwError(() => err)
     }
 

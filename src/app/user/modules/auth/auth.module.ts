@@ -12,6 +12,7 @@ import { ResetPasswordDataComponent } from './components/reset-password-data/res
 import { ResetPasswordCodeComponent } from './components/reset-password-code/reset-password-code.component';
 import { EmailConfirmComponent } from '@user/modules/auth/components/email-confirm/email-confirm.component';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { CharacterComponent } from '@ui/images/character.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +30,8 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
     FormsModule,
     ReactiveFormsModule,
     TextInputComponent,
+    CharacterComponent,
   ],
-  providers: [
-    translatePrefixProvider('auth')
-  ],
+  providers: [translatePrefixProvider('auth')],
 })
-export class AuthModule {
-}
+export class AuthModule {}

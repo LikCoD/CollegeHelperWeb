@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
+import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 
 @Component({
   selector: 'app-home',
-  template: `
-    Test home
-  `,
-  styles: [`:host {
-    display: block;
-    width: 100%;
-    height: 400px;
-    background-color: #4318FF;
-  }`],
+  template: '<home-dashboard/>',
+  styles: [],
+  providers: [translatePrefixProvider('home')]
 })
 export class HomeComponent {
 

@@ -1,0 +1,15 @@
+@import "indents";
+@import "actions";
+@import "themes";
+
+:host {
+  display: grid;
+  place-items: center;
+  padding: $indent2;
+  cursor: pointer;
+
+  @include theme {
+    @include clickable($secondaryBackgroundColor);
+    color: $onSecondaryBackgroundColor;
+  }
+}
