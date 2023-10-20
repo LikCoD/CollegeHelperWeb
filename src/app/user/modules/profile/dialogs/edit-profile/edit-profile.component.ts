@@ -3,14 +3,14 @@ import { SubmitOptions } from '@ui/forms/default-form/default-form.component';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
 import { Validators } from '@angular/forms';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
-import { EditProfileFormConfig } from '@user/modules/profile/components/profile/edit-profile/edit-profile.dto';
-import { EditProfileService } from '@user/modules/profile/components/profile/edit-profile/edit-profile.service';
+import { EditProfileService } from '@user/modules/profile/dialogs/edit-profile/edit-profile.service';
+import { EditProfileFormConfig } from '@user/modules/profile/dialogs/edit-profile/edit-profile.dto';
 
 @Component({
   selector: 'edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
-  providers: [translatePrefixProvider('edit')],
+  providers: [translatePrefixProvider('user.profile.edit')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditProfileComponent {

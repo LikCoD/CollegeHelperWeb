@@ -13,6 +13,7 @@ import { SimpleFormConfigService } from '@shared/modules/ui/services/simple-form
 import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { FormConfigBuilderComponent } from '@shared/modules/ui/utils/form/form-config-builder/form-config-builder.component';
 import { FormConfig, FormConfigElements, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
+import { CharacterComponent } from '@ui/images/character.component';
 
 export interface SubmitOptions {
   url?: string | null;
@@ -34,6 +35,7 @@ export interface SubmitOptions {
     Head1Component,
     TextInputComponent,
     FormConfigBuilderComponent,
+    CharacterComponent,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,6 +69,8 @@ export class DefaultFormComponent<
 
   @Input() formConfig: FormConfig<CONFIG, VALUE> | null = null;
 
+  @Input() character: string | null = null;
+
   formGroupDirective = inject(FormGroupDirective, { optional: true });
 
   @Output() invalidSubmit = new EventEmitter<never>();
@@ -99,10 +103,13 @@ export class DefaultFormComponent<
     this.submitOptions.subscribe = value;
   }
 
-  @Input() proceedValue: (data: DATA) => PROCEEDED_DATA | null = data => data as unknown as PROCEEDED_DATA;
+  @Input() proceedValue: (data: DATA) => PROCEEDED_DATA | null = data =>
+    data as unknown as PROCEEDED_DATA;
 
   ngOnInit(): void {
-    this._form = this.formConfig ? this.configService.buildForm(this.formConfig) : new FormGroup<any>([]);
+    this._form = this.formConfig
+      ? this.configService.buildForm(this.formConfig)
+      : new FormGroup<any>([]);
 
     this.configService
       .getFormValue(this.formConfig)
@@ -130,7 +137,9 @@ export class DefaultFormComponent<
 
       const formatter = element.formatter ?? (v => v);
 
-      formValue[element.typeConfig.startControlName ?? 'start'] = formatter(formValue[elementKey].start);
+      formValue[element.typeConfig.startControlName ?? 'start'] = formatter(
+        formValue[elementKey].start
+      );
       formValue[element.typeConfig.endControlName ?? 'end'] = formatter(formValue[elementKey].end);
 
       delete formValue[elementKey];
@@ -150,7 +159,10 @@ export class DefaultFormComponent<
 
     //todo move http logic to the custom provider
     const response$ = this.http
-      .request<RESPONSE_DATA>(this.submitOptions.method, this.submitOptions.url, { ...this.submitOptions, body: value })
+      .request<RESPONSE_DATA>(this.submitOptions.method, this.submitOptions.url, {
+        ...this.submitOptions,
+        body: value,
+      })
       .pipe(tap(this.redirect.bind(this)));
 
     this.submitResponse.emit(response$);

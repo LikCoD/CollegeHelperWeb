@@ -1,7 +1,10 @@
-<head1 [key]="key">{{text}}</head1>
-<form (ngSubmit)="submit()" [formGroup]="form">
-  <ng-content></ng-content>
-  <simple-form-config-builder *ngIf="formConfig" [config]="formConfig" [formGroup]="form" />
-  <primary-button key="confirm" />
-</form>
-<url *ngIf="link" [key]="linkKey ?? ''" [link]="link">{{linkText}}</url>
+<head1 [key]="key">{{ text }}</head1>
+<div>
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <ng-content></ng-content>
+    <simple-form-config-builder *ngIf="formConfig" [config]="formConfig" [formGroup]="form" />
+    <primary-button key="confirm" />
+  </form>
+  <character *ngIf="character" [position]="character" />
+</div>
+<url *ngIf="link" [key]="linkKey ?? ''" [link]="link">{{ linkText }}</url>

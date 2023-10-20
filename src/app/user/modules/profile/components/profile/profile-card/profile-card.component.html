@@ -2,12 +2,14 @@
   <main>
     <div>
       <image [src]="user.picture" alt="profile" />
-      <head2>{{user.login}}</head2>
+      <head2>{{ user.login }}</head2>
     </div>
     <h-divider />
-    <p1 *ngIf="user.studyPlaceInfo">{{user.studyPlaceInfo.name}}</p1>
-    <p1 *ngIf="user.studyPlaceInfo">{{user.studyPlaceInfo.roleName}}</p1>
-    <p1>{{user.email}}</p1>
+    <p1 *ngIf="user.studyPlaceInfo">{{ user.studyPlaceInfo.name }}</p1>
+    <p1 *ngIf="user.studyPlaceInfo">{{ user.studyPlaceInfo.roleName }}</p1>
+    <p1>{{ user.email }}</p1>
+    <h-divider />
+    <primary-button (click)="editProfile()" key="edit" />
   </main>
 
   <secondary-button (click)="signout()" key="signout" />

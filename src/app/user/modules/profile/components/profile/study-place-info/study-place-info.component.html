@@ -1,0 +1,13 @@
+<ng-container *ngIf="userStudyPlace$ | async as studyPlace">
+  <main>
+    <div>
+      <image [src]="studyPlace.picture" alt="picture" class="picture" />
+      <image [src]="studyPlace.banner" alt="banner" class="banner" />
+    </div>
+    <head2 [key]="studyPlace.name" />
+    <p1 [key]="studyPlace.description" class="description" />
+    <h-divider />
+    <p1 [key]="studyPlace.address" />
+    <p1 [key]="studyPlace.phone" />
+  </main>
+</ng-container>

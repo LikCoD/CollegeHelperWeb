@@ -5,7 +5,6 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { routes } from './profile.routes';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DefaultFormComponent } from '@ui/forms/default-form/default-form.component';
-import { EditProfileComponent } from '@user/modules/profile/components/profile/edit-profile/edit-profile.component';
 import {
   UserPreferencesComponent
 } from '@user/modules/profile/components/profile/user-preferences/user-preferences.component';
@@ -20,13 +19,18 @@ import { WarnButtonComponent } from '@shared/modules/ui/components/buttons/warn-
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { UrlComponent } from '@ui/text/url.component';
 import { IconComponent } from '@ui/images/icon.component';
+import { StudyPlaceInfoComponent } from './components/profile/study-place-info/study-place-info.component';
+import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/primary-button.component';
+import { EditProfileComponent } from '@user/modules/profile/dialogs/edit-profile/edit-profile.component';
+import { CharacterComponent } from '@ui/images/character.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     EditProfileComponent,
     UserPreferencesComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    StudyPlaceInfoComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -44,10 +48,9 @@ import { IconComponent } from '@ui/images/icon.component';
     HDividerComponent,
     UrlComponent,
     IconComponent,
+    PrimaryButtonComponent,
+    CharacterComponent,
   ],
-  providers: [
-    translatePrefixProvider('profile')
-  ],
+  providers: [translatePrefixProvider('profile')],
 })
-export class ProfileModule {
-}
+export class ProfileModule {}

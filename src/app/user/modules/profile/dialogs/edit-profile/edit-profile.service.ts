@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { SubmitOptions } from '@ui/forms/default-form/default-form.component';
 import { map, Observable } from 'rxjs';
 import { UserService } from '@shared/services/user.service';
-import { EditProfileFormData } from '@user/modules/profile/components/profile/edit-profile/edit-profile.dto';
+import { EditProfileFormData } from '@user/modules/profile/dialogs/edit-profile/edit-profile.dto';
 
 @Injectable({
   providedIn: 'root',

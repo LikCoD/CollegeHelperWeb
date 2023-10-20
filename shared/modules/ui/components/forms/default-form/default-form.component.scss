@@ -6,10 +6,7 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
-  align-items: center;
-  min-width: min(100%, 350px);
   gap: $indent1;
-  width: fit-content;
 }
 
 head1 {
@@ -23,13 +20,43 @@ head1 {
   }
 }
 
-form {
-  width: 100%;
-  padding: $indent4;
+div {
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: auto auto;
+  grid-template-rows: min-content;
+  width: min-content;
   border-radius: $borderRadius2;
+
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+  }
+}
+
+form {
+  margin: $indent4;
   display: flex;
   flex-flow: column;
+  border-top-left-radius: $borderRadius2;
+  border-bottom-left-radius: $borderRadius2;
   gap: $indent2;
+  min-width: 300px;
+
+  &:not(:has(character)) {
+  border-top-right-radius: $borderRadius2;
+  border-bottom-right-radius: $borderRadius2;
+  }
+
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+  }
+}
+
+character {
+  align-self: stretch;
+  aspect-ratio: 1;
+  border-top-right-radius: $borderRadius2;
+  border-bottom-right-radius: $borderRadius2;
 
   @include theme {
     background-color: $secondaryBackgroundColor;
@@ -38,6 +65,7 @@ form {
 
 url {
   margin-top: $indent1;
+  text-align: center;
 
   @include theme {
     color: $onSecondaryBackgroundColor;

@@ -3,6 +3,11 @@ import { z } from 'zod';
 export interface StudyPlace {
   id: string;
   name: string;
+  description: string;
+  picture: string;
+  banner: string;
+  address: string;
+  phone: string;
   lessonTypes: LessonType[];
   absenceMark: string;
   journalColors: JournalColors;
@@ -16,6 +21,11 @@ const MarkTypeScheme = z.object({
 export const StudyPlaceScheme = z.object({
   id: z.string(),
   name: z.string(),
+  description: z.string(),
+  picture: z.string(),
+  banner: z.string(),
+  address: z.string(),
+  phone: z.string(),
   absenceMark: z.string(),
   lessonTypes: z.any(
     z.object({

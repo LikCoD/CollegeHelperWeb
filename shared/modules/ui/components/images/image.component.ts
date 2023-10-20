@@ -8,6 +8,12 @@ import { TranslateModule } from '@ngx-translate/core';
   styles: [`
     img {
       all: inherit;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: unset;
+      padding: unset;
+      border: unset;
     }
   `],
   imports: [CommonModule, TranslateModule],

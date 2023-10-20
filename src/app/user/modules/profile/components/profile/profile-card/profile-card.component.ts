@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { User } from '@shared/entities/user';
 import { UserService } from '@shared/services/user.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProfileComponent } from '@user/modules/profile/dialogs/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'profile-card',
@@ -17,8 +18,9 @@ export class ProfileCardComponent implements OnDestroy {
   private service = inject(UserService);
   user$ = this.service.user$;
 
-  private router = inject(Router)
-  private subscription: Subscription | null = null
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private subscription: Subscription | null = null;
 
   warnings(user: User): Warning[] {
     let warnings: Warning[] = [];
@@ -38,19 +40,22 @@ export class ProfileCardComponent implements OnDestroy {
     return warnings;
   }
 
+  editProfile(): void {
+    this.dialog.open(EditProfileComponent);
+  }
+
   signout(): void {
-    this.subscription?.unsubscribe()
-    this.subscription = this.service.signout()
-      .subscribe(() => this.router.navigate(['']));
+    this.subscription?.unsubscribe();
+    this.subscription = this.service.signout().subscribe(() => this.router.navigate(['']));
   }
 
   revoke(): void {
-    this.subscription?.unsubscribe()
+    this.subscription?.unsubscribe();
     this.subscription = this.service.revokeToken().subscribe();
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe()
+    this.subscription?.unsubscribe();
   }
 }
 
