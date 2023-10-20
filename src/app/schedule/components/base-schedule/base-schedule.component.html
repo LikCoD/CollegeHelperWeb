@@ -32,7 +32,7 @@
 
     <div class="weekdays-container">
       <p *ngFor="let day of [schedule.info.startDate, schedule.info.endDate] | dateBetween: 'day'" class="weekday">
-        {{ day.toJSDate() | date: "MMM dd EE" }}
+        {{ day | datetime: "MMM dd EEE" }}
       </p>
     </div>
     <div class="lessons-container">

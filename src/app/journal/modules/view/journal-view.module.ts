@@ -24,6 +24,7 @@ import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skel
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
 import { BaseJournalComponent } from './components/base-journal/base-journal.component';
 import { PlugableComponent } from '@shared/components/plugable/plugable.component';
+import { DateTimePipe } from '@shared/pipes/datetime.pipe';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PlugableComponent } from '@shared/components/plugable/plugable.componen
     SkeletonLoaderComponent,
     SkeletonPlugComponent,
     PlugableComponent,
+    DateTimePipe,
   ],
   providers: [translatePrefixProvider('view')],
 })

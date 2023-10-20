@@ -19,7 +19,7 @@ export class PreferencesService {
   private _preferences$ = new StorageSubject(
     () => this.http.get<Preferences>('api/v1/user/preferences')
       .pipe(tap(p => this.preferences = p)),
-    { stopOnError: false, takeFirst: true },
+    { stopOnError: false, takeFirst: true, instantInit: true },
   );
 
   get preferences$(): Observable<Preferences> {
@@ -37,8 +37,13 @@ export class PreferencesService {
     }
 
     LuxonSettings.defaultZone = value.timezone
-    LuxonSettings.defaultLocale = value.language
+    LuxonSettings.defaultLocale = this.locale(value.language)
 
     this._preferences$.next(value);
+  }
+
+  private locale(language: string): string {
+    const [p1, p2] = language.split("_")
+    return `${p1}-${p2.toUpperCase()}`
   }
 }

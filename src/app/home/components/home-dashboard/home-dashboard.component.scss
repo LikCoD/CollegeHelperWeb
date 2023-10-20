@@ -55,6 +55,41 @@ div {
   }
 }
 
+.sources {
+  display: flex;
+  flex-direction: column;
+  gap: $indent1;
+
+  @include theme {
+    color: $onBackgroundColor;
+  }
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: $indent2;
+}
+
+head4 {
+  margin-bottom: $indent3;
+}
+
+.sources a {
+  all: unset;
+  text-decoration: underline;
+
+  &:visited p1 {
+    @include theme {
+      color: $onBackgroundColor;
+    }
+  }
+}
+
+.sources h-divider {
+  margin: $indent2 0;
+}
+
 character {
   height: 100%;
   max-height: 700px;

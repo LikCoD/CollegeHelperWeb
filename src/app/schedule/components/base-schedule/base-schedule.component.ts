@@ -9,12 +9,13 @@ import { FlatMapPipe } from '@shared/pipes/flatMap.pipe';
 import { MinPipe } from '@shared/pipes/min.pipe';
 import { MaxPipe } from '@shared/pipes/max.pipe';
 import { DateBetweenPipe } from '@shared/pipes/date-between.pipe';
-import { TimePipe } from '@shared/pipes/time.pipe';
 import { GroupByPipe } from '@shared/pipes/group-by.pipe';
 import { ValuesPipe } from '@shared/pipes/values.pipe';
 import { BaseScheduleService } from '@schedule/components/base-schedule/base-schedule.service';
 import { ScheduleCellComponent } from '@schedule/components/schedule-cell/schedule-cell.component';
 import { ScheduleCellPositionDirective } from '@schedule/components/base-schedule/schedule-cell-position.directive';
+import { TimePipe } from '@shared/pipes/time.pipe';
+import { DateTimePipe } from '@shared/pipes/datetime.pipe';
 
 @Component({
   selector: 'app-base-schedule',
@@ -28,6 +29,7 @@ import { ScheduleCellPositionDirective } from '@schedule/components/base-schedul
     MaxPipe,
     DateBetweenPipe,
     TimePipe,
+    DateTimePipe,
     GroupByPipe,
     ValuesPipe,
     ScheduleCellComponent,

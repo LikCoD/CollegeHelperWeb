@@ -10,7 +10,7 @@
     </div>
     <ng-container *ngIf="data.marks && data.marks.length !== 0">
       <spacer />
-      <p2 key="student_marks" />
+      <p2 key="studentMarks" />
       <section>
         <ng-container *ngFor="let mark of data.marks">
           <secondary-button
@@ -22,7 +22,7 @@
       </section>
     </ng-container>
     <spacer />
-    <p2 [key]="'marks | ' + type.type" />
+    <span><p2 key="marks" /> | <p2 [key]="type.type" /></span>
     <section>
       <primary-button (click)="addMark(mark)" *ngFor="let mark of type.marks" [key]="mark.mark" />
     </section>

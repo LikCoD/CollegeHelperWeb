@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 import { UserPreview } from '@jwt/jwt.models';
 import { JwtService } from '@jwt/jwt.service';
 import { RouterLink } from '@angular/router';
+import { P1Component } from '@ui/text/p1.component';
+import { UrlComponent } from '@ui/text/url.component';
+import { Head4Component } from '@ui/text/head4.component';
+import { HDividerComponent } from '@ui/dividers/h-divider.component';
 
 @Component({
   selector: 'home-dashboard',
@@ -19,6 +23,10 @@ import { RouterLink } from '@angular/router';
     Head2Component,
     HomeDashboardChartComponent,
     RouterLink,
+    P1Component,
+    UrlComponent,
+    Head4Component,
+    HDividerComponent,
   ],
   templateUrl: './home-dashboard.component.html',
   styleUrls: ['./home-dashboard.component.scss'],

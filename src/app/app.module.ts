@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { jwtInterceptor } from '@jwt/jwt.interceptor';
 import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PreferencesService } from '@shared/services/preferences.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatTooltipModule,
   ],
-  providers: [provideHttpClient(withInterceptors([jwtInterceptor]))],
+  providers: [
+    provideHttpClient(withInterceptors([jwtInterceptor])),
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (s: PreferencesService) => () => s,
+      deps: [PreferencesService],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
