@@ -46,28 +46,32 @@ export class DateRangePickerComponent
 
   ngOnInit(): void {
     this.controlSubscription = this.control.valueChanges.subscribe(v => {
-      if ((v?.start ?? null) !== this.startDateControl.value) this.startDateControl.setValue(v?.start ?? null);
-      if ((v?.end ?? null) !== this.endDateControl.value) this.endDateControl.setValue(v?.end ?? null);
+      if ((v?.start ?? null) !== this.startDateControl.value)
+        this.startDateControl.setValue(v?.start ?? null);
+      if ((v?.end ?? null) !== this.endDateControl.value)
+        this.endDateControl.setValue(v?.end ?? null);
     });
 
-    this.datesSubscription = merge(this.startDateControl.valueChanges, this.endDateControl.valueChanges).subscribe(
-      () => {
-        const start = this.startDateControl.value;
-        const end = this.endDateControl.value;
-        const control = this.control.value;
+    this.datesSubscription = merge(
+      this.startDateControl.valueChanges,
+      this.endDateControl.valueChanges
+    ).subscribe(() => {
+      const start = this.startDateControl.value;
+      const end = this.endDateControl.value;
+      const control = this.control.value;
 
-        if ((start === control?.start && end === control?.end) || (start !== end && (!start || !end))) return;
-        if (!start || !end) return this.control.setValue(null);
+      if ((start === control?.start && end === control?.end) || (start !== end && (!start || !end)))
+        return;
+      if (!start || !end) return this.control.setValue(null);
 
-        this.control.setValue({
-          start: start,
-          end: end,
-        });
-      }
-    );
+      this.control.setValue({
+        start: start,
+        end: end,
+      });
+    });
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     this.controlSubscription.unsubscribe();
     this.datesSubscription.unsubscribe();
   }

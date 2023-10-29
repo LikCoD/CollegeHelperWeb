@@ -1,0 +1,9 @@
+<text-input [formControl]="searchFormControl" label="search" />
+<section *ngIf="searchedLessons$ | async as lessons">
+  <div (click)="select()" [matTooltip]="'addLesson' | translate" class="add">
+    <head2>+</head2>
+  </div>
+  <ng-container *ngFor="let lesson of lessons">
+    <schedule-lesson (click)="select(lesson)" [lesson]="lesson" />
+  </ng-container>
+</section>

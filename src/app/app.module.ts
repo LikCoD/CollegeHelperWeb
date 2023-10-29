@@ -1,6 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -13,6 +12,7 @@ import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferencesService } from '@shared/services/preferences.service';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +28,7 @@ import { PreferencesService } from '@shared/services/preferences.service';
     MatTooltipModule,
   ],
   providers: [
+    provideEnvironmentNgxMask(),
     provideHttpClient(withInterceptors([jwtInterceptor])),
     {
       provide: APP_INITIALIZER,

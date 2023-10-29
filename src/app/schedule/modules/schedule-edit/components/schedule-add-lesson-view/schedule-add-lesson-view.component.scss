@@ -1,0 +1,15 @@
+@import "indents";
+@import "actions";
+@import "themes";
+
+:host {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: $indent2 $indent1;
+  width: 250px;
+
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+  }
+}

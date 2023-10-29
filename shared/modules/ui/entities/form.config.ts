@@ -36,6 +36,10 @@ export type FormConfigElement<T = string> = BaseFormConfigElement<T> & {
         typeConfig: BaseFormElementTypeConfig<T>;
       }
     | {
+        type: FormConfigElementTypes.NUMBER;
+        typeConfig: BaseFormElementTypeConfig<T>;
+      }
+    | {
         type: FormConfigElementTypes.PASSWORD;
         typeConfig: BaseFormElementTypeConfig<T>;
       }
@@ -67,6 +71,10 @@ export type FormConfigElement<T = string> = BaseFormConfigElement<T> & {
         type: FormConfigElementTypes.DATE_RANGE;
         typeConfig: BaseFormElementTypeConfig<T> & DateRangeFormElementTypeConfig;
       }
+    | {
+        type: FormConfigElementTypes.DATE_TIME_RANGE;
+        typeConfig: BaseFormElementTypeConfig<T> & DateRangeFormElementTypeConfig;
+      }
   );
 
 export interface BaseFormElementTypeConfig<V = string> {
@@ -94,6 +102,7 @@ export type FormConfigElements<C> = { [K in keyof C]: FormConfigElement<any> };
 export enum FormConfigElementTypes {
   TEXT,
   PASSWORD,
+  NUMBER,
   FILE,
   IMAGE,
   CHECKBOX,
@@ -101,4 +110,5 @@ export enum FormConfigElementTypes {
   SEARCHABLE_SELECT,
   AUTOCOMPLETE_TEXT,
   DATE_RANGE,
+  DATE_TIME_RANGE,
 }

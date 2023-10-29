@@ -12,4 +12,5 @@ export class MatFormControlValueAccessorComponent<T> extends FormControlValueAcc
   @Input() placeholder?: string | null = null;
   @Input() type: string = 'text';
   @Input() hint?: string | null = null;
+  @Input() showBottomSpace: boolean = true;
 }

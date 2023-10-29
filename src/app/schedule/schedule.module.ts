@@ -11,6 +11,9 @@ import { ScheduleHeaderComponent } from '@schedule/components/schedule-header/sc
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
 import { PlugableComponent } from '@shared/components/plugable/plugable.component';
+import { ScheduleEditModule } from '@schedule/modules/schedule-edit/schedule-edit.module';
+import { VDividerComponent } from '@ui/dividers/v-divider.component';
+import { HasPermissionDirective } from '@shared/directives/has-permission.directive';
 
 @NgModule({
   declarations: [ScheduleComponent],
@@ -23,6 +26,9 @@ import { PlugableComponent } from '@shared/components/plugable/plugable.componen
     HDividerComponent,
     SkeletonPlugComponent,
     PlugableComponent,
+    ScheduleEditModule,
+    VDividerComponent,
+    HasPermissionDirective,
   ],
   providers: [translatePrefixProvider('schedule')],
 })

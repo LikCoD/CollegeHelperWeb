@@ -1,19 +1,26 @@
 <mat-form-field [appearance]="'outline'" color="accent">
-  <mat-label *ngIf="label">{{label | translate}}</mat-label>
-  <mat-select [formControl]="control" [placeholder]="(placeholder ?? label ?? '') | translate">
+  <mat-label *ngIf="label">{{ label | translate }}</mat-label>
+  <mat-select [formControl]="control" [placeholder]="placeholder ?? label ?? '' | translate">
     <section>
       <icon src="search" />
-      <input [formControl]="searchControl" matInput>
+      <input [formControl]="searchControl" matInput />
     </section>
-    <ng-container *ngIf="items$ | async as items">
+    <mat-option class="hidden" />
+    <ng-container *ngIf="items$ | async as items; else loadingTmp">
       <ng-container *ngFor="let item of items; trackBy: trackBy">
-        <mat-option
-          [class.hidden]="!show(search$ | async, item.display)"
-          [value]="item.value"
-        >{{item.display | translate}}</mat-option>
+        <mat-option [class.hidden]="!show(search$ | async, item.display)" [value]="item.value">
+          {{ item.display | translate }}
+        </mat-option>
       </ng-container>
     </ng-container>
   </mat-select>
-  <mat-hint *ngIf="hint">{{hint | translate}}</mat-hint>
+  <mat-hint *ngIf="hint">{{ hint | translate }}</mat-hint>
   <control-error [control]="control" matError />
 </mat-form-field>
+
+<ng-template #loadingTmp>
+  <skeleton-loader />
+  <skeleton-loader />
+  <skeleton-loader />
+  <skeleton-loader />
+</ng-template>

@@ -1,6 +1,20 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  FormGroupDirective,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { UrlComponent } from '@ui/text/url.component';
 import { TranslateComponent } from '../../../utils/translate/translate.component';
 import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/primary-button.component';
@@ -12,7 +26,11 @@ import { Router } from '@angular/router';
 import { SimpleFormConfigService } from '@shared/modules/ui/services/simple-form-config.service';
 import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { FormConfigBuilderComponent } from '@shared/modules/ui/utils/form/form-config-builder/form-config-builder.component';
-import { FormConfig, FormConfigElements, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
+import {
+  FormConfig,
+  FormConfigElements,
+  FormConfigElementTypes,
+} from '@shared/modules/ui/entities/form.config';
 import { CharacterComponent } from '@ui/images/character.component';
 
 export interface SubmitOptions {
@@ -132,7 +150,12 @@ export class DefaultFormComponent<
     //todo move to somewhere
     for (let elementKey in this.formConfig?.elements) {
       const element = this.formConfig?.elements[elementKey];
-      if (!element || element.type !== FormConfigElementTypes.DATE_RANGE) continue;
+      if (!element) continue;
+      if (
+        element.type !== FormConfigElementTypes.DATE_RANGE &&
+        element.type !== FormConfigElementTypes.DATE_TIME_RANGE
+      )
+        continue;
       if (!element.typeConfig.expand) continue;
 
       const formatter = element.formatter ?? (v => v);

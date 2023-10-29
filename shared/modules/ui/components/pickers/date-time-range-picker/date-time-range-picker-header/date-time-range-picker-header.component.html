@@ -1,0 +1,17 @@
+<section class="density-input-min3">
+  <time-picker-view
+    [formControl]="startDateFormControl"
+    [showBottomSpace]="false"
+    label="startTime"
+    placeholder="9:00"
+  />
+  <span>–</span>
+  <time-picker-view
+    [formControl]="endDateFormControl"
+    [showBottomSpace]="false"
+    label="endTime"
+    placeholder="10:00"
+  />
+  <div *ngIf="!isTimeFilled" class="fade"></div>
+</section>
+<mat-calendar-header />

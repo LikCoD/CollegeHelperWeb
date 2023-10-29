@@ -8,6 +8,14 @@
         [placeholder]="entries[1].typeConfig.placeholder"
       />
     </ng-container>
+    <ng-container *ngSwitchCase="Types.NUMBER">
+      <number-input
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
     <ng-container *ngSwitchCase="Types.PASSWORD">
       <text-input
         [formControl]="getControlByName(entries[0])!"
@@ -54,6 +62,14 @@
     </ng-container>
     <ng-container *ngSwitchCase="Types.DATE_RANGE">
       <date-range-picker
+        [formControl]="getControlByName(entries[0])!"
+        [hint]="entries[1].typeConfig.hint"
+        [label]="entries[1].typeConfig.label"
+        [placeholder]="entries[1].typeConfig.placeholder"
+      />
+    </ng-container>
+    <ng-container *ngSwitchCase="Types.DATE_TIME_RANGE">
+      <date-time-range-picker
         [formControl]="getControlByName(entries[0])!"
         [hint]="entries[1].typeConfig.hint"
         [label]="entries[1].typeConfig.label"

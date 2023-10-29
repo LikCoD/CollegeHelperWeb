@@ -27,10 +27,6 @@ export class JournalSelectCategoryComponent implements OnInit {
 
   searchItems$!: Observable<JournalOption[]>;
 
-  constructor() {
-    this.searchService.search$.pipe(debug()).subscribe();
-  }
-
   ngOnInit(): void {
     this.searchItems$ = this.searchService.searchItems$(this.category.options);
   }

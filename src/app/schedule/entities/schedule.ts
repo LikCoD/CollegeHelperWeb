@@ -14,6 +14,10 @@ export interface ScheduleLesson {
   group: string;
   teacher: string;
   room: string;
+  subjectID: string;
+  groupID: string;
+  teacherID: string;
+  roomID: string;
   type?: string;
   title?: string;
   homework?: string;
@@ -74,6 +78,10 @@ export const ScheduleSchema = z.object({
         group: z.string(),
         teacher: z.string(),
         room: z.string(),
+        subjectID: z.string(),
+        groupID: z.string(),
+        teacherID: z.string(),
+        roomID: z.string(),
         isGeneral: z.boolean(),
       })
     )

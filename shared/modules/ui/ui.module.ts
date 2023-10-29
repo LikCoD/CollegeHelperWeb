@@ -5,6 +5,8 @@ import { DividersModule } from '@ui/dividers';
 import { ErrorsModule } from '@ui/errors';
 import { SelectsModule } from '@ui/selects';
 import { IndicatorsModule } from '@ui/indicators';
+import { PickersModule } from '@shared/modules/ui/components/pickers/pickers.module';
+import { DatetimeModule } from '@shared/modules/ui/components/datetime/datetime.module';
 
 @NgModule({
   imports: [
@@ -14,6 +16,8 @@ import { IndicatorsModule } from '@ui/indicators';
     ErrorsModule,
     SelectsModule,
     IndicatorsModule,
+    PickersModule,
+    DatetimeModule,
   ],
   exports: [
     TextModule,
@@ -22,6 +26,8 @@ import { IndicatorsModule } from '@ui/indicators';
     ErrorsModule,
     SelectsModule,
     IndicatorsModule,
+    PickersModule,
+    DatetimeModule,
   ],
 })
 export class UiModule {

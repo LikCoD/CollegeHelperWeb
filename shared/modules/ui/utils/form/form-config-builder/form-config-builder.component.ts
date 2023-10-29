@@ -11,7 +11,13 @@ import {
   FormConfigElements,
   FormConfigElementTypes,
 } from '@shared/modules/ui/entities/form.config';
-import { DateRangePickerComponent } from '@shared/modules/ui/components/dates/date-range-picker/date-range-picker.component';
+import {
+  DateTimeRangePickerComponent
+} from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker.component';
+import {
+  DateRangePickerComponent
+} from '@shared/modules/ui/components/pickers/date-range-picker/date-range-picker.component';
+import { NumberInputComponent } from '@ui/inputs/number-input/number-input.component';
 
 @Component({
   selector: 'simple-form-config-builder',
@@ -25,6 +31,8 @@ import { DateRangePickerComponent } from '@shared/modules/ui/components/dates/da
     SearchableSelectComponent,
     AutocompleteTextComponent,
     DateRangePickerComponent,
+    DateTimeRangePickerComponent,
+    NumberInputComponent,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

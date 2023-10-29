@@ -1,0 +1,28 @@
+@import "indents";
+
+section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $indent2;
+  padding: $indent4 8px 0 8px;
+}
+
+time-picker-view {
+  width: 0;
+  flex-grow: 1;
+}
+
+.fade {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: calc(100% + 16px);
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 9;
+}
+
+::ng-deep mat-calendar {
+  overflow: hidden;
+}

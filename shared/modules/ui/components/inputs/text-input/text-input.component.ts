@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +8,7 @@ import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/pr
 import { ControlErrorComponent } from '@shared/modules/ui/components/errors/control-error/control-error.component';
 import { MatFormControlValueAccessorComponent } from '@shared/modules/ui/utils/form/mat-form-control-value-accessor.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'text-input',
@@ -30,8 +31,12 @@ import { TranslateModule } from '@ngx-translate/core';
     ControlErrorComponent,
     TranslateModule,
     ReactiveFormsModule,
+    NgxMaskDirective,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextInputComponent extends MatFormControlValueAccessorComponent<string> {}
+export class TextInputComponent extends MatFormControlValueAccessorComponent<string> {
+  @Input() mask: string | null = null;
+  @Input() maskOptions: any = null;
+}

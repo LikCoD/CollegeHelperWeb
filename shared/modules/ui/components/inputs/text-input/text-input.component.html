@@ -1,6 +1,23 @@
-<mat-form-field [appearance]="'outline'" color="accent">
-  <mat-label *ngIf="label">{{label | translate}}</mat-label>
-  <input [formControl]="control" [placeholder]="(placeholder ?? label ?? '') | translate" [type]="type" matInput>
-  <mat-hint *ngIf="hint">{{hint | translate}}</mat-hint>
+<mat-form-field [appearance]="'outline'" [class.hideBottomSpace]="!showBottomSpace" color="accent">
+  <mat-label *ngIf="label">{{ label | translate }}</mat-label>
+  <input
+    *ngIf="mask"
+    [dropSpecialCharacters]="maskOptions?.dropSpecialCharacters ?? true"
+    [formControl]="control"
+    [leadZeroDateTime]="maskOptions?.leadZeroDateTime ?? false"
+    [mask]="mask"
+    [placeholder]="placeholder ?? label ?? '' | translate"
+    [showMaskTyped]="maskOptions?.showMaskTyped ?? false"
+    [type]="type"
+    matInput
+  />
+  <input
+    *ngIf="!mask"
+    [formControl]="control"
+    [placeholder]="placeholder ?? label ?? '' | translate"
+    [type]="type"
+    matInput
+  />
+  <mat-hint *ngIf="hint">{{ hint | translate }}</mat-hint>
   <control-error [control]="control" matError />
 </mat-form-field>

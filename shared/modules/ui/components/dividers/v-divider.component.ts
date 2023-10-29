@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
   styles: [`
     :host {
       width: 2px;
-      height: calc(100% - 6px);
+      height: calc(100% - var(--divider-margin, 3px) * 2);
 
       background-color: #FFFFFF;
       opacity: 0.2;
       border-radius: 1px;
 
-      margin-top: 3px;
-      margin-bottom: 3px;
+      margin-top: var(--divider-margin, 3px);
+      margin-bottom: var(--divider-margin, 3px);
     }
   `],
   imports: [CommonModule],

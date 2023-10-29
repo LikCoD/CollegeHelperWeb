@@ -1,7 +1,14 @@
 <schedule-header />
 <h-divider />
 <plugable
+  [dataComponent]="BaseScheduleComponent"
   [observable]="schedule$"
   [plugComponent]="SchedulePlugComponent"
-  [dataComponent]="BaseScheduleComponent"
 />
+
+<ng-container *hasPermission="'editSchedule'">
+  <ng-container *ngIf="schedule$ | async as schedule">
+    <schedule-add-lesson-view [availableLessons]="schedule.lessons" />
+    <v-divider />
+  </ng-container>
+</ng-container>

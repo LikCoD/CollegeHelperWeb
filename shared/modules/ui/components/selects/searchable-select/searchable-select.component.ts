@@ -10,6 +10,7 @@ import { BaseSelectComponent } from '@ui/selects/base-select.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { debounceTime, map, Observable } from 'rxjs';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
+import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'searchable-select',
@@ -22,7 +23,18 @@ import { HDividerComponent } from '@ui/dividers/h-divider.component';
       multi: true,
     },
   ],
-  imports: [CommonModule, ControlErrorComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule, IconComponent, TranslateModule, HDividerComponent],
+  imports: [
+    CommonModule,
+    ControlErrorComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    IconComponent,
+    TranslateModule,
+    HDividerComponent,
+    SkeletonLoaderComponent,
+  ],
   standalone: true,
 })
 export class SearchableSelectComponent<V> extends BaseSelectComponent<V> implements OnInit {
