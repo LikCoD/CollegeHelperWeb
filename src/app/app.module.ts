@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferencesService } from '@shared/services/preferences.service';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
+import { KeypressService } from '@shared/services/keypress.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,12 @@ import { provideEnvironmentNgxMask } from 'ngx-mask';
       multi: true,
       useFactory: (s: PreferencesService) => () => s,
       deps: [PreferencesService],
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (s: KeypressService) => () => s,
+      deps: [KeypressService],
     },
   ],
   bootstrap: [AppComponent],

@@ -3,6 +3,7 @@ import { map, Observable } from 'rxjs';
 import { SelectItem } from '@shared/modules/ui/entities/select';
 import { StudyPlacesService } from '@shared/services/study-places.service';
 import { HttpClient } from '@angular/common/http';
+import { debug } from '@shared/rxjs/pipes/debug.pipe';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +26,9 @@ export class SearchScheduleDialogService {
 
   getTypeNames(type: string, studyPlaceID: string | null = null): Observable<string[]> {
     return this.http
-      .get<{ [key: string]: string[] }>(`api/v1/schedule/types`, {
+      .get<{ [key: string]: {id: string, title: string}[] }>(`api/v1/schedule/types`, {
         params: { studyPlaceID: studyPlaceID ?? '' },
       })
-      .pipe(map(v => v[`${type}s`]));
+      .pipe(map(v => v[`${type}s`].map(v => v.title)))
   }
 }

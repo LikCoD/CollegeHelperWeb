@@ -1,49 +1,48 @@
-<ng-container *ngIf="schedule$ | async as schedule">
-  <ng-container *ngIf="schedule.lessons | flatMap: lessonTimes as times">
-    <div class="empty-corner"></div>
-    <div *ngIf="mode === 'time'; else lessonIndexesMarkup" class="markup">
-      <hr
-        *ngFor="let time of times | distinct: distinctDateTime"
-        [style.margin-top.px]="getCellTimeYPosition(time, topOffset)"
-      />
-    </div>
-    <ng-template #lessonIndexesMarkup>
-      <!--    <div class="markup">-->
-      <!--      <hr *ngFor="let index of schedule.info.indexes"-->
-      <!--          [style.margin-top.px]="scheduleService.getLessonIndexY(index) - 5 * scheduleService.scaleY">-->
-      <!--    </div>-->
-    </ng-template>
-
-    <div *ngIf="mode === 'time'; else lessonIndexes" class="time-container">
-      <p
-        *ngFor="let time of times | distinct: distinctDateTime"
-        [style.margin-top.px]="getCellTimeYPosition(time, topOffset) - 20"
-        class="time"
-      >
-        {{ time | time: "h:mm a" }}
-      </p>
-    </div>
-    <ng-template #lessonIndexes>
-      <!--    <div class="time-container">-->
-      <!--      <p *ngFor="let index of schedule.info.indexes" class="time"-->
-      <!--         [style.margin-top.px]="scheduleService.getLessonIndexY(index) + 17.5 * scheduleService.scaleY">{{index}}</p>-->
-      <!--    </div>-->
-    </ng-template>
-
-    <div class="weekdays-container">
-      <p *ngFor="let day of [schedule.info.startDate, schedule.info.endDate] | dateBetween: 'day'" class="weekday">
-        {{ day | datetime: "MMM dd EEE" }}
-      </p>
-    </div>
-    <div class="lessons-container">
-      <ng-container *ngFor="let lessons of schedule.lessons | groupBy: groupLessonByTime | values">
-        <schedule-cell
-          scheduleCellPosition
-          [lessons]="lessons"
-          [offset]="topOffset"
-          [startTime]="schedule.info.startDate"
+  <ng-container *ngIf='mode$ | async as mode'>
+    <ng-container *ngIf='schedule.lessons | flatMap: lessonTimes as times'>
+      <div class='empty-corner'></div>
+      <div *ngIf="mode === 'time'; else lessonIndexesMarkup" class='markup'>
+        <hr
+          *ngFor='let time of times | distinct: distinctDateTime'
+          [style.margin-top.px]='getCellTimeYPosition(time, topOffset)'
         />
-      </ng-container>
-    </div>
+      </div>
+      <ng-template #lessonIndexesMarkup>
+        <div class='markup'>
+          <hr *ngFor='let index of schedule.info.indexes'
+              [style.margin-top.px]='getCellIndexYPosition(index) - 5'>
+        </div>
+      </ng-template>
+
+      <div *ngIf="mode === 'time'; else lessonIndexes" class='time-container'>
+        <p
+          *ngFor='let time of times | distinct: distinctDateTime'
+          [style.margin-top.px]='getCellTimeYPosition(time, topOffset) - 20'
+          class='time'
+        >
+          {{ time | time: "h:mm a" }}
+        </p>
+      </div>
+      <ng-template #lessonIndexes>
+        <div class='time-container'>
+          <p *ngFor='let index of schedule.info.indexes' class='time'
+             [style.margin-top.px]='getCellIndexYPosition(index) + 47.5'>{{index + 1}}</p>
+        </div>
+      </ng-template>
+
+      <div class='weekdays-container'>
+        <p *ngFor="let day of [schedule.info.startDate, schedule.info.endDate] | dateBetween: 'day'" class='weekday'>
+          {{ day | datetime: "MMM dd EEE" }}
+        </p>
+      </div>
+      <div class='lessons-container'>
+        <ng-container *ngFor='let lessons of schedule.lessons | groupBy: groupLessonByTime | values'>
+          <schedule-cell
+            scheduleCellPosition
+            [lessons]='lessons'
+            [startTime]='schedule.info.startDate'
+          />
+        </ng-container>
+      </div>
+    </ng-container>
   </ng-container>
-</ng-container>

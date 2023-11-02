@@ -95,6 +95,7 @@ export interface DateRangeFormElementTypeConfig {
   startControlName?: string;
   endControlName?: string;
   expand?: boolean;
+  utc?: boolean;
 }
 
 export type FormConfigElements<C> = { [K in keyof C]: FormConfigElement<any> };

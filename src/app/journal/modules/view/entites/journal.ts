@@ -9,7 +9,7 @@ export interface Journal {
 
 export interface JournalLesson {
   id?: string;
-  studyPlaceId?: string;
+  studyPlaceID?: string;
   primaryColor: string;
   journalCellColor?: string;
   secondaryColor?: string;
@@ -89,7 +89,7 @@ export const JournalScheme = z.object({
     z
       .object({
         id: z.string(),
-        studyPlaceId: z.string(),
+        studyPlaceID: z.string(),
         endDate: z
           .string()
           .datetime()

@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export interface ScheduleLesson {
   id?: string;
-  studyPlaceId?: string;
+  studyPlaceID?: string;
   primaryColor: string;
   journalCellColor?: string;
   secondaryColor?: string;
@@ -23,6 +23,7 @@ export interface ScheduleLesson {
   homework?: string;
   description?: string;
   isGeneral?: boolean;
+  status?: string;
 }
 
 export interface ScheduleInfo {
@@ -62,7 +63,7 @@ export const ScheduleSchema = z.object({
     .array(
       z.object({
         id: z.string(),
-        studyPlaceId: z.string(),
+        studyPlaceID: z.string(),
         endDate: z
           .string()
           .datetime()
@@ -83,6 +84,7 @@ export const ScheduleSchema = z.object({
         teacherID: z.string(),
         roomID: z.string(),
         isGeneral: z.boolean(),
+        status: z.string(),
       })
     )
     .or(z.null()),
@@ -90,11 +92,11 @@ export const ScheduleSchema = z.object({
     endDate: z
       .string()
       .datetime()
-      .transform(dt => DateTime.fromISO(dt)),
+      .transform(dt => DateTime.fromISO(dt, {zone: 'utc'})),
     startDate: z
       .string()
       .datetime()
-      .transform(dt => DateTime.fromISO(dt)),
+      .transform(dt => DateTime.fromISO(dt, {zone: 'utc'})),
     studyPlaceInfo: z.object({
       id: z.string(),
     }),

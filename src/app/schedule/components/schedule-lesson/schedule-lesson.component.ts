@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -56,12 +56,19 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
     secondaryColor: new FormControl('transparent'),
   });
 
+  query = {
+    studyPlaceID: '',
+  };
+
   private studyPlaceID!: string;
 
   @Input()
   set lesson(value: ScheduleLesson) {
     this.isUpdated = value.isGeneral ?? false;
-    this.studyPlaceID = value.studyPlaceId ?? '';
+    this.studyPlaceID = value.studyPlaceID ?? '';
+    this.query = {
+      studyPlaceID: this.studyPlaceID,
+    };
     this.setFormValue(value);
   }
 
@@ -78,18 +85,15 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
     this.form.valueChanges.subscribe(fn);
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 
   writeValue(lesson: ScheduleLesson): void {
     this.setFormValue(lesson);
   }
 
-  buildQueryParams(type: string): any {
-    return {
-      type: type,
-      name: this.form.get(type)?.value,
-      studyPlaceID: this.studyPlaceID,
-    };
+  buildRouterLink(type: string): string {
+    return `/schedule/${type}/${this.form.get(type)?.value}`;
   }
 
   private setFormValue(lesson: ScheduleLesson) {

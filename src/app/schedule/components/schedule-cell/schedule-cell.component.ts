@@ -7,6 +7,7 @@ import {
   EventEmitter,
   inject,
   Input,
+  OnInit,
   Output,
   signal,
   ViewChild,
@@ -17,6 +18,8 @@ import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/sc
 import { IconComponent } from '@ui/images/icon.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MoreIndicatorComponent } from '@ui/indicators/more-indicator.component';
+import { KeypressService } from '@shared/services/keypress.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'schedule-cell',
@@ -26,7 +29,7 @@ import { MoreIndicatorComponent } from '@ui/indicators/more-indicator.component'
   styleUrls: ['./schedule-cell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScheduleCellComponent implements AfterViewInit {
+export class ScheduleCellComponent implements OnInit, AfterViewInit {
   @Input({ required: false }) lessons!: ScheduleLesson[];
   @Input() isEditMode!: boolean;
   @Output() delete = new EventEmitter<null>();
@@ -35,6 +38,9 @@ export class ScheduleCellComponent implements AfterViewInit {
 
   scrollable = signal(false);
 
+  control$!: Observable<{ pressed: boolean }>;
+
+  private keypress = inject(KeypressService);
   private cdr = inject(ChangeDetectorRef);
 
   get sectionEl(): HTMLElement {
@@ -43,6 +49,10 @@ export class ScheduleCellComponent implements AfterViewInit {
 
   get sectionWidth(): number {
     return this.sectionEl.clientWidth;
+  }
+
+  ngOnInit(): void {
+    this.control$ = this.keypress.control$;
   }
 
   ngAfterViewInit(): void {

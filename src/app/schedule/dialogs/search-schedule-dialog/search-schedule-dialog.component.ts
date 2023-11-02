@@ -67,13 +67,13 @@ export class SearchScheduleDialogComponent {
           expand: true,
           startControlName: 'startDate',
           endControlName: 'endDate',
+          utc: true,
         },
         initial: {
           start: this.config.startDate ?? null,
           end: this.config.endDate ?? null,
         },
-        formatter: (date: DateTime) => date.toISO(),
-        validators: [Validators.required],
+        formatter: (date: DateTime) => date?.toISO(),
       },
     },
   };

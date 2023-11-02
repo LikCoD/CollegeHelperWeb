@@ -12,7 +12,7 @@ export type ScheduleMode = 'time' | 'table';
   providedIn: 'root',
 })
 export class ScheduleService {
-  mode: ScheduleMode = 'time';
+  mode$ = new BehaviorSubject<ScheduleMode>('time');
 
   private http = inject(HttpClient);
   private _schedule$ = new BehaviorSubject<Schedule | null>(null);
@@ -27,8 +27,9 @@ export class ScheduleService {
 
   getSchedule(dto: GetScheduleDTO): Observable<Schedule> {
     return this.http
-      .get<Schedule>('api/v1/schedule', { params: dto })
+      .get<Schedule>('api/v1/schedule', { params: dto ?? {} })
       .pipe(validate(ScheduleSchema))
+      .pipe(tap(s => s.info.indexes = [...new Set(s.lessons.map(l => l.lessonIndex))]))
       .pipe(tap(s => this._schedule$.next(s)));
   }
 }

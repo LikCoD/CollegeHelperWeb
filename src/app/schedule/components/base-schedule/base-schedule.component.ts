@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScheduleService } from '@schedule/services/schedule.service';
-import { Observable, tap } from 'rxjs';
+import { ScheduleMode, ScheduleService } from '@schedule/services/schedule.service';
+import { Observable } from 'rxjs';
 import { ScheduleLesson, Schedule } from '@schedule/entities/schedule';
 import { DistinctPipe } from '@shared/pipes/distinct.pipe';
 import { DateTime } from 'luxon';
@@ -39,27 +39,26 @@ import { DateTimePipe } from '@shared/pipes/datetime.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseScheduleComponent implements OnInit {
-  @Input() data: any;
+  schedule!: Schedule;
 
-  schedule$!: Observable<Schedule>;
+  @Input('data') set _schedule(s: Schedule) {
+    this.schedule = s;
+    const time = s.lessons.flatMap(l => this.lessonTimes(l));
+    this.topOffset = Math.min(...time.map(t => this.getCellTimeYPosition(t.toISOTime()!)));
+    this.service.offset = this.topOffset;
+  };
+
+  mode$!: Observable<ScheduleMode>;
   topOffset!: number;
 
   private scheduleService = inject(ScheduleService);
   private service = inject(BaseScheduleService);
 
   getCellTimeYPosition = this.service.getCellTimeYPosition.bind(this.service);
-
-  get mode(): string {
-    return this.scheduleService.mode;
-  }
+  getCellIndexYPosition = this.service.getCellIndexYPosition.bind(this.service);
 
   ngOnInit(): void {
-    this.schedule$ = this.scheduleService.schedule$.pipe(
-      tap(s => {
-        const time = s.lessons.flatMap(l => this.lessonTimes(l));
-        this.topOffset = Math.min(...time.map(t => this.getCellTimeYPosition(t.toISOTime()!)));
-      })
-    );
+    this.mode$ = this.scheduleService.mode$;
   }
 
   lessonTimes(lesson: ScheduleLesson): DateTime[] {

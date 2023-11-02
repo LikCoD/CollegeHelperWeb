@@ -6,4 +6,4 @@ export type GetScheduleDTO =
       startDate: string;
       endDate: string;
     }
-  | {};
+  | null;
