@@ -12,7 +12,7 @@ export type ScheduleMode = 'time' | 'table';
   providedIn: 'root',
 })
 export class ScheduleService {
-  mode$ = new BehaviorSubject<ScheduleMode>('time');
+  mode$ = new BehaviorSubject<ScheduleMode>('table');
 
   private http = inject(HttpClient);
   private _schedule$ = new BehaviorSubject<Schedule | null>(null);

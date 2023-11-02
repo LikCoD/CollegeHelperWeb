@@ -6,41 +6,41 @@
     <head2 routerLink="/" key="appNameShorten"/>
   </url>
 
-  <div class="right-wrapper">
-    <nav class="nav-bar">
-      <url key="schedule" link="schedule" />
-      <url *ngIf="user$ | async" key="journal" link="journal" />
-    </nav>
-    <nav class="nav-bar nav-bar-sm">
-      <url link="schedule">
-        <icon src="calendar_month" />
-      </url>
-      <url *ngIf="user$ | async" link="journal">
-        <icon src="book" />
-      </url>
-    </nav>
-    <v-divider />
+<!--  <div class="right-wrapper">-->
+<!--    <nav class="nav-bar">-->
+<!--      <url key="schedule" link="schedule" />-->
+<!--      <url *ngIf="user$ | async" key="journal" link="journal" />-->
+<!--    </nav>-->
+<!--    <nav class="nav-bar nav-bar-sm">-->
+<!--      <url link="schedule">-->
+<!--        <icon src="calendar_month" />-->
+<!--      </url>-->
+<!--      <url *ngIf="user$ | async" link="journal">-->
+<!--        <icon src="book" />-->
+<!--      </url>-->
+<!--    </nav>-->
+<!--    <v-divider />-->
 
-    <ng-container *ngIf="user$ | async as user else notLogin">
-      <url class="profile" link="user">
-        <p1>{{user.login}}</p1>
-        <image [src]="user.pictureURL" alt="profile" class="profile-image" />
-      </url>
-    </ng-container>
+<!--    <ng-container *ngIf="user$ | async as user else notLogin">-->
+<!--      <url class="profile" link="user">-->
+<!--        <p1>{{user.login}}</p1>-->
+<!--        <image [src]="user.pictureURL" alt="profile" class="profile-image" />-->
+<!--      </url>-->
+<!--    </ng-container>-->
 
-    <ng-template #notLogin>
-      <div class="user-block">
-        <url class="icon-btn login-btn" link="user/auth/login">
-          <p2 key="login"/>
-          <icon src="login" />
-        </url>
-        <url class="icon-btn signup-btn" link="user/auth/signup">
-          <p2 key="signup"/>
-          <icon src="person_add" />
-        </url>
-      </div>
-    </ng-template>
-  </div>
+<!--    <ng-template #notLogin>-->
+<!--      <div class="user-block">-->
+<!--        <url class="icon-btn login-btn" link="user/auth/login">-->
+<!--          <p2 key="login"/>-->
+<!--          <icon src="login" />-->
+<!--        </url>-->
+<!--        <url class="icon-btn signup-btn" link="user/auth/signup">-->
+<!--          <p2 key="signup"/>-->
+<!--          <icon src="person_add" />-->
+<!--        </url>-->
+<!--      </div>-->
+<!--    </ng-template>-->
+<!--  </div>-->
 </header>
 <h-divider class="bottom-line" />
 

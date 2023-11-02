@@ -23,7 +23,7 @@ import { KeypressService } from '@shared/services/keypress.service';
     RouterModule.forRoot(routes),
     HttpClientModule,
     HeaderComponent,
-    TranslateModule.http('api/v1/i18n', 'en_us'),
+    TranslateModule.http('api/v1/i18n', 'ru_ru'),
     MatLuxonDateModule,
     MatDialogModule,
     MatTooltipModule,
