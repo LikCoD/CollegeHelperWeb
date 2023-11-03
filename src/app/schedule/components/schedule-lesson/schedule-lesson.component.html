@@ -1,30 +1,38 @@
-<div *ngIf='showForeground' class='not-updated-foreground'></div>
+<div *ngIf="showForeground" class="not-updated-foreground"></div>
 <main [style.background-color]="form.get('primaryColor')!!.value">
   <div
     [style.background]="form.get('secondaryColor')!!.value"
-    [style.margin-right.px]="form.get('secondaryColor')!!.value == 'transparent' ? 0 : 5"
-    class='secondaryColorContainer'
+    [style.margin-right.px]="form.get('secondaryColor')!!.value === 'transparent' ? 0 : 5"
+    class="secondaryColorContainer"
   ></div>
   <form>
-    <head4 [queryParams]='query'
-           [queryParamsHandling]='"preserve"'
-           [routerLink]="routing ? buildRouterLink('subject') : undefined"
-           class='subject-name'
-    >{{form.controls['subject'].value}}</head4>
-    <p1 [queryParams]='query'
-        [queryParamsHandling]='"preserve"'
-        [routerLink]="routing ? buildRouterLink('teacher') : undefined"
-        class='teacher-name'
-    >{{form.controls['teacher'].value}}</p1>
-    <p1 [queryParams]='query'
-        [queryParamsHandling]='"preserve"'
-        [routerLink]="routing ? buildRouterLink('room') : undefined"
-        class='room-name'
-    >{{form.controls['room'].value}}</p1>
-    <p1 [queryParams]='query'
-        [queryParamsHandling]='"preserve"'
-        [routerLink]="routing ? buildRouterLink('group') : undefined"
-        class='group-name'
-    >{{form.controls['group'].value}}</p1>
+    <head4
+      [queryParams]="query"
+      [queryParamsHandling]="'preserve'"
+      [routerLink]="routing ? buildRouterLink('subject') : undefined"
+      class="subject-name"
+      >{{ form.controls["subject"].value }}</head4
+    >
+    <p1
+      [queryParams]="query"
+      [queryParamsHandling]="'preserve'"
+      [routerLink]="routing ? buildRouterLink('teacher') : undefined"
+      class="teacher-name"
+      >{{ form.controls["teacher"].value }}</p1
+    >
+    <p1
+      [queryParams]="query"
+      [queryParamsHandling]="'preserve'"
+      [routerLink]="routing ? buildRouterLink('room') : undefined"
+      class="room-name"
+      >{{ form.controls["room"].value }}</p1
+    >
+    <p1
+      [queryParams]="query"
+      [queryParamsHandling]="'preserve'"
+      [routerLink]="routing ? buildRouterLink('group') : undefined"
+      class="group-name"
+      >{{ form.controls["group"].value }}</p1
+    >
   </form>
 </main>

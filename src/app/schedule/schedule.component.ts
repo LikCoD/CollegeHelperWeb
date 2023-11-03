@@ -17,6 +17,7 @@ import { JwtService } from '@jwt/jwt.service';
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
   schedule$!: Observable<Schedule | null>;
+  scheduleTrigger$!: Observable<any>;
 
   protected readonly SchedulePlugComponent = SchedulePlugComponent;
   protected readonly BaseScheduleComponent = BaseScheduleComponent;
@@ -28,12 +29,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   private studyPlaceService = inject(StudyPlacesService);
 
   ngOnInit(): void {
+    this.scheduleTrigger$ = merge(this.route.params, this.route.queryParams);
+
     this.schedule$ = merge(this.route.params, this.route.queryParams)
       .pipe(map(this.parseParams.bind(this)))
       .pipe(map(p => p ?? (this.jwtService.data ? null : this.getParamsFromStorage())))
       .pipe(tap(p => this.saveParamsToStorage(p)))
-      .pipe(switchMap(p => p ? this.service.getSchedule(p) : of(null)))
-      .pipe(map(s => (s?.lessons ? s : null)))
+      .pipe(switchMap(p => (p ? this.service.getSchedule(p) : of(null))))
+      .pipe(map(s => (s?.lessons ? s : null)));
   }
 
   ngOnDestroy(): void {
@@ -41,11 +44,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   private getParamsFromStorage(): GetScheduleDTO {
-    return JSON.parse(localStorage.getItem('schedule') ?? 'null')
+    return JSON.parse(localStorage.getItem('schedule') ?? 'null');
   }
 
   private saveParamsToStorage(p: GetScheduleDTO): void {
-    localStorage.setItem('schedule', JSON.stringify(p))
+    localStorage.setItem('schedule', JSON.stringify(p));
   }
 
   private parseParams(): GetScheduleDTO {

@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
 import { DateTime } from 'luxon';
 import { CharacterComponent } from '@ui/images/character.component';
-import { studyPlaceID } from '../../../../main';
+import { environment } from '../../../../enviroments/environment';
 
 @Component({
   selector: 'app-search-schedule-dialog',
@@ -35,7 +35,8 @@ export class SearchScheduleDialogComponent {
           label: 'studyPlace',
           items: this.service.studyPlaceList$,
         },
-        initial: studyPlaceID,
+        hidden: environment.standalone,
+        initial: environment.studyPlaceID,
         validators: [Validators.required],
       },
       type: {
