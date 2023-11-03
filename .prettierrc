@@ -10,7 +10,12 @@
   "useTabs": false,
   "overrides": [
     {
-      "files": ["*.css", "*.scss", "*.less", "*.html"],
+      "files": [
+        "*.css",
+        "*.scss",
+        "*.less",
+        "*.html"
+      ],
       "options": {
         "singleQuote": false
       }

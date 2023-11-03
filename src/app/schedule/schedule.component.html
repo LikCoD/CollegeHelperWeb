@@ -1,8 +1,9 @@
 <schedule-header />
 <h-divider />
 <plugable
-  [dataComponent]="BaseScheduleComponent"
+  [trigger]="scheduleTrigger$"
   [observable]="schedule$"
+  [dataComponent]="BaseScheduleComponent"
   [plugComponent]="SchedulePlugComponent"
 />
 

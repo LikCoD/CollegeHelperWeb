@@ -13,6 +13,7 @@ export interface FormConfig<T extends FormConfigElements<T>, V extends Object = 
 export interface BaseFormConfigElement<T> {
   control?: FormControl<T>;
   initial?: T;
+  hidden?: boolean;
   validators?: ValidatorFn | ValidatorFn[];
   formatter?: (value: any) => any;
 }
