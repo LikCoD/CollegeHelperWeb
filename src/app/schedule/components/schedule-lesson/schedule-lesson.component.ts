@@ -21,7 +21,14 @@ import { Head4Component } from '@ui/text/head4.component';
 @Component({
   selector: 'schedule-lesson',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, Head3Component, P1Component, Head4Component],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    Head3Component,
+    P1Component,
+    Head4Component,
+  ],
   templateUrl: './schedule-lesson.component.html',
   styleUrls: ['./schedule-lesson.component.scss'],
   providers: [
@@ -66,9 +73,7 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
   set lesson(value: ScheduleLesson) {
     this.isUpdated = value.isGeneral ?? false;
     this.studyPlaceID = value.studyPlaceID ?? '';
-    this.query = {
-      studyPlaceID: this.studyPlaceID,
-    };
+    this.query = { studyPlaceID: this.studyPlaceID };
     this.setFormValue(value);
   }
 
@@ -85,8 +90,7 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
     this.form.valueChanges.subscribe(fn);
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
   writeValue(lesson: ScheduleLesson): void {
     this.setFormValue(lesson);

@@ -57,7 +57,7 @@ export class SearchScheduleDialogComponent {
         dependable: {
           dependsOn: 'type',
           cacheable: true,
-          dependsItems: item => this.service.getTypeNames(item),
+          dependsItems: item => this.service.getTypeNames(item, environment.studyPlaceID),
         },
         initial: this.config.typename!,
         validators: [Validators.required],
