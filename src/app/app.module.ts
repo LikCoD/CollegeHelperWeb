@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferencesService } from '@shared/services/preferences.service';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { KeypressService } from '@shared/services/keypress.service';
+import { environment } from '../enviroments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,7 @@ import { KeypressService } from '@shared/services/keypress.service';
     RouterModule.forRoot(routes),
     HttpClientModule,
     HeaderComponent,
-    TranslateModule.http('api/v1/i18n', 'ru_ru'),
+    TranslateModule.http('api/v1/i18n', environment.defaultLanguage),
     MatLuxonDateModule,
     MatDialogModule,
     MatTooltipModule,
