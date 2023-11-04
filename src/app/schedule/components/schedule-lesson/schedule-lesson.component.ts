@@ -17,6 +17,7 @@ import { RouterLink } from '@angular/router';
 import { Head3Component } from '@ui/text/head3.component';
 import { P1Component } from '@ui/text/p1.component';
 import { Head4Component } from '@ui/text/head4.component';
+import { environment } from '../../../../enviroments/environment';
 
 @Component({
   selector: 'schedule-lesson',
@@ -73,7 +74,7 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
   set lesson(value: ScheduleLesson) {
     this.isUpdated = value.isGeneral ?? false;
     this.studyPlaceID = value.studyPlaceID ?? '';
-    this.query = { studyPlaceID: this.studyPlaceID };
+    this.query = { studyPlaceID: this.studyPlaceID ?? environment.studyPlaceID };
     this.setFormValue(value);
   }
 
@@ -90,7 +91,8 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
     this.form.valueChanges.subscribe(fn);
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 
   writeValue(lesson: ScheduleLesson): void {
     this.setFormValue(lesson);
