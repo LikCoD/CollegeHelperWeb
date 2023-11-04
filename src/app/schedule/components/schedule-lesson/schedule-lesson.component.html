@@ -1,4 +1,5 @@
 <div *ngIf="showForeground" class="not-updated-foreground"></div>
+<div *ngIf="!routing" class="foreground"></div>
 <main [style.background-color]="form.get('primaryColor')!!.value">
   <div
     [style.background]="form.get('secondaryColor')!!.value"
@@ -9,28 +10,28 @@
     <head4
       [queryParams]="query"
       [queryParamsHandling]="'preserve'"
-      [routerLink]="routing ? buildRouterLink('subject') : undefined"
+      [routerLink]="buildRouterLink('subject')"
       class="subject-name"
       >{{ form.controls["subject"].value }}</head4
     >
     <p1
       [queryParams]="query"
       [queryParamsHandling]="'preserve'"
-      [routerLink]="routing ? buildRouterLink('teacher') : undefined"
+      [routerLink]="buildRouterLink('teacher')"
       class="teacher-name"
       >{{ form.controls["teacher"].value }}</p1
     >
     <p1
       [queryParams]="query"
       [queryParamsHandling]="'preserve'"
-      [routerLink]="routing ? buildRouterLink('room') : undefined"
+      [routerLink]="buildRouterLink('room')"
       class="room-name"
       >{{ form.controls["room"].value }}</p1
     >
     <p1
       [queryParams]="query"
       [queryParamsHandling]="'preserve'"
-      [routerLink]="routing ? buildRouterLink('group') : undefined"
+      [routerLink]="buildRouterLink('group')"
       class="group-name"
       >{{ form.controls["group"].value }}</p1
     >
