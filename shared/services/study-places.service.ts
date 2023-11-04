@@ -4,6 +4,7 @@ import { Observable, of, tap } from 'rxjs';
 import { StudyPlace, StudyPlaceScheme } from '@shared/entities/study-place';
 import { ActivatedRoute, Params } from '@angular/router';
 import { validate } from '@shared/rxjs/pipes/validate';
+import { environment } from '../../src/enviroments/environment';
 
 export interface GetStudyPlacesParams extends Params {
   isPublic?: boolean;
@@ -20,7 +21,7 @@ export class StudyPlacesService {
   private _userStudyPlace: StudyPlace | null = null;
 
   get currentID(): string | null {
-    return this.route.snapshot.queryParams['studyPlaceID'] ?? null;
+    return this.route.snapshot.queryParams['studyPlaceID'] ?? environment.studyPlaceID;
   }
 
   get userStudyPlace(): Observable<StudyPlace> {
