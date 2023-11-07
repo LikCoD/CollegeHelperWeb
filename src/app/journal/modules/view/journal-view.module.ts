@@ -23,7 +23,7 @@ import { JournalViewPlugComponent } from './components/journal-view-plug/journal
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
 import { BaseJournalComponent } from './components/base-journal/base-journal.component';
-import { PlugableComponent } from '@shared/components/plugable/plugable.component';
+import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { DateTimePipe } from '@shared/pipes/datetime.pipe';
 
 @NgModule({
@@ -52,7 +52,7 @@ import { DateTimePipe } from '@shared/pipes/datetime.pipe';
     MatTooltipModule,
     SkeletonLoaderComponent,
     SkeletonPlugComponent,
-    PlugableComponent,
+    PluggableComponent,
     DateTimePipe,
   ],
   providers: [translatePrefixProvider('view')],

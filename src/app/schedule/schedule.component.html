@@ -1,7 +1,6 @@
 <schedule-header />
 <h-divider />
-<plugable
-  [trigger]="scheduleTrigger$"
+<pluggable
   [observable]="schedule$"
   [dataComponent]="BaseScheduleComponent"
   [plugComponent]="SchedulePlugComponent"
@@ -9,7 +8,9 @@
 
 <ng-container *hasPermission="'editSchedule'">
   <ng-container *ngIf="schedule$ | async as schedule">
-    <schedule-add-lesson-view [availableLessons]="schedule.lessons" />
-    <v-divider />
+    <ng-container *ngIf="schedule.plug.type === 'loaded'">
+      <schedule-add-lesson-view [availableLessons]="$any(schedule.data).lessons" />
+      <v-divider />
+    </ng-container>
   </ng-container>
 </ng-container>

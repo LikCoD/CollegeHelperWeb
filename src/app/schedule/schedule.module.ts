@@ -10,7 +10,7 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { ScheduleHeaderComponent } from '@schedule/components/schedule-header/schedule-header.component';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
-import { PlugableComponent } from '@shared/components/plugable/plugable.component';
+import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { ScheduleEditModule } from '@schedule/modules/schedule-edit/schedule-edit.module';
 import { VDividerComponent } from '@ui/dividers/v-divider.component';
 import { HasPermissionDirective } from '@shared/directives/has-permission.directive';
@@ -25,7 +25,7 @@ import { HasPermissionDirective } from '@shared/directives/has-permission.direct
     ScheduleHeaderComponent,
     HDividerComponent,
     SkeletonPlugComponent,
-    PlugableComponent,
+    PluggableComponent,
     ScheduleEditModule,
     VDividerComponent,
     HasPermissionDirective,

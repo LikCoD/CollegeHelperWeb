@@ -12,7 +12,7 @@ import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JournalLandingComponent } from '@journal/modules/landing/journal-landing.component';
 import { BaseJournalSelectComponent } from './components/base-journal-select/base-journal-select.component';
-import { PlugableComponent } from '@shared/components/plugable/plugable.component';
+import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { JournalSelectPlugComponent } from './components/journal-select-plug/journal-select-plug.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 
@@ -33,7 +33,7 @@ import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skel
     P1Component,
     TextInputComponent,
     ReactiveFormsModule,
-    PlugableComponent,
+    PluggableComponent,
     SkeletonLoaderComponent,
   ],
 })

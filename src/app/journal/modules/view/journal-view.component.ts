@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetJournalDTO } from '@journal/modules/view/entites/journal.dto';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, pipe, switchMap } from 'rxjs';
 import { JournalViewService } from '@journal/modules/view/services/journal-view.service';
 import { Journal } from '@journal/modules/view/entites/journal';
 import { JournalViewPlugComponent } from '@journal/modules/view/components/journal-view-plug/journal-view-plug.component';
 import { BaseJournalComponent } from '@journal/modules/view/components/base-journal/base-journal.component';
+import { Pluggable } from '@shared/components/plugable/pluggable.entites';
+import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
 
 @Component({
   selector: 'journal-view',
@@ -14,7 +16,7 @@ import { BaseJournalComponent } from '@journal/modules/view/components/base-jour
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JournalViewComponent implements OnInit {
-  journal$!: Observable<Journal>;
+  journal$!: Observable<Pluggable<Journal>>;
 
   protected readonly JournalViewPlugComponent = JournalViewPlugComponent;
   protected readonly BaseJournalComponent = BaseJournalComponent;
@@ -23,9 +25,14 @@ export class JournalViewComponent implements OnInit {
   private service = inject(JournalViewService);
 
   ngOnInit(): void {
-    this.journal$ = this.route.queryParams
-      .pipe(map(this.parseParams.bind(this)))
-      .pipe(switchMap(p => this.service.getJournal(p)));
+    this.journal$ = this.route.queryParams.pipe(
+      plugState(
+        pipe(
+          map(this.parseParams.bind(this)),
+          switchMap(p => this.service.getJournal(p))
+        )
+      )
+    );
   }
 
   private parseParams(): GetJournalDTO {

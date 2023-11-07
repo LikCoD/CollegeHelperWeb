@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { map, merge, Observable, of, Subscription, switchMap, tap } from 'rxjs';
+import { map, merge, Observable, of, pipe, Subscription, switchMap, tap } from 'rxjs';
 import { SchedulePlugComponent } from '@schedule/components/schedule-plug/schedule-plug.component';
 import { ScheduleService } from '@schedule/services/schedule.service';
 import { ActivatedRoute } from '@angular/router';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { StudyPlacesService } from '@shared/services/study-places.service';
-import { Schedule } from '@schedule/entities/schedule';
 import { BaseScheduleComponent } from '@schedule/components/base-schedule/base-schedule.component';
 import { JwtService } from '@jwt/jwt.service';
+import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
+import { Pluggable } from '@shared/components/plugable/pluggable.entites';
+import { Schedule } from '@schedule/entities/schedule';
 
 @Component({
   selector: 'app-schedule',
@@ -16,8 +18,7 @@ import { JwtService } from '@jwt/jwt.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
-  schedule$!: Observable<Schedule | null>;
-  scheduleTrigger$!: Observable<any>;
+  schedule$!: Observable<Pluggable<Schedule | null>>;
 
   protected readonly SchedulePlugComponent = SchedulePlugComponent;
   protected readonly BaseScheduleComponent = BaseScheduleComponent;
@@ -29,14 +30,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   private studyPlaceService = inject(StudyPlacesService);
 
   ngOnInit(): void {
-    this.scheduleTrigger$ = merge(this.route.params, this.route.queryParams);
-
-    this.schedule$ = merge(this.route.params, this.route.queryParams)
-      .pipe(map(this.parseParams.bind(this)))
-      .pipe(map(p => p ?? (this.jwtService.data ? null : this.getParamsFromStorage())))
-      .pipe(tap(p => this.saveParamsToStorage(p)))
-      .pipe(switchMap(p => (p ? this.service.getSchedule(p) : of(null))))
-      .pipe(map(s => (s?.lessons ? s : null)));
+    this.schedule$ = merge(this.route.params, this.route.queryParams).pipe(
+      plugState(
+        pipe(
+          map(this.parseParams.bind(this)),
+          map(p => p ?? (this.jwtService.data ? null : this.getParamsFromStorage())),
+          tap(p => this.saveParamsToStorage(p)),
+          switchMap(p => (p ? this.service.getSchedule(p) : of(null))),
+          map(s => (s?.lessons ? s : null)),
+          tap({ error: () => this.removeParamsFromStorage() })
+        )
+      )
+    );
   }
 
   ngOnDestroy(): void {
@@ -49,6 +54,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   private saveParamsToStorage(p: GetScheduleDTO): void {
     localStorage.setItem('schedule', JSON.stringify(p));
+  }
+
+  private removeParamsFromStorage(): void {
+    localStorage.removeItem('schedule');
   }
 
   private parseParams(): GetScheduleDTO {

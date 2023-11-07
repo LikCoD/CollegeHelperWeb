@@ -27,9 +27,9 @@ export class SkeletonPlugComponent implements OnChanges {
   private host = inject(ElementRef<HTMLElement>);
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['type']) {
-      this.host.nativeElement.classList.remove(changes['type'].previousValue);
-      this.host.nativeElement.classList.add(changes['type'].currentValue);
+    if (changes['plug']) {
+      this.host.nativeElement.classList.remove(changes['plug'].previousValue?.type);
+      this.host.nativeElement.classList.add(changes['plug'].currentValue.type);
     }
   }
 }
