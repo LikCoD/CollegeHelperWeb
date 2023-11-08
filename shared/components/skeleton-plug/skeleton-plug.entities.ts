@@ -1,4 +1,4 @@
-export type PlugType = 'loading' | 'error' | 'empty';
+export type PlugType = 'loaded' | 'loading' | 'error' | 'empty';
 
 export interface Plug {
   type: PlugType;

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { JournalOptionsService } from '@journal/modules/landing/services/journal-options.service';
-import { Observable } from 'rxjs';
+import { Observable, of, pipe, switchMap } from 'rxjs';
 import { JournalCategory } from '@journal/modules/landing/entities/options';
 import { BaseJournalSelectComponent } from '@journal/modules/landing/components/base-journal-select/base-journal-select.component';
 import { JournalSelectPlugComponent } from '@journal/modules/landing/components/journal-select-plug/journal-select-plug.component';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { Pluggable } from '@shared/components/plugable/pluggable.entites';
+import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
 
 @Component({
   selector: 'journal-select',
@@ -14,14 +16,12 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JournalLandingComponent implements OnInit {
-  categories$!: Observable<JournalCategory[]>;
-
+  categories$!: Observable<Pluggable<JournalCategory[]>>;
+  protected readonly BaseJournalSelectComponent = BaseJournalSelectComponent;
+  protected readonly JournalSelectPlugComponent = JournalSelectPlugComponent;
   private service = inject(JournalOptionsService);
 
   ngOnInit(): void {
-    this.categories$ = this.service.getOptions();
+    this.categories$ = of(null).pipe(plugState(pipe(switchMap(() => this.service.getOptions()))));
   }
-
-  protected readonly BaseJournalSelectComponent = BaseJournalSelectComponent;
-  protected readonly JournalSelectPlugComponent = JournalSelectPlugComponent;
 }

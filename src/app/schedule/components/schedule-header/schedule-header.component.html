@@ -1,5 +1,8 @@
 <icon (click)="showSearchDialog()" src="search" />
 <icon (click)="toggleViewType()" src="schedule" />
+<icon (click)="toggleViewMode()" src="today" />
 <ng-container *ngIf="schedule$ | async as schedule">
-  <span>{{schedule.info.type | translate}} &#x2022; {{schedule.info.typeName | translate}}</span>
+  <span
+    >{{ schedule.info.type | translate }} &#x2022; {{ schedule.info.typeName | translate }}</span
+  >
 </ng-container>

@@ -6,6 +6,7 @@
   display: flex;
   align-content: center;
   margin: 0 $indent2 $indent2 $indent2;
+  gap: $indent4;
 
   @include theme {
     color: $onBackgroundColor;
@@ -15,8 +16,8 @@
 icon {
   cursor: pointer;
   font-size: $fontSizeExtraLarge;
-  width: $fontSizeExtraLarge;
-  height: $fontSizeExtraLarge;
+  min-width: $fontSizeExtraLarge;
+  min-height: $fontSizeExtraLarge;
 }
 
 span {
