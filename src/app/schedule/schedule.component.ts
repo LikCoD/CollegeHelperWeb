@@ -30,7 +30,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   private studyPlaceService = inject(StudyPlacesService);
 
   ngOnInit(): void {
-    this.schedule$ = merge(this.route.params, this.route.queryParams).pipe(
+    this.schedule$ = merge(this.route.params, this.route.queryParams, this.service.display$).pipe(
       plugState(
         pipe(
           map(this.parseParams.bind(this)),
@@ -75,6 +75,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       studyPlaceID: studyPlaceID!,
       startDate: startDate,
       endDate: endDate,
+      general: this.service.display$.value === 'general',
     };
   }
 }

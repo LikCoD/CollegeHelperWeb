@@ -7,12 +7,14 @@ import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 
 export type ScheduleMode = 'time' | 'table';
+export type ScheduleDisplay = 'current' | 'general';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleService {
   mode$ = new BehaviorSubject<ScheduleMode>('time');
+  display$ = new BehaviorSubject<ScheduleDisplay>('current');
 
   private http = inject(HttpClient);
   private _schedule$ = new BehaviorSubject<Schedule | null>(null);
@@ -29,7 +31,7 @@ export class ScheduleService {
     return this.http
       .get<Schedule>('api/v1/schedule', { params: dto ?? {} })
       .pipe(validate(ScheduleSchema))
-      .pipe(tap(s => s.info.indexes = [...new Set(s.lessons.map(l => l.lessonIndex))]))
+      .pipe(tap(s => (s.info.indexes = [...new Set(s.lessons.map(l => l.lessonIndex))])))
       .pipe(tap(s => this._schedule$.next(s)));
   }
 }

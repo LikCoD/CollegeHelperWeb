@@ -7,13 +7,10 @@ import { IconComponent } from '@ui/images/icon.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SearchScheduleFormData } from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.dto';
-import {
-  SearchScheduleDialogComponent,
-} from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.component';
+import { SearchScheduleDialogComponent } from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.component';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { TranslateModule } from '@ngx-translate/core';
-import { debug } from '@shared/rxjs/pipes/debug.pipe';
 
 @Component({
   selector: 'schedule-header',
@@ -38,13 +35,15 @@ export class ScheduleHeaderComponent implements OnInit, OnDestroy {
   }
 
   showSearchDialog(): void {
-    const data: SearchScheduleFormData = this.service.schedule ? {
-      studyPlaceID: this.service.schedule.info.studyPlaceInfo.id,
-      type: this.service.schedule.info.type,
-      typename: this.service.schedule.info.typeName,
-      startDate: this.service.schedule.info.startDate,
-      endDate: this.service.schedule.info.endDate,
-    } : {};
+    const data: SearchScheduleFormData = this.service.schedule
+      ? {
+          studyPlaceID: this.service.schedule.info.studyPlaceInfo.id,
+          type: this.service.schedule.info.type,
+          typename: this.service.schedule.info.typeName,
+          startDate: this.service.schedule.info.startDate,
+          endDate: this.service.schedule.info.endDate,
+        }
+      : {};
 
     this.navigateSubscription = this.dialogService
       .open(SearchScheduleDialogComponent, { data: data })
@@ -59,14 +58,18 @@ export class ScheduleHeaderComponent implements OnInit, OnDestroy {
               startDate: data.startDate,
               endDate: data.endDate,
             },
-          }),
-        ),
+          })
+        )
       )
       .subscribe();
   }
 
   toggleViewType(): void {
     this.service.mode$.next(this.service.mode$.value === 'table' ? 'time' : 'table');
+  }
+
+  toggleViewMode(): void {
+    this.service.display$.next(this.service.display$.value === 'current' ? 'general' : 'current');
   }
 
   ngOnDestroy(): void {
