@@ -1,4 +1,4 @@
-@import 'indents';
+@import "indents";
 
 :host {
   position: relative;
@@ -29,7 +29,8 @@ main {
   height: 100%;
 }
 
-p1, head4 {
+p1,
+head4 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -87,4 +88,11 @@ div {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+form {
+  head4,
+  p1 {
+    cursor: pointer;
+  }
 }

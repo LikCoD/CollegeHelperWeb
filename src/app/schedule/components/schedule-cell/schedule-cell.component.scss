@@ -49,6 +49,7 @@
   user-select: none;
   border-radius: $borderRadius4;
   overflow: hidden;
+  z-index: 3;
 }
 
 ui-more-indicator {

@@ -8,7 +8,7 @@
     <schedule-lesson
       *ngFor="let lesson of lessons"
       [lesson]="lesson"
-      [routing]="!!(control$ | async)?.pressed"
+      [routing]="instantRouting() || !!(control$ | async)?.pressed"
       [showForeground]="lesson.status === 'general' && !(control$ | async)?.pressed"
     />
   </section>
