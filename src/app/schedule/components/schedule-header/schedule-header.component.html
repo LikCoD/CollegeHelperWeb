@@ -1,5 +1,12 @@
 <icon (click)="showSearchDialog()" src="search" />
 <icon (click)="toggleViewType()" src="schedule" />
+<ng-container *ngIf="mode$ | async as mode">
+  <icon
+    *ngIf="mode === 'table' || mode === 'table-expanded'"
+    (click)="toggleExpand()"
+    src="expand"
+  />
+</ng-container>
 <icon (click)="toggleViewMode()" src="today" />
 <ng-container *ngIf="schedule$ | async as schedule">
   <span

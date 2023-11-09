@@ -1,46 +1,46 @@
 import { inject, Injectable } from '@angular/core';
-import { DateTime } from 'luxon';
-import { ScheduleLesson } from '@schedule/entities/schedule';
-import { ScheduleService } from '@schedule/services/schedule.service';
+import { ScheduleMode, ScheduleService } from '@schedule/services/schedule.service';
+import { map, Observable } from 'rxjs';
+import { IModeCalculator } from '@schedule/components/base-schedule/mode-calculators/base-mode-calculator';
+import { TableModeCalculator } from '@schedule/components/base-schedule/mode-calculators/table.mode-calculator';
+import { TimeModeCalculator } from '@schedule/components/base-schedule/mode-calculators/time.mode-calculator';
+import { ExtendedTableModeCalculator } from '@schedule/components/base-schedule/mode-calculators/extended-table.mode-calculator';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseScheduleService {
+  offset: number = 0;
+  modeCalculator$!: Observable<IModeCalculator>;
 
   private service = inject(ScheduleService);
-  offset: number = 0;
+  private modeCalculators: { [key: string]: IModeCalculator } = {};
 
-  getCellIndexYPosition(index: number): number {
-    return index * 130;
-  };
-
-  getCellTimeYPosition(isoTime: string, offset: number = 0): number {
-    const date = DateTime.fromISO(isoTime);
-    return this.getDateY(date) - offset;
+  constructor() {
+    this.modeCalculator$ = this.service.mode$.pipe(map(this.getModeCalculator.bind(this)));
   }
 
-  getCellY(value: ScheduleLesson[]): number {
-    return this.service.mode$.value === 'time' ? this.getDateY(value[0].startDate) - this.offset : this.getIndexY(value[0].lessonIndex);
+  reset(): void {
+    this.modeCalculators = {};
   }
 
-  getCellX(value: ScheduleLesson[], start: DateTime): number {
-    return this.getDateX(value[0].startDate, start);
-  }
+  private getModeCalculator(mode: ScheduleMode): IModeCalculator {
+    if (this.modeCalculators[mode]) return this.modeCalculators[mode];
 
-  getCellHeight(value: ScheduleLesson[]): number {
-    return this.getDateY(value[0].endDate) - this.getDateY(value[0].startDate);
-  }
+    let calculator!: IModeCalculator;
+    switch (mode) {
+      case 'time':
+        calculator = new TimeModeCalculator();
+        break;
+      case 'table':
+        calculator = new TableModeCalculator();
+        break;
+      case 'table-expanded':
+        calculator = new ExtendedTableModeCalculator();
+        break;
+    }
 
-  private getDateY(date: DateTime): number {
-    return (date.hour * 60 + date.minute) * 2.25;
-  }
-
-  private getIndexY(i: number): number {
-    return i * 130 + 10;
-  }
-
-  private getDateX(date: DateTime, start: DateTime): number {
-    return Math.floor(date.diff(start, 'day').days) + 1;
+    if (this.service.schedule) calculator.init(this.service.schedule);
+    return (this.modeCalculators[mode] = calculator);
   }
 }

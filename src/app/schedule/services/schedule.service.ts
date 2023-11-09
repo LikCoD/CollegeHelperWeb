@@ -5,16 +5,15 @@ import { HttpClient } from '@angular/common/http';
 import { validate } from '@shared/rxjs/pipes/validate';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
+import { ToggleSubject } from '@shared/rxjs/subjects/toggle.subject';
 
-export type ScheduleMode = 'time' | 'table';
+export type ScheduleMode = 'time' | 'table' | 'table-expanded';
 export type ScheduleDisplay = 'current' | 'general';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ScheduleService {
-  mode$ = new BehaviorSubject<ScheduleMode>('time');
-  display$ = new BehaviorSubject<ScheduleDisplay>('current');
+  mode$ = new ToggleSubject<ScheduleMode>(['time', 'table', 'table-expanded'], 'table');
+  display$ = new ToggleSubject<ScheduleDisplay>(['current', 'general']);
 
   private http = inject(HttpClient);
   private _schedule$ = new BehaviorSubject<Schedule | null>(null);

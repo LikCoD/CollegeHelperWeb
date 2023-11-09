@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScheduleService } from '@schedule/services/schedule.service';
+import { ScheduleMode, ScheduleService } from '@schedule/services/schedule.service';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
 import { Schedule } from '@schedule/entities/schedule';
 import { IconComponent } from '@ui/images/icon.component';
@@ -23,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ScheduleHeaderComponent implements OnInit, OnDestroy {
   schedule$!: Observable<Schedule>;
+  mode$!: Observable<ScheduleMode>;
 
   private service = inject(ScheduleService);
   private dialogService = inject(MatDialog);
@@ -32,6 +33,7 @@ export class ScheduleHeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.schedule$ = this.service.schedule$;
+    this.mode$ = this.service.mode$;
   }
 
   showSearchDialog(): void {
@@ -65,11 +67,15 @@ export class ScheduleHeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleViewType(): void {
-    this.service.mode$.next(this.service.mode$.value === 'table' ? 'time' : 'table');
+    this.service.mode$.toggle(['time', 'table']);
+  }
+
+  toggleExpand(): void {
+    this.service.mode$.toggle(['table', 'table-expanded']);
   }
 
   toggleViewMode(): void {
-    this.service.display$.next(this.service.display$.value === 'current' ? 'general' : 'current');
+    this.service.display$.toggle();
   }
 
   ngOnDestroy(): void {

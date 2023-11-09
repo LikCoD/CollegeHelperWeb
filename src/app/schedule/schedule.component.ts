@@ -49,7 +49,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   private getParamsFromStorage(): GetScheduleDTO {
-    return JSON.parse(localStorage.getItem('schedule') ?? 'null');
+    const params = JSON.parse(localStorage.getItem('schedule') ?? 'null');
+    params['general'] = this.service.display$.value === 'general';
+    return params;
   }
 
   private saveParamsToStorage(p: GetScheduleDTO): void {

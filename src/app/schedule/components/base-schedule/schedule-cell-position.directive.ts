@@ -3,7 +3,6 @@ import { BaseScheduleService } from '@schedule/components/base-schedule/base-sch
 import { ScheduleLesson } from '@schedule/entities/schedule';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
-import { ScheduleService } from '@schedule/services/schedule.service';
 
 @Directive({
   selector: '[scheduleCellPosition]',
@@ -13,23 +12,26 @@ export class ScheduleCellPositionDirective implements OnChanges, OnDestroy {
   @Input({ required: true }) lessons!: ScheduleLesson[];
   @Input({ required: true }) startTime!: DateTime;
 
-  private scheduleService = inject(ScheduleService);
   private service = inject(BaseScheduleService);
 
   private host = inject(ElementRef<HTMLElement>);
   private modeSubscription?: Subscription;
 
   ngOnChanges(): void {
-    this.modeSubscription = this.scheduleService.mode$.subscribe(() => {
-      this.host.nativeElement.style.marginTop = `${this.service.getCellY(this.lessons)}px`;
-      this.host.nativeElement.style.gridColumn = `${this.service.getCellX(this.lessons, this.startTime)}`;
-      this.host.nativeElement.style.height = `${this.service.getCellHeight(this.lessons)}px`;
+    this.modeSubscription = this.service.modeCalculator$.subscribe(c => {
+      this.host.nativeElement.style.marginTop = `${c.y(this.lessons)}px`;
+      this.host.nativeElement.style.gridColumn = `${c.x(this.lessons)}`;
+      this.host.nativeElement.style.height = `${c.height(this.lessons)}px`;
+      this.host.nativeElement.style.width = `${c.width(this.lessons)}px`;
+
+      const styles = c.styles(this.lessons);
+      for (const stylesKey in styles) {
+        this.host.nativeElement.style[stylesKey] = styles[stylesKey];
+      }
     });
   }
 
   ngOnDestroy(): void {
     this.modeSubscription?.unsubscribe();
   }
-
-
 }
