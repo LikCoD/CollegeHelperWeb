@@ -1,0 +1,12 @@
+<section>
+  <ng-content></ng-content>
+</section>
+<div class="actions" *ngIf="scrollable()">
+  <button (click)="previous()">
+    <icon src="arrow_back" />
+  </button>
+  <button (click)="next()">
+    <icon src="arrow_forward" />
+  </button>
+</div>
+<ui-more-indicator *ngIf="scrollable()" [amount]="items.length" />

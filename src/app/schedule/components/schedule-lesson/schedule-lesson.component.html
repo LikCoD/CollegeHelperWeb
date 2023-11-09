@@ -7,33 +7,17 @@
     class="secondaryColorContainer"
   ></div>
   <form [style.z-index]="routing ? 2 : ''">
-    <head4
-      [queryParams]="query"
-      [queryParamsHandling]="'preserve'"
-      [routerLink]="buildRouterLink('subject')"
-      class="subject-name"
-      >{{ form.controls["subject"].value }}
+    <head4 (click)="navigate(buildRouterLink('subject'))" class="subject-name">
+      {{ form.controls["subject"].value }}
     </head4>
-    <p1
-      [queryParams]="query"
-      [queryParamsHandling]="'preserve'"
-      [routerLink]="buildRouterLink('teacher')"
-      class="teacher-name"
-      >{{ form.controls["teacher"].value }}
+    <p1 (click)="navigate(buildRouterLink('teacher'))" class="teacher-name">
+      {{ form.controls["teacher"].value }}
     </p1>
-    <p1
-      [queryParams]="query"
-      [queryParamsHandling]="'preserve'"
-      [routerLink]="buildRouterLink('room')"
-      class="room-name"
-      >{{ form.controls["room"].value }}
+    <p1 (click)="navigate(buildRouterLink('room'))" class="room-name">
+      {{ form.controls["room"].value }}
     </p1>
-    <p1
-      [queryParams]="query"
-      [queryParamsHandling]="'preserve'"
-      [routerLink]="buildRouterLink('group')"
-      class="group-name"
-      >{{ form.controls["group"].value }}
+    <p1 (click)="navigate(buildRouterLink('group'))" class="group-name">
+      {{ form.controls["group"].value }}
     </p1>
   </form>
 </main>

@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AbstractControl,
@@ -13,7 +20,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ScheduleLesson } from '@schedule/entities/schedule';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Head3Component } from '@ui/text/head3.component';
 import { P1Component } from '@ui/text/p1.component';
 import { Head4Component } from '@ui/text/head4.component';
@@ -70,6 +77,9 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
 
   private studyPlaceID!: string;
 
+  private zone = inject(NgZone);
+  private router = inject(Router);
+
   @Input()
   set lesson(value: ScheduleLesson) {
     this.isUpdated = value.isGeneral ?? false;
@@ -91,8 +101,7 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
     this.form.valueChanges.subscribe(fn);
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
   writeValue(lesson: ScheduleLesson): void {
     this.setFormValue(lesson);
@@ -100,6 +109,10 @@ export class ScheduleLessonComponent implements Validator, ControlValueAccessor 
 
   buildRouterLink(type: string): string {
     return `/schedule/${type}/${this.form.get(type)?.value}`;
+  }
+
+  navigate(url: string): void {
+    this.zone.run(() => this.router.navigate([url], { queryParams: this.query })).then();
   }
 
   private setFormValue(lesson: ScheduleLesson) {
