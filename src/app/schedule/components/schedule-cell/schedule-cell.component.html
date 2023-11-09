@@ -3,26 +3,14 @@
   <button (click)="delete.emit()" class="edit-control-button transparent-btn remove-btn"></button>
 </div>
 <ng-container>
-  <section #section [matTooltip]="lessonTooltip()">
-    <!--todo duplicate first and last lesson and create logic to avoid misunderstanding scroll direction on button press-->
-    <schedule-lesson
-      *ngFor="let lesson of lessons"
-      [lesson]="lesson"
-      [routing]="instantRouting() || !!(control$ | async)?.pressed"
-      [showForeground]="lesson.status === 'general' && !(control$ | async)?.pressed"
-    />
-  </section>
-  <div
-    *ngIf="scrollable() && !(control$ | async)?.pressed"
-    [matTooltip]="lessonTooltip()"
-    class="btn-cell"
-  >
-    <button (click)="previous()" class="transparent-btn switchers-btn">
-      <icon src="arrow_back" />
-    </button>
-    <button (click)="next()" class="transparent-btn switchers-btn">
-      <icon src="arrow_forward" />
-    </button>
-  </div>
+  <wrapped-carousel [matTooltip]="lessonTooltip()" [itemHeight]="100">
+    <ng-container *ngFor="let lesson of lessons">
+      <schedule-lesson
+        *carouselItem
+        [lesson]="lesson"
+        [routing]="instantRouting() || !!(control$ | async)?.pressed"
+        [showForeground]="lesson.status === 'general' && !(control$ | async)?.pressed"
+      />
+    </ng-container>
+  </wrapped-carousel>
 </ng-container>
-<ui-more-indicator *ngIf="scrollable()" [amount]="lessons.length" />
