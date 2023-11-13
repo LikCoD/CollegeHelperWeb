@@ -10,6 +10,7 @@ import { JwtService } from '@jwt/jwt.service';
 import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
 import { Pluggable } from '@shared/components/plugable/pluggable.entites';
 import { Schedule } from '@schedule/entities/schedule';
+import { debug } from '@shared/rxjs/pipes/debug.pipe';
 
 @Component({
   selector: 'app-schedule',
@@ -36,7 +37,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
           map(this.parseParams.bind(this)),
           map(p => p ?? (this.jwtService.data ? null : this.getParamsFromStorage())),
           tap(p => this.saveParamsToStorage(p)),
-          switchMap(p => (p ? this.service.getSchedule(p) : of(null))),
+          switchMap(p => this.service.getSchedule(p)),
           map(s => (s?.lessons ? s : null)),
           tap({ error: () => this.removeParamsFromStorage() })
         )

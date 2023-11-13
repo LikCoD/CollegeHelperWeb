@@ -1,6 +1,7 @@
 import { map, Observable, pipe, tap, UnaryFunction } from 'rxjs';
 import { runCatching } from '@shared/rxjs/pipes/runCatching.pipe';
 import { Pluggable } from '@shared/components/plugable/pluggable.entites';
+import { debug } from '@shared/rxjs/pipes/debug.pipe';
 
 export const plugState =
   <T, D>(
@@ -15,8 +16,10 @@ export const plugState =
             subscriber.next({ plug: { type: 'error', text: 'error' }, data: e })
           )
         )
+        .pipe(debug())
         .subscribe({
           next: value => {
+            console.log(value);
             if (!value) subscriber.next({ plug: { type: 'empty', text: 'noData' } });
             else subscriber.next({ plug: { type: 'loaded' }, data: value });
           },
