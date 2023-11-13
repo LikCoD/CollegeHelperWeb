@@ -8,19 +8,19 @@
     <p1 *ngIf="user.studyPlaceInfo">{{ user.studyPlaceInfo.name }}</p1>
     <p1 *ngIf="user.studyPlaceInfo">{{ user.studyPlaceInfo.roleName }}</p1>
     <p1>{{ user.email }}</p1>
-    <h-divider />
-    <primary-button (click)="editProfile()" key="edit" />
+    <!--    <h-divider />-->
+    <!--    <primary-button (click)="editProfile()" key="edit" />-->
   </main>
 
   <secondary-button (click)="signout()" key="signout" />
-  <warn-button (click)="revoke()" key="revokeToken" />
+  <!--  <warn-button (click)="revoke()" key="revokeToken" />-->
 
-  <div *ngIf="warnings(user) as warnings">
-    <ul>
-      <li *ngFor="let warn of warnings">
-        <icon [style.color]="warn.color" src="error" />
-        <url [key]="warn.message" [link]="warn.routerLink" />
-      </li>
-    </ul>
-  </div>
+  <!--  <div *ngIf="warnings(user) as warnings">-->
+  <!--    <ul>-->
+  <!--      <li *ngFor="let warn of warnings">-->
+  <!--        <icon [style.color]="warn.color" src="error" />-->
+  <!--        <url [key]="warn.message" [link]="warn.routerLink" />-->
+  <!--      </li>-->
+  <!--    </ul>-->
+  <!--  </div>-->
 </ng-container>
