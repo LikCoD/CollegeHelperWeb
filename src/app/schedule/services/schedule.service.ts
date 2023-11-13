@@ -30,7 +30,6 @@ export class ScheduleService {
     return this.http
       .get<Schedule>('api/v1/schedule', { params: dto ?? {} })
       .pipe(validate(ScheduleSchema))
-      .pipe(tap(s => (s.info.indexes = [...new Set(s.lessons?.map(l => l.lessonIndex))])))
       .pipe(tap(s => this._schedule$.next(s)));
   }
 }

@@ -33,7 +33,6 @@ export interface ScheduleInfo {
   startDate: DateTime;
   endDate: DateTime;
 
-  indexes: number[];
   minLessonIndex: number;
   maxLessonIndex: number;
 
@@ -92,11 +91,11 @@ export const ScheduleSchema = z.object({
     endDate: z
       .string()
       .datetime()
-      .transform(dt => DateTime.fromISO(dt, {zone: 'utc'})),
+      .transform(dt => DateTime.fromISO(dt, { zone: 'utc' })),
     startDate: z
       .string()
       .datetime()
-      .transform(dt => DateTime.fromISO(dt, {zone: 'utc'})),
+      .transform(dt => DateTime.fromISO(dt, { zone: 'utc' })),
     studyPlaceInfo: z.object({
       id: z.string(),
     }),
