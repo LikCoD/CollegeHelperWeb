@@ -16,7 +16,6 @@ export const plugState =
             subscriber.next({ plug: { type: 'error', text: 'error' }, data: e })
           )
         )
-        .pipe(debug())
         .subscribe({
           next: value => {
             console.log(value);
