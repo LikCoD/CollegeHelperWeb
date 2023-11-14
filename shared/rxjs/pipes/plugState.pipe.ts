@@ -1,7 +1,6 @@
 import { map, Observable, pipe, tap, UnaryFunction } from 'rxjs';
 import { runCatching } from '@shared/rxjs/pipes/runCatching.pipe';
 import { Pluggable } from '@shared/components/plugable/pluggable.entites';
-import { debug } from '@shared/rxjs/pipes/debug.pipe';
 
 export const plugState =
   <T, D>(
