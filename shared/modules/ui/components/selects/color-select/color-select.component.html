@@ -1,0 +1,16 @@
+<mat-form-field [appearance]="'outline'" color="accent">
+  <mat-label *ngIf="label">{{ label | translate }}</mat-label>
+  <label>
+    <mat-select [formControl]="control" [placeholder]="placeholder ?? label ?? '' | translate">
+      <ng-container *ngIf="items$ | async as items">
+        <mat-option *ngFor="let item of items; trackBy: trackBy" [value]="item.value">
+          <p1 [key]="item.display" />
+          <div class="color" [style.background-color]="item.value"></div>
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <div class="color" [style.background-color]="control.value"></div>
+  </label>
+  <mat-hint *ngIf="hint">{{ hint | translate }}</mat-hint>
+  <control-error [control]="control" matError />
+</mat-form-field>

@@ -81,6 +81,10 @@ export type FormConfigElement<T = string> = BaseFormConfigElement<T> & {
         type: FormConfigElementTypes.COLOR;
         typeConfig: BaseFormElementTypeConfig<T>;
       }
+    | {
+        type: FormConfigElementTypes.COLOR_SELECT;
+        typeConfig: BaseFormElementTypeConfig<T> & SelectFormElementTypeConfig<T>;
+      }
   );
 
 export interface BaseFormElementTypeConfig<V = string, R = string> {
@@ -119,4 +123,5 @@ export enum FormConfigElementTypes {
   DATE_RANGE,
   DATE_TIME_RANGE,
   COLOR,
+  COLOR_SELECT,
 }

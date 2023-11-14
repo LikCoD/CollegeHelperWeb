@@ -1,7 +1,7 @@
 <mat-form-field [appearance]="'outline'" [class.hideBottomSpace]="!showBottomSpace" color="accent">
   <mat-label *ngIf="label">{{ label | translate }}</mat-label>
   <label>
-    <p1>{{ control.value ?? "selectColor" }}</p1>
+    <p1>{{ control.value ?? (placeholder ?? label ?? "" | translate) }}</p1>
     <icon *ngIf="control.value" src="close" (click)="clear($event)" />
     <div class="spacer"></div>
     <div class="color" [style.background-color]="control.value">

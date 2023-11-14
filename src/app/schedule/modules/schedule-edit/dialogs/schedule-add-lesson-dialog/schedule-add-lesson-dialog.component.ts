@@ -60,9 +60,10 @@ export class ScheduleAddLessonDialogComponent implements OnInit {
         validators: [Validators.required],
       },
       primaryColor: {
-        type: FormConfigElementTypes.COLOR,
+        type: FormConfigElementTypes.COLOR_SELECT,
         typeConfig: {
           label: 'primaryColor',
+          items: ['#fff', '#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff', '#000', '#00000000'],
         },
         initial: this.config?.primaryColor,
         validators: [Validators.required],

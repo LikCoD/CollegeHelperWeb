@@ -4,10 +4,6 @@
   display: flex;
 }
 
-:host::ng-deep mat-form-field.hideBottomSpace .mat-mdc-form-field-bottom-align {
-  display: none;
-}
-
 mat-form-field {
   width: 100%;
   height: 100%;
@@ -17,20 +13,15 @@ mat-hint {
   color: rgba(255, 255, 255, 0.6);
 }
 
-label {
+label,
+mat-option::ng-deep span {
+  width: 100%;
   color: rgba(255, 255, 255, 0.87);
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 16px;
   gap: $indent3;
-}
-
-:host:not(:hover) icon {
-  display: none;
-}
-
-icon {
-  cursor: pointer;
 }
 
 div.color {
@@ -40,12 +31,4 @@ div.color {
   max-height: 24px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: $indentHalf;
-}
-
-div.spacer {
-  flex-grow: 1;
-}
-
-input {
-  visibility: collapse;
 }

@@ -15,6 +15,7 @@ import { DateTimeRangePickerComponent } from '@shared/modules/ui/components/pick
 import { DateRangePickerComponent } from '@shared/modules/ui/components/pickers/date-range-picker/date-range-picker.component';
 import { NumberInputComponent } from '@ui/inputs/number-input/number-input.component';
 import { ColorInputComponent } from '@ui/inputs/color-input/color-input.component';
+import { ColorSelectComponent } from '@ui/selects/color-select/color-select.component';
 
 @Component({
   selector: 'simple-form-config-builder',
@@ -31,6 +32,7 @@ import { ColorInputComponent } from '@ui/inputs/color-input/color-input.componen
     DateTimeRangePickerComponent,
     NumberInputComponent,
     ColorInputComponent,
+    ColorSelectComponent,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
