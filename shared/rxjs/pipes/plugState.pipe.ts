@@ -18,7 +18,6 @@ export const plugState =
         )
         .subscribe({
           next: value => {
-            console.log(value);
             if (!value) subscriber.next({ plug: { type: 'empty', text: 'noData' } });
             else subscriber.next({ plug: { type: 'loaded' }, data: value });
           },
