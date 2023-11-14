@@ -77,6 +77,14 @@
           [placeholder]="entries[1].typeConfig.placeholder"
         />
       </ng-container>
+      <ng-container *ngSwitchCase="Types.COLOR">
+        <color-input
+          [formControl]="getControlByName(entries[0])!"
+          [hint]="entries[1].typeConfig.hint"
+          [label]="entries[1].typeConfig.label"
+          [placeholder]="entries[1].typeConfig.placeholder"
+        />
+      </ng-container>
       <ng-container *ngSwitchDefault>
         TODO
         <!--TODO-->

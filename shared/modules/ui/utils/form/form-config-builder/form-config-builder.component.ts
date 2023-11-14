@@ -11,13 +11,10 @@ import {
   FormConfigElements,
   FormConfigElementTypes,
 } from '@shared/modules/ui/entities/form.config';
-import {
-  DateTimeRangePickerComponent
-} from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker.component';
-import {
-  DateRangePickerComponent
-} from '@shared/modules/ui/components/pickers/date-range-picker/date-range-picker.component';
+import { DateTimeRangePickerComponent } from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker.component';
+import { DateRangePickerComponent } from '@shared/modules/ui/components/pickers/date-range-picker/date-range-picker.component';
 import { NumberInputComponent } from '@ui/inputs/number-input/number-input.component';
+import { ColorInputComponent } from '@ui/inputs/color-input/color-input.component';
 
 @Component({
   selector: 'simple-form-config-builder',
@@ -33,6 +30,7 @@ import { NumberInputComponent } from '@ui/inputs/number-input/number-input.compo
     DateRangePickerComponent,
     DateTimeRangePickerComponent,
     NumberInputComponent,
+    ColorInputComponent,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

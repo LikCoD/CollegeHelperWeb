@@ -42,8 +42,13 @@ export class FormControlValueAccessorComponent<T>
     else this.control.enable();
   }
 
+  clear(e: Event | null = null): void {
+    e?.preventDefault();
+    this.control.setValue(null);
+  }
+
   ngOnDestroy(): void {
-    this.changeSubscription?.unsubscribe()
-    this.touchSubscription?.unsubscribe()
+    this.changeSubscription?.unsubscribe();
+    this.touchSubscription?.unsubscribe();
   }
 }

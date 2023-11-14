@@ -25,16 +25,13 @@ import { Head1Component } from '@ui/text/head1.component';
 import { Router } from '@angular/router';
 import { SimpleFormConfigService } from '@shared/modules/ui/services/simple-form-config.service';
 import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
-import {
-  FormConfigBuilderComponent,
-} from '@shared/modules/ui/utils/form/form-config-builder/form-config-builder.component';
+import { FormConfigBuilderComponent } from '@shared/modules/ui/utils/form/form-config-builder/form-config-builder.component';
 import {
   FormConfig,
   FormConfigElements,
   FormConfigElementTypes,
 } from '@shared/modules/ui/entities/form.config';
 import { CharacterComponent } from '@ui/images/character.component';
-import { DateTime } from 'luxon';
 
 export interface SubmitOptions {
   url?: string | null;
@@ -62,15 +59,16 @@ export interface SubmitOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DefaultFormComponent<
-  DATA,
-  RESPONSE_DATA,
-  CONFIG extends FormConfigElements<CONFIG>,
-  VALUE extends Object = any,
-  FORM_CONFIG extends { [K in keyof FORM_CONFIG]: AbstractControl<any, any> } = {},
-  PROCEEDED_DATA = DATA,
->
+    DATA,
+    RESPONSE_DATA,
+    CONFIG extends FormConfigElements<CONFIG>,
+    VALUE extends Object = any,
+    FORM_CONFIG extends { [K in keyof FORM_CONFIG]: AbstractControl<any, any> } = {},
+    PROCEEDED_DATA = DATA,
+  >
   extends TranslateComponent
-  implements OnInit {
+  implements OnInit
+{
   @Input() link: string | null = null;
   @Input() text: string | null = null;
 
@@ -153,25 +151,31 @@ export class DefaultFormComponent<
     for (let elementKey in this.formConfig?.elements) {
       const element = this.formConfig?.elements[elementKey];
       if (!element || !formValue[elementKey]) continue;
+
+      const transform = element.transform ?? (v => v);
+      formValue[elementKey] = transform(formValue[elementKey]);
+
       if (
         element.type !== FormConfigElementTypes.DATE_RANGE &&
         element.type !== FormConfigElementTypes.DATE_TIME_RANGE
       )
         continue;
 
-
       if (element.typeConfig.utc) {
-        formValue[elementKey].start = formValue[elementKey].start?.setZone('utc', { keepLocalTime: true });
-        formValue[elementKey].end = formValue[elementKey].end?.setZone('utc', { keepLocalTime: true });
+        formValue[elementKey].start = formValue[elementKey].start?.setZone('utc', {
+          keepLocalTime: true,
+        });
+        formValue[elementKey].end = formValue[elementKey].end?.setZone('utc', {
+          keepLocalTime: true,
+        });
       }
-
 
       if (!element.typeConfig.expand) continue;
 
       const formatter = element.formatter ?? (v => v);
 
       formValue[element.typeConfig.startControlName ?? 'start'] = formatter(
-        formValue[elementKey].start,
+        formValue[elementKey].start
       );
       formValue[element.typeConfig.endControlName ?? 'end'] = formatter(formValue[elementKey].end);
 
