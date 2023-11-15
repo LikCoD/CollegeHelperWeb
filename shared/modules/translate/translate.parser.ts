@@ -21,6 +21,8 @@ export class TranslateParser extends TranslateDefaultParser {
 
   value(target: any, prefix: string | null, key: string): any {
     const prefixedValue = super.getValue(target, prefix ? `${prefix}.${key}` : key);
-    return prefixedValue ?? super.getValue(target, key);
+    const value = prefixedValue ?? super.getValue(target, key);
+    if (typeof value === 'object' || !value) return key;
+    return value;
   }
 }
