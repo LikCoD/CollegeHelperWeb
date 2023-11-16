@@ -1,31 +1,19 @@
 <div *ngIf="showForeground" class="not-updated-foreground"></div>
 <div class="foreground"></div>
-<main [style.background-color]="form.get('primaryColor')!!.value">
-  <div
-    [style.background]="form.get('secondaryColor')!!.value"
-    [style.margin-right.px]="form.get('secondaryColor')!!.value === 'transparent' ? 0 : 5"
-    class="secondaryColorContainer"
-  ></div>
-  <form [style.z-index]="routing ? 2 : ''">
+<main [style.background-color]="lesson.primaryColor">
+  <div [style.background]="lesson.secondaryColor" class="secondaryColorContainer"></div>
+  <section [style.z-index]="routing ? 2 : ''">
     <head4
       (click)="navigate(buildRouterLink('subject'))"
       class="subject-name"
-      [key]="form.controls['subject'].value ?? ''"
+      [key]="lesson.subject"
     />
     <p1
       (click)="navigate(buildRouterLink('teacher'))"
       class="teacher-name"
-      [key]="form.controls['teacher'].value ?? ''"
+      [key]="lesson.teacher"
     />
-    <p1
-      (click)="navigate(buildRouterLink('room'))"
-      class="room-name"
-      [key]="form.controls['room'].value ?? ''"
-    />
-    <p1
-      (click)="navigate(buildRouterLink('group'))"
-      class="group-name"
-      [key]="form.controls['group'].value ?? ''"
-    />
-  </form>
+    <p1 (click)="navigate(buildRouterLink('room'))" class="room-name" [key]="lesson.room" />
+    <p1 (click)="navigate(buildRouterLink('group'))" class="group-name" [key]="lesson.group" />
+  </section>
 </main>
