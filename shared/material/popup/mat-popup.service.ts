@@ -1,9 +1,8 @@
 import { ComponentRef, inject, Injectable, Injector, StaticProvider, Type } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
 import { MAT_POPUP_DATA } from '@shared/material/popup/mat-popup.tokens';
-import { translatePrefixProviderToken } from '@translate/translate.prefix-provider';
 
 @Injectable({
   providedIn: 'root',

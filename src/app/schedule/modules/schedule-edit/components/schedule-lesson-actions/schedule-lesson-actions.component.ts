@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  Injector,
   Input,
   ViewChild,
 } from '@angular/core';
@@ -21,7 +22,7 @@ import { ConfirmationDialogData } from '@shared/modules/ui/components/dialogs/co
   selector: 'schedule-lesson-actions',
   templateUrl: './schedule-lesson-actions.component.html',
   styleUrls: ['./schedule-lesson-actions.component.scss'],
-  providers: [translatePrefixProvider('edit.actions')],
+  providers: [translatePrefixProvider('actions')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleLessonActionsComponent {
@@ -32,12 +33,15 @@ export class ScheduleLessonActionsComponent {
   private dialogService = inject(MatDialog);
   private service = inject(ScheduleLessonActionsService);
   private cdr = inject(ChangeDetectorRef);
+  private injector = inject(Injector);
+
+  private dialogInjector = Injector.create({ parent: this.injector, providers: [] });
 
   editLesson(): void {
     this.closeMenu();
 
     this.dialogService
-      .open(ScheduleAddLessonDialogComponent, { data: this.lesson })
+      .open(ScheduleAddLessonDialogComponent, { data: this.lesson, injector: this.dialogInjector })
       .afterClosed()
       .pipe(filterNotNull())
       .pipe(switchMap(lesson => this.service.editLesson(this.lesson.id!, lesson)))
@@ -48,7 +52,7 @@ export class ScheduleLessonActionsComponent {
     this.closeMenu();
 
     this.dialogService
-      .open(ScheduleAddLessonDialogComponent, { data: this.lesson })
+      .open(ScheduleAddLessonDialogComponent, { data: this.lesson, injector: this.dialogInjector })
       .afterClosed()
       .pipe(filterNotNull())
       .pipe(switchMap(lesson => this.service.addLesson(lesson)))
@@ -65,7 +69,7 @@ export class ScheduleLessonActionsComponent {
       color: 'danger',
     };
     this.dialogService
-      .open(ConfirmationDialogComponent, { data: data })
+      .open(ConfirmationDialogComponent, { data: data, injector: this.dialogInjector })
       .afterClosed()
       .pipe(filterNotNull())
       .pipe(switchMap(() => this.service.deleteLesson(this.lesson)))
