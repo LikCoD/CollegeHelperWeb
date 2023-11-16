@@ -19,6 +19,9 @@ import { Observable } from 'rxjs';
 import { IModeCalculator } from '@schedule/components/base-schedule/mode-calculators/base-mode-calculator';
 import { WrappedCarouselComponent } from '@shared/modules/ui/components/carousels/wrapped-carousel/wrapped-carousel.component';
 import { CarouselItemDirective } from '@shared/modules/ui/components/carousels/carousel-item.directive';
+import { MatMenuModule } from '@angular/material/menu';
+import { TranslateModule } from '@ngx-translate/core';
+import { ScheduleEditModule } from '@schedule/modules/schedule-edit/schedule-edit.module';
 
 @Component({
   selector: 'schedule-cell',
@@ -31,6 +34,9 @@ import { CarouselItemDirective } from '@shared/modules/ui/components/carousels/c
     MoreIndicatorComponent,
     WrappedCarouselComponent,
     CarouselItemDirective,
+    MatMenuModule,
+    TranslateModule,
+    ScheduleEditModule,
   ],
   templateUrl: './schedule-cell.component.html',
   styleUrls: ['./schedule-cell.component.scss'],
@@ -38,7 +44,7 @@ import { CarouselItemDirective } from '@shared/modules/ui/components/carousels/c
 })
 export class ScheduleCellComponent implements OnInit {
   @Input({ required: false }) lessons!: ScheduleLesson[];
-  @Input() isEditMode!: boolean;
+  @Input() isEditMode: boolean = true;
 
   @Output() delete = new EventEmitter<null>();
   @Output() edit = new EventEmitter<null>();

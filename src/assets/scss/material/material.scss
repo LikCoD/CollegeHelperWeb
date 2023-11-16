@@ -25,10 +25,21 @@ body {
 
   @include theme {
     --mdc-dialog-container-color: #{$secondaryBackgroundColor} !important;
+    color: $onSecondaryBackgroundColor;
   }
 }
 
 .mat-mdc-select-panel-above div.mat-mdc-select-panel,
 .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
   padding-top: 0;
+}
+
+mat-dialog-container {
+  max-height: 90vh !important;
+  max-width: 90vw !important;
+  overflow: auto;
+
+  .mat-mdc-dialog-surface.mdc-dialog__surface {
+    display: flex;
+  }
 }

@@ -43,8 +43,8 @@ form {
   min-width: 300px;
 
   &:not(:has(character)) {
-  border-top-right-radius: $borderRadius2;
-  border-bottom-right-radius: $borderRadius2;
+    border-top-right-radius: $borderRadius2;
+    border-bottom-right-radius: $borderRadius2;
   }
 
   @include theme {

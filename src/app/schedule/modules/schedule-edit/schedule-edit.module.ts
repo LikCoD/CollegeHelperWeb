@@ -15,16 +15,23 @@ import { CharacterComponent } from '@ui/images/character.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduleAddLessonViewComponent } from './components/schedule-add-lesson-view/schedule-add-lesson-view.component';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
-
-
+import { ScheduleLessonActionsComponent } from './components/schedule-lesson-actions/schedule-lesson-actions.component';
+import { IconComponent } from '@ui/images/icon.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     ScheduleLessonSelectComponent,
     ScheduleAddLessonDialogComponent,
     ScheduleAddLessonViewComponent,
+    ScheduleLessonActionsComponent,
   ],
-  exports: [ScheduleLessonSelectComponent, ScheduleAddLessonViewComponent],
+  exports: [
+    ScheduleLessonSelectComponent,
+    ScheduleAddLessonViewComponent,
+    ScheduleLessonActionsComponent,
+  ],
   imports: [
     CommonModule,
     ScheduleLessonComponent,
@@ -38,9 +45,10 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
     DefaultFormComponent,
     CharacterComponent,
     MatDialogModule,
+    IconComponent,
+    MatMenuModule,
+    ConfirmationDialogComponent,
   ],
-  providers: [
-    translatePrefixProvider('edit')
-  ]
+  providers: [translatePrefixProvider('edit')],
 })
 export class ScheduleEditModule {}

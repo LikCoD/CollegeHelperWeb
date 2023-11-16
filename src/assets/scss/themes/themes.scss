@@ -7,6 +7,7 @@ $theme-map: null;
 
 $primaryColor: null;
 $secondaryColor: null;
+$dangerColor: null;
 $backgroundColor: null;
 $secondaryBackgroundColor: null;
 $onPrimaryColor: null;
@@ -32,6 +33,7 @@ $themes: (
 
     $primaryColor: theme-get("primaryColor") !global;
     $secondaryColor: theme-get("secondaryColor") !global;
+    $dangerColor: theme-get("dangerColor") !global;
     $backgroundColor: theme-get("backgroundColor") !global;
     $secondaryBackgroundColor: theme-get("secondaryBackgroundColor") !global;
     $onPrimaryColor: theme-get("onPrimaryColor") !global;

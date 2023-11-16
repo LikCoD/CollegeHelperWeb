@@ -1,0 +1,60 @@
+@import "indents";
+@import "themes";
+@import "typography";
+
+:host {
+  display: grid;
+  gap: $indent2;
+}
+
+head1 {
+  grid-row: 1;
+  grid-column: 1/4;
+}
+
+p1 {
+  grid-row: 2;
+  grid-column: 2/4;
+  height: fit-content;
+  align-self: center;
+}
+
+icon {
+  grid-row: 2;
+  grid-column: 1;
+  width: $iconSizeExtraLarge;
+  height: $iconSizeExtraLarge;
+  font-size: $iconSizeExtraLarge;
+}
+
+secondary-button {
+  grid-row: 3;
+  grid-column: 2;
+}
+
+primary-button {
+  grid-row: 3;
+  grid-column: 3;
+}
+
+warn-button {
+  visibility: collapse;
+  grid-row: 3;
+  grid-column: 3;
+}
+
+:host.danger {
+  warn-button {
+    visibility: visible;
+  }
+
+  primary-button {
+    visibility: collapse;
+  }
+
+  icon {
+    @include theme {
+      color: $dangerColor;
+    }
+  }
+}

@@ -63,15 +63,16 @@ export class ScheduleAddLessonDialogComponent implements OnInit {
         type: FormConfigElementTypes.COLOR_SELECT,
         typeConfig: {
           label: 'primaryColor',
-          items: ['#fff', '#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff', '#000', '#00000000'],
+          items: this.service.primaryColors$,
         },
         initial: this.config?.primaryColor,
         validators: [Validators.required],
       },
       secondaryColor: {
-        type: FormConfigElementTypes.COLOR,
+        type: FormConfigElementTypes.COLOR_SELECT,
         typeConfig: {
           label: 'secondaryColor',
+          items: this.service.secondaryColors$,
         },
         initial: this.config?.secondaryColor,
         validators: [Validators.required],

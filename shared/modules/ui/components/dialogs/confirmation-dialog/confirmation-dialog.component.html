@@ -1,0 +1,6 @@
+<head1 [key]="data.title" />
+<p1 [key]="data.description" />
+<primary-button key="confirm" (click)="confirm()" />
+<warn-button key="confirm" (click)="confirm()" />
+<secondary-button key="cancel" (click)="cancel()" />
+<icon *ngIf="data.icon" [src]="data.icon" />

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { map, merge, Observable, of, pipe, Subscription, switchMap, tap } from 'rxjs';
+import { map, merge, Observable, pipe, Subscription, switchMap, tap } from 'rxjs';
 import { SchedulePlugComponent } from '@schedule/components/schedule-plug/schedule-plug.component';
 import { ScheduleService } from '@schedule/services/schedule.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,6 @@ import { JwtService } from '@jwt/jwt.service';
 import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
 import { Pluggable } from '@shared/components/plugable/pluggable.entites';
 import { Schedule } from '@schedule/entities/schedule';
-import { debug } from '@shared/rxjs/pipes/debug.pipe';
 
 @Component({
   selector: 'app-schedule',
@@ -31,7 +30,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   private studyPlaceService = inject(StudyPlacesService);
 
   ngOnInit(): void {
-    this.schedule$ = merge(this.route.params, this.route.queryParams, this.service.display$).pipe(
+    const schedule$ = merge(this.route.params, this.route.queryParams, this.service.display$).pipe(
       plugState(
         pipe(
           map(this.parseParams.bind(this)),
@@ -40,6 +39,21 @@ export class ScheduleComponent implements OnInit, OnDestroy {
           switchMap(p => this.service.getSchedule(p)),
           map(s => (s?.lessons ? s : null)),
           tap({ error: () => this.removeParamsFromStorage() })
+        )
+      )
+    );
+
+    this.schedule$ = merge(
+      schedule$,
+      this.service.schedule$.pipe(
+        map(
+          s =>
+            <Pluggable<Schedule | null>>{
+              data: s,
+              plug: {
+                type: 'loaded',
+              },
+            }
         )
       )
     );

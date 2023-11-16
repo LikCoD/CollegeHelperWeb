@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { string, z } from 'zod';
 
 export interface StudyPlace {
   id: string;
@@ -10,6 +10,8 @@ export interface StudyPlace {
   phone: string;
   lessonTypes: LessonType[];
   absenceMark: string;
+  primaryColorSet: string[];
+  secondaryColorSet: string[];
   journalColors: JournalColors;
 }
 
@@ -27,6 +29,8 @@ export const StudyPlaceScheme = z.object({
   address: z.string(),
   phone: z.string(),
   absenceMark: z.string(),
+  primaryColorSet: z.array(string()),
+  secondaryColorSet: z.array(string()),
   lessonTypes: z.any(
     z.object({
       type: z.string(),
