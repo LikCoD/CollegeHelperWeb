@@ -20,7 +20,7 @@
 
 .group-name {
   grid-area: group;
-  text-align: right;
+  text-align: end;
 }
 
 main .secondaryColorContainer {
@@ -59,24 +59,10 @@ main {
   color: black;
 
   & > * {
-    height: fit-content;
-    place-self: center;
     width: 100%;
     min-width: 0;
     text-overflow: ellipsis;
     overflow: hidden;
-  }
-}
-
-div {
-  display: flex;
-
-  * {
-    width: 50%;
-
-    &:last-child {
-      text-align: end;
-    }
   }
 }
 
