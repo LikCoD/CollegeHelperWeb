@@ -1,19 +1,9 @@
 <div *ngIf="showForeground" class="not-updated-foreground"></div>
 <div class="foreground"></div>
-<main [style.background-color]="lesson.primaryColor">
+<main [style.background-color]="lesson.primaryColor" [style.z-index]="routing ? 2 : ''">
   <div [style.background]="lesson.secondaryColor" class="secondaryColorContainer"></div>
-  <section [style.z-index]="routing ? 2 : ''">
-    <head4
-      (click)="navigate(buildRouterLink('subject'))"
-      class="subject-name"
-      [key]="lesson.subject"
-    />
-    <p1
-      (click)="navigate(buildRouterLink('teacher'))"
-      class="teacher-name"
-      [key]="lesson.teacher"
-    />
-    <p1 (click)="navigate(buildRouterLink('room'))" class="room-name" [key]="lesson.room" />
-    <p1 (click)="navigate(buildRouterLink('group'))" class="group-name" [key]="lesson.group" />
-  </section>
+  <head4 (click)="navigate(routerLink('subject'))" class="subject-name" [key]="lesson.subject" />
+  <p1 (click)="navigate(routerLink('teacher'))" class="teacher-name" [key]="lesson.teacher" />
+  <p1 (click)="navigate(routerLink('room'))" class="room-name" [key]="lesson.room" />
+  <p1 (click)="navigate(routerLink('group'))" class="group-name" [key]="lesson.group" />
 </main>

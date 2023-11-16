@@ -23,8 +23,6 @@ import { Head4Component } from '@ui/text/head4.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleLessonComponent {
-  isUpdated!: boolean;
-
   @Input() editable: boolean = false;
   @Input() showForeground: boolean = true;
   @Input() routing: boolean = false;
@@ -36,21 +34,16 @@ export class ScheduleLessonComponent {
 
   lesson!: ScheduleLesson;
 
-  private studyPlaceID!: string;
   private zone = inject(NgZone);
   private router = inject(Router);
 
   @Input({ required: true, alias: 'lesson' })
   set _lesson(value: ScheduleLesson) {
-    this.isUpdated = value.isGeneral ?? false;
-    this.studyPlaceID = value.studyPlaceID ?? '';
-    this.query = {
-      studyPlaceID: this.studyPlaceID,
-    };
+    this.query = { studyPlaceID: value.studyPlaceID ?? '' };
     this.lesson = value;
   }
 
-  buildRouterLink(type: string): string {
+  routerLink(type: string): string {
     const lesson: { [key: string]: any } = this.lesson;
     return `/schedule/${type}/${lesson[type]}`;
   }
