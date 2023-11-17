@@ -1,4 +1,4 @@
-import { Schedule, ScheduleLesson } from '../../../../../entities/schedule';
+import { Schedule, ScheduleLesson } from '@schedule/entities/schedule';
 
 export interface Row {
   title: string;
