@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { ScheduleMode, ScheduleService } from '@schedule/services/schedule.service';
 import { map, Observable } from 'rxjs';
-import { IModeCalculator } from '@schedule/components/base-schedule/mode-calculators/base-mode-calculator';
-import { TableModeCalculator } from '@schedule/components/base-schedule/mode-calculators/table.mode-calculator';
-import { TimeModeCalculator } from '@schedule/components/base-schedule/mode-calculators/time.mode-calculator';
-import { ExtendedTableModeCalculator } from '@schedule/components/base-schedule/mode-calculators/extended-table.mode-calculator';
+import { IModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/base-mode-calculator';
+import { TimeModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/time.mode-calculator';
+import { TableModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/table.mode-calculator';
+import { ExtendedTableModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/extended-table.mode-calculator';
 
 @Injectable({
   providedIn: 'root',

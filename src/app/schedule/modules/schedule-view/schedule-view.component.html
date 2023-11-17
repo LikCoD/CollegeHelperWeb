@@ -1,0 +1,5 @@
+<ng-container *hasPermission="'editSchedule'">
+  <schedule-add-lesson-view [availableLessons]="data.lessons" />
+  <v-divider />
+</ng-container>
+<base-schedule [schedule]="data" />

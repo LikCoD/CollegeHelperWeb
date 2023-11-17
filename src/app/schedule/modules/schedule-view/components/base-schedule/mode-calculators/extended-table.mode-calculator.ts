@@ -1,10 +1,10 @@
+import { Schedule, ScheduleLesson } from '@schedule/entities/schedule';
+import { DateTime } from 'luxon';
 import {
   IModeCalculator,
   MarkupEntry,
   Row,
-} from '@schedule/components/base-schedule/mode-calculators/base-mode-calculator';
-import { Schedule, ScheduleLesson } from '@schedule/entities/schedule';
-import { DateTime } from 'luxon';
+} from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/base-mode-calculator';
 
 export class ExtendedTableModeCalculator implements IModeCalculator {
   rows!: Row[];

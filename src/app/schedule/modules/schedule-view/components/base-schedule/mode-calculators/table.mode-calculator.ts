@@ -2,7 +2,7 @@ import {
   IModeCalculator,
   MarkupEntry,
   Row,
-} from '@schedule/components/base-schedule/mode-calculators/base-mode-calculator';
+} from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/base-mode-calculator';
 import { Schedule, ScheduleLesson } from '@schedule/entities/schedule';
 import { DateTime } from 'luxon';
 

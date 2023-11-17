@@ -22,7 +22,7 @@ import { ConfirmationDialogData } from '@shared/modules/ui/components/dialogs/co
   selector: 'schedule-lesson-actions',
   templateUrl: './schedule-lesson-actions.component.html',
   styleUrls: ['./schedule-lesson-actions.component.scss'],
-  providers: [translatePrefixProvider('actions')],
+  providers: [translatePrefixProvider('edit.actions')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleLessonActionsComponent {

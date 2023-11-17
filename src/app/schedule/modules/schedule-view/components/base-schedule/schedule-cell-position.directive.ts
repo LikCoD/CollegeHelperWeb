@@ -1,12 +1,11 @@
 import { Directive, ElementRef, inject, Input, OnChanges, OnDestroy } from '@angular/core';
-import { BaseScheduleService } from '@schedule/components/base-schedule/base-schedule.service';
 import { ScheduleLesson } from '@schedule/entities/schedule';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
+import { BaseScheduleService } from '@schedule/modules/schedule-view/components/base-schedule/base-schedule.service';
 
 @Directive({
   selector: '[scheduleCellPosition]',
-  standalone: true,
 })
 export class ScheduleCellPositionDirective implements OnChanges, OnDestroy {
   @Input({ required: true }) lessons!: ScheduleLesson[];

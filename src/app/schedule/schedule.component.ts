@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { map, merge, Observable, pipe, Subscription, switchMap, tap } from 'rxjs';
-import { SchedulePlugComponent } from '@schedule/components/schedule-plug/schedule-plug.component';
 import { ScheduleService } from '@schedule/services/schedule.service';
 import { ActivatedRoute } from '@angular/router';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { StudyPlacesService } from '@shared/services/study-places.service';
-import { BaseScheduleComponent } from '@schedule/components/base-schedule/base-schedule.component';
 import { JwtService } from '@jwt/jwt.service';
 import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
 import { Pluggable } from '@shared/components/plugable/pluggable.entites';
 import { Schedule } from '@schedule/entities/schedule';
+import { ScheduleViewComponent } from '@schedule/modules/schedule-view/schedule-view.component';
+import { SchedulePlugComponent } from '@schedule/modules/schedule-view/components/schedule-plug/schedule-plug.component';
 
 @Component({
   selector: 'app-schedule',
@@ -21,7 +21,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   schedule$!: Observable<Pluggable<Schedule | null>>;
 
   protected readonly SchedulePlugComponent = SchedulePlugComponent;
-  protected readonly BaseScheduleComponent = BaseScheduleComponent;
+  protected readonly ScheduleViewComponent = ScheduleViewComponent;
 
   private navigateSubscription: Subscription | null = null;
   private jwtService = inject(JwtService);

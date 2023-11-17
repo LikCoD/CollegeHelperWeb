@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScheduleLessonSelectComponent } from '@schedule/modules/schedule-edit/components/schedule-lesson-select/schedule-lesson-select.component';
-import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
 import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { SecondaryButtonComponent } from '@shared/modules/ui/components/buttons/secondary-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +18,7 @@ import { ScheduleLessonActionsComponent } from './components/schedule-lesson-act
 import { IconComponent } from '@ui/images/icon.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
 
 @NgModule({
   declarations: [
