@@ -14,6 +14,7 @@ import { ScheduleEditModule } from '@schedule/modules/schedule-edit/schedule-edi
 import { VDividerComponent } from '@ui/dividers/v-divider.component';
 import { HasPermissionDirective } from '@shared/directives/has-permission.directive';
 import { ScheduleViewModule } from '@schedule/modules/schedule-view/schedule-view.module';
+import { LoadedStateDirective, DefaultStateDirective, StateMapperComponent } from 'state-mapper';
 
 @NgModule({
   declarations: [ScheduleComponent],
@@ -29,6 +30,11 @@ import { ScheduleViewModule } from '@schedule/modules/schedule-view/schedule-vie
     VDividerComponent,
     HasPermissionDirective,
     ScheduleViewModule,
+    StateMapperComponent,
+    DefaultStateDirective,
+    LoadedStateDirective,
+    DefaultStateDirective,
+    DefaultStateDirective,
   ],
   providers: [translatePrefixProvider('schedule')],
 })

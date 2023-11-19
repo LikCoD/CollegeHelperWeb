@@ -53,5 +53,6 @@ import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skel
     CarouselItemDirective,
     SkeletonLoaderComponent,
   ],
+  exports: [ScheduleViewComponent, SchedulePlugComponent],
 })
 export class ScheduleViewModule {}

@@ -5,10 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { StudyPlacesService } from '@shared/services/study-places.service';
 import { JwtService } from '@jwt/jwt.service';
-import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
-import { Pluggable } from '@shared/components/plugable/pluggable.entites';
 import { Schedule } from '@schedule/entities/schedule';
-import { ScheduleViewComponent } from '@schedule/modules/schedule-view/schedule-view.component';
+import { State, useState } from 'state-mapper';
 import { SchedulePlugComponent } from '@schedule/modules/schedule-view/components/schedule-plug/schedule-plug.component';
 
 @Component({
@@ -18,20 +16,18 @@ import { SchedulePlugComponent } from '@schedule/modules/schedule-view/component
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
-  schedule$!: Observable<Pluggable<Schedule | null>>;
+  schedule$!: Observable<State<Schedule | null>>;
 
-  protected readonly SchedulePlugComponent = SchedulePlugComponent;
-  protected readonly ScheduleViewComponent = ScheduleViewComponent;
-
-  private navigateSubscription: Subscription | null = null;
   private jwtService = inject(JwtService);
   private service = inject(ScheduleService);
   private route = inject(ActivatedRoute);
   private studyPlaceService = inject(StudyPlacesService);
 
+  private navigateSubscription: Subscription | null = null;
+
   ngOnInit(): void {
     const schedule$ = merge(this.route.params, this.route.queryParams, this.service.display$).pipe(
-      plugState(
+      useState(
         pipe(
           map(this.parseParams.bind(this)),
           map(p => p ?? (this.jwtService.data ? null : this.getParamsFromStorage())),
@@ -48,11 +44,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.service.schedule$.pipe(
         map(
           s =>
-            <Pluggable<Schedule | null>>{
+            <State<Schedule>>{
+              state: 'loaded',
               data: s,
-              plug: {
-                type: 'loaded',
-              },
             }
         )
       )
@@ -95,4 +89,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       general: this.service.display$.value === 'general',
     };
   }
+
+  protected readonly SchedulePlugComponent = SchedulePlugComponent;
 }
