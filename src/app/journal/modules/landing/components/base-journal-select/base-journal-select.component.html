@@ -1,6 +1,6 @@
 <text-input [formControl]="searchControl" label="search" />
 <section>
-  <ng-container *ngFor="let category of categories">
+  @for (category of categories; track category) {
     <journal-select-category (selectOption)="onSelect($event)" [category]="category" />
-  </ng-container>
+  }
 </section>

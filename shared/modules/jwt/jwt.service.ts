@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, finalize, map, Observable } from 'rxjs';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { Data, StudyPlaceInfo, UserPreview } from './jwt.models';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DateTime } from 'luxon';
@@ -16,7 +16,7 @@ export class JwtService {
 
   private _updating$ = new BehaviorSubject<boolean>(false);
   private _data$ = new BehaviorSubject<Data | null>(this.decode());
-  private http = inject(HttpClient)
+  private http = inject(HttpClient);
 
   get access(): string {
     return localStorage.getItem(JwtService.ACCESS_TOKEN_NAME) ?? '';
@@ -62,14 +62,17 @@ export class JwtService {
   removeTokens(): void {
     localStorage.removeItem(JwtService.REFRESH_TOKEN_NAME);
     localStorage.removeItem(JwtService.ACCESS_TOKEN_NAME);
-    this._data$.next(null)
+    this._data$.next(null);
   }
 
   isNeedUpdate(): boolean {
     //if null -> return false
     //null will be if res < JwtService.SECOND_TO_NEED_UPDATE,
     //so JwtService.SECOND_TO_NEED_UPDATE < JwtService.SECOND_TO_NEED_UPDATE = false
-    return (this.expireDifferenceBetweenNow() ?? JwtService.SECOND_TO_NEED_UPDATE) < JwtService.SECOND_TO_NEED_UPDATE;
+    return (
+      (this.expireDifferenceBetweenNow() ?? JwtService.SECOND_TO_NEED_UPDATE) <
+      JwtService.SECOND_TO_NEED_UPDATE
+    );
   }
 
   isMustUpdate(): boolean {
@@ -93,7 +96,7 @@ export class JwtService {
   private decode(): Data | null {
     try {
       const data = jwtDecode<Data>(this.access);
-      data.exp = DateTime.fromSeconds(data.exp as unknown as number)
+      data.exp = DateTime.fromSeconds(data.exp as unknown as number);
       return data;
     } catch (error) {
       return null;

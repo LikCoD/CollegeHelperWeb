@@ -1,5 +1,5 @@
 <wrapped-carousel [matTooltip]="lessonTooltip()" [itemHeight]="100">
-  <ng-container *ngFor="let lesson of lessons">
+  @for (lesson of lessons; track lesson) {
     <div *carouselItem class="item">
       <schedule-lesson-actions [lesson]="lesson" />
       <schedule-lesson
@@ -8,5 +8,5 @@
         [showForeground]="lesson.status === 'general' && !(control$ | async)?.pressed"
       />
     </div>
-  </ng-container>
+  }
 </wrapped-carousel>

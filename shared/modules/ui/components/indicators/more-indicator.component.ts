@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ui-more-indicator',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: '{{amount}}',
   styles: [
     `

@@ -1,22 +1,24 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'image',
   template: '<img [src]="source" [alt]="alt | translate">',
-  styles: [`
-    img {
-      all: inherit;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      margin: unset;
-      padding: unset;
-      border: unset;
-    }
-  `],
-  imports: [CommonModule, TranslateModule],
+  styles: [
+    `
+      img {
+        all: inherit;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: unset;
+        padding: unset;
+        border: unset;
+      }
+    `,
+  ],
+  imports: [TranslateModule],
   standalone: true,
 })
 export class ImageComponent {

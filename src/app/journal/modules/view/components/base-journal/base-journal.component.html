@@ -1,18 +1,25 @@
 <div class="empty-corner"></div>
 <div class="dates-container">
-  <journal-date-cell *ngFor="let date of journal.dates" [cell]="date" />
+  @for (date of journal.dates; track date) {
+    <journal-date-cell [cell]="date" />
+  }
 </div>
 <div class="titles-container">
-  <p1 *ngFor="let row of journal.rows" [key]="row.title" />
+  @for (row of journal.rows; track row) {
+    <p1 [key]="row.title" />
+  }
 </div>
 <div class="cells-container">
-  <div *ngFor="let row of journal.rows" class="row">
-    <journal-cell
-      elementRef
-      #cellRef="elementRef"
-      *ngFor="let cell of row.cells"
-      [entries]="entries(cell)"
-      (click)="openAddMarkDialog(journal, cell, row, cellRef.el)"
-    />
-  </div>
+  @for (row of journal.rows; track row) {
+    <div class="row">
+      @for (cell of row.cells; track cell) {
+        <journal-cell
+          elementRef
+          #cellRef="elementRef"
+          [entries]="entries(cell)"
+          (click)="openAddMarkDialog(journal, cell, row, cellRef.el)"
+        />
+      }
+    </div>
+  }
 </div>

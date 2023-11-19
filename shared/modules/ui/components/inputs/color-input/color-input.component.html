@@ -1,8 +1,12 @@
 <mat-form-field [appearance]="'outline'" [class.hideBottomSpace]="!showBottomSpace" color="accent">
-  <mat-label *ngIf="label">{{ label | translate }}</mat-label>
+  @if (label) {
+    <mat-label>{{ label | translate }}</mat-label>
+  }
   <label>
     <p1>{{ control.value ?? (placeholder ?? label ?? "" | translate) }}</p1>
-    <icon *ngIf="control.value" src="close" (click)="clear($event)" />
+    @if (control.value) {
+      <icon src="close" (click)="clear($event)" />
+    }
     <div class="spacer"></div>
     <div class="color" [style.background-color]="control.value">
       <input
@@ -13,6 +17,8 @@
       />
     </div>
   </label>
-  <mat-hint *ngIf="hint">{{ hint | translate }}</mat-hint>
+  @if (hint) {
+    <mat-hint>{{ hint | translate }}</mat-hint>
+  }
   <control-error [control]="control" matError />
 </mat-form-field>

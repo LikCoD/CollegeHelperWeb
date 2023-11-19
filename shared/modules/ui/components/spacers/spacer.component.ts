@@ -1,19 +1,21 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input} from "@angular/core"
-import {CommonModule} from "@angular/common"
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 
 @Component({
-  selector: "spacer",
+  selector: 'spacer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: ``,
-  styles: [`
+  styles: [
+    `
       :host {
-          display: block;
+        display: block;
       }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpacerComponent {
-  @HostBinding("style.flex-grow")
-  @Input() weight: number = 1
+  @HostBinding('style.flex-grow')
+  @Input()
+  weight: number = 1;
 }

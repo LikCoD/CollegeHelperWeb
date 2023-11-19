@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { routes } from './profile.routes';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DefaultFormComponent } from '@ui/forms/default-form/default-form.component';
-import {
-  UserPreferencesComponent
-} from '@user/modules/profile/components/profile/user-preferences/user-preferences.component';
+import { UserPreferencesComponent } from '@user/modules/profile/components/profile/user-preferences/user-preferences.component';
 import { ProfileCardComponent } from './components/profile/profile-card/profile-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,8 +35,6 @@ import { CharacterComponent } from '@ui/images/character.component';
     CommonModule,
     DefaultFormComponent,
     MatButtonModule,
-    NgForOf,
-    NgIf,
     TranslateModule,
     ImageComponent,
     Head2Component,

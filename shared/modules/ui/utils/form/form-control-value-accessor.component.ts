@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, inject, Injector, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
   template: '',
-  imports: [CommonModule],
+  imports: [],
   standalone: true,
 })
 export class FormControlValueAccessorComponent<T>

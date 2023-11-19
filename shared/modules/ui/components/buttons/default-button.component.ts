@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateComponent } from '@shared/modules/ui/utils/translate/translate.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,14 +7,15 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'default-button',
   template: '<button mat-flat-button><ng-content></ng-content>{{key | translate}}</button>',
-  styles: [`
-    button {
-      width: 100%;
-      height: 100%;
-    }
-  `],
-  imports: [CommonModule, MatButtonModule, TranslateModule],
+  styles: [
+    `
+      button {
+        width: 100%;
+        height: 100%;
+      }
+    `,
+  ],
+  imports: [MatButtonModule, TranslateModule],
   standalone: true,
 })
-export class DefaultButtonComponent extends TranslateComponent {
-}
+export class DefaultButtonComponent extends TranslateComponent {}

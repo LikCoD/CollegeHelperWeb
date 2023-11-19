@@ -1,4 +1,6 @@
-<div *ngIf="showForeground" class="not-updated-foreground"></div>
+@if (showForeground) {
+  <div class="not-updated-foreground"></div>
+}
 <div class="foreground"></div>
 <main [style.background-color]="lesson.primaryColor" [style.z-index]="routing ? 2 : ''">
   <div [style.background]="lesson.secondaryColor" class="secondaryColorContainer"></div>

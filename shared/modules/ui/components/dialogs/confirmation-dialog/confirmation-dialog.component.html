@@ -3,4 +3,6 @@
 <primary-button key="confirm" (click)="confirm()" />
 <warn-button key="confirm" (click)="confirm()" />
 <secondary-button key="cancel" (click)="cancel()" />
-<icon *ngIf="data.icon" [src]="data.icon" />
+@if (data.icon) {
+  <icon [src]="data.icon" />
+}
