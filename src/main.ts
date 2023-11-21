@@ -7,7 +7,7 @@ import { routes } from './routes';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtInterceptor } from '@jwt/jwt.interceptor';
-import { APP_INITIALIZER, NgModule, NgZone } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
 import { PreferencesService } from '@shared/services/preferences.service';
 import { KeypressService } from '@shared/services/keypress.service';
 import { TranslateModule } from '@translate/translate.module';
