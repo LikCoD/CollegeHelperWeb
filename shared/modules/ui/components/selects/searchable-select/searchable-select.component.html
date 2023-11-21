@@ -2,6 +2,10 @@
   @if (label) {
     <mat-label>{{ label | translate }}</mat-label>
   }
+
+  @if (!(items$ | async) && control.value) {
+    <skeleton-loader class="placeholder" />
+  }
   <mat-select [formControl]="control" [placeholder]="placeholder ?? label ?? '' | translate">
     <section>
       <icon src="search" />
