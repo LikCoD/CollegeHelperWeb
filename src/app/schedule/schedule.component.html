@@ -1,10 +1,3 @@
 <schedule-header />
 <h-divider />
-<state-mapper [observable]="schedule$">
-  <ng-container *stateMapperDefaultState="let type = type">
-    <skeleton-plug [plugComponent]="SchedulePlugComponent" [plug]="type" />
-  </ng-container>
-  <ng-container *stateMapperLoadedState="let data = data">
-    <app-schedule-view [data]="data" />
-  </ng-container>
-</state-mapper>
+<schedule-view />

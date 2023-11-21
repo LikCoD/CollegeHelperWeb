@@ -1,5 +1,12 @@
-<ng-container *hasPermission="'editSchedule'">
-  <schedule-add-lesson-view [availableLessons]="data.lessons" />
-  <v-divider />
-</ng-container>
-<base-schedule [schedule]="data" />
+<state-mapper [observable]="schedule$">
+  <ng-container *stateMapperDefaultState="let type = type">
+    <skeleton-plug [plugComponent]="SchedulePlugComponent" [plug]="type" />
+  </ng-container>
+  <ng-container *stateMapperLoadedState="let data = data">
+    <ng-container *hasPermission="'editSchedule'">
+      <schedule-add-lesson-view [availableLessons]="data.lessons" />
+      <v-divider />
+    </ng-container>
+    <base-schedule [schedule]="data" />
+  </ng-container>
+</state-mapper>

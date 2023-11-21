@@ -1,7 +1,7 @@
 <wrapped-carousel [matTooltip]="lessonTooltip()" [itemHeight]="100">
   @for (lesson of lessons; track lesson) {
     <div *carouselItem class="item">
-      <schedule-lesson-actions [lesson]="lesson" />
+      <schedule-lesson-actions *hasPermission="'editSchedule'" [lesson]="lesson" />
       <schedule-lesson
         [lesson]="lesson"
         [routing]="instantRouting() || !!(control$ | async)?.pressed"

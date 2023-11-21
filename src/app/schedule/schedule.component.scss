@@ -1,9 +1,14 @@
 :host {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-pluggable {
+h-divider {
+  min-height: 2px;
+}
+
+schedule-view {
   flex-grow: 1;
+  overflow: hidden;
 }
