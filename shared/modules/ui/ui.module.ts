@@ -8,6 +8,7 @@ import { IndicatorsModule } from '@ui/indicators';
 import { PickersModule } from '@shared/modules/ui/components/pickers/pickers.module';
 import { DatetimeModule } from '@shared/modules/ui/components/datetime/datetime.module';
 import { CarouselsModule } from '@shared/modules/ui/components/carousels/carousels.module';
+import { ContainersModule } from '@shared/modules/ui/components/containers/containers.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { CarouselsModule } from '@shared/modules/ui/components/carousels/carouse
     PickersModule,
     DatetimeModule,
     CarouselsModule,
+    ContainersModule,
   ],
   exports: [
     TextModule,
@@ -31,6 +33,7 @@ import { CarouselsModule } from '@shared/modules/ui/components/carousels/carouse
     PickersModule,
     DatetimeModule,
     CarouselsModule,
+    ContainersModule,
   ],
 })
 export class UiModule {}

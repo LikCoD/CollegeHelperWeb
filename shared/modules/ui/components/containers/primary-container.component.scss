@@ -1,0 +1,8 @@
+@import "themes";
+
+:host {
+  @include theme {
+    background: $backgroundColor;
+    color: $onBackgroundColor;
+  }
+}
