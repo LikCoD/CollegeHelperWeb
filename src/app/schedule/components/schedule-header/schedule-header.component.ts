@@ -11,11 +11,19 @@ import { SearchScheduleDialogComponent } from '@schedule/dialogs/search-schedule
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { TranslateModule } from '@ngx-translate/core';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
 
 @Component({
   selector: 'schedule-header',
   standalone: true,
-  imports: [CommonModule, IconComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    IconComponent,
+    TranslateModule,
+    PrimaryContainerComponent,
+    SecondaryContainerComponent,
+  ],
   templateUrl: './schedule-header.component.html',
   styleUrls: ['./schedule-header.component.scss'],
   providers: [translatePrefixProvider('header')],

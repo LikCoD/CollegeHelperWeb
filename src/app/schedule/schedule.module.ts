@@ -15,6 +15,7 @@ import { VDividerComponent } from '@ui/dividers/v-divider.component';
 import { HasPermissionDirective } from '@shared/directives/has-permission.directive';
 import { ScheduleViewModule } from '@schedule/modules/schedule-view/schedule-view.module';
 import { LoadedStateDirective, DefaultStateDirective, StateMapperComponent } from 'state-mapper';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 
 @NgModule({
   declarations: [ScheduleComponent],
@@ -35,6 +36,7 @@ import { LoadedStateDirective, DefaultStateDirective, StateMapperComponent } fro
     LoadedStateDirective,
     DefaultStateDirective,
     DefaultStateDirective,
+    PrimaryContainerComponent,
   ],
   providers: [translatePrefixProvider('schedule')],
 })

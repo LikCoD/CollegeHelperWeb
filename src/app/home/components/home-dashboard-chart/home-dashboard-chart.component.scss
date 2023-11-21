@@ -17,6 +17,6 @@ p1 {
   grid-column: 1;
 
   @include theme {
-    color: $onBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }

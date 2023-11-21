@@ -19,6 +19,7 @@ import { IconComponent } from '@ui/images/icon.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
+import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/sc
     IconComponent,
     MatMenuModule,
     ConfirmationDialogComponent,
+    SecondaryContainerComponent,
   ],
   providers: [translatePrefixProvider('edit')],
 })

@@ -9,13 +9,22 @@ import { ImagesModule } from '@ui/images';
 import { DividersModule } from '@ui/dividers';
 import { TranslateModule } from '@ngx-translate/core';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule, TextModule, RouterModule, TranslateModule, ImagesModule, DividersModule],
+  imports: [
+    CommonModule,
+    TextModule,
+    RouterModule,
+    TranslateModule,
+    ImagesModule,
+    DividersModule,
+    PrimaryContainerComponent,
+  ],
   providers: [translatePrefixProvider('header')],
 })
 export class HeaderComponent implements OnInit {

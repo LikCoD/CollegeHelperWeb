@@ -27,6 +27,7 @@ import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton
 import { StateMapperComponent } from '../../../../../projects/state-mapper/src/lib/components/state-mapper.component';
 import { DefaultStateDirective } from '../../../../../projects/state-mapper/src/lib/directives/default-state.directive';
 import { LoadedStateDirective } from '../../../../../projects/state-mapper/src/lib/directives/loaded-state.directive';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { LoadedStateDirective } from '../../../../../projects/state-mapper/src/l
     StateMapperComponent,
     DefaultStateDirective,
     LoadedStateDirective,
+    PrimaryContainerComponent,
   ],
   exports: [ScheduleViewComponent, SchedulePlugComponent],
 })

@@ -64,7 +64,7 @@ ul {
     gap: $indent1;
 
     @include theme {
-      color: $onBackgroundColor;
+      color: $onPrimaryBackgroundColor;
     }
 
     icon {
@@ -81,7 +81,7 @@ ul {
       border-radius: 50%;
 
       @include theme {
-        background: $onBackgroundColor;
+        background: $onPrimaryBackgroundColor;
       }
     }
   }

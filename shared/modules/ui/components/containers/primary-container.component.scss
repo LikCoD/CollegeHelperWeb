@@ -1,8 +1,11 @@
 @import "themes";
+@import "indents";
 
 :host {
+  border-radius: $containersBorderRadius;
+
   @include theme {
-    background: $backgroundColor;
-    color: $onBackgroundColor;
+    background: $primaryBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }

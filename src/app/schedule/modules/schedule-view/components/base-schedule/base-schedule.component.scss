@@ -2,6 +2,11 @@
 @import "indents";
 
 :host {
+  width: unset;
+  min-width: 0;
+}
+
+container-primary {
   position: relative;
   overflow: scroll;
   display: grid;
@@ -9,15 +14,9 @@
   grid-row-gap: $indent3;
   width: 100%;
   height: 100%;
-  margin: $indent2 0 0 $indent2;
   flex-grow: 1;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
-
-  @include theme {
-    background: $backgroundColor;
-    color: $onBackgroundColor;
-  }
 }
 
 .empty-corner {
@@ -54,8 +53,8 @@
     opacity: 0.6;
 
     @include theme {
-      color: $onBackgroundColor;
-      border-top: 1px dashed $onBackgroundColor;
+      color: $onPrimaryBackgroundColor;
+      border-top: 1px dashed $onPrimaryBackgroundColor;
     }
   }
 }
@@ -65,7 +64,6 @@
   position: sticky;
   grid-column: 2;
   grid-row: 1;
-  height: 30px;
   top: 0;
   background: inherit;
   gap: $indent2;
@@ -91,12 +89,14 @@
   place-items: center;
   height: fit-content;
   right: $indent2;
+  padding: 0 $indent1;
 }
 
 .weekday {
   display: grid;
   place-items: center;
   width: 200px;
+  padding: $indent2 0;
 }
 
 hr {

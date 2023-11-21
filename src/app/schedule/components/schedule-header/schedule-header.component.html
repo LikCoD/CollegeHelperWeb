@@ -1,13 +1,17 @@
-<icon (click)="showSearchDialog()" src="search" />
-<icon (click)="toggleViewType()" src="schedule" />
-@if (mode$ | async; as mode) {
-  @if (mode === "table" || mode === "table-expanded") {
-    <icon (click)="toggleExpand()" src="expand" />
+<container-secondary>
+  <icon (click)="showSearchDialog()" src="search" />
+  <icon (click)="toggleViewType()" src="schedule" />
+  @if (mode$ | async; as mode) {
+    @if (mode === "table" || mode === "table-expanded") {
+      <icon (click)="toggleExpand()" src="expand" />
+    }
   }
-}
-<icon (click)="toggleViewMode()" src="today" />
-@if (schedule$ | async; as schedule) {
-  <span
-    >{{ schedule.info.type | translate }} &#x2022; {{ schedule.info.typeName | translate }}</span
-  >
-}
+  <icon (click)="toggleViewMode()" src="today" />
+</container-secondary>
+<container-primary>
+  @if (schedule$ | async; as schedule) {
+    <span
+      >{{ schedule.info.type | translate }} &#x2022; {{ schedule.info.typeName | translate }}</span
+    >
+  }
+</container-primary>

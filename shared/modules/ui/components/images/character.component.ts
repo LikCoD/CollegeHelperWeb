@@ -12,6 +12,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, inject, Input } from '@
     `
       :host {
         display: flex;
+        aspect-ratio: 1;
       }
 
       img {

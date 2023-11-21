@@ -1,11 +1,10 @@
+@import "indents";
+
 :host {
   display: flex;
   flex-direction: column;
+  gap: $backgroundGap;
   height: 100%;
-}
-
-h-divider {
-  min-height: 2px;
 }
 
 schedule-view {

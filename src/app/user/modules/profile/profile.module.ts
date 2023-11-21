@@ -21,6 +21,7 @@ import { StudyPlaceInfoComponent } from './components/profile/study-place-info/s
 import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/primary-button.component';
 import { EditProfileComponent } from '@user/modules/profile/dialogs/edit-profile/edit-profile.component';
 import { CharacterComponent } from '@ui/images/character.component';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CharacterComponent } from '@ui/images/character.component';
     IconComponent,
     PrimaryButtonComponent,
     CharacterComponent,
+    PrimaryContainerComponent,
   ],
   providers: [translatePrefixProvider('profile')],
 })

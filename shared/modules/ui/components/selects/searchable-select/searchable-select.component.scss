@@ -26,15 +26,15 @@ section {
   z-index: 2;
 
   @include theme {
-    color: $onBackgroundColor;
-    border-bottom: $onBackgroundColor 1px solid;
+    color: $onPrimaryBackgroundColor;
+    border-bottom: $onPrimaryBackgroundColor 1px solid;
     box-shadow: 0 -5px 10px 7px rgba(0, 0, 0, 0.25);
   }
 }
 
 input {
   @include theme {
-    color: $onBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }
 

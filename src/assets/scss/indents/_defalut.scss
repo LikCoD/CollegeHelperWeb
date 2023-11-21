@@ -1,16 +1,18 @@
-@use 'sass:math';
+@use "sass:math";
 
-$baseIndent: 6px;
+$baseIndent: 8px;
 $indentHalf: math.div($baseIndent, 2);
 $indent1: $baseIndent;
 $indent2: $baseIndent * 2;
 $indent3: $baseIndent * 3;
 $indent4: $baseIndent * 4;
 $indent5: $baseIndent * 5;
+$backgroundGap: $indentHalf;
 
-$baseBorderRadius: 6px;
+$baseBorderRadius: 8px;
 $borderRadius1: $baseBorderRadius;
 $borderRadius2: $baseBorderRadius * 2;
 $borderRadius3: $baseBorderRadius * 3;
 $borderRadius4: $baseBorderRadius * 4;
 $borderRadius5: $baseBorderRadius * 5;
+$containersBorderRadius: $borderRadius1;

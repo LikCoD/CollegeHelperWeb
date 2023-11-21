@@ -1,16 +1,16 @@
-@use 'sass:list';
-@use 'sass:math';
-@import 'themes';
-@import 'indents';
+@use "sass:list";
+@use "sass:math";
+@import "themes";
+@import "indents";
 
 $times: (0, 60, 70, 130, 150, 210, 220, 280, 310, 370);
 $lessons: (
-                ((0, 60), (70, 130), (150, 210)),
-                ((70, 130), (150, 210), (220, 280)),
-                ((70, 130), (150, 210), (220, 280)),
-                ((0, 60), (70, 130), (150, 210)),
-                ((0, 60), (70, 130), (150, 210), (220, 280)),
-                ((70, 130), (150, 210), (220, 280), (310, 370)),
+  ((0, 60), (70, 130), (150, 210)),
+  ((70, 130), (150, 210), (220, 280)),
+  ((70, 130), (150, 210), (220, 280)),
+  ((0, 60), (70, 130), (150, 210)),
+  ((0, 60), (70, 130), (150, 210), (220, 280)),
+  ((70, 130), (150, 210), (220, 280), (310, 370))
 );
 
 :host {
@@ -19,6 +19,7 @@ $lessons: (
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   grid-gap: $indent2;
+  margin-top: $indent3;
 }
 
 .weekdays {
@@ -69,10 +70,9 @@ $lessons: (
     border-bottom: unset;
     border-left: unset;
 
-
     @include theme {
-      color: $onBackgroundColor;
-      border-top: 1px dashed $onBackgroundColor;
+      color: $onPrimaryBackgroundColor;
+      border-top: 1px dashed $onPrimaryBackgroundColor;
     }
 
     @for $i from 1 through list.length($times) {
@@ -118,4 +118,3 @@ main {
     }
   }
 }
-
