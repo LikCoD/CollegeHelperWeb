@@ -1,6 +1,14 @@
-<p1 *ngIf="option.header" [key]="option.header" />
-<p1 *ngIf="option.group" [key]="option.group" />
-<p1 *ngIf="option.subject" [key]="option.subject" />
-<p1 *ngIf="option.teacher" [key]="option.teacher" />
+@if (option.header) {
+  <p1 [key]="option.header" />
+}
+@if (option.group) {
+  <p1 [key]="option.group" />
+}
+@if (option.subject) {
+  <p1 [key]="option.subject" />
+}
+@if (option.teacher) {
+  <p1 [key]="option.teacher" />
+}
 <icon [src]="option.hasMembers ? 'group' : 'person_off'" />
 <icon [src]="option.editable ? 'edit' : 'visibility'" />

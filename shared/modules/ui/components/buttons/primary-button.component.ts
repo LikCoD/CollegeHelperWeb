@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateComponent } from '@shared/modules/ui/utils/translate/translate.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
       }
     `,
   ],
-  imports: [CommonModule, MatButtonModule, TranslateModule],
+  imports: [MatButtonModule, TranslateModule],
   standalone: true,
 })
 export class PrimaryButtonComponent extends TranslateComponent {}

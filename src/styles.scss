@@ -1,4 +1,5 @@
 @import "themes";
+@import "indents";
 @import "typography";
 
 * {
@@ -9,6 +10,12 @@
 
 body {
   overflow: hidden;
+  font-family: $font;
+  padding: $indentHalf;
+
+  @include theme {
+    background-color: $backgroundColor;
+  }
 }
 
 html,
@@ -25,13 +32,6 @@ app-root {
 app-root > router-outlet ~ :last-child {
   flex-grow: 1;
   overflow: hidden;
-}
-
-body {
-  font-family: $font;
-  @include theme {
-    background-color: $backgroundColor;
-  }
 }
 
 a {

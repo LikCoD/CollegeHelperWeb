@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'character',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `<img
     [alt]="'character_' + position"
     [src]="'assets/character/' + position + '.webp'"
@@ -13,6 +12,7 @@ import { CommonModule } from '@angular/common';
     `
       :host {
         display: flex;
+        aspect-ratio: 1;
       }
 
       img {

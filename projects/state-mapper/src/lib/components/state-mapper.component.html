@@ -1,0 +1,8 @@
+<ng-content />
+<ng-container *ngIf="observable | async as state">
+  <ng-container *ngIf="component(state) as component">
+    <ng-container *ngIf="component.type === 'type'">
+      <ng-container *ngComponentOutlet="component.component; inputs: inputs(state)" />
+    </ng-container>
+  </ng-container>
+</ng-container>

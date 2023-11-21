@@ -3,20 +3,18 @@
 @import "typography";
 @import "breakpoints";
 
-:host {
+container-primary {
   display: flex;
   flex-direction: column;
-  margin-bottom: $indent2;
 }
 
 header {
-  margin: 0 $indent2;
   display: flex;
   justify-content: space-between;
-  padding: $indent1 0;
+  padding: $indent1 $indent2;
 
   @include theme {
-    color: $onBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }
 
@@ -29,7 +27,7 @@ header {
   display: flex;
   align-items: center;
   gap: $indent1;
-  color: #EAEAEA;
+  color: #eaeaea;
   padding: $indentHalf $indent1;
   border-radius: 5px;
 
@@ -61,7 +59,7 @@ header {
 
   .nav-bar {
     display: flex;
-    gap: $indent2;
+    gap: $indent4;
 
     @include sm {
       display: none;

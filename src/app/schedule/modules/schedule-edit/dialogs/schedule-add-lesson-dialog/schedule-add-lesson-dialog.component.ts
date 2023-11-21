@@ -7,7 +7,6 @@ import { DateTime } from 'luxon';
 import { ScheduleLesson } from '@schedule/entities/schedule';
 import { ScheduleAddLessonService } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.service';
 import { ScheduleAddLessonFormConfig } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.dto';
-import { debug } from '@shared/rxjs/pipes/debug.pipe';
 import { translateGroupProvider } from '@translate/translate.prefix-provider';
 
 @Component({
@@ -60,10 +59,29 @@ export class ScheduleAddLessonDialogComponent implements OnInit {
         initial: this.config?.roomID,
         validators: [Validators.required],
       },
+      primaryColor: {
+        type: FormConfigElementTypes.COLOR_SELECT,
+        typeConfig: {
+          label: 'primaryColor',
+          items: this.service.primaryColors$,
+        },
+        initial: this.config?.primaryColor,
+        validators: [Validators.required],
+      },
+      secondaryColor: {
+        type: FormConfigElementTypes.COLOR_SELECT,
+        typeConfig: {
+          label: 'secondaryColor',
+          items: this.service.secondaryColors$,
+        },
+        initial: this.config?.secondaryColor,
+        validators: [Validators.required],
+      },
       lessonIndex: {
         type: FormConfigElementTypes.NUMBER,
-        typeConfig: { label: 'lessonIndex' },
-        initial: this.config?.lessonIndex,
+        typeConfig: { label: 'lessonNumber' },
+        initial: !!this.config ? this.config.lessonIndex + 1 : undefined,
+        transform: v => v - 1,
         validators: [Validators.required],
       },
       range: {

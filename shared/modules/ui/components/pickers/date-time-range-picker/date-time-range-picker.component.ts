@@ -20,7 +20,6 @@ import { DateTime } from 'luxon';
 import { merge, Subscription } from 'rxjs';
 import { DateTimeRangePickerHeaderComponent } from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker-header/date-time-range-picker-header.component';
 import { DateTimeRangePickerService } from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker.service';
-import { translateGroupProvider } from '@translate/translate.prefix-provider';
 
 @Component({
   selector: 'date-time-range-picker',

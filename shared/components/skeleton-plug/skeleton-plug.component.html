@@ -1,2 +1,4 @@
 <ng-container *ngComponentOutlet="plugComponent" />
-<head1 *ngIf="plug.text" [key]="plug.text" />
+@if (text && text !== "loading") {
+  <head1 [key]="text!" />
+}

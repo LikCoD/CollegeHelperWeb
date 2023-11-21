@@ -1,5 +1,5 @@
-<ng-container *ngIf="userStudyPlace$ | async as studyPlace">
-  <ng-container *ngIf="lessonType(studyPlace) as type">
+@if (userStudyPlace$ | async; as studyPlace) {
+  @if (lessonType(studyPlace); as type) {
     <div>
       <text-input
         (keyup.enter)="input(studyPlace, type)"
@@ -8,31 +8,33 @@
       />
       <primary-button (click)="input(studyPlace, type)" key="confirm" />
     </div>
-    <ng-container *ngIf="data.marks && data.marks.length !== 0">
+    @if (data.marks && data.marks.length !== 0) {
       <spacer />
       <p2 key="studentMarks" />
       <section>
-        <ng-container *ngFor="let mark of data.marks">
+        @for (mark of data.marks; track mark) {
           <secondary-button
             (click)="removeMark(mark)"
             [key]="mark.mark"
             [matTooltip]="'delete_mark' | translate"
           />
-        </ng-container>
+        }
       </section>
-    </ng-container>
+    }
     <spacer />
     <span><p2 key="marks" /> | <p2 [key]="type.type" /></span>
     <section>
-      <primary-button (click)="addMark(mark)" *ngFor="let mark of type.marks" [key]="mark.mark" />
+      @for (mark of type.marks; track mark) {
+        <primary-button (click)="addMark(mark)" [key]="mark.mark" />
+      }
     </section>
-    <h-divider *ngIf="type.standaloneMarks" />
+    @if (type.standaloneMarks) {
+      <h-divider />
+    }
     <section>
-      <secondary-button
-        (click)="addMark(mark)"
-        *ngFor="let mark of type.standaloneMarks"
-        [key]="mark.mark"
-      />
+      @for (mark of type.standaloneMarks; track mark) {
+        <secondary-button (click)="addMark(mark)" [key]="mark.mark" />
+      }
     </section>
     <spacer />
     <p2 key="absences" />
@@ -43,23 +45,23 @@
         class="density-input-min3"
       />
 
-      <ng-container *ngIf="data.absence">
-        <ng-container *ngIf="data.absence.time">
+      @if (data.absence) {
+        @if (data.absence.time) {
           <primary-button (click)="removeAbsence()" key="remove_latency" />
-        </ng-container>
-        <ng-container *ngIf="!data.absence.time">
+        }
+        @if (!data.absence.time) {
           <primary-button (click)="removeAbsence()" key="remove_absence" />
-        </ng-container>
-      </ng-container>
+        }
+      }
 
-      <ng-container *ngIf="!data.absence">
-        <ng-container *ngIf="absenceFormControl.value">
+      @if (!data.absence) {
+        @if (absenceFormControl.value) {
           <primary-button (click)="addAbsence()" key="add_latency" />
-        </ng-container>
-        <ng-container *ngIf="!absenceFormControl.value">
+        }
+        @if (!absenceFormControl.value) {
           <primary-button (click)="addAbsence()" key="add_absence" />
-        </ng-container>
-      </ng-container>
+        }
+      }
     </div>
-  </ng-container>
-</ng-container>
+  }
+}

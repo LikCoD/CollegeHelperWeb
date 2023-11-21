@@ -1,10 +1,19 @@
-<mat-form-field [appearance]="'outline'" color="accent" [style.--start]="startTime" [style.--end]="endTime">
-  <mat-label *ngIf="label">{{ label | translate }}</mat-label>
+<mat-form-field
+  [appearance]="'outline'"
+  color="accent"
+  [style.--start]="startTime"
+  [style.--end]="endTime"
+>
+  @if (label) {
+    <mat-label>{{ label | translate }}</mat-label>
+  }
   <mat-date-range-input [rangePicker]="picker">
     <input [formControl]="startDateControl" [placeholder]="placeholder" matStartDate />
     <input [formControl]="endDateControl" matEndDate />
   </mat-date-range-input>
-  <mat-hint *ngIf="hint">{{ hint | translate }}</mat-hint>
+  @if (hint) {
+    <mat-hint>{{ hint | translate }}</mat-hint>
+  }
   <mat-datepicker-toggle [for]="picker" matIconSuffix />
   <mat-date-range-picker #picker [calendarHeaderComponent]="DateTimeRangePickerHeaderComponent" />
   <control-error [control]="control" matError />

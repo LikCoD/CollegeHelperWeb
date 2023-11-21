@@ -12,6 +12,8 @@
     label="endTime"
     placeholder="10:00"
   />
-  <div *ngIf="!isTimeFilled" class="fade"></div>
+  @if (!isTimeFilled) {
+    <div class="fade"></div>
+  }
 </section>
 <mat-calendar-header />

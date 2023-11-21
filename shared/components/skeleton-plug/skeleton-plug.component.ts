@@ -22,14 +22,23 @@ import { Plug } from '@shared/components/skeleton-plug/skeleton-plug.entities';
 })
 export class SkeletonPlugComponent implements OnChanges {
   @Input({ required: true }) plugComponent!: Type<any>;
-  @Input({ required: true }) plug!: Plug;
+  @Input({ required: true }) plug!: Plug | string;
 
   private host = inject(ElementRef<HTMLElement>);
 
+  get text(): string | null {
+    return typeof this.plug === 'string' ? this.plug : this.plug.type;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['plug']) {
-      this.host.nativeElement.classList.remove(changes['plug'].previousValue?.type);
-      this.host.nativeElement.classList.add(changes['plug'].currentValue.type);
+      const previous = changes['plug'].previousValue;
+      const current = changes['plug'].currentValue;
+
+      this.host.nativeElement.classList.remove(
+        typeof previous === 'string' ? previous : previous?.type
+      );
+      this.host.nativeElement.classList.add(typeof current === 'string' ? current : current?.type);
     }
   }
 }

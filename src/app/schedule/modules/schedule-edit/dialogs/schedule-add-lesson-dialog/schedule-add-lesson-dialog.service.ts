@@ -7,12 +7,14 @@ import {
   ScheduleTypeEntry,
   ScheduleTypes,
 } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.entities';
+import { StudyPlacesService } from '@shared/services/study-places.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleAddLessonService {
   private http = inject(HttpClient);
+  private studyPlacesService = inject(StudyPlacesService);
 
   private _types$ = new BehaviorSubject<ScheduleTypes | null>(null);
 
@@ -34,6 +36,14 @@ export class ScheduleAddLessonService {
 
   get rooms$(): Observable<SelectItems> {
     return this.types$.pipe(ScheduleAddLessonService.mapTypesToSelectValues('rooms'));
+  }
+
+  get primaryColors$(): Observable<SelectItems> {
+    return this.studyPlacesService.userStudyPlace.pipe(map(s => s.primaryColorSet));
+  }
+
+  get secondaryColors$(): Observable<SelectItems> {
+    return this.studyPlacesService.userStudyPlace.pipe(map(s => s.secondaryColorSet));
   }
 
   private static typeToSelectValue(type: ScheduleTypeEntry): SelectItem {

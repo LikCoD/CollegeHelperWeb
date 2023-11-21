@@ -1,0 +1,40 @@
+@import "indents";
+@import "themes";
+
+:host {
+  position: relative;
+}
+
+wrapped-carousel {
+  height: 100%;
+  border-radius: $borderRadius3;
+
+  schedule-lesson {
+    min-width: 100%;
+    flex-grow: 1;
+    scroll-snap-align: start;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+schedule-lesson {
+  max-width: 100%;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+}
+
+schedule-lesson-actions {
+  position: absolute;
+  top: $indent1;
+  right: $indentHalf;
+  z-index: 2;
+}

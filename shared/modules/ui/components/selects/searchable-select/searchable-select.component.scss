@@ -26,15 +26,15 @@ section {
   z-index: 2;
 
   @include theme {
-    color: $onBackgroundColor;
-    border-bottom: $onBackgroundColor 1px solid;
-    box-shadow: 0 -5px 10px 7px rgba(0, 0, 0, 0.25)
+    color: $onPrimaryBackgroundColor;
+    border-bottom: $onPrimaryBackgroundColor 1px solid;
+    box-shadow: 0 -5px 10px 7px rgba(0, 0, 0, 0.25);
   }
 }
 
 input {
   @include theme {
-    color: $onBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }
 
@@ -45,4 +45,12 @@ mat-option.hidden {
 skeleton-loader {
   height: 40px;
   margin: 12px 6px;
+}
+
+skeleton-loader.placeholder {
+  position: absolute;
+  margin: unset;
+  width: 100%;
+  height: 24px;
+  z-index: 9;
 }

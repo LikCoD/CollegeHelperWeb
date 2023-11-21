@@ -1,0 +1,111 @@
+@import "themes";
+@import "indents";
+
+:host {
+  width: unset;
+  min-width: 0;
+}
+
+container-primary {
+  position: relative;
+  overflow: scroll;
+  display: grid;
+  grid-column-gap: $indent2;
+  grid-row-gap: $indent3;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.empty-corner {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: inherit;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 4;
+}
+
+.row-container {
+  display: grid;
+  position: sticky;
+  left: 0;
+  grid-column: 1;
+  grid-row: 2;
+  background: inherit;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.markup {
+  position: sticky;
+  left: 0;
+  grid-column: 2;
+  grid-row: 2;
+
+  hr {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    opacity: 0.6;
+
+    @include theme {
+      color: $onPrimaryBackgroundColor;
+      border-top: 1px dashed $onPrimaryBackgroundColor;
+    }
+  }
+}
+
+.weekdays-container {
+  display: flex;
+  position: sticky;
+  grid-column: 2;
+  grid-row: 1;
+  top: 0;
+  background: inherit;
+  gap: $indent2;
+  z-index: 3;
+}
+
+.lessons-container {
+  display: grid;
+  grid-auto-columns: 200px;
+  grid-column-gap: $indent2;
+  position: relative;
+  padding-bottom: $indent3;
+  height: 100%;
+  grid-column: 2;
+  grid-row: 2;
+  z-index: 2;
+}
+
+.row {
+  grid-row: 1;
+  grid-column: 1;
+  display: grid;
+  place-items: center;
+  height: fit-content;
+  right: $indent2;
+  padding: 0 $indent1;
+}
+
+.weekday {
+  display: grid;
+  place-items: center;
+  width: 200px;
+  padding: $indent2 0;
+}
+
+hr {
+  margin: 0 $indent2;
+  min-height: 1px;
+  opacity: 0.2;
+  border-radius: 1px;
+}
+
+schedule-cell {
+  grid-row: 1;
+}

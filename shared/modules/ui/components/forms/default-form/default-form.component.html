@@ -2,9 +2,15 @@
 <div>
   <form (ngSubmit)="submit()" [formGroup]="form">
     <ng-content></ng-content>
-    <simple-form-config-builder *ngIf="formConfig" [config]="formConfig" [formGroup]="form" />
+    @if (formConfig) {
+      <simple-form-config-builder [config]="formConfig" [formGroup]="form" />
+    }
     <primary-button key="confirm" />
   </form>
-  <character *ngIf="character" [position]="character" />
+  @if (character) {
+    <character [position]="character" />
+  }
 </div>
-<url *ngIf="link" [key]="linkKey ?? ''" [link]="link">{{ linkText }}</url>
+@if (link) {
+  <url [key]="linkKey ?? ''" [link]="link">{{ linkText }}</url>
+}

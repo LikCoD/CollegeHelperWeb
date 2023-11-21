@@ -17,7 +17,7 @@ mat-hint {
 
 input {
   @include theme {
-    color: $onBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }
 

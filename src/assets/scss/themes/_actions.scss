@@ -1,21 +1,21 @@
-@mixin clickable($backgroundColor) {
+@mixin clickable($primaryBackgroundColor) {
   & {
-    background-color: $backgroundColor;
+    background-color: $primaryBackgroundColor;
     cursor: pointer;
   }
 
   &:hover {
-    background-color: rgba($backgroundColor, 0.9);
+    background-color: rgba($primaryBackgroundColor, 0.9);
   }
 
   &:active {
-    background-color: rgba($backgroundColor, 0.7);
+    background-color: rgba($primaryBackgroundColor, 0.7);
   }
 
   &:disabled,
   &.disabled {
     cursor: auto;
-    background-color: rgba($backgroundColor, 0.5);
+    background-color: rgba($primaryBackgroundColor, 0.5);
   }
 }
 

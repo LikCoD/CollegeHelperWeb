@@ -95,6 +95,9 @@
       ],
       "@user/*": [
         "src/app/user/*"
+      ],
+      "state-mapper": [
+        "dist/state-mapper"
       ]
     }
   },

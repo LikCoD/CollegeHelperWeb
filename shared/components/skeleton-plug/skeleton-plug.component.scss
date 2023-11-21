@@ -61,7 +61,7 @@ head1 {
   height: clamp(200px, 60%, 350px);
   backdrop-filter: blur(15px) contrast(110%) brightness(80%);
   border-radius: 24px;
-  color: $onBackgroundColor;
+  color: $onPrimaryBackgroundColor;
   font-size: clamp($fontSizeExtraLarge, 6vw, $fontSizeExtraLarge * 3);
 
   @include theme {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScheduleLessonSelectComponent } from '@schedule/modules/schedule-edit/components/schedule-lesson-select/schedule-lesson-select.component';
-import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
 import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { SecondaryButtonComponent } from '@shared/modules/ui/components/buttons/secondary-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,16 +14,25 @@ import { CharacterComponent } from '@ui/images/character.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduleAddLessonViewComponent } from './components/schedule-add-lesson-view/schedule-add-lesson-view.component';
 import { translatePrefixProvider } from '@translate/translate.prefix-provider';
-
-
+import { ScheduleLessonActionsComponent } from './components/schedule-lesson-actions/schedule-lesson-actions.component';
+import { IconComponent } from '@ui/images/icon.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
+import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
 
 @NgModule({
   declarations: [
     ScheduleLessonSelectComponent,
     ScheduleAddLessonDialogComponent,
     ScheduleAddLessonViewComponent,
+    ScheduleLessonActionsComponent,
   ],
-  exports: [ScheduleLessonSelectComponent, ScheduleAddLessonViewComponent],
+  exports: [
+    ScheduleLessonSelectComponent,
+    ScheduleAddLessonViewComponent,
+    ScheduleLessonActionsComponent,
+  ],
   imports: [
     CommonModule,
     ScheduleLessonComponent,
@@ -38,9 +46,11 @@ import { translatePrefixProvider } from '@translate/translate.prefix-provider';
     DefaultFormComponent,
     CharacterComponent,
     MatDialogModule,
+    IconComponent,
+    MatMenuModule,
+    ConfirmationDialogComponent,
+    SecondaryContainerComponent,
   ],
-  providers: [
-    translatePrefixProvider('edit')
-  ]
+  providers: [translatePrefixProvider('edit')],
 })
 export class ScheduleEditModule {}

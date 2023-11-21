@@ -7,11 +7,13 @@ $theme-map: null;
 
 $primaryColor: null;
 $secondaryColor: null;
+$dangerColor: null;
 $backgroundColor: null;
+$primaryBackgroundColor: null;
 $secondaryBackgroundColor: null;
 $onPrimaryColor: null;
 $onSecondaryColor: null;
-$onBackgroundColor: null;
+$onPrimaryBackgroundColor: null;
 $onSecondaryBackgroundColor: null;
 $skeletonColor: null;
 $skeletonIndicatorColor: null;
@@ -32,11 +34,13 @@ $themes: (
 
     $primaryColor: theme-get("primaryColor") !global;
     $secondaryColor: theme-get("secondaryColor") !global;
+    $dangerColor: theme-get("dangerColor") !global;
     $backgroundColor: theme-get("backgroundColor") !global;
+    $primaryBackgroundColor: theme-get("primaryBackgroundColor") !global;
     $secondaryBackgroundColor: theme-get("secondaryBackgroundColor") !global;
     $onPrimaryColor: theme-get("onPrimaryColor") !global;
     $onSecondaryColor: theme-get("onSecondaryColor") !global;
-    $onBackgroundColor: theme-get("onBackgroundColor") !global;
+    $onPrimaryBackgroundColor: theme-get("onPrimaryBackgroundColor") !global;
     $onSecondaryBackgroundColor: theme-get("onSecondaryBackgroundColor") !global;
     $skeletonColor: theme-get("skeletonColor") !global;
     $skeletonIndicatorColor: theme-get("skeletonIndicatorColor") !global;

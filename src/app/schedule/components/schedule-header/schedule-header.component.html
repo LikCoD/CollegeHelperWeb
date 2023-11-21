@@ -1,15 +1,17 @@
-<icon (click)="showSearchDialog()" src="search" />
-<icon (click)="toggleViewType()" src="schedule" />
-<ng-container *ngIf="mode$ | async as mode">
-  <icon
-    *ngIf="mode === 'table' || mode === 'table-expanded'"
-    (click)="toggleExpand()"
-    src="expand"
-  />
-</ng-container>
-<icon (click)="toggleViewMode()" src="today" />
-<ng-container *ngIf="schedule$ | async as schedule">
-  <span
-    >{{ schedule.info.type | translate }} &#x2022; {{ schedule.info.typeName | translate }}</span
-  >
-</ng-container>
+<container-secondary>
+  <icon (click)="showSearchDialog()" src="search" />
+  <icon (click)="toggleViewType()" src="schedule" />
+  @if (mode$ | async; as mode) {
+    @if (mode === "table" || mode === "table-expanded") {
+      <icon (click)="toggleExpand()" src="expand" />
+    }
+  }
+  <icon (click)="toggleViewMode()" src="today" />
+</container-secondary>
+<container-primary>
+  @if (schedule$ | async; as schedule) {
+    <span
+      >{{ schedule.info.type | translate }} &#x2022; {{ schedule.info.typeName | translate }}</span
+    >
+  }
+</container-primary>

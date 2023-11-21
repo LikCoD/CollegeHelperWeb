@@ -1,9 +1,14 @@
-import { Observable, pipe, UnaryFunction } from 'rxjs';
-import { nullOnCatchError } from '@shared/rxjs/pipes/nullOnCatchError.pipe';
-import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
+import { Observable, UnaryFunction } from 'rxjs';
 
-export const filterNotError = <T>(onError: (e: any) => void = () => {}): UnaryFunction<Observable<T>, Observable<T>> =>
-    pipe(
-      nullOnCatchError(onError),
-      filterNotNull()
-    )
+export const filterNotError =
+  <T>(onError: (e: any) => void = () => {}): UnaryFunction<Observable<T>, Observable<T>> =>
+  source =>
+    new Observable(subscriber => {
+      const subscription = source.subscribe({
+        next: value => subscriber.next(value),
+        error: e => onError(e),
+        complete: () => subscriber.complete(),
+      });
+
+      return () => subscription.unsubscribe();
+    });

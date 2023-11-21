@@ -1,5 +1,5 @@
-<ng-container *ngIf="cell.startDate as date">
+@if (cell.startDate; as date) {
   <span>{{ date | datetime: "MMM" }}</span>
   <span>{{ date | datetime: "EEE dd" }}</span>
   <div [style.background-color]="cell.secondaryColor"></div>
-</ng-container>
+}

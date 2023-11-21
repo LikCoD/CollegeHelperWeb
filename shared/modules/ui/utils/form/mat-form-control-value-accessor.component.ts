@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControlValueAccessorComponent } from '@shared/modules/ui/utils/form/form-control-value-accessor.component';
 
 @Component({
   template: '',
-  imports: [CommonModule],
+  imports: [],
   standalone: true,
 })
 export class MatFormControlValueAccessorComponent<T> extends FormControlValueAccessorComponent<T> {

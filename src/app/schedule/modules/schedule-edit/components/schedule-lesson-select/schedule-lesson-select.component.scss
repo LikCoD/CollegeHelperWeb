@@ -26,7 +26,6 @@ section {
   overflow: scroll;
   flex-grow: 1;
   border-radius: $borderRadius2;
-  margin: 0 $indent2 $indent2 $indent2;
 
   schedule-lesson {
     @include clickableOpacity;

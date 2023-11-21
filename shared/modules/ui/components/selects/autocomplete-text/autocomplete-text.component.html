@@ -1,20 +1,24 @@
 <mat-form-field [appearance]="'outline'" color="accent">
-  <mat-label *ngIf="label">{{label | translate}}</mat-label>
+  @if (label) {
+    <mat-label>{{ label | translate }}</mat-label>
+  }
   <input
     [formControl]="control"
     [matAutocomplete]="auto"
-    [placeholder]="(placeholder ?? label ?? '') | translate"
-    matInput>
+    [placeholder]="placeholder ?? label ?? '' | translate"
+    matInput
+  />
   <mat-autocomplete #auto="matAutocomplete">
-    <ng-container *ngIf="items$ | async as items">
-      <ng-container *ngFor="let item of items; trackBy: trackBy">
-        <mat-option
-          [class.hidden]="!show(search$ | async, item.display)"
-          [value]="item.value"
-        >{{item.display | translate}}</mat-option>
-      </ng-container>
-    </ng-container>
+    @if (items$ | async; as items) {
+      @for (item of items; track trackBy($index, item)) {
+        <mat-option [class.hidden]="!show(search$ | async, item.display)" [value]="item.value"
+          >{{ item.display | translate }}
+        </mat-option>
+      }
+    }
   </mat-autocomplete>
-  <mat-hint *ngIf="hint">{{hint | translate}}</mat-hint>
+  @if (hint) {
+    <mat-hint>{{ hint | translate }}</mat-hint>
+  }
   <control-error [control]="control" matError />
 </mat-form-field>

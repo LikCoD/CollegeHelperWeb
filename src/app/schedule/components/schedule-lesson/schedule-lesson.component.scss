@@ -20,12 +20,13 @@
 
 .group-name {
   grid-area: group;
-  text-align: right;
+  justify-content: flex-end;
 }
 
-main {
-  display: flex;
-  padding: 0 $indent3 0 $indent1;
+main .secondaryColorContainer {
+  grid-area: secondary;
+  width: $indent2;
+  margin-right: $indent1;
   height: 100%;
 }
 
@@ -34,24 +35,32 @@ head4 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 
-form {
+main {
   display: grid;
-  grid-template-areas: "subject subject" "teacher teacher" "room group";
+  grid-template-areas:
+    "secondary spacer spacer"
+    "secondary subject subject"
+    "secondary teacher teacher"
+    "secondary room group"
+    "secondary spacer2 spacer2";
+  grid-template-columns: $indent3 1fr 1fr;
+  grid-template-rows: $indent1 1fr 1fr 1fr $indent1;
   flex-grow: 1;
   flex-basis: 0;
   height: min(100%, 125px);
   max-height: 100%;
   width: 100%;
   min-width: 0;
-  grid-row-gap: $indent1;
-  padding: $indent2 0;
+  grid-row-gap: $indentHalf;
+  padding: 0 $indent3 0 0;
   color: black;
 
   & > * {
-    height: fit-content;
-    place-self: center;
+    display: flex;
+    align-items: center;
     width: 100%;
     min-width: 0;
     text-overflow: ellipsis;
@@ -59,28 +68,10 @@ form {
   }
 }
 
-.secondaryColorContainer {
-  width: 10px;
-  height: inherit;
-}
-
-div {
-  display: flex;
-
-  * {
-    width: 50%;
-
-    &:last-child {
-      text-align: end;
-    }
-  }
-}
-
 .not-updated-foreground {
   position: absolute;
   width: 100%;
   height: 100%;
-
   background: rgba(0, 0, 0, 0.25);
 }
 
@@ -88,11 +79,4 @@ div {
   position: absolute;
   width: 100%;
   height: 100%;
-}
-
-form {
-  head4,
-  p1 {
-    cursor: pointer;
-  }
 }

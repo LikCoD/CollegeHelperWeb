@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, inject, Injector, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
   template: '',
-  imports: [CommonModule],
+  imports: [],
   standalone: true,
 })
 export class FormControlValueAccessorComponent<T>
@@ -42,8 +42,13 @@ export class FormControlValueAccessorComponent<T>
     else this.control.enable();
   }
 
+  clear(e: Event | null = null): void {
+    e?.preventDefault();
+    this.control.setValue(null);
+  }
+
   ngOnDestroy(): void {
-    this.changeSubscription?.unsubscribe()
-    this.touchSubscription?.unsubscribe()
+    this.changeSubscription?.unsubscribe();
+    this.touchSubscription?.unsubscribe();
   }
 }

@@ -1,9 +1,7 @@
-<ng-container *ngIf="observable | async as data">
-  <ng-container *ngIf="data.plug.type === 'loaded'; else plugTmp">
+@if (observable | async; as data) {
+  @if (data.plug.type === "loaded") {
     <ng-container *ngComponentOutlet="dataComponent; inputs: { data: data.data }" />
-  </ng-container>
-
-  <ng-template #plugTmp>
+  } @else {
     <skeleton-plug [plug]="data.plug" [plugComponent]="plugComponent" />
-  </ng-template>
-</ng-container>
+  }
+}

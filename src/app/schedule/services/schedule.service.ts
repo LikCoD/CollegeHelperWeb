@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Schedule, ScheduleSchema } from '@schedule/entities/schedule';
+import { Schedule, ScheduleLesson, ScheduleSchema } from '@schedule/entities/schedule';
 import { HttpClient } from '@angular/common/http';
 import { validate } from '@shared/rxjs/pipes/validate';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
@@ -26,11 +26,21 @@ export class ScheduleService {
     return this._schedule$.value;
   }
 
+  get lessons(): ScheduleLesson[] {
+    return this._schedule$.value?.lessons ?? [];
+  }
+
+  set lessons(lessons: ScheduleLesson[]) {
+    if (!this.schedule) return;
+    const schedule = this.schedule;
+    schedule.lessons = lessons;
+    this._schedule$.next(schedule);
+  }
+
   getSchedule(dto: GetScheduleDTO): Observable<Schedule> {
     return this.http
       .get<Schedule>('api/v1/schedule', { params: dto ?? {} })
       .pipe(validate(ScheduleSchema))
-      .pipe(tap(s => (s.info.indexes = [...new Set(s.lessons.map(l => l.lessonIndex))])))
       .pipe(tap(s => this._schedule$.next(s)));
   }
 }

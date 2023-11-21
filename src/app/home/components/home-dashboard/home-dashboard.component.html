@@ -1,5 +1,5 @@
 <main>
-  <ng-container *ngIf="user$ | async as user; else notAuth">
+  @if (user$ | async; as user) {
     <head2>
       <head2 key="welcome" />
       <span>, </span>
@@ -15,38 +15,36 @@
       <home-dashboard-chart />
       <home-dashboard-chart />
     </div>
-  </ng-container>
+  } @else {
+    <head2 key="welcome" />
+    <div class="sources">
+      <p1 key="source_description" />
+      <a href="mailto:likdan.official@gmail.com" target="_blank">
+        <p1 key="email" />
+      </a>
+      <a href="https://t.me/likdan" target="_blank">
+        <p1 key="telegram" />
+      </a>
+      <h-divider />
+      <head4 key="sources_text" />
+      <ul>
+        <li>
+          <a href="https://github.com/likdan/studyum">
+            <p1 key="frontend" />
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/likdan/studyumapi">
+            <p1 key="backend" />
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/likdan/studyumdeploy">
+            <p1 key="deploy" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  }
 </main>
 <character position="sits_by_the_table" />
-
-<ng-template #notAuth>
-  <head2 key="welcome" />
-  <div class="sources">
-    <p1 key="source_description" />
-    <a href="mailto:likdan.official@gmail.com" target="_blank">
-      <p1 key="email" />
-    </a>
-    <a href="https://t.me/likdan" target="_blank">
-      <p1 key="telegram" />
-    </a>
-    <h-divider />
-    <head4 key="sources_text" />
-    <ul>
-      <li>
-        <a href="https://github.com/likdan/studyum">
-          <p1 key="frontend" />
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/likdan/studyumapi">
-          <p1 key="backend" />
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/likdan/studyumdeploy">
-          <p1 key="deploy" />
-        </a>
-      </li>
-    </ul>
-  </div>
-</ng-template>

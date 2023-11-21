@@ -16,6 +16,7 @@ export interface BaseFormConfigElement<T> {
   hidden?: boolean;
   validators?: ValidatorFn | ValidatorFn[];
   formatter?: (value: any) => any;
+  transform?: (value: any) => T;
 }
 
 export interface DependedFormConfigElement<F = any, T = any> {
@@ -76,9 +77,17 @@ export type FormConfigElement<T = string> = BaseFormConfigElement<T> & {
         type: FormConfigElementTypes.DATE_TIME_RANGE;
         typeConfig: BaseFormElementTypeConfig<T> & DateRangeFormElementTypeConfig;
       }
+    | {
+        type: FormConfigElementTypes.COLOR;
+        typeConfig: BaseFormElementTypeConfig<T>;
+      }
+    | {
+        type: FormConfigElementTypes.COLOR_SELECT;
+        typeConfig: BaseFormElementTypeConfig<T> & SelectFormElementTypeConfig<T>;
+      }
   );
 
-export interface BaseFormElementTypeConfig<V = string> {
+export interface BaseFormElementTypeConfig<V = string, R = string> {
   placeholder?: string;
   label?: string;
   hint?: string;
@@ -113,4 +122,6 @@ export enum FormConfigElementTypes {
   AUTOCOMPLETE_TEXT,
   DATE_RANGE,
   DATE_TIME_RANGE,
+  COLOR,
+  COLOR_SELECT,
 }

@@ -1,7 +1,8 @@
 @import "indents";
 
-:host {
+container-primary {
   display: flex;
   gap: $indent3;
-  margin: $indent2;
+  padding: $indent2;
+  height: 100%;
 }

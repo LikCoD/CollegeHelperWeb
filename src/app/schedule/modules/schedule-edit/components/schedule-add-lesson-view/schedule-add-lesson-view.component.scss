@@ -4,12 +4,14 @@
 
 :host {
   overflow: hidden;
+  width: unset;
+}
+
+container-secondary {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: $indent2 $indent1;
+  padding: $indent1;
   width: 250px;
-
-  @include theme {
-    background-color: $secondaryBackgroundColor;
-  }
+  height: 100%;
 }

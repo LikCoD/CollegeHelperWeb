@@ -1,8 +1,8 @@
 <head2 [key]="category.category" />
-<section *ngIf="searchItems$ | async as options">
-  <journal-select-option
-    (click)="select(option)"
-    *ngFor="let option of options"
-    [option]="option"
-  />
-</section>
+@if (searchItems$ | async; as options) {
+  <section>
+    @for (option of options; track option) {
+      <journal-select-option (click)="select(option)" [option]="option" />
+    }
+  </section>
+}

@@ -15,8 +15,8 @@
   grid-template-rows: auto 1fr;
 
   @include theme {
-    background: $backgroundColor;
-    color: $onBackgroundColor;
+    background: $primaryBackgroundColor;
+    color: $onPrimaryBackgroundColor;
   }
 }
 
