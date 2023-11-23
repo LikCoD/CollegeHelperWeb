@@ -5,6 +5,7 @@ COPY package-lock.json .
 RUN npm ci
 COPY . .
 RUN npm run build-state-mapper
+RUN npm run build-i18n
 RUN npm run build --omit=dev
 
 FROM nginx:alpine

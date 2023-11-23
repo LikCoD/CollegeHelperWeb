@@ -96,6 +96,9 @@
       "@user/*": [
         "src/app/user/*"
       ],
+      "i18n": [
+        "dist/i18n"
+      ],
       "state-mapper": [
         "dist/state-mapper"
       ]
