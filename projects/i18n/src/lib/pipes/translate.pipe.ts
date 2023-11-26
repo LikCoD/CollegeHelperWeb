@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, inject, Injector, Pipe, PipeTransform } from '@angular/core';
+import { inject, Injector, Pipe, PipeTransform } from '@angular/core';
 import { Params } from '@angular/router';
 import { TranslationService } from '../services/translation.service';
 import { TranslateObject } from '../entities/i18n.entity';
@@ -14,7 +14,6 @@ export class TranslatePipe implements PipeTransform {
 
   private translationService = inject(TranslationService);
   private injector = inject(Injector);
-  private cdr = inject(ChangeDetectorRef);
 
   transform(value: string | TranslateObject, params: Params = {}): string | number {
     if (typeof value === 'string') {

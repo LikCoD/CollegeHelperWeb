@@ -5,17 +5,17 @@ import { StorageSubject } from '@shared/rxjs/subjects/storage.subject';
 import { Preferences } from '@shared/entities/preferences';
 import { Settings as LuxonSettings } from 'luxon';
 import { JwtService } from '@jwt/jwt.service';
-import { LoaderService } from 'i18n';
+import { LocalesService } from 'i18n';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreferencesService {
   themes = ['dark', 'light'];
-  languages = ['en_us', 'ru_ru'];
+  languages = ['en-US', 'ru-RU'];
 
   private http = inject(HttpClient);
-  private translateService = inject(LoaderService);
+  private translateService = inject(LocalesService);
   private service = inject(JwtService);
 
   private _preferences$: StorageSubject<Preferences> = new StorageSubject(
@@ -36,21 +36,15 @@ export class PreferencesService {
     document.body.classList.remove(...this.themes);
     document.body.classList.add(value.theme);
 
-    //todo
-    // this.translateService.language = value.language;
+    this.translateService.current = { code: value.language };
 
     if (value.timezone === 'device_timezone') {
       value.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 
     LuxonSettings.defaultZone = value.timezone;
-    LuxonSettings.defaultLocale = this.locale(value.language);
+    LuxonSettings.defaultLocale = value.language;
 
     this._preferences$.next(value);
-  }
-
-  private locale(language: string): string {
-    const [p1, p2] = language.split('_');
-    return `${p1}-${p2.toUpperCase()}`;
   }
 }

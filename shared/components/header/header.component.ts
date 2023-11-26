@@ -8,12 +8,7 @@ import { RouterModule } from '@angular/router';
 import { ImagesModule } from '@ui/images';
 import { DividersModule } from '@ui/dividers';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
-import {
-  provideTranslationSuffix,
-  TranslateGroupPipe,
-  TranslateNfGroupPipe,
-  TranslatePipe,
-} from 'i18n';
+import { provideTranslationSuffix, TranslateGroupPipe, TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'app-header',

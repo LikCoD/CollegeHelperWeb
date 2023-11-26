@@ -11,7 +11,7 @@ import { SearchScheduleDialogComponent } from '@schedule/dialogs/search-schedule
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
-import { I18N_GROUP_TOKEN, provideTranslationSuffix, TranslatePipe } from 'i18n';
+import { provideTranslationSuffix, TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'schedule-header',

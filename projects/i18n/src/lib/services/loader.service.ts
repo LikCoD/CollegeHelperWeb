@@ -1,9 +1,15 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { effect, inject, Injectable, Signal, signal } from '@angular/core';
 import { I18N_LOADER_TOKEN } from '../providers/url.provider';
 import { LocalesService } from './locales.service';
 import { Locale, RawTranslation, Translation } from '../entities/i18n.entity';
 import { TranslationDatabase } from '../databases/translation.database';
 import { filter, map, take, tap } from 'rxjs';
+
+interface LoadedTranslation {
+  groups: string[];
+  translation: RawTranslation;
+  locale: Locale;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +19,26 @@ export class LoaderService {
   private localesService = inject(LocalesService);
 
   private database = new TranslationDatabase();
-  private loadedTranslations: string[] = [];
+  private loadedTranslations: { [key: string]: LoadedTranslation } = {};
+  private groups: string[] = [];
+  private previousLocale = this.localesService.current();
 
   constructor() {
+    this.loadedTranslations[this.localesService.current().code] = {
+      groups: [],
+      translation: {},
+      locale: this.localesService.current(),
+    };
     //defaults
     this.loadGroup('');
+    effect(
+      () => {
+        if (this.previousLocale.code === this.localesService.current().code) return;
+        this.previousLocale = this.localesService.current();
+        this.reloadLocale();
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   private _translation = signal<RawTranslation>({});
@@ -28,8 +49,11 @@ export class LoaderService {
 
   loadGroup(group: string | string[], locale: Locale = this.localesService.current()): void {
     const _group = Array.isArray(group) ? group.join('.') : group;
-    if (this.loadedTranslations.indexOf(_group) !== -1) return;
-    this.loadedTranslations.push(_group);
+    const groups = this.loadedTranslations[locale.code].groups;
+    if (groups.indexOf(_group) !== -1) return;
+    groups.push(_group);
+
+    if (this.groups.indexOf(_group) === -1) this.groups.push(_group);
 
     this.database
       .get(locale, _group)
@@ -67,5 +91,18 @@ export class LoaderService {
     }
 
     this._translation.set(temp);
+    this.loadedTranslations[this.localesService.current().code].translation = temp;
+  }
+
+  private reloadLocale(): void {
+    const translation = (this.loadedTranslations[this.localesService.current().code] ??= {
+      groups: [],
+      translation: {},
+      locale: this.localesService.current(),
+    });
+    this._translation.set(translation.translation);
+
+    const groupsToLoad = this.groups.filter(g => translation.groups.indexOf(g) === -1);
+    groupsToLoad.forEach(g => this.loadGroup(g));
   }
 }

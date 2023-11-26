@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { RouterOutlet } from '@angular/router';
 import {
-  provideTranslationGroup,
   TranslateGroupPipe,
   TranslateNfGroupPipe,
   TranslatePipe,

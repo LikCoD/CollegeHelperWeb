@@ -21,6 +21,10 @@ export class LocalesService {
     return this._current$.asReadonly();
   }
 
+  set current(locale: Locale) {
+    this._current$.set(locale);
+  }
+
   private getSystemLocale(): Locale {
     return this.convertStringToLocale(navigator.languages[0]);
   }
