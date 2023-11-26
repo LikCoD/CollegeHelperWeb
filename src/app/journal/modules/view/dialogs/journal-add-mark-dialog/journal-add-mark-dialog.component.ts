@@ -14,14 +14,14 @@ import { JournalAddMarkDialogData } from '@journal/modules/view/dialogs/journal-
 import { FormControl } from '@angular/forms';
 import { JournalMarksService } from '@journal/modules/view/services/journal-marks.service';
 import { JournalCell, Mark } from '@journal/modules/view/entites/journal';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'journal-add-mark',
   templateUrl: './journal-add-mark-dialog.component.html',
   styleUrls: ['./journal-add-mark-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [translatePrefixProvider('journal.view.addMarkDialog')],
+  providers: [provideTranslationSuffix('journal.view.addMarkDialog')],
 })
 export class JournalAddMarkDialogComponent implements OnInit, OnDestroy {
   userStudyPlace$!: Observable<StudyPlace>;

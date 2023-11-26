@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import { DateTimeRangePickerService } from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker.service';
 import { map, merge, Subscription } from 'rxjs';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
-import { translateGroupProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationGroup } from 'i18n';
 
 @Component({
   selector: 'date-time-range-picker-header',
@@ -22,7 +22,7 @@ import { translateGroupProvider } from '@translate/translate.prefix-provider';
     TimePickerViewComponent,
     ReactiveFormsModule,
   ],
-  providers: [translateGroupProvider('ui.pickers.datetime')],
+  providers: [provideTranslationGroup('ui.pickers.datetime')],
   templateUrl: './date-time-range-picker-header.component.html',
   styleUrls: ['./date-time-range-picker-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

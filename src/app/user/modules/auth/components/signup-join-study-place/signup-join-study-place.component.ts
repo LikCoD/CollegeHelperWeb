@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { SignUpJoinStudyPlaceFormConfig } from '@user/modules/auth/components/signup-join-study-place/singup-join-study-place.dto';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { SingupJoinStudyPlaceService } from '@user/modules/auth/components/signup-join-study-place/singup-join-study-place.service';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-signup-join-study-place',
   templateUrl: './signup-join-study-place.component.html',
   styleUrls: ['./signup-join-study-place.component.scss'],
-  providers: [translatePrefixProvider('join')],
+  providers: [provideTranslationSuffix('join')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupJoinStudyPlaceComponent {

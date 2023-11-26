@@ -7,11 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { IconComponent } from '@ui/images/icon.component';
 import { BaseSelectComponent } from '@ui/selects/base-select.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { debounceTime, map, Observable } from 'rxjs';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'autocomplete-text',
@@ -24,7 +24,18 @@ import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
       multi: true,
     },
   ],
-  imports: [CommonModule, ControlErrorComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule, IconComponent, TranslateModule, HDividerComponent, MatAutocompleteModule],
+  imports: [
+    CommonModule,
+    ControlErrorComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    IconComponent,
+    HDividerComponent,
+    MatAutocompleteModule,
+    TranslatePipe,
+  ],
   standalone: true,
 })
 export class AutocompleteTextComponent<V> extends BaseSelectComponent<V> implements OnInit {

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'image',
@@ -18,7 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
       }
     `,
   ],
-  imports: [TranslateModule],
+  imports: [TranslatePipe],
   standalone: true,
 })
 export class ImageComponent {

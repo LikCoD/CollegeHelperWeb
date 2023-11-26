@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'translate',
-  template: `{{key | translate}}`,
+  template: `{{ key | translate }}`,
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslatePipe],
 })
 export class TranslateComponent {
-  //todo move translate logic to the custom provider
   @Input() key: string = '';
 }

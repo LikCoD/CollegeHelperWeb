@@ -3,13 +3,13 @@ import { Validators } from '@angular/forms';
 import { SubmitOptions } from '@ui/forms/default-form/default-form.component';
 import { SignUpFormConfig, SignUpFormData } from '@user/modules/auth/components/signup/signup.dto';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  providers: [translatePrefixProvider('signup')],
+  providers: [provideTranslationSuffix('signup')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {

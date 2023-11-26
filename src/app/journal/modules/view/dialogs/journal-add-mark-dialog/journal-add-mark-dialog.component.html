@@ -16,7 +16,7 @@
           <secondary-button
             (click)="removeMark(mark)"
             [key]="mark.mark"
-            [matTooltip]="'delete_mark' | translate"
+            [matTooltip]="('delete_mark' | translate).toString()"
           />
         }
       </section>

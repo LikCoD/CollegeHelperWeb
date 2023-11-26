@@ -7,10 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/primary-button.component';
 import { ControlErrorComponent } from '@shared/modules/ui/components/errors/control-error/control-error.component';
 import { MatFormControlValueAccessorComponent } from '@shared/modules/ui/utils/form/mat-form-control-value-accessor.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskDirective } from 'ngx-mask';
 import { P1Component } from '@ui/text/p1.component';
 import { IconComponent } from '@ui/images/icon.component';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'color-input',
@@ -31,11 +31,11 @@ import { IconComponent } from '@ui/images/icon.component';
     MatButtonModule,
     PrimaryButtonComponent,
     ControlErrorComponent,
-    TranslateModule,
     ReactiveFormsModule,
     NgxMaskDirective,
     P1Component,
     IconComponent,
+    TranslatePipe,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { Schedule } from '@schedule/entities/schedule';
 import { SchedulePlugComponent } from '@schedule/modules/schedule-view/components/schedule-plug/schedule-plug.component';
 import { map, merge, Observable, pipe, switchMap, tap } from 'rxjs';
-import { useState } from '../../../../../projects/state-mapper/src/lib/rxjs/pipes/useState.pipe';
-import { State } from '../../../../../projects/state-mapper/src/lib/entities/states.entities';
+import { useState, State } from 'state-mapper';
 import { ActivatedRoute } from '@angular/router';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { JwtService } from '@jwt/jwt.service';

@@ -4,8 +4,6 @@ import { ScheduleComponent } from './schedule.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './schedule.routes';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { ScheduleHeaderComponent } from '@schedule/components/schedule-header/schedule-header.component';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
@@ -16,13 +14,13 @@ import { HasPermissionDirective } from '@shared/directives/has-permission.direct
 import { ScheduleViewModule } from '@schedule/modules/schedule-view/schedule-view.module';
 import { LoadedStateDirective, DefaultStateDirective, StateMapperComponent } from 'state-mapper';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { provideTranslationSuffix } from 'i18n';
 
 @NgModule({
   declarations: [ScheduleComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    TranslateModule,
     ScheduleHeaderComponent,
     HDividerComponent,
     SkeletonPlugComponent,
@@ -38,6 +36,6 @@ import { PrimaryContainerComponent } from '@shared/modules/ui/components/contain
     DefaultStateDirective,
     PrimaryContainerComponent,
   ],
-  providers: [translatePrefixProvider('schedule')],
+  providers: [provideTranslationSuffix('schedule')],
 })
 export class ScheduleModule {}

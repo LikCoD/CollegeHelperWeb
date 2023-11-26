@@ -11,9 +11,9 @@ import { LoginComponent } from '@user/modules/auth/components/login/login.compon
 import { ResetPasswordDataComponent } from './components/reset-password-data/reset-password-data.component';
 import { ResetPasswordCodeComponent } from './components/reset-password-code/reset-password-code.component';
 import { EmailConfirmComponent } from '@user/modules/auth/components/email-confirm/email-confirm.component';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { CharacterComponent } from '@ui/images/character.component';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { provideTranslationSuffix } from 'i18n';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,6 @@ import { PrimaryContainerComponent } from '@shared/modules/ui/components/contain
     CharacterComponent,
     PrimaryContainerComponent,
   ],
-  providers: [translatePrefixProvider('auth')],
+  providers: [provideTranslationSuffix('auth')],
 })
 export class AuthModule {}

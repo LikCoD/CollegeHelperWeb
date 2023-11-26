@@ -7,12 +7,12 @@ import {
   SearchScheduleFormData,
 } from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.dto';
 import { SearchScheduleDialogService } from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.service';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
 import { DateTime } from 'luxon';
 import { CharacterComponent } from '@ui/images/character.component';
 import { environment } from '../../../../enviroments/environment';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-search-schedule-dialog',
@@ -20,7 +20,7 @@ import { environment } from '../../../../enviroments/environment';
   imports: [CommonModule, DefaultFormComponent, CharacterComponent],
   templateUrl: './search-schedule-dialog.component.html',
   styleUrls: ['./search-schedule-dialog.component.scss'],
-  providers: [translatePrefixProvider('search')],
+  providers: [provideTranslationSuffix('search')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchScheduleDialogComponent {

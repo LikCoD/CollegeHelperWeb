@@ -1,7 +1,9 @@
 @if (showForeground) {
   <div class="not-updated-foreground"></div>
 }
-<div class="foreground"></div>
+@if (!routing) {
+  <div class="foreground"></div>
+}
 <main [style.background-color]="lesson.primaryColor" [style.z-index]="routing ? 2 : ''">
   <div [style.background]="lesson.secondaryColor" class="secondaryColorContainer"></div>
   <head4 (click)="navigate(routerLink('subject'))" class="subject-name" [key]="lesson.subject" />

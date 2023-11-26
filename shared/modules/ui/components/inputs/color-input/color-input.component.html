@@ -11,7 +11,7 @@
     <div class="color" [style.background-color]="control.value">
       <input
         [formControl]="control"
-        [placeholder]="placeholder ?? label ?? '' | translate"
+        [placeholder]="(placeholder ?? label ?? '' | translate).toString()"
         type="color"
         matInput
       />

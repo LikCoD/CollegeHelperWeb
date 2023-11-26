@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import {
   UserPreferencesFormConfig,
   UserPreferencesFormData,
 } from '@user/modules/profile/components/profile/user-preferences/user-preferences.dto';
 import { UserPreferencesService } from '@user/modules/profile/components/profile/user-preferences/user-preferences.service';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'user-preferences',
   templateUrl: './user-preferences.component.html',
   styleUrls: ['./user-preferences.component.scss'],
-  providers: [translatePrefixProvider('preferences')],
+  providers: [provideTranslationSuffix('preferences')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPreferencesComponent {

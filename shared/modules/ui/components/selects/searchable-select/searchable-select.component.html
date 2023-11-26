@@ -6,7 +6,10 @@
   @if (!(items$ | async) && control.value) {
     <skeleton-loader class="placeholder" />
   }
-  <mat-select [formControl]="control" [placeholder]="placeholder ?? label ?? '' | translate">
+  <mat-select
+    [formControl]="control"
+    [placeholder]="(placeholder ?? label ?? '' | translate).toString()"
+  >
     <section>
       <icon src="search" />
       <input [formControl]="searchControl" matInput />

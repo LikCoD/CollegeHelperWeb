@@ -5,7 +5,6 @@ import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { SecondaryButtonComponent } from '@shared/modules/ui/components/buttons/secondary-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
 import { P1Component } from '@ui/text/p1.component';
 import { Head2Component } from '@ui/text/head2.component';
 import { ScheduleAddLessonDialogComponent } from './dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.component';
@@ -13,13 +12,13 @@ import { DefaultFormComponent } from '@ui/forms/default-form/default-form.compon
 import { CharacterComponent } from '@ui/images/character.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduleAddLessonViewComponent } from './components/schedule-add-lesson-view/schedule-add-lesson-view.component';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { ScheduleLessonActionsComponent } from './components/schedule-lesson-actions/schedule-lesson-actions.component';
 import { IconComponent } from '@ui/images/icon.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
 import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
+import { provideTranslationSuffix, TranslatePipe } from 'i18n';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { SecondaryContainerComponent } from '@shared/modules/ui/components/conta
     SecondaryButtonComponent,
     ReactiveFormsModule,
     MatTooltipModule,
-    TranslateModule,
     P1Component,
     Head2Component,
     DefaultFormComponent,
@@ -50,7 +48,8 @@ import { SecondaryContainerComponent } from '@shared/modules/ui/components/conta
     MatMenuModule,
     ConfirmationDialogComponent,
     SecondaryContainerComponent,
+    TranslatePipe,
   ],
-  providers: [translatePrefixProvider('edit')],
+  providers: [provideTranslationSuffix('edit')],
 })
 export class ScheduleEditModule {}

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-home',
   template: '<home-dashboard/>',
   styles: [],
-  providers: [translatePrefixProvider('home')]
+  providers: [provideTranslationSuffix('home')],
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

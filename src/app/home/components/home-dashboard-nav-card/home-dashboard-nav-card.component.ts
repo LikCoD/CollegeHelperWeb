@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'home-dashboard-nav-card',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './home-dashboard-nav-card.component.html',
   styleUrls: ['./home-dashboard-nav-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

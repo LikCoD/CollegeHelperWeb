@@ -45,7 +45,7 @@ export class LoaderService {
   }
 
   private appendTranslation(group: string, value: Translation, isHash: boolean = false): void {
-    if (Object.keys(value).length === 0) return;
+    if (!value || Object.keys(value).length === 0) return;
     let temp = { ...this._translation() };
     for (let valueKey in value) {
       const current = value[valueKey];

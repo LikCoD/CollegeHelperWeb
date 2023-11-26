@@ -2,15 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { routes } from './user.routes';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationSuffix } from 'i18n';
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  providers: [
-    translatePrefixProvider('user')
-  ],
+  imports: [RouterModule.forChild(routes)],
+  providers: [provideTranslationSuffix('user')],
 })
-export class UserModule {
-}
+export class UserModule {}

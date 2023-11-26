@@ -7,8 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BaseSelectComponent } from '@ui/selects/base-select.component';
 import { IconComponent } from '@ui/images/icon.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { P1Component } from '@ui/text/p1.component';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'color-select',
@@ -29,8 +29,8 @@ import { P1Component } from '@ui/text/p1.component';
     ReactiveFormsModule,
     MatSelectModule,
     IconComponent,
-    TranslateModule,
     P1Component,
+    TranslatePipe,
   ],
   standalone: true,
 })

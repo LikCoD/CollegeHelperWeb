@@ -7,8 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/primary-button.component';
 import { ControlErrorComponent } from '@shared/modules/ui/components/errors/control-error/control-error.component';
 import { MatFormControlValueAccessorComponent } from '@shared/modules/ui/utils/form/mat-form-control-value-accessor.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskDirective } from 'ngx-mask';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'text-input',
@@ -29,9 +29,9 @@ import { NgxMaskDirective } from 'ngx-mask';
     MatButtonModule,
     PrimaryButtonComponent,
     ControlErrorComponent,
-    TranslateModule,
     ReactiveFormsModule,
     NgxMaskDirective,
+    TranslatePipe,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

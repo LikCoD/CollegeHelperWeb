@@ -8,7 +8,7 @@
       [formControl]="control"
       [leadZeroDateTime]="maskOptions?.leadZeroDateTime ?? false"
       [mask]="mask"
-      [placeholder]="placeholder ?? label ?? '' | translate"
+      [placeholder]="(placeholder ?? label ?? '' | translate).toString()"
       [showMaskTyped]="maskOptions?.showMaskTyped ?? false"
       [type]="type"
       matInput
@@ -17,7 +17,7 @@
   @if (!mask) {
     <input
       [formControl]="control"
-      [placeholder]="placeholder ?? label ?? '' | translate"
+      [placeholder]="(placeholder ?? label ?? '' | translate).toString()"
       [type]="type"
       matInput
     />

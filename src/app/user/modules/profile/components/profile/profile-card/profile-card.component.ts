@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { User } from '@shared/entities/user';
 import { UserService } from '@shared/services/user.service';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from '@user/modules/profile/dialogs/edit-profile/edit-profile.component';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'profile-card',
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.scss'],
-  providers: [translatePrefixProvider('card')],
+  providers: [provideTranslationSuffix('card')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileCardComponent implements OnDestroy {

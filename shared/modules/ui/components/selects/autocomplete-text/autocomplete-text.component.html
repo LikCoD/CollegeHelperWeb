@@ -5,7 +5,7 @@
   <input
     [formControl]="control"
     [matAutocomplete]="auto"
-    [placeholder]="placeholder ?? label ?? '' | translate"
+    [placeholder]="(placeholder ?? label ?? '' | translate).toString()"
     matInput
   />
   <mat-autocomplete #auto="matAutocomplete">

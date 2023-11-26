@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { routes } from './profile.routes';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DefaultFormComponent } from '@ui/forms/default-form/default-form.component';
 import { UserPreferencesComponent } from '@user/modules/profile/components/profile/user-preferences/user-preferences.component';
 import { ProfileCardComponent } from './components/profile/profile-card/profile-card.component';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 import { ImageComponent } from '@ui/images/image.component';
 import { Head2Component } from '@ui/text/head2.component';
 import { P1Component } from '@ui/text/p1.component';
@@ -22,6 +20,7 @@ import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/pr
 import { EditProfileComponent } from '@user/modules/profile/dialogs/edit-profile/edit-profile.component';
 import { CharacterComponent } from '@ui/images/character.component';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { provideTranslationSuffix } from 'i18n';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import { PrimaryContainerComponent } from '@shared/modules/ui/components/contain
     CommonModule,
     DefaultFormComponent,
     MatButtonModule,
-    TranslateModule,
     ImageComponent,
     Head2Component,
     P1Component,
@@ -49,6 +47,6 @@ import { PrimaryContainerComponent } from '@shared/modules/ui/components/contain
     CharacterComponent,
     PrimaryContainerComponent,
   ],
-  providers: [translatePrefixProvider('profile')],
+  providers: [provideTranslationSuffix('profile')],
 })
 export class ProfileModule {}

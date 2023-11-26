@@ -24,10 +24,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CarouselItemDirective } from '@shared/modules/ui/components/carousels/carousel-item.directive';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
-import { StateMapperComponent } from '../../../../../projects/state-mapper/src/lib/components/state-mapper.component';
-import { DefaultStateDirective } from '../../../../../projects/state-mapper/src/lib/directives/default-state.directive';
-import { LoadedStateDirective } from '../../../../../projects/state-mapper/src/lib/directives/loaded-state.directive';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { DefaultStateDirective, LoadedStateDirective, StateMapperComponent } from 'state-mapper';
 
 @NgModule({
   declarations: [

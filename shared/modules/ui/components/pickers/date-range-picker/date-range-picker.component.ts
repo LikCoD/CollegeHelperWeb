@@ -5,9 +5,9 @@ import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/fo
 import { ControlErrorComponent } from '@ui/errors/control-error/control-error.component';
 import { MatFormControlValueAccessorComponent } from '@shared/modules/ui/utils/form/mat-form-control-value-accessor.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { TranslateModule } from '@ngx-translate/core';
 import { merge, Subscription } from 'rxjs';
 import { DateTime } from 'luxon';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'date-range-picker',
@@ -18,7 +18,7 @@ import { DateTime } from 'luxon';
     ReactiveFormsModule,
     ControlErrorComponent,
     MatDatepickerModule,
-    TranslateModule,
+    TranslatePipe,
   ],
   providers: [
     {

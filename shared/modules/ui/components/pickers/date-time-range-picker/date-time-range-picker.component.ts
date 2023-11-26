@@ -14,12 +14,12 @@ import { TimePickerViewComponent } from '@shared/modules/ui/components/datetime/
 import { ControlErrorComponent } from '@ui/errors/control-error/control-error.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatFormControlValueAccessorComponent } from '@shared/modules/ui/utils/form/mat-form-control-value-accessor.component';
 import { DateTime } from 'luxon';
 import { merge, Subscription } from 'rxjs';
 import { DateTimeRangePickerHeaderComponent } from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker-header/date-time-range-picker-header.component';
 import { DateTimeRangePickerService } from '@shared/modules/ui/components/pickers/date-time-range-picker/date-time-range-picker.service';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'date-time-range-picker',
@@ -33,7 +33,7 @@ import { DateTimeRangePickerService } from '@shared/modules/ui/components/picker
     ControlErrorComponent,
     MatFormFieldModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
   ],
   providers: [
     DateTimeRangePickerService,

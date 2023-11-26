@@ -16,15 +16,14 @@ import { SpacerComponent } from '@shared/modules/ui/components/spacers/spacer.co
 import { JournalAddMarkDialogComponent } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog.component';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { JournalViewPlugComponent } from './components/journal-view-plug/journal-view-plug.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
 import { BaseJournalComponent } from './components/base-journal/base-journal.component';
 import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { DateTimePipe } from '@shared/pipes/datetime.pipe';
+import { provideTranslationSuffix, TranslatePipe } from 'i18n';
 
 @NgModule({
   declarations: [
@@ -48,13 +47,13 @@ import { DateTimePipe } from '@shared/pipes/datetime.pipe';
     SecondaryButtonComponent,
     HDividerComponent,
     ReactiveFormsModule,
-    TranslateModule,
     MatTooltipModule,
     SkeletonLoaderComponent,
     SkeletonPlugComponent,
     PluggableComponent,
     DateTimePipe,
+    TranslatePipe,
   ],
-  providers: [translatePrefixProvider('view')],
+  providers: [provideTranslationSuffix('view')],
 })
 export class JournalViewModule {}

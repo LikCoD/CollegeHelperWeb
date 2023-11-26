@@ -1,12 +1,15 @@
 import { computed, inject, Injectable, Signal } from '@angular/core';
 import { LoaderService } from './loader.service';
 import { TranslateObject, TranslationParams } from '../entities/i18n.entity';
+import { I18N_ON_NOT_FOUND_TOKEN } from '../providers/url.provider';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TranslationService {
   private loaderService = inject(LoaderService);
+  private onNotFound =
+    inject(I18N_ON_NOT_FOUND_TOKEN, { optional: true }) ?? ((o: TranslateObject) => o.key);
 
   translate(object: TranslateObject, params: TranslationParams = {}): Signal<string | number> {
     const key = object.group ? `${object.group.join('.')}.${object.key}` : object.key;
@@ -41,7 +44,7 @@ export class TranslationService {
       case 'number':
         return this.applyNumberParams(value, params);
       case 'undefined':
-        return object.onNotFound ? object.onNotFound(object) : `${object.key}`;
+        return object.onNotFound ? object.onNotFound(object) : this.onNotFound(object);
       default:
         return `${value}`;
     }

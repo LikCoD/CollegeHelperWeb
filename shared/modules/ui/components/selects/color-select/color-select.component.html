@@ -3,7 +3,10 @@
     <mat-label>{{ label | translate }}</mat-label>
   }
   <label>
-    <mat-select [formControl]="control" [placeholder]="placeholder ?? label ?? '' | translate">
+    <mat-select
+      [formControl]="control"
+      [placeholder]="(placeholder ?? label ?? '' | translate).toString()"
+    >
       @if (items$ | async; as items) {
         @for (item of items; track trackBy($index, item)) {
           <mat-option [value]="item.value">

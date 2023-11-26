@@ -26,6 +26,7 @@ import { MoreIndicatorComponent } from '@ui/indicators/more-indicator.component'
 export class WrappedCarouselComponent implements OnInit {
   @ContentChildren(CarouselItemDirective) items!: QueryList<CarouselItemDirective>;
   @Input({ required: true }) itemHeight!: number;
+  @Input() showActions = true;
 
   scrollable = signal(false);
 

@@ -14,15 +14,15 @@ import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { switchMap } from 'rxjs';
 import { ScheduleLessonActionsService } from '@schedule/modules/schedule-edit/components/schedule-lesson-actions/schedule-lesson-actions.service';
 import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ConfirmationDialogData } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.entities';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'schedule-lesson-actions',
   templateUrl: './schedule-lesson-actions.component.html',
   styleUrls: ['./schedule-lesson-actions.component.scss'],
-  providers: [translatePrefixProvider('edit.actions')],
+  providers: [provideTranslationSuffix('edit.actions')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleLessonActionsComponent {

@@ -9,10 +9,9 @@ import { Router } from '@angular/router';
 import { SearchScheduleFormData } from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.dto';
 import { SearchScheduleDialogComponent } from '@schedule/dialogs/search-schedule-dialog/search-schedule-dialog.component';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
-import { TranslateModule } from '@ngx-translate/core';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
+import { I18N_GROUP_TOKEN, provideTranslationSuffix, TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'schedule-header',
@@ -20,13 +19,13 @@ import { SecondaryContainerComponent } from '@shared/modules/ui/components/conta
   imports: [
     CommonModule,
     IconComponent,
-    TranslateModule,
     PrimaryContainerComponent,
     SecondaryContainerComponent,
+    TranslatePipe,
   ],
   templateUrl: './schedule-header.component.html',
   styleUrls: ['./schedule-header.component.scss'],
-  providers: [translatePrefixProvider('header')],
+  providers: [provideTranslationSuffix('header')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleHeaderComponent implements OnInit, OnDestroy {

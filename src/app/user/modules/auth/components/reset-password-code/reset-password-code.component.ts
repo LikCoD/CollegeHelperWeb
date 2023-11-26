@@ -5,14 +5,14 @@ import {
   ResetPasswordCodeFormConfig,
   ResetPasswordCodeFormData,
 } from '@user/modules/auth/components/reset-password-code/reset-password-code.dto';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-reset-password-code',
   templateUrl: './reset-password-code.component.html',
   styleUrls: ['./reset-password-code.component.scss'],
-  providers: [translatePrefixProvider('resetPassword.code')],
+  providers: [provideTranslationSuffix('resetPassword.code')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordCodeComponent {

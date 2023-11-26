@@ -27,9 +27,6 @@
       "@shared/*": [
         "shared/*"
       ],
-      "@translate/*": [
-        "shared/modules/translate/*"
-      ],
       "@jwt/*": [
         "shared/modules/jwt/*"
       ],

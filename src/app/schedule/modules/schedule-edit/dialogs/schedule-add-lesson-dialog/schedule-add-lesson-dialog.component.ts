@@ -7,13 +7,13 @@ import { DateTime } from 'luxon';
 import { ScheduleLesson } from '@schedule/entities/schedule';
 import { ScheduleAddLessonService } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.service';
 import { ScheduleAddLessonFormConfig } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.dto';
-import { translateGroupProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-schedule-add-lesson-dialog',
   templateUrl: './schedule-add-lesson-dialog.component.html',
   styleUrls: ['./schedule-add-lesson-dialog.component.scss'],
-  providers: [translateGroupProvider('schedule.edit.addLesson')],
+  providers: [provideTranslationSuffix('schedule.edit.addLesson')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleAddLessonDialogComponent implements OnInit {

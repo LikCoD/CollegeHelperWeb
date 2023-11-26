@@ -10,18 +10,19 @@ import { jwtInterceptor } from '@jwt/jwt.interceptor';
 import { APP_INITIALIZER } from '@angular/core';
 import { PreferencesService } from '@shared/services/preferences.service';
 import { KeypressService } from '@shared/services/keypress.service';
-import { TranslateModule } from '@translate/translate.module';
-import { environment } from './enviroments/environment';
 import {
   LuxonDateAdapter,
   MAT_LUXON_DATE_ADAPTER_OPTIONS,
   MAT_LUXON_DATE_FORMATS,
 } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { provideI18nHttpLoader, Translation } from 'i18n';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    TranslateModule.http('api/v1/i18n', environment.defaultLanguage).providers ?? [],
+    provideI18nHttpLoader('api/v1/i18n/{{locale}}/{{group}}', {
+      transform: (value: { translation: Translation }) => value.translation,
+    }),
     provideAnimations(),
     provideRouter(routes),
     provideEnvironmentNgxMask(),

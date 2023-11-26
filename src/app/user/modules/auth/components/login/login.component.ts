@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SubmitOptions } from '@ui/forms/default-form/default-form.component';
 import { Validators } from '@angular/forms';
 import { LoginFormConfig } from '@user/modules/auth/components/login/login.dto';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [translatePrefixProvider('login')],
+  providers: [provideTranslationSuffix('login')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {

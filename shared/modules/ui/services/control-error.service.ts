@@ -1,27 +1,27 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { TranslateLoaderService } from '@translate/translate-loader.service';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
+import { LoaderService, TranslateObject, TranslationService } from 'i18n';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ControlErrorService {
-  private translate = inject(TranslateService);
-  private translateLoader = inject(TranslateLoaderService);
+  private translate = inject(TranslationService);
+  private translateLoader = inject(LoaderService);
 
   constructor() {
-    this.translateLoader.addGroup('forms.errors');
+    this.translateLoader.loadGroup(['forms', 'errors']);
   }
 
   /*
-  * {
-  * "required": "This field is required"
-  * "minLength": "Min length is {{minLength}}"
-  * }
-  * */
+   * {
+   * "required": "This field is required"
+   * "minLength": "Min length is {{minLength}}"
+   * }
+   * */
 
   getControlErrorsText$(control: FormControl): Observable<string> {
     return control.valueChanges
@@ -29,7 +29,8 @@ export class ControlErrorService {
       .pipe(filterNotNull())
       .pipe(map(e => Object.entries(e!)[0]))
       .pipe(filterNotNull())
-      .pipe(switchMap(e => this.translate.get(`forms.errors.${e[0]}`)));
+      .pipe(map(e => [<TranslateObject>{ key: e[0], group: ['forms', 'errors'] }, e[1]]))
+      .pipe(switchMap(e => toObservable(this.translate.translate(e[0], e[1]))))
+      .pipe(map(e => `${e}`));
   }
 }
-

@@ -7,9 +7,13 @@ import { TextModule } from '@ui/text';
 import { RouterModule } from '@angular/router';
 import { ImagesModule } from '@ui/images';
 import { DividersModule } from '@ui/dividers';
-import { TranslateModule } from '@ngx-translate/core';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import {
+  provideTranslationSuffix,
+  TranslateGroupPipe,
+  TranslateNfGroupPipe,
+  TranslatePipe,
+} from 'i18n';
 
 @Component({
   selector: 'app-header',
@@ -20,12 +24,13 @@ import { PrimaryContainerComponent } from '@shared/modules/ui/components/contain
     CommonModule,
     TextModule,
     RouterModule,
-    TranslateModule,
     ImagesModule,
     DividersModule,
     PrimaryContainerComponent,
+    TranslateGroupPipe,
+    TranslatePipe,
   ],
-  providers: [translatePrefixProvider('header')],
+  providers: [provideTranslationSuffix('header')],
 })
 export class HeaderComponent implements OnInit {
   user$!: Observable<UserPreview | null>;

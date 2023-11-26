@@ -5,13 +5,13 @@ import { ScheduleAddLessonDialogComponent } from '@schedule/modules/schedule-edi
 import { switchMap } from 'rxjs';
 import { ScheduleAddLessonViewService } from '@schedule/modules/schedule-edit/components/schedule-add-lesson-view/schedule-add-lesson-view.service';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
-import { translatePrefixProvider } from '@translate/translate.prefix-provider';
+import { provideTranslationSuffix } from 'i18n';
 
 @Component({
   selector: 'schedule-add-lesson-view',
   templateUrl: './schedule-add-lesson-view.component.html',
   styleUrls: ['./schedule-add-lesson-view.component.scss'],
-  providers: [translatePrefixProvider('edit.addLessonView')],
+  providers: [provideTranslationSuffix('edit.addLessonView')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleAddLessonViewComponent {

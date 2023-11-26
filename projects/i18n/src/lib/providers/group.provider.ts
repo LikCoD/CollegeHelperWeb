@@ -29,7 +29,7 @@ export function provideTranslationPrefix(prefix: string | string[]): Provider {
           skipSelf: true,
           optional: true,
         }) ?? [];
-      const group = append(previous, prefix);
+      const group = append(prefix, previous);
       inject(LoaderService).loadGroup(group);
       return group;
     },
@@ -45,7 +45,7 @@ export function provideTranslationSuffix(suffix: string | string[]): Provider {
           skipSelf: true,
           optional: true,
         }) ?? [];
-      const group = append(suffix, previous);
+      const group = append(previous, suffix);
       inject(LoaderService).loadGroup(group);
       return group;
     },

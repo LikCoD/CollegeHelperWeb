@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BaseSelectComponent } from '@ui/selects/base-select.component';
 import { IconComponent } from '@ui/images/icon.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from 'i18n';
 
 @Component({
   selector: 'items-select',
@@ -20,8 +20,16 @@ import { TranslateModule } from '@ngx-translate/core';
       multi: true,
     },
   ],
-  imports: [CommonModule, ControlErrorComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule, IconComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    ControlErrorComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    IconComponent,
+    TranslatePipe,
+  ],
   standalone: true,
 })
-export class ItemsSelectComponent<V> extends BaseSelectComponent<V> {
-}
+export class ItemsSelectComponent<V> extends BaseSelectComponent<V> {}

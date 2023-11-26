@@ -1,4 +1,8 @@
-<wrapped-carousel [matTooltip]="lessonTooltip()" [itemHeight]="100">
+<wrapped-carousel
+  [matTooltip]="lessonTooltip()"
+  [itemHeight]="100"
+  [showActions]="!(control$ | async)?.pressed"
+>
   @for (lesson of lessons; track lesson) {
     <div *carouselItem class="item">
       <schedule-lesson-actions *hasPermission="'editSchedule'" [lesson]="lesson" />

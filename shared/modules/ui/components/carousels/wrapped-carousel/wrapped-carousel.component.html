@@ -1,7 +1,7 @@
 <section>
   <ng-content></ng-content>
 </section>
-@if (scrollable()) {
+@if (scrollable() && showActions) {
   <div class="actions">
     <button (click)="previous()">
       <icon src="arrow_back" />
