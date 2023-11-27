@@ -1,6 +1,6 @@
 export type GetScheduleDTO = {
   type: string;
-  typename: string;
+  typeID: string;
   studyPlaceID: string;
   startDate: string;
   endDate: string;

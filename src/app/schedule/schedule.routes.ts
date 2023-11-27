@@ -3,5 +3,5 @@ import { ScheduleComponent } from './schedule.component';
 
 export const routes: Routes = [
   { path: '', component: ScheduleComponent },
-  { path: ':type/:typename', component: ScheduleComponent },
+  { path: ':type/:typeID', component: ScheduleComponent },
 ];

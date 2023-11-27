@@ -1,9 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { map, Observable, switchMap } from 'rxjs';
+import { inject, Injectable, signal, Signal } from '@angular/core';
+import { map, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { LoaderService, TranslateObject, TranslationService } from 'i18n';
-import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -23,14 +22,15 @@ export class ControlErrorService {
    * }
    * */
 
-  getControlErrorsText$(control: FormControl): Observable<string> {
-    return control.valueChanges
+  getControlErrorsText$(control: FormControl): [Signal<string | null>, Subscription] {
+    const error$ = signal<string | null>(null);
+    const subscription = control.valueChanges
       .pipe(map(() => control.errors))
       .pipe(filterNotNull())
       .pipe(map(e => Object.entries(e!)[0]))
       .pipe(filterNotNull())
       .pipe(map(e => [<TranslateObject>{ key: e[0], group: ['forms', 'errors'] }, e[1]]))
-      .pipe(switchMap(e => toObservable(this.translate.translate(e[0], e[1]))))
-      .pipe(map(e => `${e}`));
+      .subscribe(e => error$.set(`${this.translate.translate(e[0], e[1])()}`));
+    return [error$, subscription];
   }
 }

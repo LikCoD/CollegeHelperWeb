@@ -45,7 +45,7 @@ export class ScheduleLessonComponent {
 
   routerLink(type: string): string {
     const lesson: { [key: string]: any } = this.lesson;
-    return `/schedule/${type}/${lesson[type]}`;
+    return `/schedule/${type}/${lesson[`${type}ID`]}`;
   }
 
   navigate(url: string): void {

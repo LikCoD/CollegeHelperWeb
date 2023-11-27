@@ -69,16 +69,16 @@ export class ScheduleViewComponent implements OnInit {
 
   private parseParams(): GetScheduleDTO {
     const type = this.route.snapshot.params['type'];
-    const typename = this.route.snapshot.params['typename'];
+    const typeID = this.route.snapshot.params['typeID'];
     const studyPlaceID = this.studyPlaceService.currentID;
     const startDate = this.route.snapshot.queryParams['startDate'];
     const endDate = this.route.snapshot.queryParams['endDate'];
 
-    if (!type || !typename) return null;
+    if (!type || !typeID) return null;
 
     return {
       type: type,
-      typename: typename,
+      typeID: typeID,
       studyPlaceID: studyPlaceID!,
       startDate: startDate,
       endDate: endDate,
