@@ -20,11 +20,8 @@
     </div>
 
     <div class="weekdays-container">
-      @for (
-        day of [schedule.info.startDate, schedule.info.endDate] | dateBetween: "day" : true;
-        track day
-      ) {
-        <p1 class="weekday">{{ day | datetime: "MMM dd EEE" }}</p1>
+      @for (day of mode.days; track day) {
+        <p1 class="weekday">{{ day }}</p1>
       }
     </div>
     <div class="lessons-container">

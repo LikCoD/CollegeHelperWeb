@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, Input, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ScheduleLesson } from '@schedule/entities/schedule';
+import { ScheduleGeneralLesson, ScheduleLesson } from '@schedule/entities/schedule';
 import { Router, RouterLink } from '@angular/router';
 import { Head3Component } from '@ui/text/head3.component';
 import { P1Component } from '@ui/text/p1.component';
@@ -32,13 +32,13 @@ export class ScheduleLessonComponent {
     studyPlaceID: '',
   };
 
-  lesson!: ScheduleLesson;
+  lesson!: ScheduleLesson | ScheduleGeneralLesson;
 
   private zone = inject(NgZone);
   private router = inject(Router);
 
   @Input({ required: true, alias: 'lesson' })
-  set _lesson(value: ScheduleLesson) {
+  set _lesson(value: ScheduleLesson | ScheduleGeneralLesson) {
     this.query = { studyPlaceID: value.studyPlaceID ?? '' };
     this.lesson = value;
   }

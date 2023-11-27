@@ -26,30 +26,47 @@ export interface ScheduleLesson {
   status?: string;
 }
 
+export interface ScheduleGeneralLesson {
+  id?: string;
+  studyPlaceID?: string;
+  primaryColor: string;
+  secondaryColor?: string;
+  endTimeMinutes: DateTime;
+  startTimeMinutes: DateTime;
+  dayIndex: number;
+  lessonIndex: number;
+  subject: string;
+  group: string;
+  teacher: string;
+  room: string;
+  subjectID: string;
+  groupID: string;
+  teacherID: string;
+  roomID: string;
+}
+
 export interface ScheduleInfo {
   studyPlaceInfo: StudyPlaceInfo;
   type: string;
   typeName: string;
   startDate: DateTime;
   endDate: DateTime;
+}
 
-  minLessonIndex: number;
-  maxLessonIndex: number;
-
-  daysNumber: number;
+export interface GeneralScheduleInfo {
+  studyPlaceInfo: StudyPlaceInfo;
+  type: string;
+  typeName: string;
 }
 
 export interface Schedule {
   lessons: ScheduleLesson[];
-  cells: Cell[];
   info: ScheduleInfo;
 }
 
-export interface Cell {
-  startDate: DateTime;
-  endDate: DateTime;
-  lessonIndex: number;
-  lessons: ScheduleLesson[];
+export interface GeneralSchedule {
+  lessons: ScheduleGeneralLesson[];
+  info: GeneralScheduleInfo;
 }
 
 export interface StudyPlaceInfo {
@@ -94,6 +111,42 @@ export const ScheduleSchema = z.object({
       .string()
       .datetime()
       .transform(dt => DateTime.fromISO(dt, { zone: 'utc' })),
+    studyPlaceInfo: z.object({
+      id: z.string(),
+    }),
+    type: z.string(),
+    typeName: z.string(),
+  }),
+});
+
+export const ScheduleGeneralLessonSchema = z
+  .object({
+    id: z.string(),
+    studyPlaceID: z.string(),
+    endTimeMinutes: z.number().transform(dt => DateTime.fromSeconds(dt * 60)),
+    startTimeMinutes: z.number().transform(dt => DateTime.fromSeconds(dt * 60)),
+    dayIndex: z.number(),
+    primaryColor: z.string(),
+    secondaryColor: z.string(),
+    lessonIndex: z.number(),
+    subject: z.string(),
+    group: z.string(),
+    teacher: z.string(),
+    room: z.string(),
+    subjectID: z.string(),
+    groupID: z.string(),
+    teacherID: z.string(),
+    roomID: z.string(),
+  })
+  .transform(l => {
+    l.startTimeMinutes = l.startTimeMinutes.set({ weekday: l.dayIndex - 1 });
+    l.endTimeMinutes = l.endTimeMinutes.set({ weekday: l.dayIndex - 1 });
+    return l;
+  });
+
+export const GeneralScheduleSchema = z.object({
+  lessons: z.array(ScheduleGeneralLessonSchema).or(z.null()),
+  info: z.object({
     studyPlaceInfo: z.object({
       id: z.string(),
     }),

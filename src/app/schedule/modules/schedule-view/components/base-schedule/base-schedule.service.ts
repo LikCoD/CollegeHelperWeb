@@ -5,12 +5,12 @@ import { IModeCalculator } from '@schedule/modules/schedule-view/components/base
 import { TimeModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/time.mode-calculator';
 import { TableModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/table.mode-calculator';
 import { ExtendedTableModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/extended-table.mode-calculator';
+import { GeneralSchedule, Schedule } from '@schedule/entities/schedule';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseScheduleService {
-  offset: number = 0;
   modeCalculator$!: Observable<IModeCalculator>;
 
   private service = inject(ScheduleService);
@@ -40,7 +40,13 @@ export class BaseScheduleService {
         break;
     }
 
-    if (this.service.schedule) calculator.init(this.service.schedule);
+    if (this.service.schedule) {
+      const schedule = this.service.schedule;
+      'startDate' in schedule.info
+        ? calculator.initSchedule(schedule as Schedule)
+        : calculator.initGeneralSchedule(schedule as GeneralSchedule);
+    }
+
     return (this.modeCalculators[mode] = calculator);
   }
 }

@@ -8,7 +8,7 @@ import {
   Output,
   signal,
 } from '@angular/core';
-import { ScheduleLesson } from '@schedule/entities/schedule';
+import { ScheduleGeneralLesson, ScheduleLesson } from '@schedule/entities/schedule';
 import { KeypressService } from '@shared/services/keypress.service';
 import { Observable } from 'rxjs';
 import { IModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/base-mode-calculator';
@@ -20,7 +20,7 @@ import { IModeCalculator } from '@schedule/modules/schedule-view/components/base
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleCellComponent implements OnInit {
-  @Input({ required: false }) lessons!: ScheduleLesson[];
+  @Input({ required: false }) lessons!: (ScheduleLesson | ScheduleGeneralLesson)[];
   @Input() isEditMode: boolean = true;
 
   @Output() delete = new EventEmitter<null>();
@@ -41,6 +41,18 @@ export class ScheduleCellComponent implements OnInit {
 
   lessonTooltip(): string {
     const lesson = this.lessons[0];
-    return `${lesson.startDate.toFormat('h:mm a')}-${lesson.endDate.toFormat('h:mm a')}`;
+    return 'startDate' in lesson
+      ? this.scheduleLessonTooltip(lesson)
+      : this.scheduleGeneralLessonTooltip(lesson);
+  }
+
+  scheduleLessonTooltip(lesson: ScheduleLesson): string {
+    const f = 'h:mm a';
+    return `${lesson.startDate.toFormat(f)}-${lesson.endDate.toFormat(f)}`;
+  }
+
+  scheduleGeneralLessonTooltip(lesson: ScheduleGeneralLesson): string {
+    const f = 'h:mm a';
+    return `${lesson.endTimeMinutes.toFormat(f)}-${lesson.startTimeMinutes.toFormat(f)}`;
   }
 }

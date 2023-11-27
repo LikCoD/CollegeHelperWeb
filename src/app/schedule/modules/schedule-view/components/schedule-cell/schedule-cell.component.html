@@ -9,7 +9,7 @@
       <schedule-lesson
         [lesson]="lesson"
         [routing]="instantRouting() || !!(control$ | async)?.pressed"
-        [showForeground]="lesson.status === 'general' && !(control$ | async)?.pressed"
+        [showForeground]="$any(lesson).status === 'general' && !(control$ | async)?.pressed"
       />
     </div>
   }

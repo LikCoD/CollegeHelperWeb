@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@
 import { CommonModule } from '@angular/common';
 import { ScheduleMode, ScheduleService } from '@schedule/services/schedule.service';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
-import { Schedule } from '@schedule/entities/schedule';
+import { GeneralSchedule, Schedule } from '@schedule/entities/schedule';
 import { IconComponent } from '@ui/images/icon.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ import { provideTranslationSuffix, TranslatePipe } from 'i18n';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleHeaderComponent implements OnInit, OnDestroy {
-  schedule$!: Observable<Schedule>;
+  schedule$!: Observable<Schedule | GeneralSchedule>;
   mode$!: Observable<ScheduleMode>;
 
   private service = inject(ScheduleService);
@@ -44,13 +44,14 @@ export class ScheduleHeaderComponent implements OnInit, OnDestroy {
   }
 
   showSearchDialog(): void {
-    const data: SearchScheduleFormData = this.service.schedule
+    const info = this.service.schedule?.info;
+    const data: SearchScheduleFormData = info
       ? {
-          studyPlaceID: this.service.schedule.info.studyPlaceInfo.id,
-          type: this.service.schedule.info.type,
-          typename: this.service.schedule.info.typeName,
-          startDate: this.service.schedule.info.startDate,
-          endDate: this.service.schedule.info.endDate,
+          studyPlaceID: info.studyPlaceInfo.id,
+          type: info.type,
+          typename: info.typeName,
+          startDate: 'startDate' in info ? info.startDate : null,
+          endDate: 'endDate' in info ? info.endDate : null,
         }
       : {};
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { Schedule } from '@schedule/entities/schedule';
+import { GeneralSchedule, Schedule } from '@schedule/entities/schedule';
 import { SchedulePlugComponent } from '@schedule/modules/schedule-view/components/schedule-plug/schedule-plug.component';
 import { map, merge, Observable, pipe, switchMap, tap } from 'rxjs';
-import { useState, State } from 'state-mapper';
+import { State, useState } from 'state-mapper';
 import { ActivatedRoute } from '@angular/router';
 import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { JwtService } from '@jwt/jwt.service';
@@ -16,7 +16,7 @@ import { StudyPlacesService } from '@shared/services/study-places.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleViewComponent implements OnInit {
-  schedule$!: Observable<State<Schedule | null>>;
+  schedule$!: Observable<State<Schedule | GeneralSchedule | null>>;
 
   protected readonly SchedulePlugComponent = SchedulePlugComponent;
 
@@ -32,7 +32,9 @@ export class ScheduleViewComponent implements OnInit {
           map(this.parseParams.bind(this)),
           map(p => p ?? (this.jwtService.data ? null : this.getParamsFromStorage())),
           tap(p => this.saveParamsToStorage(p)),
-          switchMap(p => this.service.getSchedule(p)),
+          switchMap(p =>
+            p?.general ? this.service.getGeneralSchedule(p) : this.service.getSchedule(p)
+          ),
           map(s => (s?.lessons ? s : null)),
           tap({ error: () => this.removeParamsFromStorage() })
         )

@@ -34,6 +34,7 @@ const runCatching =
   (source: Observable<T>): Observable<D> =>
     pipe(operator)(source).pipe(
       catchError(error => {
+        console.error(error);
         onError(error);
         return throwError(() => {});
       })

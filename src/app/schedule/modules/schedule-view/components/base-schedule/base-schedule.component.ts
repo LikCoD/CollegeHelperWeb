@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Schedule, ScheduleLesson } from '@schedule/entities/schedule';
+import { Schedule, ScheduleGeneralLesson, ScheduleLesson } from '@schedule/entities/schedule';
 import { IModeCalculator } from '@schedule/modules/schedule-view/components/base-schedule/mode-calculators/base-mode-calculator';
 import { BaseScheduleService } from '@schedule/modules/schedule-view/components/base-schedule/base-schedule.service';
 
@@ -21,7 +21,14 @@ export class BaseScheduleComponent implements OnInit {
     this.modeCalculator$ = this.service.modeCalculator$;
   }
 
-  groupLessonByTime(lesson: ScheduleLesson): string {
-    return `${lesson.startDate.toISO()}-${lesson.endDate.toISO()}`;
+  groupLessonByTime(lesson: ScheduleLesson | ScheduleGeneralLesson): string {
+    const groupScheduleLessonByTime = (lesson: ScheduleLesson): string =>
+      `${lesson.startDate.toISO()}-${lesson.endDate.toISO()}`;
+
+    const groupGeneralScheduleLessonByTime = (lesson: ScheduleGeneralLesson): string =>
+      `${lesson.startTimeMinutes.toISO()}-${lesson.endTimeMinutes.toISO()}`;
+    return 'startDate' in lesson
+      ? groupScheduleLessonByTime(lesson)
+      : groupGeneralScheduleLessonByTime(lesson);
   }
 }

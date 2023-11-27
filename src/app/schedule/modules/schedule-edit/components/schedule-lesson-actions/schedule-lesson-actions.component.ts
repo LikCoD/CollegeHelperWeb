@@ -7,7 +7,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { ScheduleLesson } from '@schedule/entities/schedule';
+import { ScheduleGeneralLesson, ScheduleLesson } from '@schedule/entities/schedule';
 import { MatDialog } from '@angular/material/dialog';
 import { ScheduleAddLessonDialogComponent } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.component';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
@@ -26,7 +26,7 @@ import { provideTranslationSuffix } from 'i18n';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleLessonActionsComponent {
-  @Input({ required: true }) lesson!: ScheduleLesson;
+  @Input({ required: true }) lesson!: ScheduleLesson | ScheduleGeneralLesson;
 
   @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
@@ -72,7 +72,7 @@ export class ScheduleLessonActionsComponent {
       .open(ConfirmationDialogComponent, { data: data, injector: this.dialogInjector })
       .afterClosed()
       .pipe(filterNotNull())
-      .pipe(switchMap(() => this.service.deleteLesson(this.lesson)))
+      .pipe(switchMap(() => this.service.deleteLesson(this.lesson as ScheduleLesson)))
       .subscribe();
   }
 

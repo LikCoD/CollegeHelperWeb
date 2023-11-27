@@ -1,4 +1,4 @@
-import { Schedule, ScheduleLesson } from '@schedule/entities/schedule';
+import { GeneralSchedule, Schedule, ScheduleLesson } from '@schedule/entities/schedule';
 
 export interface Row {
   title: string;
@@ -12,10 +12,12 @@ export interface MarkupEntry {
 
 export interface IModeCalculator {
   rows: Row[];
+  days: string[];
   markup: MarkupEntry[];
   instantRouting: boolean;
 
-  init(schedule: Schedule): void;
+  initSchedule(schedule: Schedule): void;
+  initGeneralSchedule(schedule: GeneralSchedule): void;
 
   height(lessons: ScheduleLesson[]): number;
 
