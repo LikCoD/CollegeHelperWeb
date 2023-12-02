@@ -22,6 +22,8 @@ export class ScheduleService {
   mode$ = new ToggleSubject<ScheduleMode>(['time', 'table', 'table-expanded'], 'table');
   display$ = new ToggleSubject<ScheduleDisplay>(['current', 'general']);
 
+  isGeneral = false;
+
   private http = inject(HttpClient);
   private _schedule$ = new BehaviorSubject<Schedule | GeneralSchedule | null>(null);
 
@@ -48,13 +50,15 @@ export class ScheduleService {
     return this.http
       .get<Schedule>('api/v1/schedule', { params: dto ?? {} })
       .pipe(validate(ScheduleSchema))
-      .pipe(tap(s => this._schedule$.next(s)));
+      .pipe(tap(s => this._schedule$.next(s)))
+      .pipe(tap(() => (this.isGeneral = false)));
   }
 
   getGeneralSchedule(dto: GetScheduleDTO): Observable<GeneralSchedule> {
     return this.http
       .get<GeneralSchedule>('api/v1/schedule/general', { params: dto ?? {} })
       .pipe(validate(GeneralScheduleSchema))
-      .pipe(tap(s => this._schedule$.next(s)));
+      .pipe(tap(s => this._schedule$.next(s)))
+      .pipe(tap(() => (this.isGeneral = true)));
   }
 }

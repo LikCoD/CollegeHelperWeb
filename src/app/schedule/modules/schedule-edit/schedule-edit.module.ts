@@ -19,11 +19,13 @@ import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialo
 import { ScheduleLessonComponent } from '@schedule/components/schedule-lesson/schedule-lesson.component';
 import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
 import { provideTranslationSuffix, TranslatePipe } from 'i18n';
+import { ScheduleAddGeneralLessonDialogComponent } from '@schedule/modules/schedule-edit/dialogs/schedule-add-genral-lesson-dialog/schedule-add-general-lesson-dialog.component';
 
 @NgModule({
   declarations: [
     ScheduleLessonSelectComponent,
     ScheduleAddLessonDialogComponent,
+    ScheduleAddGeneralLessonDialogComponent,
     ScheduleAddLessonViewComponent,
     ScheduleLessonActionsComponent,
   ],

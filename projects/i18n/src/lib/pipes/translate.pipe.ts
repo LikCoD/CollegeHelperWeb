@@ -15,7 +15,9 @@ export class TranslatePipe implements PipeTransform {
   private translationService = inject(TranslationService);
   private injector = inject(Injector);
 
-  transform(value: string | TranslateObject, params: Params = {}): string | number {
+  transform(value: string | TranslateObject | null, params: Params = {}): string | number {
+    if (!value) return '';
+
     if (typeof value === 'string') {
       value = <TranslateObject>{
         key: value,

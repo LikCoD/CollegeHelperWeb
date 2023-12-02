@@ -4,24 +4,26 @@ import { SearchScheduleFormData } from '@schedule/dialogs/search-schedule-dialog
 import { FormConfig, FormConfigElementTypes } from '@shared/modules/ui/entities/form.config';
 import { Validators } from '@angular/forms';
 import { DateTime } from 'luxon';
-import { ScheduleLesson } from '@schedule/entities/schedule';
+import { ScheduleGeneralLesson } from '@schedule/entities/schedule';
 import { ScheduleAddLessonService } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.service';
-import { ScheduleAddLessonFormConfig } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.dto';
 import { provideTranslationGroup, provideTranslationSuffix } from 'i18n';
+import { ScheduleAddGeneralLessonFormConfig } from '@schedule/modules/schedule-edit/dialogs/schedule-add-genral-lesson-dialog/schedule-add-general-lesson-dialog.dto';
+import { Time } from '@shared/modules/ui/components/datetime/time-picker-view/time-picker-view.component';
 
 @Component({
-  selector: 'app-schedule-add-lesson-dialog',
-  templateUrl: './schedule-add-lesson-dialog.component.html',
-  styleUrls: ['./schedule-add-lesson-dialog.component.scss'],
-  providers: [provideTranslationGroup(['schedule', 'edit', 'addLesson'])],
+  selector: 'app-schedule-add-general-lesson-dialog',
+  templateUrl: './schedule-add-general-lesson-dialog.component.html',
+  styleUrls: ['./schedule-add-general-lesson-dialog.component.scss'],
+  providers: [provideTranslationGroup(['schedule', 'edit', 'addGeneralLesson'])],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScheduleAddLessonDialogComponent implements OnInit {
+export class ScheduleAddGeneralLessonDialogComponent implements OnInit {
   private dialog = inject(MatDialogRef);
   private service = inject(ScheduleAddLessonService);
-  private config = inject<ScheduleLesson | null>(MAT_DIALOG_DATA);
+  private config = inject<ScheduleGeneralLesson | null>(MAT_DIALOG_DATA);
+  private timezoneOffsetMinutes = new Date().getTimezoneOffset();
 
-  formConfig: FormConfig<ScheduleAddLessonFormConfig> = {
+  formConfig: FormConfig<ScheduleAddGeneralLessonFormConfig> = {
     elements: {
       subjectID: {
         type: FormConfigElementTypes.SEARCHABLE_SELECT,
@@ -84,19 +86,25 @@ export class ScheduleAddLessonDialogComponent implements OnInit {
         transform: v => v - 1,
         validators: [Validators.required],
       },
-      range: {
-        type: FormConfigElementTypes.DATE_TIME_RANGE,
-        typeConfig: {
-          label: 'range',
-          expand: true,
-          startControlName: 'startDate',
-          endControlName: 'endDate',
-        },
-        initial: {
-          start: this.config?.startDate,
-          end: this.config?.endDate,
-        },
-        formatter: (date: DateTime) => date.toISO(),
+      dayIndex: {
+        type: FormConfigElementTypes.NUMBER,
+        typeConfig: { label: 'dayNumber' },
+        initial: !!this.config ? this.config.dayIndex + 1 : undefined,
+        transform: v => v - 1,
+        validators: [Validators.required],
+      },
+      startTimeMinutes: {
+        type: FormConfigElementTypes.TIME,
+        typeConfig: { label: 'startTime' },
+        initial: this.extractTime(this.config?.startTimeMinutes),
+        transform: (v: Time) => v.hours * 60 + v.minutes + this.timezoneOffsetMinutes,
+        validators: [Validators.required],
+      },
+      endTimeMinutes: {
+        type: FormConfigElementTypes.TIME,
+        typeConfig: { label: 'endTime' },
+        initial: this.extractTime(this.config?.endTimeMinutes),
+        transform: (v: Time) => v.hours * 60 + v.minutes + this.timezoneOffsetMinutes,
         validators: [Validators.required],
       },
     },
@@ -108,5 +116,14 @@ export class ScheduleAddLessonDialogComponent implements OnInit {
 
   onSubmit(data: SearchScheduleFormData): void {
     this.dialog.close(data);
+  }
+
+  private extractTime(datetime: DateTime | null | undefined): Time | undefined {
+    return datetime
+      ? {
+          hours: datetime.hour,
+          minutes: datetime.minute,
+        }
+      : undefined;
   }
 }

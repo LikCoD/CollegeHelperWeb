@@ -74,10 +74,18 @@ export class DateTimeRangePickerComponent
 
   ngOnInit(): void {
     this.controlSubscription = this.control.valueChanges.subscribe(v => {
-      if ((v?.start ?? null) !== this.startDateControl.value)
+      if ((v?.start ?? null) !== this.startDateControl.value) {
         this.startDateControl.setValue(v?.start ?? null);
+      }
       if ((v?.end ?? null) !== this.endDateControl.value)
         this.endDateControl.setValue(v?.end ?? null);
+
+      if (v?.start && v?.end) {
+        this.service.time = {
+          start: v.start,
+          end: v.end,
+        };
+      }
     });
 
     this.datesSubscription = merge(

@@ -1,51 +1,46 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { ScheduleAddLessonFormData } from '@schedule/modules/schedule-edit/dialogs/schedule-add-lesson-dialog/schedule-add-lesson-dialog.dto';
-import { ScheduleLesson, ScheduleLessonSchema } from '@schedule/entities/schedule';
+import { ScheduleGeneralLesson, ScheduleLesson } from '@schedule/entities/schedule';
 import { ScheduleService } from '@schedule/services/schedule.service';
-import { validate } from '@shared/rxjs/pipes/validate';
+import { LessonsService } from '@schedule/services/lessons.service';
+import { GeneralLessonsService } from '@schedule/services/generalLessons.service';
+import { CrudService } from '@shared/services/crud.service';
+import { ScheduleAddGeneralLessonFormData } from '@schedule/modules/schedule-edit/dialogs/schedule-add-genral-lesson-dialog/schedule-add-general-lesson-dialog.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleLessonActionsService {
-  private http = inject(HttpClient);
   private service = inject(ScheduleService);
+  private lessonsService = inject(LessonsService);
+  private generalLessonsService = inject(GeneralLessonsService);
 
-  addLesson(dto: ScheduleAddLessonFormData): Observable<ScheduleLesson> {
-    return this.http
-      .post<ScheduleLesson>('api/v1/schedule/lessons', dto)
-      .pipe(validate(ScheduleLessonSchema))
-      .pipe(
-        tap(lesson => {
-          const lessons = [...this.service.lessons];
-          lessons.push(lesson);
-          this.service.lessons = lessons;
-        })
-      );
+  get isGeneral(): boolean {
+    return this.service.isGeneral;
   }
 
-  editLesson(id: string, dto: ScheduleAddLessonFormData): Observable<ScheduleLesson> {
-    return this.http
-      .put<ScheduleLesson>(`api/v1/schedule/lessons/${id}`, dto)
-      .pipe(validate(ScheduleLessonSchema))
-      .pipe(
-        tap(lesson => {
-          const lessons = [...this.service.lessons];
-          for (let i = 0; i < lessons.length; i++) {
-            if (lessons[i].id === lesson.id) lessons[i] = lesson;
-          }
-          this.service.lessons = lessons;
-        })
-      );
+  get crudService(): CrudService<
+    ScheduleLesson | ScheduleGeneralLesson,
+    ScheduleAddLessonFormData | ScheduleAddGeneralLessonFormData
+  > {
+    return this.isGeneral ? this.generalLessonsService : this.lessonsService;
   }
 
-  deleteLesson(lesson: ScheduleLesson): Observable<void> {
-    return this.http
-      .delete<void>(`api/v1/schedule/lessons/${lesson.id}`)
-      .pipe(
-        tap(() => (this.service.lessons = this.service.lessons.filter(l => l.id !== lesson.id)))
-      );
+  addLesson(
+    dto: ScheduleAddLessonFormData | ScheduleAddGeneralLessonFormData
+  ): Observable<ScheduleLesson | ScheduleGeneralLesson> {
+    return this.crudService.post(dto);
+  }
+
+  editLesson(
+    id: string,
+    dto: ScheduleAddLessonFormData | ScheduleAddGeneralLessonFormData
+  ): Observable<ScheduleLesson | ScheduleGeneralLesson> {
+    return this.crudService.put(id, dto);
+  }
+
+  deleteLesson(lesson: ScheduleLesson | ScheduleGeneralLesson): Observable<void> {
+    return this.crudService.delete(lesson.id!, lesson);
   }
 }

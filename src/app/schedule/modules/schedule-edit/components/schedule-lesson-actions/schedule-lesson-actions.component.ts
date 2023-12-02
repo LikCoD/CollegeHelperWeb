@@ -5,6 +5,7 @@ import {
   inject,
   Injector,
   Input,
+  Type,
   ViewChild,
 } from '@angular/core';
 import { ScheduleGeneralLesson, ScheduleLesson } from '@schedule/entities/schedule';
@@ -17,6 +18,7 @@ import { ConfirmationDialogComponent } from '@shared/modules/ui/components/dialo
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ConfirmationDialogData } from '@shared/modules/ui/components/dialogs/confirmation-dialog/confirmation-dialog.entities';
 import { provideTranslationSuffix } from 'i18n';
+import { ScheduleAddGeneralLessonDialogComponent } from '@schedule/modules/schedule-edit/dialogs/schedule-add-genral-lesson-dialog/schedule-add-general-lesson-dialog.component';
 
 @Component({
   selector: 'schedule-lesson-actions',
@@ -41,7 +43,7 @@ export class ScheduleLessonActionsComponent {
     this.closeMenu();
 
     this.dialogService
-      .open(ScheduleAddLessonDialogComponent, { data: this.lesson, injector: this.dialogInjector })
+      .open(this.dialogComponent(), { data: this.lesson, injector: this.dialogInjector })
       .afterClosed()
       .pipe(filterNotNull())
       .pipe(switchMap(lesson => this.service.editLesson(this.lesson.id!, lesson)))
@@ -52,7 +54,7 @@ export class ScheduleLessonActionsComponent {
     this.closeMenu();
 
     this.dialogService
-      .open(ScheduleAddLessonDialogComponent, { data: this.lesson, injector: this.dialogInjector })
+      .open(this.dialogComponent(), { data: this.lesson, injector: this.dialogInjector })
       .afterClosed()
       .pipe(filterNotNull())
       .pipe(switchMap(lesson => this.service.addLesson(lesson)))
@@ -74,6 +76,12 @@ export class ScheduleLessonActionsComponent {
       .pipe(filterNotNull())
       .pipe(switchMap(() => this.service.deleteLesson(this.lesson as ScheduleLesson)))
       .subscribe();
+  }
+
+  private dialogComponent(): Type<any> {
+    return this.service.isGeneral
+      ? ScheduleAddGeneralLessonDialogComponent
+      : ScheduleAddLessonDialogComponent;
   }
 
   private closeMenu(): void {

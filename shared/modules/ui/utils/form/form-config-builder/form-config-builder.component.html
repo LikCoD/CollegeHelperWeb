@@ -69,6 +69,14 @@
           [placeholder]="entries[1].typeConfig.placeholder"
         />
       }
+      @case (Types.TIME) {
+        <time-picker-view
+          [formControl]="getControlByName(entries[0])!"
+          [hint]="entries[1].typeConfig.hint"
+          [label]="entries[1].typeConfig.label"
+          [placeholder]="entries[1].typeConfig.placeholder"
+        />
+      }
       @case (Types.DATE_TIME_RANGE) {
         <date-time-range-picker
           [formControl]="getControlByName(entries[0])!"

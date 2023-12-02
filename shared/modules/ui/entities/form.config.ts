@@ -74,6 +74,10 @@ export type FormConfigElement<T = string> = BaseFormConfigElement<T> & {
         typeConfig: BaseFormElementTypeConfig<T> & DateRangeFormElementTypeConfig;
       }
     | {
+        type: FormConfigElementTypes.TIME;
+        typeConfig: BaseFormElementTypeConfig<T>;
+      }
+    | {
         type: FormConfigElementTypes.DATE_TIME_RANGE;
         typeConfig: BaseFormElementTypeConfig<T> & DateRangeFormElementTypeConfig;
       }
@@ -121,6 +125,7 @@ export enum FormConfigElementTypes {
   SEARCHABLE_SELECT,
   AUTOCOMPLETE_TEXT,
   DATE_RANGE,
+  TIME,
   DATE_TIME_RANGE,
   COLOR,
   COLOR_SELECT,
