@@ -12,6 +12,9 @@ import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 import { SecondaryContainerComponent } from '@shared/modules/ui/components/containers/secondary-container.component';
 import { provideTranslationSuffix, TranslatePipe } from 'i18n';
+import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { BreadcrumbsViewComponent } from '@shared/components/breadcrumbs-view/breadcrumbs-view.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'schedule-header',
@@ -22,6 +25,9 @@ import { provideTranslationSuffix, TranslatePipe } from 'i18n';
     PrimaryContainerComponent,
     SecondaryContainerComponent,
     TranslatePipe,
+    SkeletonLoaderComponent,
+    BreadcrumbsViewComponent,
+    MatTooltipModule,
   ],
   templateUrl: './schedule-header.component.html',
   styleUrls: ['./schedule-header.component.scss'],
@@ -79,11 +85,28 @@ export class ScheduleHeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleExpand(): void {
-    this.service.mode$.toggle(['table', 'table-expanded']);
+    this.service.mode$.toggle(['table', 'tableExpanded']);
   }
 
   toggleViewMode(): void {
     this.service.display$.toggle();
+  }
+
+  breadcrumbs(schedule: Schedule | GeneralSchedule): string[] {
+    const base = [
+      schedule.info.type,
+      schedule.info.typeName,
+      this.service.display$.value,
+      this.service.mode$.value,
+    ];
+
+    if ('startDate' in schedule.info) {
+      const start = schedule.info.startDate.toLocaleString();
+      const end = schedule.info.endDate.toLocaleString();
+      base.push(`${start}-${end}`);
+    }
+
+    return base;
   }
 
   ngOnDestroy(): void {

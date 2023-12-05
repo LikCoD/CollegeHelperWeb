@@ -22,7 +22,7 @@ export interface BaseFormConfigElement<T> {
 export interface DependedFormConfigElement<F = any, T = any> {
   dependsOn: string;
   cacheable?: boolean;
-  dependsItems: (item: F) => T;
+  dependsItems: (item: F, formValue: any) => T;
 }
 
 export interface DateRangeFormElementValue {

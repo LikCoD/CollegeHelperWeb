@@ -35,7 +35,7 @@ export class BaseScheduleService {
       case 'table':
         calculator = new TableModeCalculator();
         break;
-      case 'table-expanded':
+      case 'tableExpanded':
         calculator = new ExtendedTableModeCalculator();
         break;
     }

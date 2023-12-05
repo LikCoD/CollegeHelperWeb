@@ -14,12 +14,12 @@ import { GetScheduleDTO } from '@schedule/entities/schedule.dto';
 import { filterNotNull } from '@shared/rxjs/pipes/filterNotNull.pipe';
 import { ToggleSubject } from '@shared/rxjs/subjects/toggle.subject';
 
-export type ScheduleMode = 'time' | 'table' | 'table-expanded';
+export type ScheduleMode = 'time' | 'table' | 'tableExpanded';
 export type ScheduleDisplay = 'current' | 'general';
 
 @Injectable({ providedIn: 'root' })
 export class ScheduleService {
-  mode$ = new ToggleSubject<ScheduleMode>(['time', 'table', 'table-expanded'], 'table');
+  mode$ = new ToggleSubject<ScheduleMode>(['time', 'table', 'tableExpanded'], 'table');
   display$ = new ToggleSubject<ScheduleDisplay>(['current', 'general']);
 
   isGeneral = false;

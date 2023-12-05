@@ -49,7 +49,7 @@ export class SearchScheduleDialogComponent {
         validators: [Validators.required],
       },
       typename: {
-        type: FormConfigElementTypes.AUTOCOMPLETE_TEXT,
+        type: FormConfigElementTypes.SEARCHABLE_SELECT,
         typeConfig: {
           label: 'typename',
           items: [],
@@ -57,7 +57,7 @@ export class SearchScheduleDialogComponent {
         dependable: {
           dependsOn: 'type',
           cacheable: true,
-          dependsItems: item => this.service.getTypeNames(item),
+          dependsItems: (item, value) => this.service.getTypeNames(item, value.studyPlaceID),
         },
         initial: this.config.typename!,
         validators: [Validators.required],

@@ -38,7 +38,10 @@ export class SimpleFormConfigService {
     return of(value);
   }
 
-  private _registerDependentElements<T extends FormConfigElements<T>>(form: FormGroup, config: FormConfig<T>): void {
+  private _registerDependentElements<T extends FormConfigElements<T>>(
+    form: FormGroup,
+    config: FormConfig<T>
+  ): void {
     for (let key in config.elements) {
       this._registerDependentElement(form, config.elements[key]);
     }
@@ -54,7 +57,7 @@ export class SimpleFormConfigService {
       return;
 
     element.typeConfig.items = form.controls[element.dependable.dependsOn].valueChanges.pipe(
-      cacheable(element.dependable.dependsItems, element.dependable.cacheable)
+      cacheable(v => element.dependable?.dependsItems(v, form.value), element.dependable.cacheable)
     );
   }
 }

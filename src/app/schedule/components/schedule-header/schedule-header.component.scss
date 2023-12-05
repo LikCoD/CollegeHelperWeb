@@ -15,9 +15,9 @@ container-secondary {
 }
 
 container-primary {
-  padding: $indent1;
-  display: grid;
-  place-items: center;
+  padding: $indent1 $indent2;
+  display: flex;
+  align-items: center;
   flex-grow: 1;
 }
 

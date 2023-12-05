@@ -1,0 +1,6 @@
+@for (item of items; track item; let isFirst = $first) {
+  @if (!isFirst) {
+    <icon [src]="divider" />
+  }
+  <head3 [key]="item" />
+}
