@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -18,7 +19,7 @@ import {
 import { UrlComponent } from '@ui/text/url.component';
 import { TranslateComponent } from '../../../utils/translate/translate.component';
 import { PrimaryButtonComponent } from '@shared/modules/ui/components/buttons/primary-button.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { filter, map, Observable, take, tap } from 'rxjs';
 import { Request } from '@shared/modules/ui/entities/http';
 import { Head1Component } from '@ui/text/head1.component';
@@ -32,6 +33,8 @@ import {
   FormConfigElementTypes,
 } from '@shared/modules/ui/entities/form.config';
 import { CharacterComponent } from '@ui/images/character.component';
+import { filterNotError } from '@shared/rxjs/pipes/filterNotError.pipe';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface SubmitOptions {
   url?: string | null;
@@ -67,7 +70,7 @@ export class DefaultFormComponent<
     PROCEEDED_DATA = DATA,
   >
   extends TranslateComponent
-  implements OnInit
+  implements OnInit, AfterViewInit
 {
   @Input() link: string | null = null;
   @Input() text: string | null = null;
@@ -98,6 +101,7 @@ export class DefaultFormComponent<
   private http = inject(HttpClient);
   private router = inject(Router);
   private configService = inject(SimpleFormConfigService);
+  private snackBar = inject(MatSnackBar);
 
   private _form!: FormGroup;
 
@@ -135,6 +139,10 @@ export class DefaultFormComponent<
       .pipe(filter(v => !!v))
       .pipe(map(v => v!))
       .subscribe(this._form.patchValue.bind(this._form));
+  }
+
+  ngAfterViewInit(): void {
+    Object.values(this._form.controls).forEach(c => c.updateValueAndValidity({ emitEvent: true }));
   }
 
   submit(): void {
@@ -203,12 +211,22 @@ export class DefaultFormComponent<
       .pipe(tap(this.redirect.bind(this)));
 
     this.submitResponse.emit(response$);
-    if (this.submitOptions.subscribe) response$.pipe(take(1)).subscribe();
+    if (this.submitOptions.subscribe)
+      response$
+        .pipe(take(1))
+        .pipe(filterNotError(e => this.onHttpError(e)))
+        .subscribe();
   }
 
   private redirect(): void {
     if (!this.submitRedirect) return;
 
     this.router.navigate([this.submitRedirect]).then();
+  }
+
+  private onHttpError(e: HttpErrorResponse): void {
+    this.snackBar.open(e.error, undefined, {
+      panelClass: ['mat-toolbar', 'mat-warn'],
+    });
   }
 }

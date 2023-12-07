@@ -28,7 +28,7 @@ export class SearchScheduleDialogService {
       .get<{ [key: string]: { id: string; title: string }[] }>(`api/v1/schedule/types`, {
         params: { studyPlaceID: studyPlaceID ?? '' },
       })
-      .pipe(map(v => v[`${type}s`].map(this.convertType.bind(this))));
+      .pipe(map(v => v[`${type}s`]?.map(this.convertType.bind(this)) ?? []));
   }
 
   private convertType(type: { id: string; title: string }): SelectItem {

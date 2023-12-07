@@ -17,6 +17,7 @@ import {
 } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideI18nHttpLoader, Translation } from 'i18n';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -27,6 +28,14 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideEnvironmentNgxMask(),
     provideHttpClient(withInterceptors([jwtInterceptor])),
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 2500,
+        horizontalPosition: 'end',
+        verticalPosition: 'top',
+      },
+    },
     {
       provide: DateAdapter,
       useClass: LuxonDateAdapter,

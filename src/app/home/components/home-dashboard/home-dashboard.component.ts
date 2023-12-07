@@ -12,6 +12,7 @@ import { P1Component } from '@ui/text/p1.component';
 import { UrlComponent } from '@ui/text/url.component';
 import { Head4Component } from '@ui/text/head4.component';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
 
 @Component({
   selector: 'home-dashboard',
@@ -27,6 +28,7 @@ import { HDividerComponent } from '@ui/dividers/h-divider.component';
     UrlComponent,
     Head4Component,
     HDividerComponent,
+    PrimaryContainerComponent,
   ],
   templateUrl: './home-dashboard.component.html',
   styleUrls: ['./home-dashboard.component.scss'],
