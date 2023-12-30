@@ -1,7 +1,50 @@
+@import "themes";
+@import "typography";
+@import "indents";
+
 :host {
+  position: relative;
+
+  &:hover section {
+    width: $iconSizeSmall + $indent1 * 2;
+  }
+}
+
+main {
   justify-content: center;
   align-items: center;
   text-align: center;
   display: flex;
   flex-flow: column;
+
+  span {
+    line-height: $iconSizeSmall;
+  }
+}
+
+section {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  overflow: hidden;
+  width: 0;
+  left: 100%;
+  top: 0;
+  border-radius: $borderRadius1;
+  z-index: 1;
+  transition: width 0.1s ease-in-out;
+
+  @include theme {
+    background-color: $secondaryBackgroundColor;
+  }
+}
+
+icon {
+  rotate: 45deg;
+  font-size: $iconSizeSmall;
+  width: fit-content;
+  height: $iconSizeSmall;
+  padding: 0 $indent1;
+  cursor: pointer;
 }

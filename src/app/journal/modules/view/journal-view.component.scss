@@ -1,0 +1,11 @@
+@import "indents";
+
+state-mapper {
+  display: flex;
+  flex-direction: column;
+  gap: $backgroundGap;
+}
+
+journal-view-header {
+  height: unset;
+}

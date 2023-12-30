@@ -1,7 +1,0 @@
-@if (observable | async; as data) {
-  @if (data.plug.type === "loaded") {
-    <ng-container *ngComponentOutlet="dataComponent; inputs: { data: data.data }" />
-  } @else {
-    <skeleton-plug [plug]="data.plug" [plugComponent]="plugComponent" />
-  }
-}

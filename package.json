@@ -8,6 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "generate-zod": "cli/zod-cli generate --recursive",
     "build-state-mapper": "ng build state-mapper",
     "build-i18n": "ng build i18n"
   },

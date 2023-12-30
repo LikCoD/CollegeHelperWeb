@@ -1,5 +1,10 @@
-<pluggable
-  [dataComponent]="BaseJournalSelectComponent"
-  [observable]="categories$"
-  [plugComponent]="JournalSelectPlugComponent"
-/>
+<state-mapper [observable]="categories$">
+  <ng-container *stateMapperDefaultState="let type = type">
+    <container-primary>
+      <skeleton-plug [plugComponent]="JournalSelectPlugComponent" [plug]="type" />
+    </container-primary>
+  </ng-container>
+  <ng-container *stateMapperLoadedState="let data = data">
+    <app-base-journal-select [data]="data" />
+  </ng-container>
+</state-mapper>

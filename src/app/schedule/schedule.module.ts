@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { ScheduleHeaderComponent } from '@schedule/components/schedule-header/schedule-header.component';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
-import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { ScheduleEditModule } from '@schedule/modules/schedule-edit/schedule-edit.module';
 import { VDividerComponent } from '@ui/dividers/v-divider.component';
 import { HasPermissionDirective } from '@shared/directives/has-permission.directive';
@@ -24,7 +23,6 @@ import { provideTranslationSuffix } from 'i18n';
     ScheduleHeaderComponent,
     HDividerComponent,
     SkeletonPlugComponent,
-    PluggableComponent,
     ScheduleEditModule,
     VDividerComponent,
     HasPermissionDirective,

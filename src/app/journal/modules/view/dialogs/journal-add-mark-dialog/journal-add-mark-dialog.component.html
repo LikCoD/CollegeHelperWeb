@@ -1,67 +1,57 @@
-@if (userStudyPlace$ | async; as studyPlace) {
-  @if (lessonType(studyPlace); as type) {
-    <div>
-      <text-input
-        (keyup.enter)="input(studyPlace, type)"
-        [formControl]="inputFormControl"
-        class="density-input-min3"
-      />
-      <primary-button (click)="input(studyPlace, type)" key="confirm" />
-    </div>
-    @if (data.marks && data.marks.length !== 0) {
-      <spacer />
-      <p2 key="studentMarks" />
-      <section>
-        @for (mark of data.marks; track mark) {
-          <secondary-button
-            (click)="removeMark(mark)"
-            [key]="mark.mark"
-            [matTooltip]="('delete_mark' | translate).toString()"
-          />
-        }
-      </section>
-    }
+@if (lesson$(); as lesson) {
+  <div>
+    <text-input
+      (keyup.enter)="input(lesson)"
+      [formControl]="inputFormControl"
+      class="density-input-min3"
+    />
+    <primary-button (click)="input(lesson)" key="confirm" />
+  </div>
+  @if (lesson.marks && lesson.marks.length !== 0) {
     <spacer />
-    <span><p2 key="marks" /> | <p2 [key]="type.type" /></span>
+    <p2 key="studentMarks" />
     <section>
-      @for (mark of type.marks; track mark) {
-        <primary-button (click)="addMark(mark)" [key]="mark.mark" />
+      @for (mark of lesson.marks; track mark) {
+        <secondary-button
+          (click)="removeMark(mark)"
+          [key]="mark.mark"
+          [matTooltip]="('delete_mark' | translate).toString()"
+        />
       }
     </section>
-    @if (type.standaloneMarks) {
-      <h-divider />
-    }
-    <section>
-      @for (mark of type.standaloneMarks; track mark) {
-        <secondary-button (click)="addMark(mark)" [key]="mark.mark" />
-      }
-    </section>
-    <spacer />
-    <p2 key="absences" />
-    <div>
-      <text-input
-        [formControl]="absenceFormControl"
-        [placeholder]="data.absence ? 'absences' : 'latency'"
-        class="density-input-min3"
-      />
-
-      @if (data.absence) {
-        @if (data.absence.time) {
-          <primary-button (click)="removeAbsence()" key="remove_latency" />
-        }
-        @if (!data.absence.time) {
-          <primary-button (click)="removeAbsence()" key="remove_absence" />
-        }
-      }
-
-      @if (!data.absence) {
-        @if (absenceFormControl.value) {
-          <primary-button (click)="addAbsence()" key="add_latency" />
-        }
-        @if (!absenceFormControl.value) {
-          <primary-button (click)="addAbsence()" key="add_absence" />
-        }
-      }
-    </div>
   }
+  <spacer />
+  <span><p2 key="marks" /> | <p2 [key]="lesson.type.type" /></span>
+  <section>
+    @for (mark of lesson.type.availableMarks; track mark) {
+      <primary-button (click)="addMark(mark)" [key]="mark.mark" />
+    }
+  </section>
+  <spacer />
+  <p2 key="absences" />
+  <div>
+    <text-input
+      [formControl]="absenceFormControl"
+      [placeholder]="lesson.absence ? 'absences' : 'latency'"
+      class="density-input-min3"
+    />
+
+    @if (lesson.absence) {
+      @if (lesson.absence.time) {
+        <primary-button (click)="removeAbsence(lesson)" key="remove_latency" />
+      }
+      @if (!lesson.absence.time) {
+        <primary-button (click)="removeAbsence(lesson)" key="remove_absence" />
+      }
+    }
+
+    @if (!lesson.absence) {
+      @if (absenceFormControl.value) {
+        <primary-button (click)="addAbsence()" key="add_latency" />
+      }
+      @if (!absenceFormControl.value) {
+        <primary-button (click)="addAbsence()" key="add_absence" />
+      }
+    }
+  </div>
 }

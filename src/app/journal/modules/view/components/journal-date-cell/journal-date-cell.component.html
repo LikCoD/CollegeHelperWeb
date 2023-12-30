@@ -1,5 +1,35 @@
-@if (cell.startDate; as date) {
-  <span>{{ date | datetime: "MMM" }}</span>
-  <span>{{ date | datetime: "EEE dd" }}</span>
-  <div [style.background-color]="cell.secondaryColor"></div>
-}
+<main>
+  @switch (collapsed) {
+    @case ("month") {
+      <span>{{ cell.date | datetime: "MMM" }}</span>
+    }
+    @case ("day") {
+      <span>{{ cell.date | datetime: "MMM" }}</span>
+      <span>{{ cell.date | datetime: "EEE dd" }}</span>
+    }
+    @default {
+      <span>{{ cell.date | datetime: "MMM" }}</span>
+      <span>{{ cell.date | datetime: "EEE dd" }}</span>
+    }
+  }
+</main>
+<section>
+  @if (collapsed) {
+    <icon
+      src="open_in_full"
+      [matTooltip]="('expand' | translate).toString()"
+      (click)="expand(cell, collapsed)"
+    />
+  } @else {
+    <icon
+      src="close_fullscreen"
+      [matTooltip]="('month' | translate).toString()"
+      (click)="collapse(cell, 'month')"
+    />
+    <icon
+      src="close_fullscreen"
+      [matTooltip]="('day' | translate).toString()"
+      (click)="collapse(cell, 'day')"
+    />
+  }
+</section>

@@ -2,13 +2,13 @@
   <p1 [key]="option.header" />
 }
 @if (option.group) {
-  <p1 [key]="option.group" />
+  <p1 [key]="option.group.group" />
 }
 @if (option.subject) {
-  <p1 [key]="option.subject" />
+  <p1 [key]="option.subject.subject" />
 }
 @if (option.teacher) {
-  <p1 [key]="option.teacher" />
+  <p1 [key]="option.teacher.teacher" />
 }
 <icon [src]="option.hasMembers ? 'group' : 'person_off'" />
 <icon [src]="option.editable ? 'edit' : 'visibility'" />

@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetJournalDTO } from '@journal/modules/view/entites/journal.dto';
-import { Journal, JournalScheme } from '@journal/modules/view/entites/journal';
+import { Journal } from '@journal/modules/view/entites/journal';
 import { Observable } from 'rxjs';
 import { validate } from '@shared/rxjs/pipes/validate';
+import { JournalScheme } from '@journal/modules/view/entites/schemes/journal.scheme';
 
 @Injectable({
   providedIn: 'root',

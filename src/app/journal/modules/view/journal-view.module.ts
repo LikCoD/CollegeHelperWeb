@@ -16,14 +16,21 @@ import { SpacerComponent } from '@shared/modules/ui/components/spacers/spacer.co
 import { JournalAddMarkDialogComponent } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog.component';
 import { HDividerComponent } from '@ui/dividers/h-divider.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+  MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER,
+  MatTooltipModule,
+} from '@angular/material/tooltip';
 import { JournalViewPlugComponent } from './components/journal-view-plug/journal-view-plug.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
 import { BaseJournalComponent } from './components/base-journal/base-journal.component';
-import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { DateTimePipe } from '@shared/pipes/datetime.pipe';
 import { provideTranslationSuffix, TranslatePipe } from 'i18n';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { IconComponent } from '@ui/images/icon.component';
+import { DefaultStateDirective, LoadedStateDirective, StateMapperComponent } from 'state-mapper';
+import { GridPointDirective } from '@journal/directives/grid-point.directive';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -33,6 +40,7 @@ import { provideTranslationSuffix, TranslatePipe } from 'i18n';
     JournalAddMarkDialogComponent,
     JournalViewPlugComponent,
     BaseJournalComponent,
+    GridPointDirective,
   ],
   imports: [
     CommonModule,
@@ -50,10 +58,15 @@ import { provideTranslationSuffix, TranslatePipe } from 'i18n';
     MatTooltipModule,
     SkeletonLoaderComponent,
     SkeletonPlugComponent,
-    PluggableComponent,
     DateTimePipe,
     TranslatePipe,
+    PrimaryContainerComponent,
+    IconComponent,
+    StateMapperComponent,
+    DefaultStateDirective,
+    LoadedStateDirective,
+    MatChipsModule,
   ],
-  providers: [provideTranslationSuffix('view')],
+  providers: [provideTranslationSuffix('view'), MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
 })
 export class JournalViewModule {}

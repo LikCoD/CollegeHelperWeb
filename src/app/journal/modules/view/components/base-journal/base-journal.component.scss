@@ -1,23 +1,24 @@
 @import "themes";
 @import "indents";
 
+$cellSize: 55px;
+
 :host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+container-primary {
   position: relative;
   overflow: scroll;
   display: grid;
-  grid-column-gap: $indent2;
-  grid-row-gap: $indent3;
   width: 100%;
   height: 100%;
-  margin: $indent2 0 0 $indent2;
   flex-grow: 1;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: min-content min-content;
   grid-template-rows: auto 1fr;
-
-  @include theme {
-    background: $primaryBackgroundColor;
-    color: $onPrimaryBackgroundColor;
-  }
 }
 
 .empty-corner {
@@ -27,7 +28,7 @@
   background: inherit;
   grid-column: 1;
   grid-row: 1;
-  z-index: 4;
+  z-index: 5;
 }
 
 .titles-container {
@@ -38,14 +39,15 @@
   grid-column: 1;
   grid-row: 2;
   gap: $indent2;
+  padding: $indent1 $indent1 0 $indent2;
   background: inherit;
   white-space: nowrap;
-  z-index: 3;
+  z-index: 4;
 
   & > * {
     display: flex;
     align-items: center;
-    height: 55px;
+    height: $cellSize;
   }
 }
 
@@ -54,35 +56,68 @@
   position: sticky;
   grid-column: 2;
   grid-row: 1;
-  height: 30px;
+  height: fit-content;
   top: 0;
   background: inherit;
   gap: $indent2;
-  z-index: 3;
+  padding: $indent2 0 $indent1 $indent1;
+  z-index: 4;
 
   & > * {
-    width: 55px;
-    height: 100%;
+    width: $cellSize;
+    height: fit-content;
   }
 }
 
 .cells-container {
-  display: flex;
-  flex-direction: column;
-  gap: $indent2;
+  display: grid;
   position: relative;
   height: 100%;
+  grid-auto-columns: min-content;
+  grid-auto-rows: min-content;
   grid-column: 2;
   grid-row: 2;
+  z-index: 3;
+
+  & > * {
+    width: $cellSize;
+    height: $cellSize;
+    margin: $indent1;
+  }
+}
+
+.empty-cells-wrapper {
+  position: relative;
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.empty-cells-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 2;
+  overflow: hidden;
 
-  .row {
-    display: flex;
-    gap: $indent2;
+  & > * {
+    width: $cellSize;
+    height: $cellSize;
+    border-radius: $borderRadius2;
+    min-width: 0;
 
-    & > * {
-      width: 55px;
-      height: 55px;
+    @include theme {
+      background-color: $secondaryBackgroundColor;
     }
+  }
+}
+
+.clickable {
+  @include clickableScale;
+
+  &:hover,
+  &:active {
+    z-index: 1;
   }
 }

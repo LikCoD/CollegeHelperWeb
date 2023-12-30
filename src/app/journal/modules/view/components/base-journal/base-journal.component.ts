@@ -2,69 +2,91 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   inject,
   Injector,
   Input,
+  OnChanges,
+  OnInit,
+  signal,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import { Journal, JournalCell, JournalRow } from '@journal/modules/view/entites/journal';
-import { CellEntry } from '@journal/modules/view/components/journal-cell/journal-cell.component';
+import { Journal, JournalCell, Point } from '@journal/modules/view/entites/journal';
+import { MatPopup } from '@shared/material/popup';
 import { JournalAddMarkDialogData } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog.dto';
 import { JournalAddMarkDialogComponent } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog.component';
-import { MatPopup } from '@shared/material/popup';
+import { JournalCellComponent } from '@journal/modules/view/components/journal-cell/journal-cell.component';
+import { JournalCollapseService } from '@journal/modules/view/services/journal-collapse.service';
 
 @Component({
-  selector: 'app-base-journal',
+  selector: 'base-journal',
   templateUrl: './base-journal.component.html',
   styleUrls: ['./base-journal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BaseJournalComponent {
+export class BaseJournalComponent implements OnInit, OnChanges {
   @Input({ alias: 'data', required: true }) journal!: Journal;
+  @ViewChild('cellsContainer', { read: ElementRef<HTMLElement> })
+  cellsContainer!: ElementRef<HTMLElement>;
+
+  cellsWidth$$ = signal(0);
+  emptyPoints$$ = signal<Point[]>([]);
 
   private popup = inject(MatPopup);
   private cdr = inject(ChangeDetectorRef);
   private injector = inject(Injector);
+  private collapseService = inject(JournalCollapseService);
 
-  entries(cell: JournalCell): CellEntry[] {
-    return cell?.marks?.map(m => m.mark) ?? [];
+  dates$$ = this.collapseService.dates$$;
+  cells$$ = this.collapseService.cells$$;
+
+  ngOnInit(): void {
+    this.collapseService.journal$$.set(this.journal);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['journal']) {
+      const journal = changes['journal'].currentValue as Journal;
+      const points = journal.cells.map(c => c.point);
+
+      const maxX = Math.max(...points.map(p => p.x)) + 1;
+      const maxY = Math.max(...points.map(p => p.y)) + 1;
+
+      const emptyPoints: Point[] = [];
+      for (let i = 0; i < maxX; i++) {
+        for (let j = 0; j < maxY; j++) {
+          emptyPoints.push({ x: i, y: j });
+        }
+      }
+
+      this.emptyPoints$$.set(emptyPoints);
+    }
   }
 
   openAddMarkDialog(
-    journal: Journal,
     cell: JournalCell,
-    row: JournalRow,
-    cellRef: HTMLElement
+    cellRef: HTMLElement,
+    cellComponent: JournalCellComponent
   ): void {
-    if (!cell.id) {
-      //todo implement additional logic
-      return;
-    }
+    // if (!this.journal.info.editable) return;
 
-    if (cell.type?.length !== 1) {
-      //todo implement additional select
-      return;
-    }
-
-    if (!!cell.absences && cell.absences.length > 1) {
-      //todo implement additional logic
-      return;
-    }
-
-    if (!journal.info.editable) return;
+    const lessonID = this.journal.dates[cell.point.x].id;
+    const studentID = this.journal.rowTitles[cell.point.y].id;
+    if (!studentID || !lessonID) return;
 
     this.popup.open<JournalAddMarkDialogData>(
       JournalAddMarkDialogComponent,
       cellRef,
       {
-        lessonType: cell.type[0],
-        marks: cell.marks ?? [],
-        absence: cell.absences?.at(0) ?? null,
-        lessonID: cell.id,
-        studentID: row.id,
-        updateCell: c => {
-          row.cells[row.cells.indexOf(cell)] = c;
+        lessonID: lessonID,
+        studentID: studentID,
+        updateCell: l => {
+          cell.marks = l.marks;
+          cell.absences = l.absence ? [l.absence] : [];
+
+          cellComponent.onCellChange(cell);
           this.cdr.detectChanges();
-          cell = c;
         },
       },
       this.injector

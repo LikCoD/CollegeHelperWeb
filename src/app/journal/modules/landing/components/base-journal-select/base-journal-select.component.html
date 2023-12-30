@@ -1,6 +1,8 @@
-<text-input [formControl]="searchControl" label="search" />
-<section>
-  @for (category of categories; track category) {
-    <journal-select-category (selectOption)="onSelect($event)" [category]="category" />
-  }
-</section>
+<container-primary>
+  <text-input [formControl]="searchControl" label="search" />
+  <section>
+    @for (category of categories; track category) {
+      <journal-select-category (selectOption)="onSelect($event)" [category]="category" />
+    }
+  </section>
+</container-primary>

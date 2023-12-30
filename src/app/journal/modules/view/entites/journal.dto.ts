@@ -1,7 +1,7 @@
 export type GetJournalDTO =
   | {
-      group: string;
-      teacher: string;
-      subject: string;
+      groupID: string;
+      teacherID: string;
+      subjectID: string;
     }
   | {};

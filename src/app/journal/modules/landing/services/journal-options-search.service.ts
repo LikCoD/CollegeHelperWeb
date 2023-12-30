@@ -16,9 +16,9 @@ export class JournalOptionsSearchService {
     if (!search) return true;
 
     return !![
-      option.group.toLowerCase(),
-      option.teacher.toLowerCase(),
-      option.subject.toLowerCase(),
+      option.group.group.toLowerCase(),
+      option.teacher.teacher.toLowerCase(),
+      option.subject.subject.toLowerCase(),
     ].find(v => v.indexOf(search) !== -1);
   }
 

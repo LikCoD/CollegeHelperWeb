@@ -12,9 +12,13 @@ import { TextInputComponent } from '@ui/inputs/text-input/text-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JournalLandingComponent } from '@journal/modules/landing/journal-landing.component';
 import { BaseJournalSelectComponent } from './components/base-journal-select/base-journal-select.component';
-import { PluggableComponent } from '@shared/components/plugable/pluggable.component';
 import { JournalSelectPlugComponent } from './components/journal-select-plug/journal-select-plug.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { DefaultStateDirective, LoadedStateDirective, StateMapperComponent } from 'state-mapper';
+import { HasPermissionDirective } from '@shared/directives/has-permission.directive';
+import { PrimaryContainerComponent } from '@shared/modules/ui/components/containers/primary-container.component';
+import { ScheduleEditModule } from '@schedule/modules/schedule-edit/schedule-edit.module';
+import { SkeletonPlugComponent } from '@shared/components/skeleton-plug/skeleton-plug.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +37,14 @@ import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skel
     P1Component,
     TextInputComponent,
     ReactiveFormsModule,
-    PluggableComponent,
     SkeletonLoaderComponent,
+    StateMapperComponent,
+    HasPermissionDirective,
+    PrimaryContainerComponent,
+    ScheduleEditModule,
+    SkeletonPlugComponent,
+    DefaultStateDirective,
+    LoadedStateDirective,
   ],
 })
 export class JournalLandingModule {}

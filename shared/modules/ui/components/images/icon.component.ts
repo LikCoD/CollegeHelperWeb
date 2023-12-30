@@ -8,6 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
     `
       mat-icon {
         all: inherit;
+        rotate: unset;
+        padding: unset;
+        margin: unset;
       }
     `,
   ],

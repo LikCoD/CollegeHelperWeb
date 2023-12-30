@@ -1,9 +1,13 @@
+//zod-cli generate
+
 import { z } from 'zod';
+import { Group, Subject, Teacher } from '@shared/entities/types';
+import { JournalCategoryScheme } from '@journal/modules/landing/entities/schemes/options.scheme';
 
 export interface JournalOption {
-  teacher: string;
-  subject: string;
-  group: string;
+  teacher: Teacher;
+  subject: Subject;
+  group: Group;
   header: string;
   editable: boolean;
   hasMembers: boolean;
@@ -14,20 +18,4 @@ export interface JournalCategory {
   options: JournalOption[];
 }
 
-export const JournalOptionsScheme = z
-  .array(
-    z.object({
-      category: z.string(),
-      options: z.array(
-        z.object({
-          teacher: z.string(),
-          subject: z.string(),
-          group: z.string(),
-          header: z.string(),
-          editable: z.boolean(),
-          hasMembers: z.boolean(),
-        })
-      ),
-    })
-  )
-  .or(z.null());
+export const JournalOptionsScheme = z.array(JournalCategoryScheme);

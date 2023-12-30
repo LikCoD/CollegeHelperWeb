@@ -1,5 +1,5 @@
 export interface AddMarkDTO {
-  mark: string;
+  markID: string;
   studentID: string;
   lessonID: string;
 }

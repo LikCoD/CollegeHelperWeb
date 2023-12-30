@@ -37,9 +37,9 @@ export class BaseJournalSelectComponent implements OnInit, OnDestroy {
     this.router
       .navigate(['journal', 'view'], {
         queryParams: {
-          teacher: option.teacher,
-          subject: option.subject,
-          group: option.group,
+          teacherID: option.teacher.id,
+          subjectID: option.subject.id,
+          groupID: option.group.id,
         },
       })
       .then();

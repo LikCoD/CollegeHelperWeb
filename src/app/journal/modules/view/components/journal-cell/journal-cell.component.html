@@ -1,12 +1,22 @@
-@if (entries.length !== 0) {
-  @if (entries.length == 1) {
-    <p1>{{ entries[0] }}</p1>
-  }
-  @if (entries.length > 1) {
-    <div class="mark2">
-      <p2>{{ entries[0] }}</p2>
-      <hr />
-      <p2>{{ entries[1] }}</p2>
-    </div>
+@if (entries(); as entries) {
+  @switch (entries.length) {
+    @case (0) {}
+    @case (1) {
+      <p1>{{ entries[0] }}</p1>
+    }
+    @case (2) {
+      <div class="mark2">
+        <p2>{{ entries[0] }}</p2>
+        <hr />
+        <p2>{{ entries[1] }}</p2>
+      </div>
+    }
+    @default {
+      <div class="mark2">
+        <p2>{{ entries[0] }}</p2>
+        <hr />
+        <p2>{{ entries[1] }}</p2>
+      </div>
+    }
   }
 }

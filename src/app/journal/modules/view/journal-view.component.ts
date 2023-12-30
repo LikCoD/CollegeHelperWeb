@@ -5,9 +5,7 @@ import { map, Observable, pipe, switchMap } from 'rxjs';
 import { JournalViewService } from '@journal/modules/view/services/journal-view.service';
 import { Journal } from '@journal/modules/view/entites/journal';
 import { JournalViewPlugComponent } from '@journal/modules/view/components/journal-view-plug/journal-view-plug.component';
-import { BaseJournalComponent } from '@journal/modules/view/components/base-journal/base-journal.component';
-import { Pluggable } from '@shared/components/plugable/pluggable.entites';
-import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
+import { State, useState } from 'state-mapper';
 
 @Component({
   selector: 'journal-view',
@@ -16,17 +14,16 @@ import { plugState } from '@shared/rxjs/pipes/plugState.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JournalViewComponent implements OnInit {
-  journal$!: Observable<Pluggable<Journal>>;
+  journal$!: Observable<State<Journal>>;
 
   protected readonly JournalViewPlugComponent = JournalViewPlugComponent;
-  protected readonly BaseJournalComponent = BaseJournalComponent;
 
   private route = inject(ActivatedRoute);
   private service = inject(JournalViewService);
 
   ngOnInit(): void {
     this.journal$ = this.route.queryParams.pipe(
-      plugState(
+      useState(
         pipe(
           map(this.parseParams.bind(this)),
           switchMap(p => this.service.getJournal(p))
@@ -36,16 +33,16 @@ export class JournalViewComponent implements OnInit {
   }
 
   private parseParams(): GetJournalDTO {
-    const group = this.route.snapshot.queryParams['group'];
-    const subject = this.route.snapshot.queryParams['subject'];
-    const teacher = this.route.snapshot.queryParams['teacher'];
+    const groupID = this.route.snapshot.queryParams['groupID'];
+    const subjectID = this.route.snapshot.queryParams['subjectID'];
+    const teacherID = this.route.snapshot.queryParams['teacherID'];
 
-    if (!group || !subject || !teacher) return {};
+    if (!groupID || !subjectID || !teacherID) return {};
 
     return {
-      group: group,
-      subject: subject,
-      teacher: teacher,
+      groupID: groupID,
+      subjectID: subjectID,
+      teacherID: teacherID,
     };
   }
 }
