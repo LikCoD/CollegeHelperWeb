@@ -44,8 +44,8 @@ export class JournalCellComponent implements OnChanges {
   }
 
   private parseEntries(cell: JournalCell): string[] {
-    const entries = cell.marks.map(m => m.mark);
-    entries.push(...cell.absences.map(v => v.time?.toString() ?? '-'));
+    const entries = cell.entries.flatMap(e => e.marks.map(m => m.mark));
+    entries.push(...cell.entries.flatMap(e => e.absences.map(v => v.time?.toString() ?? '-')));
     return entries;
   }
 }

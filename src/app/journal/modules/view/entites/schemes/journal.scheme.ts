@@ -13,6 +13,7 @@ export const JournalRowTitleScheme = z.object({
 
 export const MarkScheme = z.object({
 	id: z.string(),
+	markID: z.string(),
 	mark: z.string(),
 	markWeight: z.number(),
 });
@@ -22,27 +23,33 @@ export const AbsenceScheme = z.object({
 	time: z.number().nullish(),
 });
 
+export const JournalCellEntryScheme = z.object({
+	lessonID: z.string(),
+	typeID: z.string(),
+	marks: z.array(MarkScheme),
+	absences: z.array(AbsenceScheme),
+});
+
 export const PointScheme = z.object({
 	x: z.number(),
 	y: z.number(),
 });
 
 export const JournalCellScheme = z.object({
-	lessonsIDs: z.array(z.string()),
-	marks: z.array(MarkScheme),
-	absences: z.array(AbsenceScheme),
+	entries: z.array(JournalCellEntryScheme),
 	point: PointScheme,
 });
 
 export const JournalDateScheme = z.object({
 	id: z.string().nullish(),
 	date: z.string().datetime().transform(dt => DateTime.fromISO(dt)),
+	typeIDs: z.array(z.string()),
 });
 
 export const JournalDisplayConfigScheme = z.object({
 	title: z.string(),
-	types: z.array(z.string()).nullish(),
-	marks: z.array(z.string()).nullish(),
+	typeIDs: z.array(z.string()),
+	markIDs: z.array(z.string()).nullish(),
 	showAbsences: z.boolean(),
 	showLatency: z.boolean(),
 	availableMarkIDs: z.array(z.string()).nullish(),

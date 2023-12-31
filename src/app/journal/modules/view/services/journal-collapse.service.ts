@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { Journal, JournalCell, JournalDate, Point } from '@journal/modules/view/entites/journal';
 import { DateTime } from 'luxon';
 
@@ -49,7 +49,7 @@ export class JournalCollapseService {
     day: 'yyyy-MM-dd',
   } as const;
 
-  journal$$ = signal<Journal | null>(null);
+  journal$$ = signal<Journal | null>(null).asReadonly();
 
   private collapseStates$$ = signal<CollapseState>({});
 
@@ -81,6 +81,16 @@ export class JournalCollapseService {
 
   dates$$ = computed(() => this.stateJournal$$()?.dates ?? []);
   cells$$ = computed(() => this.stateJournal$$()?.cells ?? []);
+
+  constructor() {
+    effect(
+      () => {
+        this.journal$$();
+        this.collapseStates$$.set({});
+      },
+      { allowSignalWrites: true }
+    );
+  }
 
   setState(date: JournalDate, state: CollapsedStates): void {
     const journal = this.journal$$();
@@ -145,10 +155,9 @@ export class JournalCollapseService {
             date: c.date,
             cell: {
               point: { x: c.cells[0].point.x, y: i },
-              lessonsIDs: cells[i].flatMap(cell => cell.lessonsIDs),
-              marks: cells[i].flatMap(cell => cell.marks),
-              absences: cells[i].flatMap(cell => cell.absences),
+              entries: cells[i].flatMap(cell => cell.entries),
             },
+            point: { x: c.cells[0].point.x, y: i },
           }
       );
     });

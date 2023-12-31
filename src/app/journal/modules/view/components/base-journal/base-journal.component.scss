@@ -13,12 +13,15 @@ $cellSize: 55px;
 container-primary {
   position: relative;
   overflow: scroll;
-  display: grid;
   width: 100%;
   height: 100%;
   flex-grow: 1;
   grid-template-columns: min-content min-content;
   grid-template-rows: auto 1fr;
+
+  &:not(.empty) {
+    display: grid;
+  }
 }
 
 .empty-corner {

@@ -1,41 +1,45 @@
-<container-primary>
-  <div class="empty-corner"></div>
-  <div class="dates-container">
-    @for (date of dates$$(); track date) {
-      <journal-date-cell
-        [cell]="date.date"
-        [collapsed]="date.collapsed"
-        [class.clickable]="!date.collapsed"
-      />
-    }
-  </div>
-  <div class="titles-container">
-    @for (row of journal.rowTitles; track row) {
-      <p1 [key]="row.title" />
-    }
-  </div>
-  <div class="cells-container">
-    @for (cell of cells$$(); track cell) {
-      @if (!cell.collapsed) {
-        <journal-cell
-          #cellComponent
-          elementRef
-          #cellRef="elementRef"
-          [gridPoint]="cell.cell.point"
-          [cell]="cell.cell"
-          class="clickable"
-          (click)="openAddMarkDialog(cell.cell, cellRef.el, cellComponent)"
+<container-primary [class.empty]="dates$$().length === 0">
+  @if (dates$$().length !== 0) {
+    <div class="empty-corner"></div>
+    <div class="dates-container">
+      @for (date of dates$$(); track date) {
+        <journal-date-cell
+          [cell]="date.date"
+          [collapsed]="date.collapsed"
+          [class.clickable]="!date.collapsed"
         />
-      } @else {
-        <journal-cell [gridPoint]="cell.cell.point" [cell]="cell.cell" />
-      }
-    }
-  </div>
-  <div class="empty-cells-wrapper">
-    <div class="cells-container empty-cells-container">
-      @for (p of emptyPoints$$(); track p) {
-        <div class="empty-point" [gridPoint]="p"></div>
       }
     </div>
-  </div>
+    <div class="titles-container">
+      @for (row of journal.rowTitles; track row) {
+        <p1 [key]="row.title" />
+      }
+    </div>
+    <div class="cells-container">
+      @for (cell of cells$$(); track cell) {
+        @if (!cell.collapsed) {
+          <journal-cell
+            #cellComponent
+            elementRef
+            #cellRef="elementRef"
+            [gridPoint]="cell.cell.point"
+            [cell]="cell.cell"
+            class="clickable"
+            (click)="openAddMarkDialog(cell.cell, cellRef.el, cellComponent)"
+          />
+        } @else {
+          <journal-cell [gridPoint]="cell.cell.point" [cell]="cell.cell" />
+        }
+      }
+    </div>
+    <div class="empty-cells-wrapper">
+      <div class="cells-container empty-cells-container">
+        @for (p of emptyPoints$$(); track p) {
+          <div class="empty-point" [gridPoint]="p"></div>
+        }
+      </div>
+    </div>
+  } @else {
+    <skeleton-plug [plugComponent]="JournalViewPlugComponent" plug="empty" />
+  }
 </container-primary>

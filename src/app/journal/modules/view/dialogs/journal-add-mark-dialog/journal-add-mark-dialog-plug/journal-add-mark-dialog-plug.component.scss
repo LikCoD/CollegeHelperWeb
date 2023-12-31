@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  width: 208px;
+  height: 445px;
+}
+
+skeleton-loader {
+  height: 43px;
+  width: 100%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &.section-gap {
+    gap: 8px;
+  }
+}
+
+div {
+  display: flex;
+  gap: 8px;
+
+  &.spacer {
+    width: 100%;
+  }
+}

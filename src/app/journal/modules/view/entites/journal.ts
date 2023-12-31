@@ -13,6 +13,7 @@ export interface Journal {
 export interface JournalDate {
   id?: string;
   date: DateTime;
+  typeIDs: string[];
 }
 
 export interface JournalRowTitle {
@@ -21,14 +22,20 @@ export interface JournalRowTitle {
 }
 
 export interface JournalCell {
-  lessonsIDs: string[];
+  entries: JournalCellEntry[];
+  point: Point;
+}
+
+export interface JournalCellEntry {
+  lessonID: string;
+  typeID: string;
   marks: Mark[];
   absences: Absence[];
-  point: Point;
 }
 
 export interface Mark {
   id: string;
+  markID: string;
   mark: string;
   markWeight: number;
 }
@@ -69,6 +76,7 @@ export interface JournalType {
   availableMarks: Mark[];
   assignedColor: string;
   absenceMark: string;
+  showAbsences?: boolean;
   type: string;
 }
 
@@ -79,8 +87,8 @@ export interface JournalInfo {
 
 export interface JournalDisplayConfig {
   title: string;
-  types?: string[];
-  marks?: string[];
+  typeIDs: string[];
+  markIDs?: string[];
   showAbsences: boolean;
   showLatency: boolean;
   availableMarkIDs?: string[];

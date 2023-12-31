@@ -6,7 +6,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { Subscription, tap } from 'rxjs';
+import { map, Subscription, tap } from 'rxjs';
 import { MAT_POPUP_DATA } from '@shared/material/popup';
 import { JournalAddMarkDialogData } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog.dto';
 import { FormControl } from '@angular/forms';
@@ -14,6 +14,8 @@ import { JournalMarksService } from '@journal/modules/view/services/journal-mark
 import { JournalLesson, Mark } from '@journal/modules/view/entites/journal';
 import { provideTranslationGroup } from 'i18n';
 import { MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER } from '@angular/material/tooltip';
+import { JournalAddMarkDialogPlugComponent } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog-plug/journal-add-mark-dialog-plug.component';
+import { JournalDisplayConfigsService } from '@journal/modules/view/services/journal-display-configs.service';
 
 @Component({
   selector: 'journal-add-mark',
@@ -33,14 +35,17 @@ export class JournalAddMarkDialogComponent implements OnInit, OnDestroy {
   inputFormControl = new FormControl<string>('');
   absenceFormControl = new FormControl<string>('');
 
-  private marksService = inject(JournalMarksService);
+  protected readonly JournalAddMarkDialogPlugComponent = JournalAddMarkDialogPlugComponent;
 
+  private marksService = inject(JournalMarksService);
+  private displayConfigsService = inject(JournalDisplayConfigsService);
   private actionsSubscription?: Subscription;
   private lessonSubscription?: Subscription;
 
   ngOnInit(): void {
     this.lessonSubscription = this.marksService
       .getLesson(this.data.lessonID, this.data.studentID)
+      .pipe(map(l => this.displayConfigsService.applyConfigForLesson(l)))
       .pipe(tap(this.update.bind(this)))
       .subscribe(l => this.lesson$.set(l));
   }

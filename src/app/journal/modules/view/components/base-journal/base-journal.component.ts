@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   inject,
   Injector,
   Input,
@@ -10,7 +9,6 @@ import {
   OnInit,
   signal,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { Journal, JournalCell, Point } from '@journal/modules/view/entites/journal';
 import { MatPopup } from '@shared/material/popup';
@@ -18,6 +16,8 @@ import { JournalAddMarkDialogData } from '@journal/modules/view/dialogs/journal-
 import { JournalAddMarkDialogComponent } from '@journal/modules/view/dialogs/journal-add-mark-dialog/journal-add-mark-dialog.component';
 import { JournalCellComponent } from '@journal/modules/view/components/journal-cell/journal-cell.component';
 import { JournalCollapseService } from '@journal/modules/view/services/journal-collapse.service';
+import { JournalDisplayConfigsService } from '@journal/modules/view/services/journal-display-configs.service';
+import { JournalViewPlugComponent } from '@journal/modules/view/components/journal-view-plug/journal-view-plug.component';
 
 @Component({
   selector: 'base-journal',
@@ -26,23 +26,22 @@ import { JournalCollapseService } from '@journal/modules/view/services/journal-c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseJournalComponent implements OnInit, OnChanges {
-  @Input({ alias: 'data', required: true }) journal!: Journal;
-  @ViewChild('cellsContainer', { read: ElementRef<HTMLElement> })
-  cellsContainer!: ElementRef<HTMLElement>;
+  @Input({ required: true }) journal!: Journal;
 
-  cellsWidth$$ = signal(0);
   emptyPoints$$ = signal<Point[]>([]);
 
   private popup = inject(MatPopup);
   private cdr = inject(ChangeDetectorRef);
   private injector = inject(Injector);
+  private configsService = inject(JournalDisplayConfigsService);
   private collapseService = inject(JournalCollapseService);
 
   dates$$ = this.collapseService.dates$$;
   cells$$ = this.collapseService.cells$$;
 
   ngOnInit(): void {
-    this.collapseService.journal$$.set(this.journal);
+    this.configsService.initialJournal$$.set(this.journal);
+    this.collapseService.journal$$ = this.configsService.journal$$;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -82,8 +81,9 @@ export class BaseJournalComponent implements OnInit, OnChanges {
         lessonID: lessonID,
         studentID: studentID,
         updateCell: l => {
-          cell.marks = l.marks;
-          cell.absences = l.absence ? [l.absence] : [];
+          //todo entry select
+          cell.entries[0].marks = l.marks;
+          cell.entries[0].absences = l.absence ? [l.absence] : [];
 
           cellComponent.onCellChange(cell);
           this.cdr.detectChanges();
@@ -92,4 +92,6 @@ export class BaseJournalComponent implements OnInit, OnChanges {
       this.injector
     );
   }
+
+  protected readonly JournalViewPlugComponent = JournalViewPlugComponent;
 }

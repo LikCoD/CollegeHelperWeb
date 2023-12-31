@@ -7,7 +7,7 @@
   gap: $indent1;
   padding: $indent2;
   border-radius: $borderRadius2;
-  width: min-content;
+  width: 240px;
 
   @include theme {
     background-color: $secondaryBackgroundColor;

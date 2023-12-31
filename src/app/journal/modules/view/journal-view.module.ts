@@ -31,6 +31,9 @@ import { IconComponent } from '@ui/images/icon.component';
 import { DefaultStateDirective, LoadedStateDirective, StateMapperComponent } from 'state-mapper';
 import { GridPointDirective } from '@journal/directives/grid-point.directive';
 import { MatChipsModule } from '@angular/material/chips';
+import { JournalViewHeaderComponent } from './components/journal-view-header/journal-view-header.component';
+import { JournalViewHeaderDisplayConfigsComponent } from './components/journal-view-header-display-configs/journal-view-header-display-configs.component';
+import { JournalAddMarkDialogPlugComponent } from './dialogs/journal-add-mark-dialog/journal-add-mark-dialog-plug/journal-add-mark-dialog-plug.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { MatChipsModule } from '@angular/material/chips';
     JournalViewPlugComponent,
     BaseJournalComponent,
     GridPointDirective,
+    JournalViewHeaderComponent,
+    JournalViewHeaderDisplayConfigsComponent,
+    JournalAddMarkDialogPlugComponent,
   ],
   imports: [
     CommonModule,
